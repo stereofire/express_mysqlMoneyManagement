@@ -5,7 +5,7 @@ var userDao = require('../dao/userDao');
  
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  res.send('LSX respond with a resource');
 });
  
 // 增加用户
