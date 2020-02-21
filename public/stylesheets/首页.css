@@ -1,0 +1,197 @@
+*
+{
+    box-sizing: border-box;
+}
+
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+
+/*
+[class*="col-"] 
+{
+    border: 1px solid red;
+}
+*/
+table {margin: auto;}
+body{
+	display:absolute;
+	top:0;
+	bottom:0;
+	left:0;
+	right:0;
+    margin:auto;
+    background-color: rgb(242,242,242)
+}
+
+.header{
+	display:inline-block;
+    width:100%;
+    margin-bottom:-16px;
+}
+/*以下为导航栏*/
+ul{ 
+    list-style-type:none; /* ul前面的点  */
+}
+
+*
+{
+    margin:0px 0px;     /* 到边框的距离 */
+}
+
+.menu{
+    background-color: rgb(18, 41,62) /* 导航条背景的颜色  */ 	
+}
+
+.nav{
+    text-align:center; 	/* 导航栏文字的位置  */
+    width:700px; 	/* 和文字宽度有关，不能小于文字宽度的总和  */
+    height:30px; 	/* 导航栏的宽度  */
+}
+
+.nav a{
+    float:left;				 /* 导航栏的位置配置 */
+    width:140px;			 /* 选中的文字块的长度  */
+    line-height:30px; 		         /* 选中的文字块的宽度  */
+    text-decoration: none;               /* 去掉连接下划线  */
+    font-size:12px;			 /* 字体大小 */
+    color: white;			 /* 字体颜色 */
+    background-color: rgb(18, 71,107)
+}
+
+.nav li a:hover{
+    background-color:rgb(52, 152,219);	        /* 选中的文字块的颜色 */
+    text-decoration:none;		/* 选中时去掉连接下划线 */	
+}
+
+.nav li a:link{
+    text-decoration:none; /* 连接被点之后没有下划线  */
+}
+/*以下为个人信息标题*/
+.mesage_table{/*白色背景框，勿动*/
+    width:70%;
+    margin: auto;
+    padding-top:0px;
+    padding-bottom: 30px;
+    background-color:white;
+}
+.mesage{
+    box-sizing: border-box;
+    padding-top:10px;
+    text-align:left;
+    color: rgb(0, 153,255);
+	padding-left:20px;
+    padding-bottom:9px;
+    width: 140px;
+    margin-right: 220px;
+}
+.line_picture{
+    position: absolute;
+    width:30%;
+    margin-bottom:15px;
+    padding-top:0px;
+    padding-left: 10px;
+}
+.pen_picture{/*图标：笔*/
+    width:10px;
+    padding-top:0px;
+    margin-bottom: 0px;
+}
+.change_key{/*文本：修改密码*/
+    padding-top:10px;
+    padding-left:0px;
+    text-align:left;
+    font-size: 10px;
+    color: blue;
+}
+.headset{/*表格框：用户头像*/
+    padding: 2px;
+    width: 100px;
+}
+.headset_picture{/*图标：用户头像*/
+    width: 85%;
+    border-radius: 10%;
+    padding-left:20px;
+}
+.information{/*表格行：用户信息*/
+    margin-left: 5%;
+    width:90%;
+    text-align:left;
+    padding:5px;
+    color:srgb(104, 103, 103);
+    font-size: 13px;
+}
+.information_picture{/*图标：用户信息*/
+    width: 12px;
+    padding-left:1px;
+    padding-right:1px;
+}
+
+/*以下为修改密码页*/
+.key_table{/*表格框：密码修改*/
+    width:40%;
+    height: 120px;
+}
+
+.key_passage{/*表格行：密码修改*/
+    /*width:30%;*/
+    width:150px;
+    padding: 0px;
+    text-align: right;
+    font-size: 13px;
+    margin-top: 5px;
+    margin: auto;
+}
+.key_input_passage{/*输入框*/
+    padding: 0px;
+    text-align: left;
+    font-size: 13px;
+    margin-top: 5px;
+    margin-left: 0px;
+    padding-left: 0px;
+    border-left: 0px;
+}
+
+.code /*验证码*/
+{
+	font-family: Arial;
+	font-style: italic;
+	font-weight: bold;
+	border: 0;
+	letter-spacing: 3px;
+	color: black;
+	background-image:url(background.png);
+}
+
+input[type=text],input[type=password],select {
+    width: 20%;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    margin: 0px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-align: left;
+}
+  
+input[type=submit] {/*提交*/
+    display:block;
+    margin-left:auto;
+    margin-right:auto;/*前三行：input文本框在div中居中 */
+    width: 30%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
