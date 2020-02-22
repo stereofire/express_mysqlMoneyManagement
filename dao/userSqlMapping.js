@@ -1,6 +1,7 @@
 // dao/userSqlMapping.js
 // CRUD SQL语句
 var user = {
+    check:'select 密码 from user where id=?',
     insert:'INSERT INTO user(id, name, age) VALUES(0,?,?)',
     update:'update user set name=?, age=? where id=?',
     delete: 'delete from user where id=?',

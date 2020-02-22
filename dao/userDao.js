@@ -21,11 +21,11 @@ var jsonWrite = function (res, ret) {
 };
 
 module.exports = {
+    
     add: function (req, res, next) {
         pool.getConnection(function (err, connection) {
             // 获取前台页面传过来的参数
             var param = req.query || req.params;
-
             // 建立连接，向表中插入值
             // 'INSERT INTO user(id, name, age) VALUES(0,?,?)',
             connection.query($sql.insert, [param.name, param.age], function (err, result) {
@@ -35,10 +35,8 @@ module.exports = {
                         msg: '增加成功'
                     };
                 }
-
                 // 以json形式，把操作结果返回给前台页面
                 jsonWrite(res, result);
-
                 // 释放连接 
                 connection.release();
             });
@@ -70,7 +68,6 @@ module.exports = {
             jsonWrite(res, undefined);
             return;
         }
-
         pool.getConnection(function (err, connection) {
             connection.query($sql.update, [param.name, param.age, +param.id], function (err, result) {
                 // 使用页面进行跳转提示
@@ -83,11 +80,9 @@ module.exports = {
                         result: result
                     });
                 }
-
                 connection.release();
             });
         });
-
     },
     queryById: function (req, res, next) {
         var id = +req.query.id; // 为了拼凑正确的sql语句，这里要转下整数
@@ -95,7 +90,6 @@ module.exports = {
             connection.query($sql.queryById, id, function (err, result) {
                 jsonWrite(res, result);
                 connection.release();
-
             });
         });
     },
@@ -107,5 +101,4 @@ module.exports = {
             });
         });
     }
-
 };

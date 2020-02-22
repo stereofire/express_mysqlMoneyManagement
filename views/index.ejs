@@ -49,21 +49,19 @@
                             <td class="words">密码</td>
                             <td><input type="password" name="password"><br></td>
                         </tr>
+                        <tr>
+                            <td class="words">验证码</td>
+                            <td><input type="text" name="vertify_code" id="input"><br></td>
+                            <td><button class="code" onclick="createCode()" id="code">验证码</button></td>
+                        </tr>
+                        
                     </table>
-                </form>
-                <table>
-                    <tr>
-                        <td class="words">验证码</td>
-                        <td><input type="text" name="vertify_code" id="input"><br></td>
-                        <td><button class="code" onclick="createCode()" id="code">验证码</button></td>
-                    </tr>
-                </table>
-
-                <form action="home.ejs" class="user_login" name="send" method="post">
-                    <!--此处action应提交php文档-->
                     <input type="submit" onclick="return sendForm()" value="确定">
-                    <!--正确写法：return sendForm()，错误写法：sendForm()-->
                 </form>
+                
+                <!-- <form action="home.ejs" class="user_login" name="send" method="post">
+                    <input type="submit" onclick="return sendForm()" value="确定">
+                </form> -->
             </td>
         </tr>
     </table>

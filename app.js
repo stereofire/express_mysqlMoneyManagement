@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ejs=require('ejs');
 var engine = require('ejs-mate');
+
 var index = require('./routes/index');
 var users = require('./routes/users');
 
@@ -27,7 +28,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'))); 
 
 app.use('/', index);
 app.use('/users', users);
