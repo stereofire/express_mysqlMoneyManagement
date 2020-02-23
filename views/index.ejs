@@ -8,7 +8,7 @@
     <script type="text/javascript" src="javascripts/index.js"></script>
 </head>
 
-<body>
+<body onload="createCode()">
     <div class="col-12">
         <img class="header" src="images/index/head.png" alt="图像加载失败">
     </div>
@@ -22,7 +22,8 @@
                     <span>登录</span>
                 </div>
                 <img class="line_picture" src="images/index/line.png" alt="图片加载失败">
-                <form class="user_login" name="user_login" method="post">
+                <form class="user_login" action="../testlogin.html" name="userLogin" method="post">
+                    <div>
                     <table>
                         <tr>
                             <td class="words">
@@ -39,6 +40,7 @@
                                 </select><br>
                             </td>
                         </tr>
+                        
                         <tr>
                             <td class="words">账号</td>
                             <td><input type="text" name="account"><br></td>
@@ -47,23 +49,26 @@
                             <td class="words">密码</td>
                             <td><input type="password" name="password"><br></td>
                         </tr>
-                        
                     </table>
+                </div>
                 </form>
                 <table>
                     <tr>
                         <td class="words">验证码</td>
-                        <td><input type="text" name="vertify_code" id="input"><br></td>
+                        <td><input type="text" name="vertify_code" id="codeinput"><br></td>
                         <td><button class="code" onclick="createCode()" id="code">验证码</button></td>
                     </tr>
                 </table>
-                <input type="submit" onclick="return check_login()" value="登录">
+                <input type="submit" name = "loginButton" onclick="return sendForm()" value="登录">
                 <!-- <form action="home.ejs" class="user_login" name="send" method="post">
                     <input type="submit" onclick="return sendForm()" value="确定">
                 </form> -->
             </td>
         </tr>
     </table>
+    <!-- <div id="lsx">
+        版权所有-©lsx 2020
+    </div> -->
 </body>
 
 </html>

@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
   console.log(method);
   var pathname=url.parse(req.url,true).pathname;
   if(pathname=='/' && method=='get'){  /*显示登录页面*/
-    console.log(url.parse(req.url,true).query);
+    console.log(pathname + 'hhhhhhhh');
 		ejs.renderFile('./views/index.ejs',{},function(err,data){
       if(err){
         console.log(err);
@@ -26,7 +26,6 @@ router.get('/', function(req, res, next) {
 			postStr+=chunk;
 		})
 		req.on('end',function(err,chunk){
-      //res.end(postStr);
       if(err) throw err;
 			console.log(postStr);
 			fs.appendFile('login.txt',postStr+'\n',function(err){

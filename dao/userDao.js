@@ -21,6 +21,28 @@ var jsonWrite = function (res, ret) {
 };
 
 module.exports = {
+    check_login: function(count, password){
+        pool.getConnection(function (err, connection) {
+            if(err) throw err;//数据库连接池错误
+            connection.query($sql.check, count, function (err, result) {
+                if(err){//用户账户查询错误
+                    console.log(err);
+                    connection.release();
+                    return false;
+                }else{//用户存在
+                    console.log(result);
+                    if(result == password){//密码正确
+                        connection.release();
+                        return ture;
+                    }else{
+                        console.log('密码错误');
+                        connection.release();
+                        return false;
+                    }
+                }
+            });
+        });
+    },
     
     add: function (req, res, next) {
         pool.getConnection(function (err, connection) {
