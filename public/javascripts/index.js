@@ -1,11 +1,12 @@
-function sendForm() {
-	if (check_login()) {
-		// document.send.submit();
-		return ture;
-	} else {
-		return false;
-	}
-}
+
+// function sendForm() {
+// 	if (check_login()) {
+// 		document.send.submit();
+// 		return ture;
+// 	} else {
+// 		return false;
+// 	}
+// }
 function check_login() {//账号密码是否为空	
 	var my_account = document.forms["user_login"]["account"].value;
 	var my_password = document.forms["user_login"]["password"].value;
@@ -24,6 +25,7 @@ var code; //在全局定义验证码
 //产生验证码   
 window.onload = function () {
 	createCode();
+	console.log('code onload');
 }
 
 function createCode() {
@@ -49,46 +51,62 @@ function verifyCode() {
 		createCode(); //刷新验证码   
 		return false;
 	} else {
-		return verifyPassword();
+		// return verifyPassword();
+		var my_account = document.forms["user_login"]["account"].value;
+		var my_password = document.forms["user_login"]["password"].value;
+		if(check(my_account, my_password)){
+			alert("登录成功！");
+			return ture;
+		}else{
+			alert("密码或账户输入错误，请重新登录");
+			return false;
+		}
 	}
 }
 
-function verifyPassword(){
-	var my_account = document.forms["user_login"]["account"].value;
-	var my_password = document.forms["user_login"]["password"].value;
-	if(check(my_account, my_password)){
-		alert("登录成功！");
-		return ture;
-	}else{
-		alert("密码或账户输入错误，请重新登录");
-		return false;
-	}
-}
+// function verifyPassword(){
+// 	var my_account = document.forms["user_login"]["account"].value;
+// 	var my_password = document.forms["user_login"]["password"].value;
+// 	if(check(my_account, my_password)){
+// 		alert("登录成功！");
+// 		return ture;
+// 	}else{
+// 		alert("密码或账户输入错误，请重新登录");
+// 		return false;
+// 	}
+// }
 
 
 var mysql = require('mysql');
 var $conf = require('../conf/db');
 var $util = require('../util/util');
 var $sql = require('../dao/userSqlMapping');
-
 // 使用连接池，提升性能
 var pool = mysql.createPool($util.extend({}, $conf.mysql));
+
 function check(my_account, my_password){
 	pool.getConnection(function (err, connection) {
-		if(err){
+		if(err){//数据库连接错误
 			console.log(err);
+			return false;
 		}
 		connection.query($sql.check, my_account, function (err, result) {
-			if(err){
+			if(err){//用户账户查询错误
 				console.log(err);
+				connection.release();
 				return false;
-			}else{
+			}else{//用户存在
 				console.log(result);
-				if(result == my_password){
+				if(result == my_password){//密码正确
+					connection.release();
 					return ture;
+				}else{
+					console.log('密码错误');
+					connection.release();
+					return false;
 				}
 			}
-			connection.release();
+			// connection.release();
 		});
 	});
 }

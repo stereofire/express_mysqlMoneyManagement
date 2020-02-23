@@ -5,15 +5,13 @@
     <meta charset="utf-8">
     <title>高校学生资金综合管理平台-登录</title>
     <link rel="stylesheet" type="text/css" href="stylesheets/index.css">
-    <script src="javascripts/index.js"></script>
+    <script type="text/javascript" src="javascripts/index.js"></script>
 </head>
 
 <body>
     <div class="col-12">
         <img class="header" src="images/index/head.png" alt="图像加载失败">
     </div>
-
-
     <table class="col-12">
         <tr>
             <td class="col-8">
@@ -49,16 +47,17 @@
                             <td class="words">密码</td>
                             <td><input type="password" name="password"><br></td>
                         </tr>
-                        <tr>
-                            <td class="words">验证码</td>
-                            <td><input type="text" name="vertify_code" id="input"><br></td>
-                            <td><button class="code" onclick="createCode()" id="code">验证码</button></td>
-                        </tr>
                         
                     </table>
-                    <input type="submit" onclick="return sendForm()" value="确定">
                 </form>
-                
+                <table>
+                    <tr>
+                        <td class="words">验证码</td>
+                        <td><input type="text" name="vertify_code" id="input"><br></td>
+                        <td><button class="code" onclick="createCode()" id="code">验证码</button></td>
+                    </tr>
+                </table>
+                <input type="submit" onclick="return check_login()" value="登录">
                 <!-- <form action="home.ejs" class="user_login" name="send" method="post">
                     <input type="submit" onclick="return sendForm()" value="确定">
                 </form> -->
