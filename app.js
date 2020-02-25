@@ -22,14 +22,15 @@ app.set('view engine', 'ejs');
 // app.engine('ejs', engine);
 // app.locals._layoutFile = 'layout.ejs';
 
-// uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));//解析请求主体
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public'))); //静态资源目录
+app.use(bodyParser.json());//数据JSON类型(载入body-parser中间件才可以使用req.body解析body)
+app.use(bodyParser.urlencoded({ extended: true }));//解析post请求主体
 
+
+//路由
 app.use('/', index);
 app.use('/users', users);
 

@@ -7,8 +7,6 @@ function sendForm(){
 	}
 }
 
-
-
 function check_login() {//账号密码是否为空	
 	var my_account = document.forms["userLogin"]["account"].value;
 	var my_password = document.forms["userLogin"]["password"].value;

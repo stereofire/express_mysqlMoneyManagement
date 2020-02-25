@@ -4,6 +4,8 @@ var mysql = require('mysql');
 var $conf = require('../conf/db');
 var $util = require('../util/util');
 var $sql = require('./userSqlMapping');
+var ejs=require('ejs');
+var fs = require('fs');
 
 // 使用连接池，提升性能
 var pool = mysql.createPool($util.extend({}, $conf.mysql));
@@ -21,29 +23,36 @@ var jsonWrite = function (res, ret) {
 };
 
 module.exports = {
-    check_login: function(count, password){
+    check_login: function (account, password, callback) {
+        console.log(account, password);
         pool.getConnection(function (err, connection) {
-            if(err) throw err;//数据库连接池错误
-            connection.query($sql.check, count, function (err, result) {
-                if(err){//用户账户查询错误
-                    console.log(err);
+            console.log(account, password);
+            if (err){//数据库连接池错误
+                console.log("数据库连接池错误");
+                callback(0);
+            } 
+            connection.query($sql.check, account, function (err, result) {
+                if (err) { //用户账户查询错误
+                    console.log('用户账户查询错误，请重新登录');
+                    callback(1);
                     connection.release();
-                    return false;
-                }else{//用户存在
-                    console.log(result);
-                    if(result == password){//密码正确
+                } else { //用户存在
+                    var rightPassword=new String(result[0].密码);
+                    console.log("正确密码应为：", rightPassword);
+                    if (rightPassword == password) { //密码正确
+                        console.log('密码正确,登录成功');
+                        callback(2);
                         connection.release();
-                        return ture;
-                    }else{
-                        console.log('密码错误');
+                    } else {
+                        console.log(3);
+                        callback(3);
                         connection.release();
-                        return false;
                     }
                 }
-            });
+            }); 
         });
     },
-    
+
     add: function (req, res, next) {
         pool.getConnection(function (err, connection) {
             // 获取前台页面传过来的参数

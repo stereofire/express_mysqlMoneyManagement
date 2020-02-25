@@ -22,35 +22,35 @@
                     <span>登录</span>
                 </div>
                 <img class="line_picture" src="images/index/line.png" alt="图片加载失败">
-                <form class="user_login" action="../testlogin.html" name="userLogin" method="post">
+                <form class="user_login" action="/" name="userLogin" method="post">
                     <div>
-                    <table>
-                        <tr>
-                            <td class="words">
-                                学校
-                            </td>
-                            <td>
-                                <select name="schools">
-                                    <option value="soochow university">苏州大学</option>
-                                    <option value="nanjin university">南京大学</option>
-                                    <option value="shanghai university">上海大学</option>
-                                    <option value="dongnan university">东南大学</option>
-                                    <option value="dongnan university">兰州大学</option>
-                                    <option value="dongnan university">加州大学伯克利分校</option>
-                                </select><br>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="words">账号</td>
-                            <td><input type="text" name="account"><br></td>
-                        </tr>
-                        <tr>
-                            <td class="words">密码</td>
-                            <td><input type="password" name="password"><br></td>
-                        </tr>
-                    </table>
-                </div>
+                        <table>
+                            <tr>
+                                <td class="words">
+                                    学校
+                                </td>
+                                <td>
+                                    <select name="schools">
+                                        <option value="soochow university">苏州大学</option>
+                                        <option value="nanjin university">南京大学</option>
+                                        <option value="shanghai university">上海大学</option>
+                                        <option value="dongnan university">东南大学</option>
+                                        <option value="dongnan university">兰州大学</option>
+                                        <option value="dongnan university">加州大学伯克利分校</option>
+                                    </select><br>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="words">账号</td>
+                                <td><input type="text" name="account"><br></td>
+                            </tr>
+                            <tr>
+                                <td class="words">密码</td>
+                                <td><input type="password" name="password"><br></td>
+                            </tr>
+                        </table>
+                    </div>
                 </form>
                 <table>
                     <tr>
@@ -59,10 +59,7 @@
                         <td><button class="code" onclick="createCode()" id="code">验证码</button></td>
                     </tr>
                 </table>
-                <input type="submit" name = "loginButton" onclick="return sendForm()" value="登录">
-                <!-- <form action="home.ejs" class="user_login" name="send" method="post">
-                    <input type="submit" onclick="return sendForm()" value="确定">
-                </form> -->
+                <input type="submit" name="loginButton" onclick="return sendForm()" value="登录">
             </td>
         </tr>
     </table>
