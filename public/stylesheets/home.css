@@ -14,7 +14,7 @@
 .col-9 {width: 75%;}
 .col-10 {width: 83.33%;}
 .col-11 {width: 91.66%;}
-.col-12 {width: 100%;}
+.col-12 {width: 100%;color: blue;}
 
 /*
 [class*="col-"] 
@@ -78,7 +78,7 @@ ul{
 }
 /*以下为个人信息标题*/
 .mesage_table{/*白色背景框，勿动*/
-    width:70%;
+    width:80%;
     margin: auto;
     padding-top:0px;
     padding-bottom: 30px;
@@ -165,7 +165,8 @@ ul{
 {
 	font-family: Arial;
 	font-style: italic;
-	font-weight: bold;
+    font-weight: bold;
+    
 	border: 0;
 	letter-spacing: 3px;
 	color: black;

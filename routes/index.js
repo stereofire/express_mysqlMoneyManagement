@@ -44,39 +44,7 @@ router.post('/', function (req, res, next) {
   /*验证登录信息*/
   // var status = userDao.check_login(account, password, res);
   // var status = userDao.check_login(account, password);
-  var x = "";
-  userDao.check_login(account, password, function (json) {
-    if (json == 0) {
-      x = "数据库连接池错误";
-    } else if (json == 1) {
-      x = "用户账户查询错误，请重新登录";
-    } else if (json == 2) {
-      x = "密码正确,登录成功";
-      // ejs.renderFile('../views/home.ejs', {}, function (err, data) {
-      //   if (err) {
-      //     console.log(err);
-      //   }
-      //   res.end(data);
-      // })
-    } else {
-      x = "未知结果，返回登录页";
-    }
-  });
-  // if(status == 0){
-  //   console.log('status=0');
-  //   res.send();
-  // }
-  // if(status == 2){
-  //   ejs.renderFile('../views/home.ejs', {}, function (err, data) {
-  //         if (err) {
-  //             console.log(err);
-  //         }
-  //         res.end(data);
-  //     })
-  // }
-
-  res.send();
-
-  // }
+  userDao.check_login(account, password, res);//function (json) {
+  
 });
 module.exports = router;

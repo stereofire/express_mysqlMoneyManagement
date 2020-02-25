@@ -4,7 +4,7 @@ var mysql = require('mysql');
 var $conf = require('../conf/db');
 var $util = require('../util/util');
 var $sql = require('./userSqlMapping');
-var ejs=require('ejs');
+var ejs = require('ejs');
 var fs = require('fs');
 
 // 使用连接池，提升性能
@@ -23,33 +23,94 @@ var jsonWrite = function (res, ret) {
 };
 
 module.exports = {
-    check_login: function (account, password, callback) {
-        console.log(account, password);
+    // check_login: function (account, password, callback) {
+    check_login: function (account, password, res) {
+        // console.log(account, password);
         pool.getConnection(function (err, connection) {
-            console.log(account, password);
-            if (err){//数据库连接池错误
+            // console.log(account, password);
+            if (err) { //数据库连接池错误
                 console.log("数据库连接池错误");
-                callback(0);
-            } 
+                // callback(0);
+                res.send();
+            }
             connection.query($sql.check, account, function (err, result) {
                 if (err) { //用户账户查询错误
-                    console.log('用户账户查询错误，请重新登录');
-                    callback(1);
+                    console.log("用户账户查询错误，请重新登录");
+                    ejs.renderFile('views/index.ejs', {}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    // callback(1);
+                    connection.release();
+                } else if (result[0] == undefined) { //用户不存在
+                    console.log("用户不存在，请重新登录");
+                    ejs.renderFile('views/index.ejs', {}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
                     connection.release();
                 } else { //用户存在
-                    var rightPassword=new String(result[0].密码);
+                    console.log(result[0]);
+                    var college = new String(result[0].学校);
+                    var studentName = new String(result[0].姓名);
+                    var school = new String(result[0].院系);
+                    var major = new String(result[0].专业);
+                    var gender = new String(result[0].性别);
+                    var grade = new String(result[0].年级);
+                    var readStatus = new String(result[0].在读状态);
+                    var rightPassword = new String(result[0].密码);
+                    console.log(readStatus);
+                    if (readStatus == '1') {
+                        readStatus = "在读";
+                    } else {
+                        readStatus = "不在读";
+                    }
+                    console.log(readStatus);
                     console.log("正确密码应为：", rightPassword);
                     if (rightPassword == password) { //密码正确
                         console.log('密码正确,登录成功');
-                        callback(2);
+                        //     let user = [studentName,'gender','grade',
+                        // 'studentID','major','school','college','readStatus'];
+                        ejs.renderFile('views/home.ejs', {
+                            user: {
+                                arr: {
+                                    studentName: studentName,
+                                    gender: gender,
+                                    grade: grade,
+                                    studentID: account,
+                                    major: major,
+                                    school: school,
+                                    college: college,
+                                    readStatus: readStatus
+                                }
+                            }
+                            // user:user
+                        }, function (err, data) {
+                            if (err) {
+                                console.log(err);
+                            }
+                            res.end(data);
+                        })
+                        // callback(2);
                         connection.release();
-                    } else {
+                    } else { //密码错误
+                        console.log("密码错误，请重新登陆！");
                         console.log(3);
-                        callback(3);
+                        ejs.renderFile('views/index.ejs', {}, function (err, data) {
+                            if (err) {
+                                console.log(err);
+                            }
+                            res.end(data);
+                        })
+                        // callback(3);
                         connection.release();
                     }
                 }
-            }); 
+            });
         });
     },
 

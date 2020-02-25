@@ -4,8 +4,8 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>首页</title>
-	<link rel="stylesheet" type="text/css" href="css/home.css">
-	<script src="javascript/home.js"></script>
+	<link rel="stylesheet" type="text/css" href="stylesheets/home.css">
+	<script src="javascripts/home.js"></script>
 </head>
 <body>
 	<div class="col-12">
@@ -27,11 +27,12 @@
                     用户信息<br>
                 </td>
                 <td class="change_key"><!--密码修改-->
-                    <a href="密码修改页.html">修改密码</a>            
-                    <img class="pen_picture" src="images/个人页面/pen.png" alt="图片加载失败">
+                    <!-- <a href="changePassword.ejs">修改密码</a>             -->
+                    <input type="button" name="changePassword" onclick="changePassword()" value="修改密码">
+                    <img class="pen_picture" src="images/home/pen.png" alt="图片加载失败">
                 </td>
             </tr>
-            <tr><td><img class="line_picture" src="images/个人页面/line.png" alt="图片加载失败">
+            <tr><td><img class="line_picture" src="images/home/line.png" alt="图片加载失败">
             </td></tr>
         </table>
     </div>
@@ -39,41 +40,41 @@
         <table>
             <tr><!--个人信息-->
                 <td class="headset"><!--头像-->
-                    <img class="headset_picture"src="images/个人页面/headset.png" alt="用户头像加载失败">
+                    <img class="headset_picture"src="images/home/headset.png" alt="用户头像加载失败">
                 </td>
                 <td><!--信息-->
                     <table class="information">
                         <tr>
-                            <td style="width:220px;">
-                                <img class="information_picture"src="images/个人页面/user.png" alt="图片加载失败">
-                                姓名：刘小萌</td>
-                            <td style="width:220px;">
-                                <img class="information_picture"src="images/个人页面/gender.png" alt="图片加载失败">
-                                性别：女</td>
+                            <td style="width:310px;height:30px;" >
+                                <img class="information_picture"src="images/home/user.png" alt="图片加载失败">
+                                姓名：<%= user.arr.studentName%></td>
+                            <td style="width:310px;height:30px;;">
+                                <img class="information_picture"src="images/home/gender.png" alt="图片加载失败">
+                                性别：<%= user.arr.gender%></td>
                         </tr>
                         <tr>
-                            <td style="width:220px;">
-                                <img class="information_picture"src="images/个人页面/grade.png" alt="图片加载失败">
-                                年级：16级</td>
-                            <td style="width:220px;">
-                                <img class="information_picture"src="images/个人页面/number.png" alt="图片加载失败">
-                                学号：123456789</td>
+                            <td style="width:310px;height:30px;;">
+                                <img class="information_picture"src="images/home/grade.png" alt="图片加载失败">
+                                年级：<%=user.arr.grade%></td>
+                            <td style="width:310px;height:30px;;">
+                                <img class="information_picture"src="images/home/number.png" alt="图片加载失败">
+                                学号：<%=user.arr.studentID%></td>
                         </tr>
                         <tr>
-                            <td style="width:220px;">
-                                <img class="information_picture"src="images/个人页面/major.png" alt="图片加载失败">
-                                专业：计算机科学与技术</td>
-                            <td style="width:220px;">
-                                <img class="information_picture"src="images/个人页面/school.png" alt="图片加载失败">
-                                学院：计算机科学学院</td>
+                            <td style="width:310px;height:30px;;">
+                                <img class="information_picture"src="images/home/major.png" alt="图片加载失败">
+                                专业：<%=user.arr.major%></td>
+                            <td style="width:310px;height:30px;;">
+                                <img class="information_picture"src="images/home/school.png" alt="图片加载失败">
+                                学院：<%=user.arr.school%></td>
                         </tr>
                         <tr>
-                            <td style="width:220px;">
-                                <img class="information_picture"src="images/个人页面/status.png" alt="图片加载失败">
-                                状态：在读</td>
-                            <td style="width:220px;">
-                                <img class="information_picture"src="images/个人页面/college.png" alt="图片加载失败">
-                                学校：苏州大学</td>
+                            <td style="width:310px;height:30px;;">
+                                <img class="information_picture"src="images/home/status.png" alt="图片加载失败">
+                                状态：<%=user.arr.readStatus%></td>
+                            <td style="width:310px;height:30px;;">
+                                <img class="information_picture"src="images/home/college.png" alt="图片加载失败">
+                                学校：<%=user.arr.college%></td>
                         </tr>
                     </table>
                 </td>
