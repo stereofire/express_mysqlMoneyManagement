@@ -6,7 +6,6 @@ var $util = require('../util/util');
 var $sql = require('./userSqlMapping');
 var ejs = require('ejs');
 var fs = require('fs');
-
 // 使用连接池，提升性能
 var pool = mysql.createPool($util.extend({}, $conf.mysql));
 
@@ -22,7 +21,7 @@ var jsonWrite = function (res, ret) {
     }
 };
 
-module.exports = {
+const obj = {
     // check_login: function (account, password, callback) {
     check_login: function (account, password, res) {
         // console.log(account, password);
@@ -73,8 +72,6 @@ module.exports = {
                     console.log("正确密码应为：", rightPassword);
                     if (rightPassword == password) { //密码正确
                         console.log('密码正确,登录成功');
-                        //     let user = [studentName,'gender','grade',
-                        // 'studentID','major','school','college','readStatus'];
                         ejs.renderFile('views/home.ejs', {
                             user: {
                                 arr: {
@@ -88,7 +85,6 @@ module.exports = {
                                     readStatus: readStatus
                                 }
                             }
-                            // user:user
                         }, function (err, data) {
                             if (err) {
                                 console.log(err);
@@ -113,7 +109,85 @@ module.exports = {
             });
         });
     },
-
+    updatePassword: function (account, new_password, res) {
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.changePssword, [new_password, account], function (err, result) {
+                if (err) {
+                    console.log('密码修改出错，请重新密码更新操作');
+                    ejs.renderFile('views/changePassword.ejs', {}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //密码修改成功,重新登录
+                    // console.log(result[0]);//密码修改成功后不会有反馈，result=undefined
+                    console.log("密码修改成功,请重新登录");
+                    connection.release();
+                    ejs.renderFile('views/index.ejs', {}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                }
+            });
+        });
+    },
+    change_Password: function (account, old_password, new_password, res) {
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.check, account, function (err, result) {
+                if (err) { //用户账户查询错误,重新密码更新
+                    console.log("用户账户查询错误，请重新密码更新操作");
+                    ejs.renderFile('views/changePassword.ejs', {}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else if (result[0] == undefined) { //用户不存在,重新密码更新
+                    console.log("用户不存在，请重新密码更新操作");
+                    ejs.renderFile('views/changePassword.ejs', {}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //用户存在
+                    console.log(result[0]);
+                    var rightPassword = new String(result[0].密码);
+                    console.log("正确密码应为：", rightPassword);
+                    if (rightPassword == old_password) { //密码正确,可以进行密码修改操作
+                        console.log('密码正确,可以进行密码修改操作');
+                        connection.release();
+                        obj.updatePassword(account, new_password, res);
+                        console.log('调用了userDao.updatePassword');
+                    } else { //密码错误，驳回修改密码请求
+                        console.log("密码错误，驳回修改密码请求！");
+                        console.log(3);
+                        ejs.renderFile('views/changePassword.ejs', {}, function (err, data) {
+                            if (err) {
+                                console.log(err);
+                            }
+                            res.end(data);
+                        })
+                        connection.release();
+                    }
+                }
+            });
+        });
+    },
     add: function (req, res, next) {
         pool.getConnection(function (err, connection) {
             // 获取前台页面传过来的参数
@@ -194,3 +268,4 @@ module.exports = {
         });
     }
 };
+module.exports = obj;

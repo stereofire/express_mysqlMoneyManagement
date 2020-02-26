@@ -2,15 +2,7 @@ var express = require('express');
 var router = express.Router();
 var ejs = require('ejs');
 var url = require('url');
-
 var userDao = require('../dao/userDao');
-
-// var fs = require('fs');
-// var formidable = require('formidable');
-
-// var multipart = require('connect-multiparty');
-// var multipartMiddleware = multipart();
-
 /* 加载登录页. */
 router.get('/', function (req, res, next) {
   // res.render('index', { title: 'Express' });

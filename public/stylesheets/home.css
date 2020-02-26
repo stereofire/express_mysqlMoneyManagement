@@ -81,6 +81,13 @@ ul{
     width:80%;
     margin: auto;
     padding-top:0px;
+    padding-bottom: 0px;
+    background-color:white;
+}
+.code_table{/*白色背景框，勿动*/
+    width:80%;
+    margin: auto;
+    padding-top:0px;
     padding-bottom: 30px;
     background-color:white;
 }
@@ -145,7 +152,7 @@ ul{
 .key_passage{/*表格行：密码修改*/
     /*width:30%;*/
     width:150px;
-    padding: 0px;
+    padding-top: 5px;
     text-align: right;
     font-size: 13px;
     margin-top: 5px;

@@ -8,8 +8,9 @@ var bodyParser = require('body-parser');
 var ejs=require('ejs');
 var engine = require('ejs-mate');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+const index = require('./routes/index');
+const users = require('./routes/users');
+const changePassword = require('./routes/changePassword');
 
 var app = express();
 
@@ -33,6 +34,8 @@ app.use(bodyParser.urlencoded({ extended: true }));//解析post请求主体
 //路由
 app.use('/', index);
 app.use('/users', users);
+app.use('/changePassword', changePassword);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
