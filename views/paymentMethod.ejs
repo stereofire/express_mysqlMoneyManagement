@@ -1,0 +1,101 @@
+<!-- 支付方式页 paymentMethod  -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>支付方式</title>
+	<link rel="stylesheet" type="text/css" href="stylesheets/orderConfirm.css">
+	<script src="javascript/支付方式.js"></script>
+</head>
+<body>
+	<div>
+		<img class="header" src="images/index/head.png" alt="图像加载失败">
+    </div>
+    <div class="menu">  <!-- class选择器 -->
+        <div class="nav">
+            <ul>    <!-- ul标签 -->
+                <li><a href="首页.html">首页</a></li>  <!-- li标签 -->
+                <li><a href="缴费订单.html" >缴费订单</a></li>
+                <li><a href="订单记录.html">订单记录</a></li>
+            </ul>
+        </div>
+    </div>
+ 
+    <div class="payment_table" >
+        <table >
+            <tr><!--进度条-->
+                <td><!--标题-->
+                    <p class="payment2">订单确认</p>
+                </td>
+                <td><!--标题-->
+                    <p class="payment1">支付方式</p>
+                </td>
+                <td><!--标题-->
+                    <p class="payment2">支付确认</p>
+                </td>
+                <td><!--标题-->
+                    <p class="payment2">支付结果</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="successSubmit_table" >
+        lll 
+    </div>
+    <div class="selectPayway_table" >
+        请选择支付方式：<br><br>
+        <input type="radio" id="radio-1" name="radio-1-set" class="regular-radio" onclick="changePay(1)" checked/>
+            <img class="insert" src="images/支付方式/微信.png" alt="图像加载失败">微信支付
+        <input type="radio" id="radio-2" name="radio-1-set" class="regular-radio"/>
+            <img class="insert" src="images/支付方式/支付宝.png" alt="图像加载失败">支付宝支付
+        <input type="radio" id="radio-3" name="radio-1-set" class="regular-radio"/>
+            <img class="insert" src="images/支付方式/银联.png" alt="图像加载失败" onclick="changePay(3)">银联支付
+    </div>
+    <div class="银联" id="银联">
+        选择银行进行支付<br>
+        <input type="radio" id="radio1" name="radio-set" class="regular-radio"/>
+            <img class="insert" src="images/支付方式/招商银行.jpg" alt="图像加载失败">招商银行
+        <input type="radio" id="radio2" name="radio-set" class="regular-radio"/>
+            <img class="insert" src="images/支付方式/工商银行.png" alt="图像加载失败">工商银行
+        <input type="radio" id="radio3" name="radio-set" class="regular-radio"/>
+            <img class="insert" src="images/支付方式/建设银行.jpg" alt="图像加载失败">建设银行
+        <input type="radio" id="radio4" name="radio-set" class="regular-radio"/>
+            <img class="insert" src="images/支付方式/农业银行.jpg" alt="图像加载失败">农业银行<br>
+        <input type="radio" id="radio5" name="radio-set" class="regular-radio"/>
+            <img class="insert" src="images/支付方式/中国银行.png" alt="图像加载失败">中国银行
+        <input type="radio" id="radio6" name="radio-set" class="regular-radio"/>
+            <img class="insert" src="images/支付方式/北京银行.jpg" alt="图像加载失败">北京银行          
+        <input type="radio" id="radio7" name="radio-set" class="regular-radio"/>
+            <img class="insert" src="images/支付方式/光大银行.png" alt="图像加载失败">光大银行
+        <input type="radio" id="radio8" name="radio-set" class="regular-radio"/>
+            <img class="insert" src="images/支付方式/交通银行.jpg" alt="图像加载失败">交通银行 <br>
+        <input type="radio" id="radio9" name="radio-set" class="regular-radio"/>
+            <img class="insert" src="images/支付方式/民生银行.png" alt="图像加载失败">民生银行
+        <input type="radio" id="radio10" name="radio-set" class="regular-radio"/>
+            <img class="insert" src="images/支付方式/中信银行.jpg" alt="图像加载失败">中信银行 
+        <input type="radio" id="radio11" name="radio-set" class="regular-radio"/>
+            <img class="insert" src="images/支付方式/平安银行.jpg" alt="图像加载失败">平安银行 
+        <input type="radio" id="radio12" name="radio-set" class="regular-radio"/>
+            <img class="insert" src="images/支付方式/邮政银行.png" alt="图像加载失败">邮政银行<br>
+        <input type="radio" id="radio13" name="radio-set" class="regular-radio"/>
+            <img class="insert" src="images/支付方式/南京银行.jpg" alt="图像加载失败">南京银行 
+        <input type="radio" id="radio14" name="radio-set" class="regular-radio"/>
+            <img class="insert" src="images/支付方式/浦发银行.jpg" alt="图像加载失败">浦发银行 
+        <input type="radio" id="radio15" name="radio-set" class="regular-radio"/>
+            <img class="insert" src="images/支付方式/华夏银行.jpg" alt="图像加载失败">华夏银行 
+        <input type="radio" id="radio16" name="radio-set" class="regular-radio"/>
+            <img class="insert" src="images/支付方式/东亚银行.png" alt="图像加载失败">东亚银行<br>
+        <input type="radio" id="radio17" name="radio-set" class="regular-radio"/>
+            <img class="insert" src="images/支付方式/广发银行.png" alt="图像加载失败">广发银行 
+        <input type="radio" id="radio18" name="radio-set" class="regular-radio"/>
+            <img class="insert" src="images/支付方式/宁波银行.jpg" alt="图像加载失败">宁波银行 
+    </div>
+    <div>
+        <a href="支付确认.html"><button class="支付">支付</button></a>
+    </div>
+    <div>
+        
+    </div>
+</body>
+</html>

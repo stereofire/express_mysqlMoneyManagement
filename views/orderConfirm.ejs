@@ -1,22 +1,23 @@
+<!-- 订单确认页 orderConfirm  -->
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>支付确认</title>
-	<link rel="stylesheet" type="text/css" href="/public/css/订单确认.css">
+	<title>订单确认</title>
+	<link rel="stylesheet" type="text/css" href="stylesheets/orderConfirm.css">
 	<!--<script src="javascript/首页.js"></script>-->
 </head>
 <body>
 	<div>
-		<img class="header" src="/public/images/index/head.png" alt="图像加载失败">
+		<img class="header" src="images/index/head.png" alt="图像加载失败">
     </div>
     <div class="menu">  <!-- class选择器 -->
         <div class="nav">
             <ul>    <!-- ul标签 -->
-                <li><a href="/public/首页.html">首页</a></li>  <!-- li标签 -->
-                <li><a href="/public/缴费订单.html" >缴费订单</a></li>
-                <li><a href="/public/订单记录.html">订单记录</a></li>
+                <li><a href="首页.html">首页</a></li>  <!-- li标签 -->
+                <li><a href="缴费订单.html" >缴费订单</a></li>
+                <li><a href="订单记录.html">订单记录</a></li>
             </ul>
         </div>
     </div>
@@ -25,13 +26,13 @@
         <table >
             <tr><!--进度条-->
                 <td><!--标题-->
-                    <p class="payment2">订单确认</p>
+                    <p class="payment1">订单确认</p>
                 </td>
                 <td><!--标题-->
                     <p class="payment2">支付方式</p>
                 </td>
                 <td><!--标题-->
-                    <p class="payment1">支付确认</p>
+                    <p class="payment2">支付确认</p>
                 </td>
                 <td><!--标题-->
                     <p class="payment2">支付结果</p>
@@ -40,10 +41,12 @@
         </table>
         hhhwheifhuwiae
     </div>
-    <div>
-        <a href="/public/支付结果.html"><button class="查询支付">查询支付</button></a>
+    <div id="订单总额">
+        订单总额：元
     </div>
     <div>
-        <a href="/public/支付方式.html"><button class="重新支付">重新支付</button></a>
+        <a href="支付方式.html"><button class="提交订单">提交订单</button></a>
     </div>
+   
 </body>
+</html>
