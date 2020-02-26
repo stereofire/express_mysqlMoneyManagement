@@ -1,3 +1,4 @@
+// 密码修改页 changePassword 路由
 var express = require('express');
 var router = express.Router();
 var ejs = require('ejs');

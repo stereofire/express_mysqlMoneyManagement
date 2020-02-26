@@ -23,7 +23,7 @@ var jsonWrite = function (res, ret) {
 
 const obj = {
     // check_login: function (account, password, callback) {
-    check_login: function (account, password, res) {
+    check_login: function (account, password, res) {//登录验证
         // console.log(account, password);
         pool.getConnection(function (err, connection) {
             // console.log(account, password);
@@ -109,7 +109,7 @@ const obj = {
             });
         });
     },
-    updatePassword: function (account, new_password, res) {
+    updatePassword: function (account, new_password, res) {//密码修改
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
                 console.log("数据库连接池错误");
@@ -129,7 +129,7 @@ const obj = {
                     // console.log(result[0]);//密码修改成功后不会有反馈，result=undefined
                     console.log("密码修改成功,请重新登录");
                     connection.release();
-                    ejs.renderFile('views/index.ejs', {}, function (err, data) {
+                    ejs.renderFile('views/changePasswordOK.ejs', {}, function (err, data) {
                         if (err) {
                             console.log(err);
                         }
@@ -139,7 +139,7 @@ const obj = {
             });
         });
     },
-    change_Password: function (account, old_password, new_password, res) {
+    change_Password: function (account, old_password, new_password, res) {//密码修改验证
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
                 console.log("数据库连接池错误");

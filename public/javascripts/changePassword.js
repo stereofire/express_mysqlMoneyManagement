@@ -1,3 +1,6 @@
+// 导航跳转
+
+// 提交密码修改表单
 function changeForm(){
 	if(check_changeForm()){
 		document.keyPassage.submit();
