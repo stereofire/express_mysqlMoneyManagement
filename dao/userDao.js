@@ -23,7 +23,8 @@ var jsonWrite = function (res, ret) {
 
 const obj = {
     // check_login: function (account, password, callback) {
-    check_login: function (account, password, res) {//登录验证
+    // 登录验证
+    check_login: function (account, password, req, res) {
         // console.log(account, password);
         pool.getConnection(function (err, connection) {
             // console.log(account, password);
@@ -72,9 +73,14 @@ const obj = {
                     console.log("正确密码应为：", rightPassword);
                     if (rightPassword == password) { //密码正确
                         console.log('密码正确,登录成功');
+                        // 将登录的用户保存到session中
+                        req.session.user = account;
+                        // 设置是否登录为true
+                        req.session.islogin = true;
                         ejs.renderFile('views/home.ejs', {
                             user: {
                                 arr: {
+                                    // homeHref: "/home?account=" + account,//通过url解析的目前用户信息时用的，采用session后替代了
                                     studentName: studentName,
                                     gender: gender,
                                     grade: grade,
@@ -109,7 +115,8 @@ const obj = {
             });
         });
     },
-    updatePassword: function (account, new_password, res) {//密码修改
+    // 密码修改
+    updatePassword: function (account, new_password, res) {
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
                 console.log("数据库连接池错误");
@@ -139,7 +146,8 @@ const obj = {
             });
         });
     },
-    change_Password: function (account, old_password, new_password, res) {//密码修改验证
+    // 密码修改验证
+    change_Password: function (account, old_password, new_password, res) {
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
                 console.log("数据库连接池错误");
@@ -184,6 +192,117 @@ const obj = {
                         })
                         connection.release();
                     }
+                }
+            });
+        });
+    },
+    // home页信息
+    queryInformation: function (account,res) {
+        console.log(account + "进入queryInformation函数");
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.check, account, function (err, result) {
+                if (err) { //用户账户查询错误
+                    console.log("用户账户查询错误，请重新登录");
+                    ejs.renderFile('views/index.ejs', {}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else if (result[0] == undefined) { //用户不存在
+                    console.log("用户不存在，请重新登录");
+                    ejs.renderFile('views/index.ejs', {}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //用户存在
+                    console.log(result[0]);
+                    var college = new String(result[0].学校);
+                    var studentName = new String(result[0].姓名);
+                    var school = new String(result[0].院系);
+                    var major = new String(result[0].专业);
+                    var gender = new String(result[0].性别);
+                    var grade = new String(result[0].年级);
+                    var readStatus = new String(result[0].在读状态);
+                    var rightPassword = new String(result[0].密码);
+                    console.log(readStatus);
+                    if (readStatus == '1') {
+                        readStatus = "在读";
+                    } else {
+                        readStatus = "不在读";
+                    }
+                    console.log(readStatus);
+                    ejs.renderFile('views/home.ejs', {
+                        user: {
+                            arr: {
+                                // homeHref: "/home?account=" + account,//通过url解析的目前用户信息时用的，采用session后替代了
+                                studentName: studentName,
+                                gender: gender,
+                                grade: grade,
+                                studentID: account,
+                                major: major,
+                                school: school,
+                                college: college,
+                                readStatus: readStatus
+                            }
+                        }
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                }
+            });
+        });
+    },
+    // paymentOrder缴费订单页信息（仅需订单总额）
+    queryTotalAmount: function (account,res) {
+        console.log(account + "进入queryTotalAmount函数");
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TotalAmount, account, function (err, result) {
+                if (err) { //用户账户查询错误
+                    console.log("用户账户查询错误，请重新登录");
+                    ejs.renderFile('views/index.ejs', {}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else if (result[0] == undefined) { //用户不存在
+                    console.log("用户不存在，请重新登录");
+                    ejs.renderFile('views/index.ejs', {}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //用户存在
+                    console.log(result[0]);
+                    var totalAmount = new String(result[0].totalAmount);
+                    // var totalAmount = 2000;
+                    ejs.renderFile('views/paymentOrder.ejs', {totalAmount}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
                 }
             });
         });

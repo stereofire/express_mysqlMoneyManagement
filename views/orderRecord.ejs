@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>订单记录</title>
-	<link rel="stylesheet" type="text/css" href="stylesheets/home.css">
+	<link rel="stylesheet" type="text/css" href="stylesheets/requiredOrder.css">
 	<!--<script src="javascript/首页.js"></script>-->
 </head>
 <body>
@@ -15,9 +15,9 @@
     <div class="menu">  <!-- class选择器 -->
         <div class="nav">
             <ul>    <!-- ul标签 -->
-                <li><a href="首页.html">首页</a></li>  <!-- li标签 -->
-                <li><a href="缴费订单.html">缴费订单</a></li>
-                <li><a href="" style="background-color:rgb(52, 152,219)">订单记录</a></li>
+                <li><a href="/home">首页</a></li>  <!-- li标签 -->
+                <li><a href="/paymentOrder">缴费订单</a></li>
+                <li><a  href="/orderRecord" style="background-color:rgb(52, 152,219)">订单记录</a></li>
             </ul>
         </div>
     </div>
@@ -32,5 +32,19 @@
             </td></tr>
         </table>
     </div>
+    <table class="order_table" name="keyPassage">
+        <thead>
+            <tr>
+                <!-- <th>订单编号</th> -->
+                <th>交易单号</th>
+                <th>交易金额</th>
+                <th>创建时间</th>
+                <th>订单支付状态</th>
+            </tr>
+        </thead>
+        <tr>
+            <td>内容</td>
+        </tr>
+    </table>
 </body>
 </html>

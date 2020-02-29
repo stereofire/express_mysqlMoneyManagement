@@ -15,49 +15,31 @@
     <div class="menu">  <!-- class选择器 -->
         <div class="nav">
             <ul>    <!-- ul标签 -->
-                <li><a href="首页.html">首页</a></li>  <!-- li标签 -->
-                <li><a href="" style="background-color:rgb(52, 152,219)">缴费订单</a></li>
-                <li><a href="订单记录.html">订单记录</a></li>
+                <li><a href="/home">首页</a></li>  <!-- li标签 -->
+                <li><a href="/paymentOrder" style="background-color:rgb(52, 152,219)">缴费订单</a></li>
+                <li><a href="/orderRecord">订单记录</a></li>
             </ul>
         </div>
     </div>
-        
-    <!--div示例
-    <div id="container" style="width:500px;background-color: white;">
-        <div id="header" style="background-color:#FFA500;">
-            <h1 style="margin-bottom:0;">主要的网页标题</h1>
-        </div>
-        <div id="menu" style="background-color:#FFD700;height:200px;width:100px;float:left;">
-            <b>菜单</b><br>
-            HTML<br>
-            CSS<br>
-            JavaScript
-        </div>
-        <div id="content" style="background-color:#EEEEEE;height:200px;width:400px;float:left;">
-            内容在这里</div>
-        <div id="footer" style="background-color:#FFA500;clear:both;text-align:center;">
-            版权 © runoob.com</div>
-    </div>
-    -->
     <div id="main"><!--容器-->
         <div id="must"><!--必缴-->
             <div>
-                <a href="必缴订单.html"><img class="picture" src="images/缴费订单/必缴.png" alt="图像加载失败"></a>
+                <a href="/requiredOrder"><img class="picture" src="images/缴费订单/必缴.png" alt="图像加载失败"></a>
             </div>
             <div>必缴订单</div>
         </div>
         <div id="opt"><!--选缴-->
             <div>
-                <a href="选缴订单.html"><img class="picture" src="images/缴费订单/选缴.png" alt="图像加载失败"></a>
+                <a href="/optionalOrder"><img class="picture" src="images/缴费订单/选缴.png" alt="图像加载失败"></a>
             </div>
             <div>选缴订单</div>
         </div>
     </div> 
     <div id="即时订单总额">
-        订单总额：元
+        订单总额：<%= totalAmount%> 元
     </div>
     <div>
-        <a href="订单确认.html"><button class="支付订单">去支付</button></a>
+        <a href="/orderConfirm"><button class="支付订单">去支付</button></a>
     </div>
    
 </body>
