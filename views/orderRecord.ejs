@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>订单记录</title>
-	<link rel="stylesheet" type="text/css" href="stylesheets/requiredOrder.css">
+	<link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
 	<!--<script src="javascript/首页.js"></script>-->
 </head>
 <body>
@@ -36,15 +36,50 @@
         <thead>
             <tr>
                 <!-- <th>订单编号</th> -->
-                <th>交易单号</th>
-                <th>交易金额</th>
-                <th>创建时间</th>
+                <th>子订单编号</th>
+                <th>订单编号</th>
+                <th>商品编号</th>
+                <th>商品名称</th>
+                <th>属性1</th>
+                <th>属性2</th>
+                <th>属性3</th>
+                <th>数量</th>
+                <th>单价(元)</th>
+                <th>子订单总额(元)</th>
+                <th>商户名称</th>
                 <th>订单支付状态</th>
+                <th>操作</th>
             </tr>
         </thead>
+        <% for(var i = 0; i < result.length; i++){ %> 
         <tr>
-            <td>内容</td>
-        </tr>
+            <td><%= result[i].子订单编号 %></td>
+            <td><%= result[i].订单编号 %></td>
+            <td><%= result[i].商品编号 %></td>
+            <td><%= result[i].商品名称 %></td>
+            <td><%= result[i].属性1 %></td>
+            <td><%= result[i].属性2 %></td>
+            <td><%= result[i].属性3 %></td>
+            <td><%= result[i].商品数量 %></td>
+            <td><%= result[i].商品单价 %></td>
+            <td><%= result[i].子订单总额 %></td>
+            <td><%= result[i].商户名称 %></td>
+            
+            <% if(result[i].订单支付状态 == 3){ %> 
+                <td>待缴费(必缴)</td>
+                <td>去缴费</td>
+            <% }else if(result[i].订单支付状态 == 2){%>
+                <td>待缴费(选缴)</td>
+                <td>去缴费</td>
+            <% }else if(result[i].订单支付状态 == 1){%>
+                <td>缴费成功</td>
+                <td></td>
+            <% }else if(result[i].订单支付状态 == 0){%>
+                <td>缴费失败</td>
+                <td>查看失败原因</td>
+            <% } %>
+        </tr> 
+        <% } %>
     </table>
 </body>
 </html>

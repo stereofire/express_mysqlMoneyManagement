@@ -197,7 +197,7 @@ const obj = {
         });
     },
     // home页信息
-    queryInformation: function (account,res) {
+    queryInformation: function (account, res) {
         console.log(account + "进入queryInformation函数");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
@@ -266,7 +266,7 @@ const obj = {
         });
     },
     // paymentOrder缴费订单页信息（仅需订单总额）
-    queryTotalAmount: function (account,res) {
+    queryTotalAmount: function (account, res) {
         console.log(account + "进入queryTotalAmount函数");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
@@ -296,7 +296,9 @@ const obj = {
                     console.log(result[0]);
                     var totalAmount = new String(result[0].totalAmount);
                     // var totalAmount = 2000;
-                    ejs.renderFile('views/paymentOrder.ejs', {totalAmount}, function (err, data) {
+                    ejs.renderFile('views/paymentOrder.ejs', {
+                        totalAmount
+                    }, function (err, data) {
                         if (err) {
                             console.log(err);
                         }
@@ -307,6 +309,134 @@ const obj = {
             });
         });
     },
+    // requireOrder必缴订单页信息(两个函数)
+    queryRequireAmount: function (account, Result, res) {
+        console.log(account + "进入queryRequireAmount函数");
+        pool.getConnection(function (err, connection) {
+            if (err) {
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.RequireAmount, account, function (err, result) {
+                if (err) {
+                    console.log("必缴账单查询错误，返回缴费订单总页");
+                    connection.release();
+                    queryTotalAmount(account, res);
+                } else if (result[0] == undefined) { //无必缴账单总额,返回必缴账单总额为0、必缴订单
+                    console.log("无必缴账单总额,返回必缴账单总额为0、必缴订单");
+                    ejs.renderFile('views/requiredOrder.ejs', {
+                        requireAmount:0,
+                        result:Result
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                } else { //有必缴账单总额
+                    console.log(result[0]);
+                    var requireAmount = new String(result[0].requireAmount);
+                    ejs.renderFile('views/requiredOrder.ejs', {
+                        requireAmount: requireAmount,
+                        result: Result
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                }
+            });
+        });
+    },
+    queryRequireOrders: function (account, res) {
+        console.log(account + "进入queryRequireOrders函数");
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.RequireOrders, account, function (err, result) {
+                if (err) { //必缴账单查询错误
+                    console.log("必缴账单查询错误，返回缴费订单总页");
+                    ejs.renderFile('views/paymentOrder.ejs', {}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else if (result[0] == undefined) { //无必缴账单
+                    console.log("无必缴账单");
+                    ejs.renderFile('views/requiredOrder.ejs', {
+                        result
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //有必缴账单
+                    console.log(result);
+                    // var requireAmount = new String(result[0].requireAmount);
+                    // var requireAmount = 2000;
+                    obj.queryRequireAmount(account, result, res);
+                    // ejs.renderFile('views/requiredOrder.ejs', {result:result}, function (err, data) {
+                    //     if (err) {
+                    //         console.log(err);
+                    //     }
+                    //     res.end(data);
+                    // })
+                    connection.release();
+                }
+            });
+        });
+    },
+    //orderRecord订单记录页信息
+    queryOrderRecord: function (account, res) {
+        console.log(account + "进入queryOrderRecord函数");
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.OrderRecord, account, function (err, result) {
+                if (err) { //订单记录查询错误
+                    console.log("订单记录查询错误，返回缴费订单总页");
+                    connection.release();
+                    queryTotalAmount(account, res);
+                } else if (result[0] == undefined) { //无订单记录
+                    console.log("无订单记录");
+                    ejs.renderFile('views/orderRecord.ejs', {result:result}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //有订单记录
+                    console.log(result);
+                    ejs.renderFile('views/orderRecord.ejs', {result:result}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                }
+            });
+        });
+    },
+
+
+
+
+
+
+
+
     add: function (req, res, next) {
         pool.getConnection(function (err, connection) {
             // 获取前台页面传过来的参数

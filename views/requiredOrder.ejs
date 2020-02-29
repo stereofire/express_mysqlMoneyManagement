@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>必缴订单</title>
-	<link rel="stylesheet" type="text/css" href="stylesheets/requiredOrder.css">
+	<link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
 	<!--<script src="javascript/首页.js"></script>-->
 </head>
 <body>
@@ -27,7 +27,7 @@
                 <td class="mesage"><!--标题-->
                     必缴订单查看页<br> 
                 </td>
-                <td id="please">请至“订单记录”页面支付必缴订单！</td>
+                <td id="please">必缴订单由您的教务老师提交，请您查阅后至“订单记录”页面支付必缴订单！</td>
             </tr>
             <tr><td><img class="line_picture" src="images/home/line.png" alt="图片加载失败"></td></tr>
 
@@ -38,17 +38,37 @@
         <thead>
             <tr>
                 <!-- <th>订单编号</th> -->
-                <th>交易单号</th>
-                <th>交易金额</th>
-                <th>创建时间</th>
-                <th>订单支付状态</th>
+                <th>子订单编号</th>
+                <th>订单编号</th>
+                <th>商品编号</th>
+                <th>商品名称</th>
+                <th>属性1</th>
+                <th>属性2</th>
+                <th>属性3</th>
+                <th>数量</th>
+                <th>单价(元)</th>
+                <th>子订单总额(元)</th>
+                <th>商户名称</th>
             </tr>
         </thead>
+        <% for(var i = 0; i < result.length; i++){ %> 
         <tr>
-            <td>内容</td>
-        </tr>
+            <td><%= result[i].子订单编号 %></td>
+            <td><%= result[i].订单编号 %></td>
+            <td><%= result[i].商品编号 %></td>
+            <td><%= result[i].商品名称 %></td>
+            <td><%= result[i].属性1 %></td>
+            <td><%= result[i].属性2 %></td>
+            <td><%= result[i].属性3 %></td>
+            <td><%= result[i].商品数量 %></td>
+            <td><%= result[i].商品单价 %></td>
+            <td><%= result[i].子订单总额 %></td>
+            <td><%= result[i].商户名称 %></td>
+        </tr> <% } %>
     </table>
-        
+    <div id="即时订单总额">
+        待缴必缴订单总额：<%= requireAmount %>元
+    </div>
     <div>
         <a href="/paymentOrder"><button class="必缴返回">返回</button></a>
     </div>
