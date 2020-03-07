@@ -5,9 +5,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var ejs=require('ejs');
-// var engine = require('ejs-mate');
+var ejs = require('ejs');
 var app = express();
+var $ = jQuery = require("./jq/jquery");
 
 //引入express-session
 var session = require("express-session");
@@ -29,9 +29,11 @@ app.use(session({
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs'); 
 
-// ejs母版设置
-// app.engine('ejs', engine);
+// // ejs母版设置
+// app.engine('ejs', require('ejs-mate'));
 // app.locals._layoutFile = 'layout.ejs';
+// var partials = require('express-partials');
+// app.use(partials());
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));

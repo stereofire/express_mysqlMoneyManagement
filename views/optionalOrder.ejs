@@ -1,57 +1,99 @@
- <!-- 选缴订单页 optionalOrder  -->
+<!-- 选缴订单页 optionalOrder  -->
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>选缴订单</title>
-	<link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
-	<!--<script src="javascript/optionalOrder.js"></script>-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选缴订单</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
+    <script src="javascripts/optionalOrder.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 </head>
+
 <body>
-	<div class="col-12">
-		<img class="header" src="images/index/head.png" alt="图像加载失败">
+    <div class="col-12">
+        <img class="header" src="images/index/head.png" alt="图像加载失败">
     </div>
-    <div class="menu">  <!-- class选择器 -->
+    <div class="menu">
+        <!-- class选择器 -->
         <div class="nav">
-            <ul>    <!-- ul标签 -->
-                <li><a href="/home">首页</a></li>  <!-- li标签 -->
+            <ul>
+                <!-- ul标签 -->
+                <li><a href="/home">首页</a></li> <!-- li标签 -->
                 <li><a href="/paymentOrder" style="background-color:rgb(52, 152,219)">缴费订单</a></li>
                 <li><a href="/orderRecord">订单记录</a></li>
             </ul>
         </div>
     </div>
     <div>
-        <table class="mesage_table" >
-            <tr class="mesage_table"><!--标题及密码修改-->
-                <td class="mesage"><!--标题-->
-                    当前可选缴费项目清单<br> 
+        <table class="mesage_table">
+            <tr class="mesage_table">
+                <!--标题及密码修改-->
+                <td class="mesage">
+                    <!--标题-->
+                    当前可选缴费项目清单<br>
                 </td>
                 <td id="please">如有其他缴费需求，请联系您的教务老师！</td>
             </tr>
-            <tr><td><img class="line_picture" src="images/home/line.png" alt="图片加载失败">
-            </td></tr>
+            <tr>
+                <td><img class="line_picture" src="images/home/line.png" alt="图片加载失败"></td>
+            </tr>
+            <% if(result.length == 0){ %>
+            <tr class="mesage_table">
+                <td class="mesage" style="color: rebeccapurple;">
+                    暂时没有选缴项目哦~<br>
+                </td>
+            </tr>
         </table>
+    </div>
+    <% }else{ %>
+    </table>
     </div>
     <table class="order_table" name="keyPassage">
         <thead>
             <tr>
-                <!-- <th>订单编号</th> -->
-                <th>交易单号</th>
-                <th>交易金额</th>
-                <th>创建时间</th>
-                <th>订单支付状态</th>
+                <th>勾选框</th>
+                <th>商品编号</th>
+                <th>商品名称</th>
+                <th>商品属性1</th>
+                <th>商品属性2</th>
+                <th>商品属性3</th>
+                <th>单价</th>
+                <th>商户名称</th>
+                <th>数量</th>
             </tr>
         </thead>
+        <% for(var i = 0; i < result.length; i++){ %>
         <tr>
-            <td>内容</td>
-        </tr>
+            <td><input type="checkbox" id="<% i %>"/></td>
+            <td style="color:lightsteelblue;"><%= result[i].商品编号 %></td>
+            <td><%= result[i].商品名称 %></td>
+            <td><%= result[i].属性1 %></td>
+            <td><%= result[i].属性2 %></td>
+            <td><%= result[i].属性3商品单价 %></td>
+            <td><%= result[i].商品单价 %></td>
+            <td style="color: lightsteelblue;"><%= result[i].商户名称 %></td>
+            <td>
+                <select name="quantity" id="<%='select' + i %>">
+                    <option selected="selected" value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select><br>
+            </td>
+        </tr> <% } %>
+
     </table>
+    <% } %>
     <div id="即时订单总额">
-        选缴订单总额： 元
+        未缴选缴订单总额：<%= optionalAmount %>元
     </div>
     <div>
         <a href="/paymentOrder"><button class="确认添加">确认添加</button></a>
     </div>
 </body>
+
 </html>

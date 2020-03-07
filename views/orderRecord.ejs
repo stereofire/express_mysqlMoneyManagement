@@ -40,9 +40,9 @@
                 <th>订单编号</th>
                 <th>商品编号</th>
                 <th>商品名称</th>
-                <th>属性1</th>
-                <th>属性2</th>
-                <th>属性3</th>
+                <th>商品属性1</th>
+                <th>商品属性2</th>
+                <th>商品属性3</th>
                 <th>数量</th>
                 <th>单价(元)</th>
                 <th>子订单总额(元)</th>
@@ -53,9 +53,9 @@
         </thead>
         <% for(var i = 0; i < result.length; i++){ %> 
         <tr>
-            <td><%= result[i].子订单编号 %></td>
+            <td style="color: lightsteelblue;"><%= result[i].子订单编号 %></td>
             <td><%= result[i].订单编号 %></td>
-            <td><%= result[i].商品编号 %></td>
+            <td style="color: lightsteelblue;"><%= result[i].商品编号 %></td>
             <td><%= result[i].商品名称 %></td>
             <td><%= result[i].属性1 %></td>
             <td><%= result[i].属性2 %></td>
@@ -63,19 +63,19 @@
             <td><%= result[i].商品数量 %></td>
             <td><%= result[i].商品单价 %></td>
             <td><%= result[i].子订单总额 %></td>
-            <td><%= result[i].商户名称 %></td>
+            <td style="color: lightsteelblue;"><%= result[i].商户名称 %></td>
             
             <% if(result[i].订单支付状态 == 3){ %> 
-                <td>待缴费(必缴)</td>
+                <td style="color: red;">待缴费(必缴)</td>
                 <td>去缴费</td>
             <% }else if(result[i].订单支付状态 == 2){%>
-                <td>待缴费(选缴)</td>
+                <td style="color: red;">待缴费(选缴)</td>
                 <td>去缴费</td>
             <% }else if(result[i].订单支付状态 == 1){%>
-                <td>缴费成功</td>
+                <td style="color: green;">缴费成功</td>
                 <td></td>
             <% }else if(result[i].订单支付状态 == 0){%>
-                <td>缴费失败</td>
+                <td style="color: rgb(56, 59, 56);">缴费失败</td>
                 <td>查看失败原因</td>
             <% } %>
         </tr> 

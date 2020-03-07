@@ -309,6 +309,7 @@ const obj = {
             });
         });
     },
+
     // requireOrder必缴订单页信息(两个函数)
     queryRequireAmount: function (account, Result, res) {
         console.log(account + "进入queryRequireAmount函数");
@@ -370,7 +371,8 @@ const obj = {
                 } else if (result[0] == undefined) { //无必缴账单
                     console.log("无必缴账单");
                     ejs.renderFile('views/requiredOrder.ejs', {
-                        result
+                        requireAmount:0,
+                        result:result
                     }, function (err, data) {
                         if (err) {
                             console.log(err);
@@ -394,6 +396,7 @@ const obj = {
             });
         });
     },
+
     //orderRecord订单记录页信息
     queryOrderRecord: function (account, res) {
         console.log(account + "进入queryOrderRecord函数");
@@ -429,6 +432,79 @@ const obj = {
             });
         });
     },
+    
+    //optionalOrder 选缴订单页信息(两个函数)
+    queryOptionalAmount: function (account, Result, res) {
+        console.log(account + "进入queryOptionalAmount函数");
+        pool.getConnection(function (err, connection) {
+            
+            if (err) {
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.OptionalAmount, account, function (err, result) {
+                if (err) {
+                    console.log("选缴账单查询错误，返回缴费订单总页");
+                    connection.release();
+                    queryTotalAmount(account, res);
+                } else if (result[0].optionalAmount == null) { //无选缴账单总额,返回选缴账单总额为0、选缴订单
+                    console.log("无选缴账单总额,返回选缴账单总额为0、选缴订单");
+                    ejs.renderFile('views/optionalOrder.ejs', {
+                        optionalAmount:0,
+                        result:Result
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                } else { //有选缴账单总额
+                    console.log("选缴账单总额:",result[0].optionalAmount);
+                    var optionalAmount = new String(result[0].optionalAmount);
+                    ejs.renderFile('views/optionalOrder.ejs', {
+                        optionalAmount: optionalAmount,
+                        result: Result
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                }
+            });
+        });
+    },
+    queryOptionalOrder: function (account, res) {
+        console.log(account + "进入queryOptionalOrder函数");
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.OptionalOrder, account, function (err, result) {
+                if (err) { //选缴订单查询错误
+                    console.log("选缴订单查询错误，返回缴费订单总页");
+                    connection.release();
+                    queryTotalAmount(account, res);
+                } else if (result[0] == undefined) { //无选缴订单
+                    console.log("无选缴订单");
+                    ejs.renderFile('views/optionalOrder.ejs', {result:result}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //有选缴订单
+                    console.log(result);
+                    obj.queryOptionalAmount(account, result, res);
+                    connection.release();
+                }
+            });
+        });
+    },
+
 
 
 

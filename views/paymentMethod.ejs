@@ -5,8 +5,9 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>支付方式</title>
-	<link rel="stylesheet" type="text/css" href="stylesheets/orderConfirm.css">
-	<script src="javascript/支付方式.js"></script>
+	<link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
+    <script src="javascripts/paymentMethod.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 </head>
 <body>
 	<div>
@@ -45,14 +46,16 @@
     </div>
     <div class="selectPayway_table" >
         请选择支付方式：<br><br>
+        <!-- <input type="radio" id="radio-1" name="radio-1-set" class="regular-radio" onclick="changePay(1)" checked/> -->
+
         <input type="radio" id="radio-1" name="radio-1-set" class="regular-radio" onclick="changePay(1)" checked/>
             <img class="insert" src="images/支付方式/微信.png" alt="图像加载失败">微信支付
-        <input type="radio" id="radio-2" name="radio-1-set" class="regular-radio"/>
+        <input type="radio" id="radio-2" name="radio-1-set" class="regular-radio"onclick="changePay(2)"/>
             <img class="insert" src="images/支付方式/支付宝.png" alt="图像加载失败">支付宝支付
-        <input type="radio" id="radio-3" name="radio-1-set" class="regular-radio"/>
-            <img class="insert" src="images/支付方式/银联.png" alt="图像加载失败" onclick="changePay(3)">银联支付
+        <input type="radio" id="radio-3" name="radio-1-set" class="regular-radio"onclick="changePay(3)"/>
+            <img class="insert" src="images/支付方式/银联.png" alt="图像加载失败" >银联支付
     </div>
-    <div class="银联" id="银联">
+    <div class="银联" id="银联" style="display: none;">
         选择银行进行支付<br>
         <input type="radio" id="radio1" name="radio-set" class="regular-radio"/>
             <img class="insert" src="images/支付方式/招商银行.jpg" alt="图像加载失败">招商银行

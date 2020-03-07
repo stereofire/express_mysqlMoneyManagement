@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
+    <script src="javascripts/home.js"></script>
+</head>
+
+<body>
+    <div class="col-12">
+        <img class="header" src="images/index/head.png" alt="图像加载失败">
+    </div>
+    <div class="menu">
+        <!-- class选择器 -->
+        <div class="nav">
+            <ul>
+                <!-- ul标签 -->
+                <li><a href="/home" style="background-color:rgb(52, 152,219)">首页</a></li> <!-- li标签 -->
+                <!-- <%= user.arr.homeHref%> -->
+                <li><a href="/paymentOrder">缴费订单</a></li>
+                <li><a href="/orderRecord">订单记录</a></li>
+                <li><a href="/loginOut">注销登录</a></li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <table class="mesage_table">
+            <tr>
+                <!--标题及密码修改-->
+                <td class="mesage">
+                    <!--标题-->
+                    用户信息<br>
+                </td>
+                <td class="change_key">
+                    <!--密码修改-->
+                    <!-- <a href="">修改密码</a>             -->
+                    <input type="button" name="changePassword" onclick="location.href='/changePassword'" value="修改密码">
+                    <!-- "window.open('/changePassword')"   在新窗口打开-->
+                    <img class="pen_picture" src="images/home/pen.png" alt="图片加载失败">
+                </td>
+            </tr>
+            <tr>
+                <td><img class="line_picture" src="images/home/line.png" alt="图片加载失败">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="mesage_table">
+        <table>
+            <tr>
+                <!--个人信息-->
+                <td class="headset">
+                    <!--头像-->
+                    <img class="headset_picture" src="images/home/headset.png" alt="用户头像加载失败">
+                </td>
+                <td>
+                    <!--信息-->
+                    <table class="information">
+                        <tr>
+                            <td style="width:310px;height:30px;">
+                                <img class="information_picture" src="images/home/user.png" alt="图片加载失败">
+                                姓名：<%= user.arr.studentName%></td>
+                            <td style="width:310px;height:30px;;">
+                                <img class="information_picture" src="images/home/gender.png" alt="图片加载失败">
+                                性别：<%= user.arr.gender%></td>
+                        </tr>
+                        <tr>
+                            <td style="width:310px;height:30px;;">
+                                <img class="information_picture" src="images/home/grade.png" alt="图片加载失败">
+                                年级：<%=user.arr.grade%></td>
+                            <td style="width:310px;height:30px;;">
+                                <img class="information_picture" src="images/home/number.png" alt="图片加载失败">
+                                学号：<%=user.arr.studentID%></td>
+                        </tr>
+                        <tr>
+                            <td style="width:310px;height:30px;;">
+                                <img class="information_picture" src="images/home/major.png" alt="图片加载失败">
+                                专业：<%=user.arr.major%></td>
+                            <td style="width:310px;height:30px;;">
+                                <img class="information_picture" src="images/home/school.png" alt="图片加载失败">
+                                学院：<%=user.arr.school%></td>
+                        </tr>
+                        <tr>
+                            <td style="width:310px;height:30px;;">
+                                <img class="information_picture" src="images/home/status.png" alt="图片加载失败">
+                                状态：<%=user.arr.readStatus%></td>
+                            <td style="width:310px;height:30px;;">
+                                <img class="information_picture" src="images/home/college.png" alt="图片加载失败">
+                                学校：<%=user.arr.college%></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>
