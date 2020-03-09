@@ -1,47 +1,79 @@
 <!-- 订单确认页 orderConfirm  -->
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>订单确认</title>
-	<link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
-	<!--<script src="javascript/首页.js"></script>-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>订单确认</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
+    <script src="javascripts/orderConfirm.js"></script>
 </head>
+
 <body>
-	<div>
-		<img class="header" src="images/index/head.png" alt="图像加载失败">
+    <div>
+        <img class="header" src="images/index/head.png" alt="图像加载失败">
     </div>
     <div class="menu">
         <div class="nav">
-            <ul> 
-                <li><a href="/home">首页</a></li> 
-                <li><a href="/paymentOrder" >缴费订单</a></li>
+            <ul>
+                <li><a href="/home">首页</a></li>
+                <li><a href="/paymentOrder">缴费订单</a></li>
                 <li><a href="/orderRecord">订单记录</a></li>
             </ul>
         </div>
     </div>
- 
-    <div class="payment_table" >
+
+    <div class="payment_table">
         <table>
-            <tr><!--进度条-->
-                <td><p class="payment1">订单确认</p></td>
-                <td><p class="payment2">支付方式</p></td>
-                <td><p class="payment2">支付确认</p></td>
-                <td><p class="payment2">支付结果</p></td>
+            <tr>
+                <!--进度条-->
+                <td>
+                    <p class="payment1">&#12288 订单确认 &#12288</p>
+                </td>
+                <td>
+                    <p class="payment2">&#12288 支付方式 &#12288</p>
+                </td>
+                <td>
+                    <p class="payment2">&#12288 支付确认 &#12288</p>
+                </td>
+                <td>
+                    <p class="payment2">&#12288 支付结果 &#12288</p>
+                </td>
             </tr>
         </table>
     </div>
-    <div class="payment_table" >
-        hhhwheifhuwiae
-
+    <div class="payment_table">
+        <table class="confirm" id="confirmTB">
+            <thead>
+                <tr class="confirm" style="color: rgb(89, 166, 218);">
+                    <th>商品编号</th>
+                    <th>商品名称</th>
+                    <th>商品属性1</th>
+                    <th>商品属性2</th>
+                    <th>商品属性3</th>
+                    <th>单价(元)</th>
+                    <th>数量</th>
+                    <th>子订单总额(元)</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="tbMain"></tbody>
+        </table>
     </div>
     <div id="订单总额">
         订单总额：元
     </div>
     <div>
+        <a href="/optionalOrder"><button class="提交订单">返回</button></a>
+    </div>
+    <div>
         <a href="/paymentMethod"><button class="提交订单">提交订单</button></a>
     </div>
-   
+
 </body>
+
 </html>
+<script> var getKeys = '<%= keys %>';</script>
+
+<script>getGoods(getKeys);</script>

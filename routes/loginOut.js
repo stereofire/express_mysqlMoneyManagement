@@ -10,6 +10,7 @@ router.get("/", function (req, res) { //退出登录，session销毁
     req.session.destroy(function (err) {
         console.log(err);
     })
+    // sessionStorage.clear();
     console.log("用户注销登录。");
     res.send('退出登录成功');
 });

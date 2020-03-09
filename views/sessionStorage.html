@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>清空sessionStorage的全部数据</title>
+</head>
+
+<body>
+    <fieldset>
+        <input type="button" id="btnadd" onClick="add_click()" value="增加数据">
+        <input type="button" id="btndel" onClick="del_click()" value="清除数据">
+        <p id="pstauts"></p>
+    </fieldset>
+</body>
+<script type="text/javascript">
+    function $(id) {
+        return document.getElementById(id);
+    }
+    var intNum = 0;
+    //保存数据函数
+    function add_click() {
+        for (var intI = 0; intI <= 5; intI++) {
+            var strKeyName = "strKeyName" + intI;
+            var strKeyValue = "strKeyValue" + intI;
+            sessionStorage.setItem(strKeyName, strKeyValue);
+            intNum++;
+        }
+        $("pstauts").style.display = "block";
+        $("pstauts").innerHTML = "已保存成功<br>" + intNum + "<br>条记录"
+    }
+    //清空数据函数
+    function del_click() {
+        sessionStorage.clear();
+        $("pstauts").style.display = "block";
+        $("pstauts").innerHTML = "全部数据已经清除"
+    }
+/*
+    代码解析：
+    当用户点击"增加数据"，将使用循环的方式，按执行顺序保存6条数据记录
+    其键名"strKeyName"与变量intI相连，其值名"strKeyValue"也与intI相连,这些数据
+    被sessionStorage对象保存记录,可以再浏览器Chrome中通过单击右键,选择"审查元素"选项,
+    单击"Resources"选项查看sessionStorage保存的数据
+    当用户"点击清除数据"将清空sessionStorage对象保存数据记录
+    */
+</script>
+
+</html>

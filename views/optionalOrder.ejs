@@ -8,7 +8,7 @@
     <title>选缴订单</title>
     <link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
     <script src="javascripts/optionalOrder.js"></script>
-    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script> -->
 </head>
 
 <body>
@@ -50,6 +50,7 @@
     <% }else{ %>
     </table>
     </div>
+    <!-- <form action="/" name="ordered"> -->
     <table class="order_table" name="keyPassage">
         <thead>
             <tr>
@@ -65,19 +66,18 @@
             </tr>
         </thead>
         <% for(var i = 0; i < result.length; i++){ %>
-        <tr>
-            <td><input type="checkbox" id="<% i %>"/></td>
+        <tr id='<%= i %>'>
+            <td><input type="checkbox" /></td>
             <td style="color:lightsteelblue;"><%= result[i].商品编号 %></td>
             <td><%= result[i].商品名称 %></td>
             <td><%= result[i].属性1 %></td>
             <td><%= result[i].属性2 %></td>
-            <td><%= result[i].属性3商品单价 %></td>
+            <td><%= result[i].属性3 %></td>
             <td><%= result[i].商品单价 %></td>
             <td style="color: lightsteelblue;"><%= result[i].商户名称 %></td>
             <td>
-                <select name="quantity" id="<%='select' + i %>">
-                    <option selected="selected" value="0">0</option>
-                    <option value="1">1</option>
+                <select name="quantity" id="<%= 'select' + i %>">
+                    <option selected="selected" value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
@@ -87,12 +87,48 @@
         </tr> <% } %>
 
     </table>
+    <!-- </form> -->
     <% } %>
     <div id="即时订单总额">
         未缴选缴订单总额：<%= optionalAmount %>元
     </div>
     <div>
-        <a href="/paymentOrder"><button class="确认添加">确认添加</button></a>
+        <!-- <a href="/orderConfirm"><button class="确认添加" onclick="checkOptions()">确认添加</button></a> -->
+        <a><button class="确认添加" onclick="checkOptions()">确认添加</button></a>
+    </div>
+    <script>
+        function goToOC() {
+            // 以下为获取已经在购物车里的商品id
+            var allData = sessionStorage.valueOf(); //获得所有sessionStorage数据，为一个普通js对象
+            // console.log(allData);
+            // console.log(typeof (allData));
+            var jsonAllData = JSON.stringify(allData); //普通object转换为JSON字符串
+            var jsonAllDataObj = JSON.parse(jsonAllData); //由JSON字符串转换为JSON对象
+            // console.log(jsonAllDataObj);
+            // console.log(typeof (jsonAllDataObj));
+            var oldKey = Object.keys(jsonAllDataObj);
+            console.log("jsonAllDataObj.keys()", oldKey);
+            var oldKeyLength = 0;
+            for (var item in oldKey) {
+                oldKeyLength++;
+            }
+            console.log("oldKeyLength:", oldKeyLength);
+            for (var j = 0; j < oldKeyLength; j++) {
+                if (j == 0) {
+                    keys = "keys[]=" + oldKey[j] + "&";
+                } else {
+                    keys = keys + "keys[]=" + oldKey[j] + "&";
+                }
+                console.log(keys);
+            }
+            var length = keys.length - 1;
+    		keys = keys.substr(0, length);
+            location.href = '/orderConfirm?' + keys;
+        }
+    </script>
+    <div>
+
+       <button class="确认添加" onclick="goToOC()">查看已添加</button>
     </div>
 </body>
 
