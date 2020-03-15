@@ -1,46 +1,75 @@
 <!-- 缴费订单页 paymentOrder  -->
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>缴费订单</title>
-	<link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
-	<!--<script src="javascript/首页.js"></script>-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>缴费订单</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
+    <!--<script src="javascript/首页.js"></script>-->
 </head>
+
 <body>
-	<div>
-		<img class="header" src="images/index/head.png" alt="图像加载失败">
+    <div>
+        <img class="header" src="images/index/head.png" alt="图像加载失败">
     </div>
-    <div class="menu">  <!-- class选择器 -->
+    <div class="menu">
         <div class="nav">
-            <ul>    <!-- ul标签 -->
-                <li><a href="/home">首页</a></li>  <!-- li标签 -->
+            <ul>
+                <li><a href="/home">首页</a></li> <!-- li标签 -->
                 <li><a href="/paymentOrder" style="background-color:rgb(52, 152,219)">缴费订单</a></li>
                 <li><a href="/orderRecord">订单记录</a></li>
             </ul>
         </div>
     </div>
-    <div id="main"><!--容器-->
-        <div id="must"><!--必缴-->
+    <div id="main">
+        <!--容器-->
+        <div id="must">
+            <!--必缴-->
             <div>
                 <a href="/requiredOrder"><img class="picture" src="images/缴费订单/必缴.png" alt="图像加载失败"></a>
             </div>
-            <div>必缴订单</div>
+            <div style="margin-bottom: 10px;color:steelblue;"><b>必缴订单</b></div>
         </div>
-        <div id="opt"><!--选缴-->
+        <div id="opt">
+            <!--选缴-->
             <div>
                 <a href="/optionalOrder"><img class="picture" src="images/缴费订单/选缴.png" alt="图像加载失败"></a>
             </div>
-            <div>选缴订单</div>
+            <div style="margin-bottom: 10px;color:steelblue;"><b>选缴订单</b></div>
         </div>
-    </div> 
-    <div id="即时订单总额">
-        未缴费订单总额：<%= totalAmount%> 元
+        <table class="gotopay_table">
+            <tr class="gotopay_tr">
+                <td class="gotopay_td1">
+                    <span id="缴费订单页即时订单总额">未缴费订单总额：<%= totalAmount[0].totalAmount%> 元</span>
+                </td>
+                <td class="gotopay_td2">
+                    <a href="/orderConfirm"><button class="支付订单">去支付</button></a>
+                </td>
+            </tr>
+            <tr class="gotopay_tr">
+                <td class="gotopay_td1">
+                    <span id="缴费订单页即时订单总额">未缴费<b>必缴</b>订单总额：<%= totalAmount[1].totalAmount%> 元</span>
+                </td>
+                <td class="gotopay_td2">
+                    <a href="/orderConfirm"><button class="支付订单">去支付</button></a>
+                </td>
+            </tr>
+            <tr class="gotopay_tr"> 
+                <td class="gotopay_td1">
+                    <span id="缴费订单页即时订单总额">未缴费<b>选缴</b>订单总额：<%= totalAmount[2].totalAmount%> 元</span>
+                </td>
+                <td class="gotopay_td2">
+                    <a href="/orderConfirm"><button class="支付订单">去支付</button></a>
+                </td>
+            </tr>
+
+        </table>
     </div>
-    <div>
-        <a href="/orderConfirm"><button class="支付订单">去支付</button></a>
-    </div>
-   
+
+
+
 </body>
+
 </html>

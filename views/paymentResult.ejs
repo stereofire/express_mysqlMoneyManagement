@@ -1,45 +1,87 @@
 <!-- 支付结果页 paymentResult  -->
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>支付确认</title>
-	<link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
-	<!--<script src="javascript/首页.js"></script>-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>支付确认</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
+    <!--<script src="javascript/首页.js"></script>-->
 </head>
+
 <body>
-	<div>
-		<img class="header" src="images/index/head.png" alt="图像加载失败">
+    <div>
+        <img class="header" src="images/index/head.png" alt="图像加载失败">
     </div>
-    <div class="menu">  <!-- class选择器 -->
+    <div class="menu">
+        <!-- class选择器 -->
         <div class="nav">
-            <ul>    <!-- ul标签 -->
-                <li><a href="/home">首页</a></li>  <!-- li标签 -->
-                <li><a href="/paymentOrder" >缴费订单</a></li>
+            <ul>
+                <!-- ul标签 -->
+                <li><a href="/home">首页</a></li> <!-- li标签 -->
+                <li><a href="/paymentOrder">缴费订单</a></li>
                 <li><a href="/orderRecord">订单记录</a></li>
             </ul>
         </div>
     </div>
- 
-    <div class="payment_table" >
-        <table >
-            <tr><!--进度条-->
-                <td><!--标题-->
-                    <p class="payment2">订单确认</p>
+
+    <div class="payment_table">
+        <table>
+            <tr>
+                <!--进度条-->
+                <td>
+                    <p class="payment2">&#12288 订单确认 &#12288</p>
                 </td>
-                <td><!--标题-->
-                    <p class="payment2">支付方式</p>
+                <td>
+                    <p class="payment2">&#12288 支付方式 &#12288</p>
                 </td>
-                <td><!--标题-->
-                    <p class="payment2">支付确认</p>
+                <td>
+                    <p class="payment2">&#12288 支付确认 &#12288</p>
                 </td>
-                <td><!--标题-->
-                    <p class="payment1">支付结果</p>
+                <td>
+                    <p class="payment1">&#12288 支付结果 &#12288</p>
                 </td>
             </tr>
         </table>
-        hhhwheifhuwiae
+    </div>
+    <div class="successSubmit_table">
+        <table style="padding-top: 15px;font-size: 14px;color: gray;">
+            <tr>
+                <td>
+                    <img class="submitSucPic" src="images/支付方式/submitSuccess.png" alt="图像加载失败">
+                </td>
+                <td style="font-size: large;color: forestgreen;float: left;padding-top: 10px;">
+                    <b>支付成功！</b>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    订单号：
+                </td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>交易单号：</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>支付时间：</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="float: left;">
+                    订单金额：元
+                </td>
+                <td></td>
+            </tr>
+        </table>
     </div>
     <div>
         <a href="/orderRecord"><button class="查看记录">查看记录</button></a>

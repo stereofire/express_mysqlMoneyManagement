@@ -5,16 +5,22 @@ var ejs = require('ejs');
 var url = require('url');
 var userDao = require('../dao/userDao');
 router.get('/', function (req, res, next) {
-    var method = req.method.toLowerCase();
-    console.log(method);
-    var pathname = url.parse(req.url, true).pathname;
-    console.log(pathname + 'get-optionalOrder');
-    console.log("已登录用户查询：", req.session.islogin);
-    if(req.session.islogin){  /*获取session.islogin*/
-      console.log("已登录用户查询：", req.session.user);
-      userDao.queryOptionalOrder(req.session.user,res);
-    }else{
-      res.send('账户未登录');
-    }
-  });
+  var method = req.method.toLowerCase();
+  console.log(method);
+  var pathname = url.parse(req.url, true).pathname;
+  console.log(pathname + 'get-optionalOrder');
+  console.log("已登录用户查询：", req.session.islogin);
+  if (req.session.islogin) {
+    /*获取session.islogin*/
+    console.log("已登录用户查询：", req.session.user);
+    userDao.queryOptionalOrder(req.session.user, res);
+  } else {
+    ejs.renderFile('./views/loginTimeOut.ejs', {}, function (err, data) {
+      if (err) {
+        console.log(err);
+      }
+      res.end(data);
+    })
+  }
+});
 module.exports = router;

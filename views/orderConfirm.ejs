@@ -43,6 +43,20 @@
             </tr>
         </table>
     </div>
+    <% if(keys == undefined){ %>
+    <div  class="payment_table">
+        <table class="mesage_table">
+            <tr class="mesage_table">
+                <td class="mesage" style="color: rebeccapurple;font-size:small;">
+                    您暂时没有选缴商品哦~<br>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <a href="/optionalOrder"><button class="提交订单">返回</button></a>
+    </div>
+    <% }else{ %>
     <div class="payment_table">
         <table class="confirm" id="confirmTB">
             <thead>
@@ -60,20 +74,26 @@
             </thead>
             <tbody id="tbMain"></tbody>
         </table>
+        <p id="please" style="text-align: right;">此处为“购物车”数据，确认“购物车”商品后请点击“提交订单”按钮，正式生成订单，即可继续完成缴费流程。</p>
     </div>
+    
     <div id="订单总额">
-        订单总额：元
+        <!-- 购物车总额：元 -->
     </div>
     <div>
         <a href="/optionalOrder"><button class="提交订单">返回</button></a>
     </div>
     <div>
-        <a href="/paymentMethod"><button class="提交订单">提交订单</button></a>
+        <!-- <button class="提交订单" onclick="location.href='/paymentMethod'">提交订单</button> -->
+        <button class="提交订单" onclick="submitOrder()">提交订单</button>
     </div>
-
+    <% } %>
 </body>
 
 </html>
 <script> var getKeys = '<%= keys %>';</script>
 
-<script>getGoods(getKeys);</script>
+<script>if(!(getKeys.length == 0)){
+    getGoods(getKeys);
+}
+</script>

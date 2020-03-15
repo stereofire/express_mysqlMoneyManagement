@@ -5,62 +5,68 @@ var ejs = require('ejs');
 var url = require('url');
 var userDao = require('../dao/userDao');
 router.get('/', function (req, res, next) {
-    var method = req.method.toLowerCase();
-    console.log(method);
-    var pathname = url.parse(req.url, true).pathname;
-    console.log(pathname + 'get-home');
+  var method = req.method.toLowerCase();
+  console.log(method);
+  var pathname = url.parse(req.url, true).pathname;
+  console.log(pathname + 'get-home');
 
-    // var account = req.query.account;//通过url解析的目前用户信息时用的，采用session后替代了
-    // console.log("get account:" + account);
+  // var account = req.query.account;//通过url解析的目前用户信息时用的，采用session后替代了
+  // console.log("get account:" + account);
 
-    console.log("已登录用户查询：", req.session.islogin);
-    if(req.session.islogin){  /*获取session.islogin*/
-      console.log("已登录用户查询：", req.session.user);
-      userDao.queryInformation(req.session.user,res);
-    }else{
-      res.send('账户未登录');
-    }
-    // 使用async和await尝试——返回user对象有问题，还不如在userDao.queryInformation直接渲染了
-    // var user = {};
-    // function getInformation(){
-    //   return new Promise(resolve=>{
-    //     user = userDao.queryInformation(account);
-    //     console.log(user);
-    //     console.log(1);
-    //     resolve();
-    //   })
-    // }
-    // async function openWeb(){
-    //   await getInformation();
-    //   console.log(2);
-    //   if(!(user=={})){
-    //       ejs.renderFile('./views/home.ejs', {user}, function (err, data) {
-    //         if (err) {
-    //           console.log(err);
-    //         }
-    //         res.end(data);
-    //       })
-    //     }else{
-    //       res.send("hehe");
-    //     }
-    // }
-    // openWeb();
+  console.log("已登录用户查询：", req.session.islogin);
+  if (req.session.islogin) {
+    /*获取session.islogin*/
+    console.log("已登录用户查询：", req.session.user);
+    userDao.queryInformation(req.session.user, res);
+  } else {
+    ejs.renderFile('./views/loginTimeOut.ejs', {}, function (err, data) {
+      if (err) {
+        console.log(err);
+      }
+      res.end(data);
+    })
+  }
+  // 使用async和await尝试——返回user对象有问题，还不如在userDao.queryInformation直接渲染了
+  // var user = {};
+  // function getInformation(){
+  //   return new Promise(resolve=>{
+  //     user = userDao.queryInformation(account);
+  //     console.log(user);
+  //     console.log(1);
+  //     resolve();
+  //   })
+  // }
+  // async function openWeb(){
+  //   await getInformation();
+  //   console.log(2);
+  //   if(!(user=={})){
+  //       ejs.renderFile('./views/home.ejs', {user}, function (err, data) {
+  //         if (err) {
+  //           console.log(err);
+  //         }
+  //         res.end(data);
+  //       })
+  //     }else{
+  //       res.send("hehe");
+  //     }
+  // }
+  // openWeb();
 
-    // 使用有返回值的函数尝试——因为异步特性，失效
-    // var user = userDao.queryInformation(account);
-    // console.log(user);
-    // if(!(user=={})){
-    //   ejs.renderFile('./views/home.ejs', {user}, function (err, data) {
-    //     if (err) {
-    //       console.log(err);
-    //     }
-    //     res.end(data);
-    //   })
-    // }else{
-    //   res.send("hehe");
-    // }
-    // res.send("hehe");
-  });
+  // 使用有返回值的函数尝试——因为异步特性，失效
+  // var user = userDao.queryInformation(account);
+  // console.log(user);
+  // if(!(user=={})){
+  //   ejs.renderFile('./views/home.ejs', {user}, function (err, data) {
+  //     if (err) {
+  //       console.log(err);
+  //     }
+  //     res.end(data);
+  //   })
+  // }else{
+  //   res.send("hehe");
+  // }
+  // res.send("hehe");
+});
 module.exports = router;
 
 // url参数解析demo:

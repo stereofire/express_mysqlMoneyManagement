@@ -10,12 +10,26 @@ router.get('/', function (req, res, next) {
   console.log(method);
   var pathname = url.parse(req.url, true).pathname;
   console.log(pathname + 'get-changePassword');
-  ejs.renderFile('./views/changePassword.ejs', {}, function (err, data) {
-    if (err) {
-      console.log(err);
-    }
-    res.end(data);
-  })
+
+  console.log("已登录用户查询：", req.session.islogin);
+  if (req.session.islogin) {
+    /*获取session.islogin*/
+    console.log("已登录用户查询：", req.session.user);
+    ejs.renderFile('./views/changePassword.ejs', {}, function (err, data) {
+      if (err) {
+        console.log(err);
+      }
+      res.end(data);
+    })
+  } else {
+    ejs.renderFile('./views/loginTimeOut.ejs', {}, function (err, data) {
+      if (err) {
+        console.log(err);
+      }
+      res.end(data);
+    })
+  }
+
 });
 // 提交密码修改表单
 router.post('/', function (req, res, next) {
@@ -29,8 +43,21 @@ router.post('/', function (req, res, next) {
   var old_password = req.body.old_password;
   var new_password = req.body.new_password;
   console.log(account, old_password, new_password);
-  /*更新密码信息*/
-  userDao.change_Password(account, old_password, new_password, res);
-  // res.send("xxx");
+
+  console.log("已登录用户查询：", req.session.islogin);
+  if (req.session.islogin) {
+    /*获取session.islogin*/
+    console.log("已登录用户查询：", req.session.user);
+    /*更新密码信息*/
+    userDao.change_Password(account, old_password, new_password, res);
+    // res.send("xxx");
+  } else {
+    ejs.renderFile('./views/loginTimeOut.ejs', {}, function (err, data) {
+      if (err) {
+        console.log(err);
+      }
+      res.end(data);
+    })
+  }
 });
 module.exports = router;

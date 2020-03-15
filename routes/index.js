@@ -38,6 +38,5 @@ router.post('/', function (req, res, next) {
   // var status = userDao.check_login(account, password, res);
   // var status = userDao.check_login(account, password);
   userDao.check_login(account, password, req, res);//function (json) {
-  
 });
 module.exports = router;

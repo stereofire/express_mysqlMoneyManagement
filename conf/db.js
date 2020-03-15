@@ -7,7 +7,8 @@ module.exports = {
         password: '111111',
         database: 'db20200213', 
         port: 3306,
-        multipleStatements: true //一个pool里多条sql查询语句。
+        multipleStatements: true, //一个pool里多条sql查询语句。
+        timezone: "08:00"
     }
 };
 // NO	表名	ID	功能描述	备注

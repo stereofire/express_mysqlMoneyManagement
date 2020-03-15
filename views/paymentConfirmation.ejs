@@ -25,26 +25,48 @@
     <div class="payment_table" >
         <table >
             <tr><!--进度条-->
-                <td><!--标题-->
-                    <p class="payment2">订单确认</p>
+                <td>
+                    <p class="payment2">&#12288 订单确认 &#12288</p>
                 </td>
-                <td><!--标题-->
-                    <p class="payment2">支付方式</p>
+                <td>
+                    <p class="payment2">&#12288 支付方式 &#12288</p>
                 </td>
-                <td><!--标题-->
-                    <p class="payment1">支付确认</p>
+                <td>
+                    <p class="payment1">&#12288 支付确认 &#12288</p>
                 </td>
-                <td><!--标题-->
-                    <p class="payment2">支付结果</p>
+                <td>
+                    <p class="payment2">&#12288 支付结果 &#12288</p>
                 </td>
             </tr>
         </table>
-        hhhwheifhuwiae
     </div>
-    <div>
-        <a href="/paymentResult"><button class="查询支付">查询支付</button></a>
-    </div>
-    <div>
-        <a href="/paymentMethod"><button class="重新支付">重新支付</button></a>
+    <div class="successSubmit_table" >
+        <table style="padding-top: 15px;font-size: 14px;">
+            <tr>
+                <td>&#12288</td>
+                <td style="font-size: large;color: forestgreen;padding-top: 10px;">
+                    请确认是否已经支付？
+                </td>
+                <td>&#12288</td>
+            </tr>
+            <tr>
+                <td>&#12288</td>
+                <td>
+                    订单号：<%= orderNo %>
+                </td>
+                <td>&#12288</td>
+            </tr>
+        
+            <tr>
+                <td>
+                    <a href="/paymentResult"><button class="查询支付">支付成功</button></a>
+                    
+                </td>
+                <td>&#12288</td>
+                <td>
+                    <a href="/paymentMethod?orderNo=<%= orderNo %>"><button class="重新支付">重新支付</button></a>
+                </td>
+            </tr>
+        </table>
     </div>
 </body>

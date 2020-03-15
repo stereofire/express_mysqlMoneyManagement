@@ -54,7 +54,7 @@
     <table class="order_table" name="keyPassage">
         <thead>
             <tr>
-                <th>勾选框</th>
+                <th>序号</th>
                 <th>商品编号</th>
                 <th>商品名称</th>
                 <th>商品属性1</th>
@@ -63,11 +63,12 @@
                 <th>单价</th>
                 <th>商户名称</th>
                 <th>数量</th>
+                <th>勾选框</th>
             </tr>
         </thead>
         <% for(var i = 0; i < result.length; i++){ %>
         <tr id='<%= i %>'>
-            <td><input type="checkbox" /></td>
+            <td><%= i+1 %></td>
             <td style="color:lightsteelblue;"><%= result[i].商品编号 %></td>
             <td><%= result[i].商品名称 %></td>
             <td><%= result[i].属性1 %></td>
@@ -84,6 +85,8 @@
                     <option value="5">5</option>
                 </select><br>
             </td>
+            <td><input type="checkbox" /></td>
+
         </tr> <% } %>
 
     </table>
@@ -113,17 +116,22 @@
                 oldKeyLength++;
             }
             console.log("oldKeyLength:", oldKeyLength);
-            for (var j = 0; j < oldKeyLength; j++) {
+            if(oldKeyLength == 0){
+                alert("还没有已添加的商品哦！")
+            }else{
+                for (var j = 0; j < oldKeyLength; j++) {
                 if (j == 0) {
-                    keys = "keys[]=" + oldKey[j] + "&";
+                    keys = "keys[]=" + oldKey[j];
                 } else {
-                    keys = keys + "keys[]=" + oldKey[j] + "&";
+                    keys += "&" + "keys[]=" + oldKey[j];
                 }
                 console.log(keys);
             }
-            var length = keys.length - 1;
-    		keys = keys.substr(0, length);
+            // var length = keys.length - 1;
+    		// keys = keys.substr(0, length);
             location.href = '/orderConfirm?' + keys;
+            }
+            
         }
     </script>
     <div>

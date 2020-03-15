@@ -57,6 +57,7 @@ const paymentOrder = require('./routes/paymentOrder');// 缴费订单页 payment
 const paymentResult = require('./routes/paymentResult');// 支付结果页 paymentResult 路由
 const requiredOrder = require('./routes/requiredOrder');// 必缴订单页 requiredOrder 路由
 const loginOut = require('./routes/loginOut');// 注销登录 loginOut 路由
+// const loginTimeOut = require('./routes/loginTimeOut');// 注销登录 loginOut 路由
 
 app.use('/', index);
 app.use('/users', users);
@@ -72,6 +73,7 @@ app.use('/paymentOrder', paymentOrder);
 app.use('/paymentResult', paymentResult);
 app.use('/requiredOrder', requiredOrder);
 app.use('/loginOut', loginOut);
+// app.use('/loginTimeOut', loginTimeOut);
 
 // 捕获路由404并转发到错误处理程序 
 app.use(function(req, res, next) {

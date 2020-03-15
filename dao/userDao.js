@@ -273,8 +273,10 @@ const obj = {
                 console.log("数据库连接池错误");
                 res.send();
             }
-            connection.query($sql.TotalAmount, account, function (err, result) {
+            var arrAccount = [account, account, account]
+            connection.query($sql.TotalAmount, arrAccount, function (err, result) {
                 if (err) { //用户账户查询错误
+                    console.log(err);
                     console.log("用户账户查询错误，请重新登录");
                     ejs.renderFile('views/index.ejs', {}, function (err, data) {
                         if (err) {
@@ -293,9 +295,26 @@ const obj = {
                     })
                     connection.release();
                 } else { //用户存在
-                    console.log(result[0]);
-                    var totalAmount = new String(result[0].totalAmount);
+                    // console.log(result[0]);
+                    // var totalAmount = new String(result[0].totalAmount);
                     // var totalAmount = 2000;
+                    console.log(result);
+                    var totalAmount = result;
+                    console.log(totalAmount[0].totalAmount);
+                    console.log(totalAmount[1].totalAmount);
+                    console.log(totalAmount[2].totalAmount);
+                    if (totalAmount[0].totalAmount == null) {
+                        totalAmount[0].totalAmount = 0;
+                        console.log(totalAmount[0].totalAmount);
+                    }
+                    if (totalAmount[1].totalAmount == null) {
+                        totalAmount[1].totalAmount = 0;
+                        console.log(totalAmount[1].totalAmount);
+                    }
+                    if (totalAmount[2].totalAmount == null) {
+                        totalAmount[2].totalAmount = 0;
+                        console.log(totalAmount[2].totalAmount);
+                    }
                     ejs.renderFile('views/paymentOrder.ejs', {
                         totalAmount
                     }, function (err, data) {
@@ -326,8 +345,8 @@ const obj = {
                 } else if (result[0] == undefined) { //无必缴账单总额,返回必缴账单总额为0、必缴订单
                     console.log("无必缴账单总额,返回必缴账单总额为0、必缴订单");
                     ejs.renderFile('views/requiredOrder.ejs', {
-                        requireAmount:0,
-                        result:Result
+                        requireAmount: 0,
+                        result: Result
                     }, function (err, data) {
                         if (err) {
                             console.log(err);
@@ -371,8 +390,8 @@ const obj = {
                 } else if (result[0] == undefined) { //无必缴账单
                     console.log("无必缴账单");
                     ejs.renderFile('views/requiredOrder.ejs', {
-                        requireAmount:0,
-                        result:result
+                        requireAmount: 0,
+                        result: result
                     }, function (err, data) {
                         if (err) {
                             console.log(err);
@@ -412,7 +431,9 @@ const obj = {
                     queryTotalAmount(account, res);
                 } else if (result[0] == undefined) { //无订单记录
                     console.log("无订单记录");
-                    ejs.renderFile('views/orderRecord.ejs', {result:result}, function (err, data) {
+                    ejs.renderFile('views/orderRecord.ejs', {
+                        result: result
+                    }, function (err, data) {
                         if (err) {
                             console.log(err);
                         }
@@ -421,7 +442,9 @@ const obj = {
                     connection.release();
                 } else { //有订单记录
                     console.log(result);
-                    ejs.renderFile('views/orderRecord.ejs', {result:result}, function (err, data) {
+                    ejs.renderFile('views/orderRecord.ejs', {
+                        result: result
+                    }, function (err, data) {
                         if (err) {
                             console.log(err);
                         }
@@ -432,12 +455,12 @@ const obj = {
             });
         });
     },
-    
+
     //optionalOrder 选缴订单页信息(两个函数)
     queryOptionalAmount: function (account, Result, res) {
         console.log(account + "进入queryOptionalAmount函数");
         pool.getConnection(function (err, connection) {
-            
+
             if (err) {
                 console.log("数据库连接池错误");
                 res.send();
@@ -450,8 +473,8 @@ const obj = {
                 } else if (result[0].optionalAmount == null) { //无选缴账单总额,返回选缴账单总额为0、选缴订单
                     console.log("无选缴账单总额,返回选缴账单总额为0、选缴订单");
                     ejs.renderFile('views/optionalOrder.ejs', {
-                        optionalAmount:0,
-                        result:Result
+                        optionalAmount: 0,
+                        result: Result
                     }, function (err, data) {
                         if (err) {
                             console.log(err);
@@ -459,7 +482,7 @@ const obj = {
                         res.end(data);
                     })
                 } else { //有选缴账单总额
-                    console.log("选缴账单总额:",result[0].optionalAmount);
+                    console.log("选缴账单总额:", result[0].optionalAmount);
                     var optionalAmount = new String(result[0].optionalAmount);
                     ejs.renderFile('views/optionalOrder.ejs', {
                         optionalAmount: optionalAmount,
@@ -487,9 +510,11 @@ const obj = {
                     console.log("选缴订单查询错误，返回缴费订单总页");
                     connection.release();
                     queryTotalAmount(account, res);
-                } else if (result[0] == undefined) { //无选缴订单
-                    console.log("无选缴订单");
-                    ejs.renderFile('views/optionalOrder.ejs', {result:result}, function (err, data) {
+                } else if (result[0] == undefined) { //无可选缴订单
+                    console.log("无可选缴订单");
+                    ejs.renderFile('views/optionalOrder.ejs', {
+                        result: result
+                    }, function (err, data) {
                         if (err) {
                             console.log(err);
                         }
@@ -499,6 +524,58 @@ const obj = {
                 } else { //有选缴订单
                     console.log(result);
                     obj.queryOptionalAmount(account, result, res);
+                    connection.release();
+                }
+            });
+        });
+    },
+
+    queryPayMethod: function (account, data, res) {
+        console.log(account + "进入queryPayMethod函数");
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            var orderNo = data.OrderNo;
+            var Text = data.text;
+            connection.query($sql.AmountAndResttime, [account, orderNo], function (err, result) {
+                if (err) { //用户账户查询错误
+                    console.log(err);
+                    console.log("用户账户查询错误，请重新登录");
+                    ejs.renderFile('views/index.ejs', {}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else if (result[0] == undefined) { //用户不存在
+                    console.log("用户不存在，请重新登录");
+                    ejs.renderFile('views/index.ejs', {}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //用户存在
+                    console.log(result);
+                    var Data = {
+                        Text: Text,
+                        OrderNo: orderNo,
+                        OrderAccount: result[0].交易单号,
+                        OrderAmount: result[0].交易金额,
+                        OrderCreatTime: result[0].创建时间
+                    }
+                    ejs.renderFile('./views/paymentMethod.ejs', {
+                        Data
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
                     connection.release();
                 }
             });

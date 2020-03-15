@@ -23,14 +23,14 @@ function checkOptions() {
     console.log("oldKeyLength:",oldKeyLength);
     for (var j = 0; j < oldKeyLength; j++) {
         if(j == 0){
-            keys = "keys[]=" + oldKey[j] + "&";
+            keys = "keys[]=" + oldKey[j];
         }else{
-            keys = keys + "keys[]=" + oldKey[j] + "&";
+            keys += "&" + "keys[]=" + oldKey[j] ;
         }
         console.log(keys);
     }
-    var length = keys.length - 1;
-    keys = keys.substr(0, length);
+    // var length = keys.length - 1;
+    // keys = keys.substr(0, length);
     
     var checkboxlist = document.getElementsByTagName("input");
     var check = false;
@@ -59,7 +59,7 @@ function checkOptions() {
                 keys = "keys[]=" + key + "&"; //用于url传参
                 kk++;
             } else {
-                keys = keys + "keys[]=" + key + "&";
+                keys += "&" + "keys[]=" + key;
                 kk++;
             }
 
@@ -79,9 +79,9 @@ function checkOptions() {
         //获取第一位到 倒数第二位(包括)
         console.log(keys.length);
         console.log(keys);
-        var length = keys.length - 1;
-        console.log(length);
-        keys = keys.substr(0, length);
+        // var length = keys.length - 1;
+        // console.log(length);
+        // keys = keys.substr(0, length);
         console.log(keys);
         // var loves = document.getElementsByTagName("input");
         for (var i = 0; i < checkboxlist.length; i++) {

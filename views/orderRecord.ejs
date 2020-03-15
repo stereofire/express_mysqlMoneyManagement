@@ -1,35 +1,47 @@
 <!-- 订单记录页 orderRecord  -->
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>订单记录</title>
-	<link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
-	<!--<script src="javascript/首页.js"></script>-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>订单记录</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
+    <!--<script src="javascript/首页.js"></script>-->
 </head>
+
 <body>
-	<div class="col-12">
-		<img class="header" src="images/index/head.png" alt="图像加载失败">
+    <div class="col-12">
+        <img class="header" src="images/index/head.png" alt="图像加载失败">
     </div>
-    <div class="menu">  <!-- class选择器 -->
+    <div class="menu">
+        <!-- class选择器 -->
         <div class="nav">
-            <ul>    <!-- ul标签 -->
-                <li><a href="/home">首页</a></li>  <!-- li标签 -->
+            <ul>
+                <!-- ul标签 -->
+                <li><a href="/home">首页</a></li> <!-- li标签 -->
                 <li><a href="/paymentOrder">缴费订单</a></li>
-                <li><a  href="/orderRecord" style="background-color:rgb(52, 152,219)">订单记录</a></li>
+                <li><a href="/orderRecord" style="background-color:rgb(52, 152,219)">订单记录</a></li>
             </ul>
         </div>
     </div>
     <div>
-        <table class="mesage_table" >
-            <tr class="mesage_table"><!--标题及密码修改-->
-                <td class="mesage"><!--标题-->
-                    订单记录<br> 
+        <table class="mesage_table">
+            <tr class="mesage_table">
+                <!--标题及密码修改-->
+                <td class="mesage">
+                    <!--标题-->
+                    订单记录<br>
+                </td>
+                <td>
+                    <p id="please" style="text-align: left;">点击“去缴费”按钮即可进入支付页面，支付时以<b>订单编号</b>为缴费单位。</p>
+
                 </td>
             </tr>
-            <tr><td><img class="line_picture" src="images/home/line.png" alt="图片加载失败">
-            </td></tr>
+            <tr>
+                <td><img class="line_picture" src="images/home/line.png" alt="图片加载失败">
+                </td>
+            </tr>
         </table>
     </div>
     <table class="order_table" name="keyPassage">
@@ -51,7 +63,7 @@
                 <th>操作</th>
             </tr>
         </thead>
-        <% for(var i = 0; i < result.length; i++){ %> 
+        <% for(var i = 0; i < result.length; i++){ %>
         <tr>
             <td style="color: lightsteelblue;"><%= result[i].子订单编号 %></td>
             <td><%= result[i].订单编号 %></td>
@@ -64,22 +76,26 @@
             <td><%= result[i].商品单价 %></td>
             <td><%= result[i].子订单总额 %></td>
             <td style="color: lightsteelblue;"><%= result[i].商户名称 %></td>
-            
-            <% if(result[i].订单支付状态 == 3){ %> 
-                <td style="color: red;">待缴费(必缴)</td>
-                <td>去缴费</td>
+
+            <% if(result[i].订单支付状态 == 3){ %>
+            <td style="color: red;">待缴费(必缴)</td>
+            <td><button class="gotoPayButton" onclick="location.href='/paymentMethod?orderNo=' + '<%= result[i].订单编号 %>'">去缴费</button></td>
+
             <% }else if(result[i].订单支付状态 == 2){%>
-                <td style="color: red;">待缴费(选缴)</td>
-                <td>去缴费</td>
+            <td style="color: red;">待缴费(选缴)</td>
+            <td><button class="gotoPayButton" onclick="location.href='/paymentMethod?orderNo=' + '<%= result[i].订单编号 %>'">去缴费</button></td>
+
             <% }else if(result[i].订单支付状态 == 1){%>
-                <td style="color: green;">缴费成功</td>
-                <td></td>
+            <td style="color: green;">缴费成功</td>
+            <td></td>
+
             <% }else if(result[i].订单支付状态 == 0){%>
-                <td style="color: rgb(56, 59, 56);">缴费失败</td>
-                <td>查看失败原因</td>
+            <td style="color: rgb(56, 59, 56);">缴费失败</td>
+            <td>查看失败原因</td>
             <% } %>
-        </tr> 
+        </tr>
         <% } %>
     </table>
 </body>
+
 </html>

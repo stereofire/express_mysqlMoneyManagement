@@ -10,17 +10,28 @@ router.get('/', function (req, res, next) {
   var pathname = url.parse(req.url, true).pathname;
   console.log(pathname + 'get-orderConfirm');
 
-  console.log("req.query.keys:", req.query.keys); //输出req.query:[ 'goods0', 'goods1' ]
-  var keys = req.query.keys;
-  ejs.renderFile('./views/orderConfirm.ejs', {
-    keys
-  }, function (err, data) {
-    if (err) {
-      console.log(err);
-    }
-    res.end(data);
-  })
-
+  console.log("已登录用户查询：", req.session.islogin);
+  if (req.session.islogin) {
+    /*获取session.islogin*/
+    console.log("已登录用户查询：", req.session.user);
+    console.log("req.query.keys:", req.query.keys); //输出req.query:[ 'goods0', 'goods1' ]
+    var keys = req.query.keys;
+    ejs.renderFile('./views/orderConfirm.ejs', {
+      keys
+    }, function (err, data) {
+      if (err) {
+        console.log(err);
+      }
+      res.end(data);
+    })
+  } else {
+    ejs.renderFile('./views/loginTimeOut.ejs', {}, function (err, data) {
+      if (err) {
+        console.log(err);
+      }
+      res.end(data);
+    })
+  }
   //   var URL = decodeURI(location.search); //?id="123456"&Name="bicycle";
   //     var object = {};
   //     if(URL.indexOf("?") != -1)//url中存在问号，也就说有参数。  

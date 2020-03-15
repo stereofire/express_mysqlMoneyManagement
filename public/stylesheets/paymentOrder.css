@@ -102,12 +102,13 @@ ul{
     margin-left: 55%;
     margin-right: 200px;
     background-color: blanchedalmond;
-    width: 80px;
+    width: 160px;
     float: right;
     color: red;
     font-size: 13px;
+    text-align: center;
 }
-.提交订单,.支付,.查询支付,.重新支付,.查看记录{/*提交按钮*/
+.提交订单,.支付,.查看记录{/*提交按钮*/
     margin-top: 10px;
     margin-left: 55%;
     margin-right: 200px;
@@ -119,8 +120,33 @@ ul{
     border-radius: 4px;
     border:0px;
 }
+.查询支付,.重新支付{/*提交按钮*/
+    margin-top: 30px;
+    background-color: rgb(52, 152,219);
+    width: 80px;
+    color:white;
+    font-size: 13px;
+    border-radius: 4px;
+    border:0px;
+}
+.提交订单:hover {
+    background-color: #2579d1;
+}
+.支付:hover {
+    background-color: #2579d1;
+}
+.查询支付:hover {
+    background-color: #2579d1;
+}
+.重新支付:hover {
+    background-color: #2579d1;
+}
+.查看记录:hover {
+    background-color: #2579d1;
+}
+
 .successSubmit_table{/*透明背景框，勿动*/
-    width:40%;
+    width:50%;
     margin: auto;
     padding-top:0px;
     padding-bottom: 30px;
@@ -134,10 +160,22 @@ ul{
     font-size: 13px;
     color: rgb(49, 49, 128);
 }
+.submitSucPic{
+    margin-left: 0px;
+    margin-right: 20px;
+    width: 40px;
+}
 .insert{
     margin-left: 3px;
     margin-right: 3px;
     width: 16px;
+    padding-top: 7px;
+}
+.insertBig{
+    margin: auto;
+    width:200px;
+    padding-top: 10px;
+    margin-left: 150px;
 }
 #radio-1,#radio-2,#radio-3,#radio1,#radio2,#radio3,
 #radio4,#radio5,#radio6,#radio7,#radio8,#radio9,
@@ -150,7 +188,7 @@ ul{
     margin: auto;
     padding:10px;
     background-color:white;
-    color:black;
+    color: darkblue;
     font-size: 12px;
 }
 /*订单确认css结束*/
@@ -236,7 +274,7 @@ ul{
 
 .line_picture{/*灰色分割线，勿动*/
     position: absolute;
-    width:30%;
+    width:45%;
     margin-bottom:15px;
     padding-top:0px;
     padding-left: 10px;
@@ -246,7 +284,7 @@ ul{
     font-size: 12px;
     padding-top: 10px;
 }
-.必缴返回,.确认添加,.支付订单{/*返回按钮,添加按钮,去支付按钮*/
+.必缴返回,.确认添加{/*返回按钮,添加按钮*/
     margin-top: 10px;
     margin-left: 55%;
     margin-right: 200px;
@@ -258,6 +296,65 @@ ul{
     border-radius: 4px;
     border:0px;
     margin-bottom: 8px;
+}
+.必缴返回:hover {
+    background-color: #2579d1;
+}
+.确认添加:hover {
+    background-color: #2579d1;
+}
+#缴费订单页即时订单总额{
+    margin-top: 10px;
+    background-color: blanchedalmond;
+    width: 400px;
+    /* float: right; */
+    color: red;
+    font-size: 13px;
+    text-align: center;
+}
+.支付订单{/*缴费订单页去支付按钮*/
+    background-color: rgb(52, 152,219);
+    width: 80px;
+    color:white;
+    font-size: 13px;
+    border-radius: 4px;
+    border:0px;
+    text-align: center;
+}
+.支付订单:hover {
+    background-color: #2579d1;
+}
+.gotopay_table{
+    margin-left: 520px;
+    margin-right: 0px;
+    padding-left: 80px;
+    width:45%;
+    padding-top:0px;
+    padding-bottom: 30px;
+    /* background-color:white; */
+}
+.gotopay_tr{
+    width:50%;
+    padding-top:0px;
+}
+.gotopay_td1{
+    padding-bottom: 0px;
+    padding-right: 15px;
+    text-align:right;
+    color: rgb(0, 153,255);
+	padding-left:0px;
+    width: 200px;
+    margin-right: 20px;
+}
+.gotopay_td2{
+    padding-top:4px;
+    padding-left:0px;
+    padding-right: 0px;
+    padding-bottom: 6px;
+    text-align:left;
+    color: rgb(0, 153,255);
+    width: 7px;
+    margin-right: 0px;
 }
 .修改密码{
     background-color: rgb(52, 152,219);
@@ -283,7 +380,7 @@ ul{
 .order_table td,.order_table th {
     border: 1px solid #cad9ea;
     color: #666;
-    font-size: x-small;
+    font-size: 11px;
     height: 30px;
 }
 
@@ -418,4 +515,18 @@ select{
     font-size: 12px;
     border-radius: 3px;
     border:0px;
+}
+.delectButton:hover {
+    background-color: #2579d1;
+}
+.gotoPayButton{/*去缴费按钮*/
+    background-color: rgb(52, 152,219);
+    width: 50px;
+    color:white;
+    font-size: 12px;
+    border-radius: 3px;
+    border:0px;
+}
+.gotoPayButton:hover {
+    background-color: #2579d1;
 }

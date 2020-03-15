@@ -7,7 +7,7 @@
 	<title>支付方式</title>
 	<link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
     <script src="javascripts/paymentMethod.js"></script>
-    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script> -->
 </head>
 <body>
 	<div>
@@ -26,23 +26,52 @@
     <div class="payment_table" >
         <table >
             <tr><!--进度条-->
-                <td><!--标题-->
-                    <p class="payment2">订单确认</p>
+                <td>
+                    <p class="payment2">&#12288 订单确认 &#12288</p>
                 </td>
-                <td><!--标题-->
-                    <p class="payment1">支付方式</p>
+                <td>
+                    <p class="payment1">&#12288 支付方式 &#12288</p>
                 </td>
-                <td><!--标题-->
-                    <p class="payment2">支付确认</p>
+                <td>
+                    <p class="payment2">&#12288 支付确认 &#12288</p>
                 </td>
-                <td><!--标题-->
-                    <p class="payment2">支付结果</p>
+                <td>
+                    <p class="payment2">&#12288 支付结果 &#12288</p>
                 </td>
             </tr>
         </table>
     </div>
     <div class="successSubmit_table" >
-        lll 
+        <table style="padding-top: 15px;font-size: 14px;">
+            <tr>
+                <td>
+                    <img class="submitSucPic" src="images/支付方式/submitSuccess.png" alt="图像加载失败">
+                </td>
+                <td style="font-size: large;color: forestgreen;float: left;padding-top: 10px;">
+                    <b><%= Data.Text %></b>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    订单号：<%= Data.OrderNo %>
+                </td>
+                <td style="float: left;">
+                    应付金额：<%= Data.OrderAmount %>元
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>交易单号：<%= Data.OrderAccount %></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="color: red;font-size: 12px;">订单创建时间：<%= Data.OrderCreatTime %></td>
+                <td></td>
+            </tr>
+        </table>
     </div>
     <div class="selectPayway_table" >
         请选择支付方式：<br><br>
@@ -54,6 +83,14 @@
             <img class="insert" src="images/支付方式/支付宝.png" alt="图像加载失败">支付宝支付
         <input type="radio" id="radio-3" name="radio-1-set" class="regular-radio"onclick="changePay(3)"/>
             <img class="insert" src="images/支付方式/银联.png" alt="图像加载失败" >银联支付
+    </div>
+    <div class="银联" id="微信">
+        扫描微信付款二维码进行支付:<br>
+        <img class="insertBig" src="images/支付方式/weixinPay.jpg" alt="图像加载失败">
+    </div>
+    <div class="银联" id="支付宝" style="display: none;">
+        扫描支付宝付款二维码进行支付:<br>
+        <img class="insertBig" src="images/支付方式/zhifubaoPay.png" alt="图像加载失败">
     </div>
     <div class="银联" id="银联" style="display: none;">
         选择银行进行支付<br>
@@ -95,7 +132,7 @@
             <img class="insert" src="images/支付方式/宁波银行.jpg" alt="图像加载失败">宁波银行 
     </div>
     <div>
-        <a href="/paymentConfirmation"><button class="支付">支付</button></a>
+        <a href="/paymentConfirmation?orderNo='<%= Data.OrderNo %>'" ><button class="支付">支付</button></a>
     </div>
     <div>
         
