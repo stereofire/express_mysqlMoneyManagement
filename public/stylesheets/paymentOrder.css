@@ -51,8 +51,18 @@ ul{
 }
 .nav{
     text-align:center; 	/* 导航栏文字的位置  */
-    width:700px; 	/* 和文字宽度有关，不能小于文字宽度的总和  */
+    width:1260px; 	/* 和文字宽度有关，不能小于文字宽度的总和  */
     height:35px; 	/* 导航栏的宽度  */
+}
+.stuname{
+    float:right;				 /* 导航栏的位置配置 */
+    width:140px;			 /* 选中的文字块的长度  */
+    line-height:35px; 		         /* 选中的文字块的宽度  */
+    text-decoration: none;               /* 去掉连接下划线  */
+    font-size:13px;			 /* 字体大小 */
+    color: white;			 /* 字体颜色 */
+    background-color: rgb(18, 41,62)
+    
 }
 .nav a{
     float:left;				 /* 导航栏的位置配置 */
@@ -70,6 +80,7 @@ ul{
 .nav li a:link{
     text-decoration:none; /* 连接被点之后没有下划线  */
 }
+
 
 /*以下为订单确认css*/
 /*以下为支付页面标题*/
@@ -264,8 +275,9 @@ ul{
     margin-top: 30px;
     margin-left: 55%;
     margin-right: 200px;
+    margin-bottom: 3px;
     background-color: blanchedalmond;
-    width: 180px;
+    width: 190px;
     float: right;
     color: red;
     font-size: 13px;
@@ -335,9 +347,9 @@ ul{
 }
 .gotopay_tr{
     width:50%;
-    padding-top:0px;
 }
 .gotopay_td1{
+    padding-top:5px;
     padding-bottom: 0px;
     padding-right: 15px;
     text-align:right;

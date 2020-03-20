@@ -14,7 +14,7 @@ router.get('/', function (req, res, next) {
   if (req.session.islogin) {
     /*获取session.islogin*/
     console.log("已登录用户查询：", req.session.user);
-    userDao.queryTotalAmount(req.session.user, res);
+    userDao.queryTotalAmount(req.session.user, res,req);
   } else {
     ejs.renderFile('./views/loginTimeOut.ejs', {}, function (err, data) {
       if (err) {

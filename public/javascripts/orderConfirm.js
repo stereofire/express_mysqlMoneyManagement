@@ -113,7 +113,8 @@ function getDataRow(listI) { //创建行数据
 	delCell.appendChild(btnDel); //把删除按钮加入td，别忘了              
 	return row; //返回tr数据           
 }
-
+var data = {};
+var kayName = "";
 window.onload = function () { //加载完页面后，计算表格内购物车总额并显示
 	var textDiv = document.getElementById('订单总额');
 	var text = "";
@@ -127,22 +128,29 @@ window.onload = function () { //加载完页面后，计算表格内购物车总
 		for (var j = 0; j < tableBody.rows[i].cells.length; j++) { //遍历列
 			if (j == 7) {
 				var num = parseFloat(tableBody.rows[i].cells[j].innerHTML);
+				console.log(num);
 				cumputerCar += num;
 			}
+
+			if (j == 0) {
+				kayName = tableBody.rows[i].cells[j].innerHTML;
+			}
+			if (j == 5) {
+				data[kayName] = tableBody.rows[i].cells[j].innerHTML;
+			}
 		}
+		console.log("arr:", data);
 	}
 	text += "购物车总额：" + cumputerCar + "元";
 	textDiv.innerHTML = text;
+
+	var dataStr = JSON.stringify(data);
+	document.getElementById("submitData").value = dataStr;
+	// document.getElementsByName('submitData').value = dataStr;
+	console.log("submitData:",document.getElementById("submitData").value);
 }
 
 function submitOrder() {
-	var tbody = document.getElementById('tbMain');
-	for (var i = 0; i < tbody.rows.length; i++) { //遍历行
-		for (var j = 0; j < tbody.rows[i].cells.length; j++) { //遍历列
-			// if (j == 7) {
-			// 	var num = parseFloat(tbody.rows[i].cells[j].innerHTML);
-			// 	cumputerCar += num;
-			// }
-		}
-	}
+	document.submitDataForm.submit();
+	// return false;
 }

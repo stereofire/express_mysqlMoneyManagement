@@ -17,6 +17,7 @@ router.get('/', function (req, res, next) {
   if (req.session.islogin) {
     /*获取session.islogin*/
     console.log("已登录用户查询：", req.session.user);
+    console.log("req.session:",req.session);
     userDao.queryInformation(req.session.user, res);
   } else {
     ejs.renderFile('./views/loginTimeOut.ejs', {}, function (err, data) {

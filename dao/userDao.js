@@ -6,6 +6,7 @@ var $util = require('../util/util');
 var $sql = require('./userSqlMapping');
 var ejs = require('ejs');
 var fs = require('fs');
+moment = require('moment');
 // 使用连接池，提升性能
 var pool = mysql.createPool($util.extend({}, $conf.mysql));
 
@@ -77,6 +78,8 @@ const obj = {
                         req.session.user = account;
                         // 设置是否登录为true
                         req.session.islogin = true;
+                        // 设置已登录用户的欢迎名
+                        req.session.username = studentName;
                         ejs.renderFile('views/home.ejs', {
                             user: {
                                 arr: {
@@ -115,7 +118,8 @@ const obj = {
             });
         });
     },
-    // 密码修改
+
+    // 密码修改操作
     updatePassword: function (account, new_password, res) {
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
@@ -146,7 +150,7 @@ const obj = {
             });
         });
     },
-    // 密码修改验证
+    // 密码修改验证，引用updatePassword
     change_Password: function (account, old_password, new_password, res) {
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
@@ -196,6 +200,7 @@ const obj = {
             });
         });
     },
+
     // home页信息
     queryInformation: function (account, res) {
         console.log(account + "进入queryInformation函数");
@@ -266,14 +271,14 @@ const obj = {
         });
     },
     // paymentOrder缴费订单页信息（仅需订单总额）
-    queryTotalAmount: function (account, res) {
+    queryTotalAmount: function (account, res, req) {
         console.log(account + "进入queryTotalAmount函数");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
                 console.log("数据库连接池错误");
                 res.send();
             }
-            var arrAccount = [account, account, account]
+            var arrAccount = [account, account, account];
             connection.query($sql.TotalAmount, arrAccount, function (err, result) {
                 if (err) { //用户账户查询错误
                     console.log(err);
@@ -315,8 +320,10 @@ const obj = {
                         totalAmount[2].totalAmount = 0;
                         console.log(totalAmount[2].totalAmount);
                     }
+                    var studentName = req.session.username;
                     ejs.renderFile('views/paymentOrder.ejs', {
-                        totalAmount
+                        totalAmount,
+                        studentName
                     }, function (err, data) {
                         if (err) {
                             console.log(err);
@@ -330,7 +337,7 @@ const obj = {
     },
 
     // requireOrder必缴订单页信息(两个函数)
-    queryRequireAmount: function (account, Result, res) {
+    queryRequireAmount: function (account, Result, res, req) {
         console.log(account + "进入queryRequireAmount函数");
         pool.getConnection(function (err, connection) {
             if (err) {
@@ -344,9 +351,11 @@ const obj = {
                     queryTotalAmount(account, res);
                 } else if (result[0] == undefined) { //无必缴账单总额,返回必缴账单总额为0、必缴订单
                     console.log("无必缴账单总额,返回必缴账单总额为0、必缴订单");
+                    var studentName = req.session.username;
                     ejs.renderFile('views/requiredOrder.ejs', {
                         requireAmount: 0,
-                        result: Result
+                        result: Result,
+                        studentName
                     }, function (err, data) {
                         if (err) {
                             console.log(err);
@@ -356,9 +365,11 @@ const obj = {
                 } else { //有必缴账单总额
                     console.log(result[0]);
                     var requireAmount = new String(result[0].requireAmount);
+                    var studentName = req.session.username;
                     ejs.renderFile('views/requiredOrder.ejs', {
                         requireAmount: requireAmount,
-                        result: Result
+                        result: Result,
+                        studentName
                     }, function (err, data) {
                         if (err) {
                             console.log(err);
@@ -370,7 +381,7 @@ const obj = {
             });
         });
     },
-    queryRequireOrders: function (account, res) {
+    queryRequireOrders: function (account, res, req) {
         console.log(account + "进入queryRequireOrders函数");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
@@ -380,18 +391,14 @@ const obj = {
             connection.query($sql.RequireOrders, account, function (err, result) {
                 if (err) { //必缴账单查询错误
                     console.log("必缴账单查询错误，返回缴费订单总页");
-                    ejs.renderFile('views/paymentOrder.ejs', {}, function (err, data) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        res.end(data);
-                    })
-                    connection.release();
+                    obj.queryTotalAmount(account, res, req);
                 } else if (result[0] == undefined) { //无必缴账单
                     console.log("无必缴账单");
+                    var studentName = req.session.username;
                     ejs.renderFile('views/requiredOrder.ejs', {
                         requireAmount: 0,
-                        result: result
+                        result: result,
+                        studentName
                     }, function (err, data) {
                         if (err) {
                             console.log(err);
@@ -401,55 +408,7 @@ const obj = {
                     connection.release();
                 } else { //有必缴账单
                     console.log(result);
-                    // var requireAmount = new String(result[0].requireAmount);
-                    // var requireAmount = 2000;
-                    obj.queryRequireAmount(account, result, res);
-                    // ejs.renderFile('views/requiredOrder.ejs', {result:result}, function (err, data) {
-                    //     if (err) {
-                    //         console.log(err);
-                    //     }
-                    //     res.end(data);
-                    // })
-                    connection.release();
-                }
-            });
-        });
-    },
-
-    //orderRecord订单记录页信息
-    queryOrderRecord: function (account, res) {
-        console.log(account + "进入queryOrderRecord函数");
-        pool.getConnection(function (err, connection) {
-            if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
-            }
-            connection.query($sql.OrderRecord, account, function (err, result) {
-                if (err) { //订单记录查询错误
-                    console.log("订单记录查询错误，返回缴费订单总页");
-                    connection.release();
-                    queryTotalAmount(account, res);
-                } else if (result[0] == undefined) { //无订单记录
-                    console.log("无订单记录");
-                    ejs.renderFile('views/orderRecord.ejs', {
-                        result: result
-                    }, function (err, data) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        res.end(data);
-                    })
-                    connection.release();
-                } else { //有订单记录
-                    console.log(result);
-                    ejs.renderFile('views/orderRecord.ejs', {
-                        result: result
-                    }, function (err, data) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        res.end(data);
-                    })
+                    obj.queryRequireAmount(account, result, res, req);
                     connection.release();
                 }
             });
@@ -457,10 +416,9 @@ const obj = {
     },
 
     //optionalOrder 选缴订单页信息(两个函数)
-    queryOptionalAmount: function (account, Result, res) {
+    queryOptionalAmount: function (account, Result, res, req) {
         console.log(account + "进入queryOptionalAmount函数");
         pool.getConnection(function (err, connection) {
-
             if (err) {
                 console.log("数据库连接池错误");
                 res.send();
@@ -469,12 +427,14 @@ const obj = {
                 if (err) {
                     console.log("选缴账单查询错误，返回缴费订单总页");
                     connection.release();
-                    queryTotalAmount(account, res);
+                    queryTotalAmount(account, res, req);
                 } else if (result[0].optionalAmount == null) { //无选缴账单总额,返回选缴账单总额为0、选缴订单
                     console.log("无选缴账单总额,返回选缴账单总额为0、选缴订单");
+                    var studentName = req.session.username;
                     ejs.renderFile('views/optionalOrder.ejs', {
                         optionalAmount: 0,
-                        result: Result
+                        result: Result,
+                        studentName
                     }, function (err, data) {
                         if (err) {
                             console.log(err);
@@ -484,9 +444,11 @@ const obj = {
                 } else { //有选缴账单总额
                     console.log("选缴账单总额:", result[0].optionalAmount);
                     var optionalAmount = new String(result[0].optionalAmount);
+                    var studentName = req.session.username;
                     ejs.renderFile('views/optionalOrder.ejs', {
                         optionalAmount: optionalAmount,
-                        result: Result
+                        result: Result,
+                        studentName
                     }, function (err, data) {
                         if (err) {
                             console.log(err);
@@ -498,7 +460,7 @@ const obj = {
             });
         });
     },
-    queryOptionalOrder: function (account, res) {
+    queryOptionalOrder: function (account, res, req) {
         console.log(account + "进入queryOptionalOrder函数");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
@@ -509,11 +471,13 @@ const obj = {
                 if (err) { //选缴订单查询错误
                     console.log("选缴订单查询错误，返回缴费订单总页");
                     connection.release();
-                    queryTotalAmount(account, res);
+                    queryTotalAmount(account, res, req);
                 } else if (result[0] == undefined) { //无可选缴订单
                     console.log("无可选缴订单");
+                    var studentName = req.session.username;
                     ejs.renderFile('views/optionalOrder.ejs', {
-                        result: result
+                        result: result,
+                        studentName
                     }, function (err, data) {
                         if (err) {
                             console.log(err);
@@ -523,53 +487,45 @@ const obj = {
                     connection.release();
                 } else { //有选缴订单
                     console.log(result);
-                    obj.queryOptionalAmount(account, result, res);
+                    obj.queryOptionalAmount(account, result, res, req);
                     connection.release();
                 }
             });
         });
     },
 
-    queryPayMethod: function (account, data, res) {
-        console.log(account + "进入queryPayMethod函数");
+    //orderRecord订单记录页信息
+    queryOrderRecord: function (account, res, req) {
+        console.log(account + "进入queryOrderRecord函数");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
                 console.log("数据库连接池错误");
                 res.send();
             }
-            var orderNo = data.OrderNo;
-            var Text = data.text;
-            connection.query($sql.AmountAndResttime, [account, orderNo], function (err, result) {
-                if (err) { //用户账户查询错误
-                    console.log(err);
-                    console.log("用户账户查询错误，请重新登录");
-                    ejs.renderFile('views/index.ejs', {}, function (err, data) {
+            connection.query($sql.OrderRecord, account, function (err, result) {
+                if (err) { //订单记录查询错误
+                    console.log("订单记录查询错误，返回缴费订单总页");
+                    connection.release();
+                    queryTotalAmount(account, res, req);
+                } else if (result[0] == undefined) { //无订单记录
+                    console.log("无订单记录");
+                    var studentName = req.session.username;
+                    ejs.renderFile('views/orderRecord.ejs', {
+                        result: result,
+                        studentName
+                    }, function (err, data) {
                         if (err) {
                             console.log(err);
                         }
                         res.end(data);
                     })
                     connection.release();
-                } else if (result[0] == undefined) { //用户不存在
-                    console.log("用户不存在，请重新登录");
-                    ejs.renderFile('views/index.ejs', {}, function (err, data) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        res.end(data);
-                    })
-                    connection.release();
-                } else { //用户存在
+                } else { //有订单记录
                     console.log(result);
-                    var Data = {
-                        Text: Text,
-                        OrderNo: orderNo,
-                        OrderAccount: result[0].交易单号,
-                        OrderAmount: result[0].交易金额,
-                        OrderCreatTime: result[0].创建时间
-                    }
-                    ejs.renderFile('./views/paymentMethod.ejs', {
-                        Data
+                    var studentName = req.session.username;
+                    ejs.renderFile('views/orderRecord.ejs', {
+                        result: result,
+                        studentName
                     }, function (err, data) {
                         if (err) {
                             console.log(err);
@@ -582,9 +538,219 @@ const obj = {
         });
     },
 
+    // paymeMethod缴费方式页面ejs参数设定与渲染
+    queryPayMethod: function (account, data, res, req) {
+        console.log(account + "进入queryPayMethod函数");
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            var orderNo = data.OrderNo;
+            var Text = data.text;
+            connection.query($sql.AmountAndResttime, [account, orderNo], function (err, result) {
+                if (err) { //订单支付查询错误
+                    console.log(err);
+                    console.log("订单支付查询错误，返回订单记录页");
+                    connection.release();
+                    queryOrderRecord(account, res, req);
+                } else if (result[0] == undefined) { //订单支付不存在
+                    console.log("订单支付不存在，返回订单记录页");
+                    connection.release();
+                    queryOrderRecord(account, res, req);
+                } else { //订单支付存在
+                    console.log(result);
+                    var Data = {
+                        Text: Text,
+                        OrderNo: orderNo,
+                        OrderAccount: result[0].交易单号,
+                        OrderAmount: result[0].交易金额,
+                        OrderCreatTime: result[0].创建时间
+                    }
+                    // console.log(req.session.username);
+                    var studentName = req.session.username;
+                    ejs.renderFile('./views/paymentMethod.ejs', {
+                        Data,
+                        studentName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                }
+            });
+        });
+    },
+
+    // orderSubmit提交订单——插入订单信息表
+    querySubmitOrder: function (account, data, res, req) {
+        console.log(account + "进入querySubmitOrder函数");
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            console.log(data); // { S000002: '1', S000001: '1' }
+            var studentName = req.session.username;
 
 
+            // 插入订单信息
+            console.log((new Date()).getTime()); // js13位时间戳
+            console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss')); // mysql的datetime时间类型
+            var creattime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+            var payLimitTime = moment(new Date()).add(2, 'days').format('YYYY-MM-DD HH:mm:ss');;
 
+            var orderid = obj.createRandomId(); // 生成唯一订单号：YYYY-MM-DD+js13位时间戳+7位随机数字
+            // res.send(orderid);
+            connection.query($sql.InsertOrder, [orderid, creattime, account,payLimitTime], function (err, result) {
+                if (err) { //订单信息表插入错误
+                    console.log(err);
+                    console.log("订单信息表插入错误，返回订单记录页");
+                    connection.release();
+                    obj.queryOrderRecord(account, res, req);
+                } else { //订单信息表插入成功
+                    console.log(result.insertId);
+                    var insertOrderId = result.insertId;
+                    // 引用查询商品单价和供应商代码的函数
+                    // obj.queryCmmodit(account, insertOrderId, data, res, req);
+
+                    // 循环查询所有商品单价和供应商代码，并插入子订单信息表
+                    var goodsList = Object.keys(data);
+                    console.log(goodsList);
+                    var k = 0;
+                    for (var i = 0; i < goodsList.length; i++) {
+                        connection.query($sql.QueryCmmodit, goodsList[i], function (err, result) {
+                            if (err) { //查询商品单价和供应商代码错误
+                                console.log(err);
+                                console.log("查询商品单价和供应商代码错误，返回订单记录页");
+                                connection.release();
+                                obj.queryOrderRecord(account, res, req);
+                            } else {
+                                // console.log(result);
+                                var Result = JSON.parse(JSON.stringify(result));
+                                // console.log(Result);
+                                var price = Result[0].商品单价;
+                                var MerchantID = Result[0].商户代码;
+                                // console.log(price,MerchantID);
+
+                                // 产生子订单编号
+                                var childOrderID = "";
+                                childOrderID = insertOrderId + obj.PrefixInteger(k + 1, 2);
+                                console.log("childOrderID:", childOrderID);
+
+                                // 订单编号：insertOrderId
+                                // 商品编号：goodsList[i]
+                                // 数量：data.goodsList[i]
+                                // 单价：price
+                                // 子订单总额：data.goodsList[i]*price
+                                // 商户代码：MerchantID
+                                // console.log(insertOrderId,goodsList[k],data[goodsList[k]],price,data[goodsList[k++]]*price,MerchantID);
+
+                                var arrChildOrder = [childOrderID, insertOrderId, goodsList[k], parseInt(data[goodsList[k]]), price, data[goodsList[k++]] * price, MerchantID];
+                                console.log(arrChildOrder);
+                                connection.query($sql.InsertChildOrder, arrChildOrder, function (err, result) {
+                                    if (err) { //插入子订单错误
+                                        console.log(err);
+                                        console.log("插入子订单错误，返回订单记录页");
+                                        connection.release();
+                                        obj.queryOrderRecord(account, res, req);
+                                    } else { // SUM查询需要插入订单信息表的订单总额
+                                        connection.query($sql.SumOrderAmount, insertOrderId, function (err, result) {
+                                            if (err) { //SUM查询订单总额错误
+                                                console.log(err);
+                                                console.log("SUM查询订单总额错误，返回订单记录页");
+                                                connection.release();
+                                                obj.queryOrderRecord(account, res, req);
+                                            } else { //SUM查询订单总额成功
+                                                console.log(insertOrderId, result[0].订单总额);
+                                                var amount = result[0].订单总额;
+                                                connection.query($sql.UpdateOrderAmount, [amount, insertOrderId], function (err, result) {
+                                                    if (err) { //更新订单总额错误
+                                                        console.log(err);
+                                                        console.log("更新订单总额错误，返回订单记录页");
+                                                        connection.release();
+                                                        obj.queryOrderRecord(account, res, req);
+                                                    }
+                                                });
+
+                                            }
+
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                    connection.release();
+
+                    // res.send("插入插入子订单成功");
+                    ejs.renderFile('./views/orderSubmit.ejs', {
+                        // Data,
+                        studentName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                }
+            });
+
+        });
+    },
+
+    // 生成唯一交易单号编码
+    createRandomId: function () {
+        return moment(new Date()).format('YYYYMMDD') + (new Date()).getTime() + Math.floor((Math.random() + Math.floor(Math.random() * 9 + 1)) * Math.pow(10, 7 - 1));
+    },
+
+    // num传入的数字，m需要的字符长度。例如：传入8，需要的字符长度为3，调用方法后字符串结果为：008
+    PrefixInteger: function (num, n) {
+        return (Array(n).join(0) + num).slice(-n);
+    },
+
+    // 奖学金发放信息页
+    queryScholarshipRecord: function (account, res, req) {
+        console.log(account + "进入queryScholarshipRecord函数");
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.QueryScholarship, account, function (err, result) {
+                if (err) { //奖学金信息查询错误
+                    console.log("奖学金信息查询错误，返回缴费订单总页");
+                    obj.queryTotalAmount(account, res, req);
+                } else if (result[0] == undefined) { //无奖学金信息
+                    console.log("无奖学金信息，返回订单记录页");
+                    connection.release();
+                    queryOrderRecord(account, res, req);
+                } else { //有奖学金信息
+                    console.log(result);
+                    var scholarshipAmount = 0;
+                    for (var i = 0; i < result.length; i++) {
+                        scholarshipAmount += result[i].金额;
+                    }
+                    // obj.queryRequireAmount(account, result, res, req);
+                    connection.release();
+                    var studentName = req.session.username;
+                    // res.send(studentName);
+                    ejs.renderFile('./views/scholarshipRecord.ejs', {
+                        result,
+                        studentName,
+                        scholarshipAmount
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                }
+            });
+        });
+    },
 
 
 

@@ -21,7 +21,7 @@ router.get('/', function (req, res, next) {
       OrderNo : orderNo
     }
     console.log(data);
-    userDao.queryPayMethod(req.session.user, data,res);
+    userDao.queryPayMethod(req.session.user, data,res,req);
   } else {
     ejs.renderFile('./views/loginTimeOut.ejs', {}, function (err, data) {
       if (err) {

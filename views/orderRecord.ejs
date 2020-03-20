@@ -22,6 +22,9 @@
                 <li><a href="/home">首页</a></li> <!-- li标签 -->
                 <li><a href="/paymentOrder">缴费订单</a></li>
                 <li><a href="/orderRecord" style="background-color:rgb(52, 152,219)">订单记录</a></li>
+                <li><a href="/scholarshipRecord">奖学金发放信息</a></li>
+                <li class="stuname" >欢迎您：<font color="lightblue"><%= studentName%></font> 同学</li>
+                <li style="float:right"><a href="/loginOut" >注销登录</a></li>
             </ul>
         </div>
     </div>
@@ -55,12 +58,14 @@
                 <th>商品属性1</th>
                 <th>商品属性2</th>
                 <th>商品属性3</th>
-                <th>数量</th>
-                <th>单价(元)</th>
+                <th style="width: 40px;">数量</th>
+                <th style="width: 60px;">单价(元)</th>
                 <th>子订单总额(元)</th>
                 <th>商户名称</th>
+                <th>创建时间</th>
+                <th>支付期限</th>
                 <th>订单支付状态</th>
-                <th>操作</th>
+                <th>操作/支付时间</th>
             </tr>
         </thead>
         <% for(var i = 0; i < result.length; i++){ %>
@@ -72,22 +77,24 @@
             <td><%= result[i].属性1 %></td>
             <td><%= result[i].属性2 %></td>
             <td><%= result[i].属性3 %></td>
-            <td><%= result[i].商品数量 %></td>
-            <td><%= result[i].商品单价 %></td>
+            <td style="width: 40px;"><%= result[i].商品数量 %></td>
+            <td style="width: 60px;"><%= result[i].商品单价 %></td>
             <td><%= result[i].子订单总额 %></td>
             <td style="color: lightsteelblue;"><%= result[i].商户名称 %></td>
+            <td><%= result[i].创建时间 %></td>
+            <td><%= result[i].支付期限 %></td>
 
             <% if(result[i].订单支付状态 == 3){ %>
             <td style="color: red;">待缴费(必缴)</td>
             <td><button class="gotoPayButton" onclick="location.href='/paymentMethod?orderNo=' + '<%= result[i].订单编号 %>'">去缴费</button></td>
 
             <% }else if(result[i].订单支付状态 == 2){%>
-            <td style="color: red;">待缴费(选缴)</td>
+            <td style="color: orangered;">待缴费(选缴)</td>
             <td><button class="gotoPayButton" onclick="location.href='/paymentMethod?orderNo=' + '<%= result[i].订单编号 %>'">去缴费</button></td>
 
             <% }else if(result[i].订单支付状态 == 1){%>
             <td style="color: green;">缴费成功</td>
-            <td></td>
+            <td><%=result[i].支付时间%></td>
 
             <% }else if(result[i].订单支付状态 == 0){%>
             <td style="color: rgb(56, 59, 56);">缴费失败</td>

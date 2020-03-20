@@ -8,7 +8,7 @@ module.exports = {
         database: 'db20200213', 
         port: 3306,
         multipleStatements: true, //一个pool里多条sql查询语句。
-        timezone: "08:00"
+        timezone: "08:00"//datetime数据格式
     }
 };
 // NO	表名	ID	功能描述	备注

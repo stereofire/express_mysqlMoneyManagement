@@ -11,10 +11,11 @@ router.get('/', function (req, res, next) {
   console.log(pathname + 'get-paymentResult');
 
   console.log("已登录用户查询：", req.session.islogin);
+  var studentName= req.session.username;
   if (req.session.islogin) {
     /*获取session.islogin*/
     console.log("已登录用户查询：", req.session.user);
-    ejs.renderFile('./views/paymentResult.ejs', {}, function (err, data) {
+    ejs.renderFile('./views/paymentResult.ejs', {studentName}, function (err, data) {
       if (err) {
         console.log(err);
       }

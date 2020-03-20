@@ -20,8 +20,10 @@ router.get('/', function (req, res, next) {
     var length = orderNo.length - 2;
     orderNo = orderNo.substr(1, length); //－－－'hello world';
     console.log(orderNo);
+    var studentName= req.session.username;
     ejs.renderFile('./views/paymentConfirmation.ejs', {
-      orderNo
+      orderNo,
+      studentName
     }, function (err, data) {
       if (err) {
         console.log(err);

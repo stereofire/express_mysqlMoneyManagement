@@ -19,16 +19,16 @@
                 <li><a href="/home">首页</a></li>  <!-- li标签 -->
                 <li><a href="/paymentOrder" >缴费订单</a></li>
                 <li><a href="/orderRecord">订单记录</a></li>
+                <li><a href="/scholarshipRecord">奖学金发放信息</a></li>
+                <li class="stuname" >欢迎您：<font color="lightblue"><%= studentName%></font> 同学</li>
+                <li style="float:right"><a href="/loginOut" >注销登录</a></li>
             </ul>
         </div>
     </div>
  
     <div class="payment_table" >
         <table >
-            <tr><!--进度条-->
-                <td>
-                    <p class="payment2">&#12288 订单确认 &#12288</p>
-                </td>
+            <tr>
                 <td>
                     <p class="payment1">&#12288 支付方式 &#12288</p>
                 </td>
@@ -57,10 +57,16 @@
                 <td>
                     订单号：<%= Data.OrderNo %>
                 </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
                 <td style="float: left;">
                     应付金额：<%= Data.OrderAmount %>元
                 </td>
+                <td></td>
             </tr>
+            
             <tr>
                 <td></td>
                 <td>交易单号：<%= Data.OrderAccount %></td>

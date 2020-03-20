@@ -20,6 +20,9 @@
                 <li><a href="/home">首页</a></li>
                 <li><a href="/paymentOrder">缴费订单</a></li>
                 <li><a href="/orderRecord">订单记录</a></li>
+                <li><a href="/scholarshipRecord">奖学金发放信息</a></li>
+                <li class="stuname">欢迎您：<font color="lightblue"><%= studentName%></font> 同学</li>
+                <li style="float:right"><a href="/loginOut">注销登录</a></li>
             </ul>
         </div>
     </div>
@@ -32,19 +35,19 @@
                     <p class="payment1">&#12288 订单确认 &#12288</p>
                 </td>
                 <td>
-                    <p class="payment2">&#12288 支付方式 &#12288</p>
+                    <p class="payment2">&#12288 提交结果 &#12288</p>
                 </td>
-                <td>
+                <!-- <td>
                     <p class="payment2">&#12288 支付确认 &#12288</p>
                 </td>
                 <td>
                     <p class="payment2">&#12288 支付结果 &#12288</p>
-                </td>
+                </td> -->
             </tr>
         </table>
     </div>
     <% if(keys == undefined){ %>
-    <div  class="payment_table">
+    <div class="payment_table">
         <table class="mesage_table">
             <tr class="mesage_table">
                 <td class="mesage" style="color: rebeccapurple;font-size:small;">
@@ -57,6 +60,8 @@
         <a href="/optionalOrder"><button class="提交订单">返回</button></a>
     </div>
     <% }else{ %>
+    <!-- <form name="FtbMain" action="/orderConfirm" method="POST"> -->
+    <!-- <form name="FtbMain" > -->
     <div class="payment_table">
         <table class="confirm" id="confirmTB">
             <thead>
@@ -66,8 +71,8 @@
                     <th>商品属性1</th>
                     <th>商品属性2</th>
                     <th>商品属性3</th>
-                    <th>单价(元)</th>
                     <th>数量</th>
+                    <th>单价(元)</th>
                     <th>子订单总额(元)</th>
                     <th>操作</th>
                 </tr>
@@ -76,24 +81,28 @@
         </table>
         <p id="please" style="text-align: right;">此处为“购物车”数据，确认“购物车”商品后请点击“提交订单”按钮，正式生成订单，即可继续完成缴费流程。</p>
     </div>
-    
+
     <div id="订单总额">
         <!-- 购物车总额：元 -->
     </div>
     <div>
         <a href="/optionalOrder"><button class="提交订单">返回</button></a>
     </div>
+    <form name="submitDataForm" id="submitDataForm" action="/orderConfirm" method="POST">
+        <input type='text' style="display:none" name="submitData" id="submitData" value=""/>
+    </form>
     <div>
-        <!-- <button class="提交订单" onclick="location.href='/paymentMethod'">提交订单</button> -->
-        <button class="提交订单" onclick="submitOrder()">提交订单</button>
+        <!-- <button class="提交订单">提交订单</button> -->
+        <button class="提交订单" type="submit" onclick="submitOrder()">提交订单</button>
     </div>
+
     <% } %>
 </body>
 
 </html>
 <script> var getKeys = '<%= keys %>';</script>
 
-<script>if(!(getKeys.length == 0)){
-    getGoods(getKeys);
-}
+<script>if (!(getKeys.length == 0)) {
+        getGoods(getKeys);
+    }
 </script>

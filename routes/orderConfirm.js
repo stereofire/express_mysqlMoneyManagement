@@ -16,8 +16,10 @@ router.get('/', function (req, res, next) {
     console.log("已登录用户查询：", req.session.user);
     console.log("req.query.keys:", req.query.keys); //输出req.query:[ 'goods0', 'goods1' ]
     var keys = req.query.keys;
+    var studentName = req.session.username;
     ejs.renderFile('./views/orderConfirm.ejs', {
-      keys
+      keys,
+      studentName
     }, function (err, data) {
       if (err) {
         console.log(err);
@@ -48,5 +50,33 @@ router.get('/', function (req, res, next) {
   // console.log(a);
   // var list = JSON.parse(req.body.keys);
   // console.log(list);
+});
+
+/* 获取用户提交的订单信息. */
+router.post('/', function (req, res, next) {
+  var method = req.method.toLowerCase();
+  console.log(method);
+  var pathname = url.parse(req.url, true).pathname;
+  console.log(pathname + 'post-orderConfirm');
+  console.log("已登录用户查询：", req.session.islogin);
+  if (req.session.islogin) {
+    /*获取订单信息*/
+    console.log('get orders FormData Params: ', req.body);
+    var submitData = req.body.submitData;
+    var ordersObj = JSON.parse(submitData);
+    console.log("get submitDataObj:", ordersObj);
+    /*提交订单信息到数据库*/
+    var account = req.session.user;
+    userDao.querySubmitOrder(account, ordersObj, res, req); //function (json) {
+    
+  } else {
+    ejs.renderFile('./views/loginTimeOut.ejs', {}, function (err, data) {
+      if (err) {
+        console.log(err);
+        res.send("登录超时刷新失败");
+      }
+      res.end(data);
+    })
+  }
 });
 module.exports = router;
