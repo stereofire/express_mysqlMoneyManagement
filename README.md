@@ -34,5 +34,6 @@ mysql: {
 #### /conf: 配置
 #### /dao: 与数据库交互
 #### /node_modules:  依赖
+#### /jq:  jQuery,但目前从未使用过。。
 ##### app.js: 程序main文件
 ##### package.json: 依赖记录文件
