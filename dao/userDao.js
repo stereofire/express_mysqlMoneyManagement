@@ -752,6 +752,29 @@ const obj = {
         });
     },
 
+    //orderRecord订单记录页删除选缴订单
+    deleteOrderRecord: function (account, res, req) {
+        console.log(account + "进入deleteOrderRecord函数");
+        var orderID =  req.query.deleteOrder;
+        console.log(orderID);
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.deleteOrder, [orderID,orderID], function (err, result) {
+                if (err) { //删除选缴订单错误
+                    console.log("删除选缴订单错误，返回订单记录页");
+                    connection.release();
+                    obj.queryOrderRecord(account, res, req);
+                }else { //删除选缴订单成功
+                    console.log("选缴订单删除结果：",result,"加载订单记录页");
+                    connection.release();
+                    obj.queryOrderRecord(account, res, req);
+                }
+            });
+        });
+    },
 
 
 

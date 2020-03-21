@@ -9,12 +9,18 @@ router.get('/', function (req, res, next) {
   console.log(method);
   var pathname = url.parse(req.url, true).pathname;
   console.log(pathname + 'get-orderRecord');
-
+  console.log("req.query:", req.query.deleteOrder); 
   console.log("已登录用户查询：", req.session.islogin);
   if (req.session.islogin) {
     /*获取session.islogin*/
     console.log("已登录用户查询：", req.session.user);
-    userDao.queryOrderRecord(req.session.user, res,req);
+    if(req.query.deleteOrder == undefined){
+      userDao.queryOrderRecord(req.session.user, res,req);
+    }else{
+      console.log("删除订单记录：",req.query.deleteOrder);
+      userDao.deleteOrderRecord(req.session.user, res,req);
+      // res.send("jjj");
+    }
   } else {
     ejs.renderFile('./views/loginTimeOut.ejs', {}, function (err, data) {
       if (err) {

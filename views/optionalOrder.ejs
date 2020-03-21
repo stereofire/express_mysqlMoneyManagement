@@ -25,7 +25,7 @@
                 <li><a href="/orderRecord">订单记录</a></li>
                 <li><a href="/scholarshipRecord">奖学金发放信息</a></li>
                 <li class="stuname" >欢迎您：<font color="lightblue"><%= studentName%></font> 同学</li>
-                <li style="float:right"><a href="/loginOut" >注销登录</a></li>
+                <li style="float:right"><a href="/loginOut"><img class="loginout_picture" src="images/home/Out.png" alt="图片加载失败">注销登录</a></li>
             </ul>
         </div>
     </div>
@@ -54,7 +54,7 @@
     </table>
     </div>
     <!-- <form action="/" name="ordered"> -->
-    <table class="order_table" name="keyPassage">
+    <table class="order_table" name="keyPassage"style="margin-bottom: 5px;">
         <thead>
             <tr>
                 <th>序号</th>
@@ -100,7 +100,7 @@
     </div>
     <div>
         <!-- <a href="/orderConfirm"><button class="确认添加" onclick="checkOptions()">确认添加</button></a> -->
-        <a><button class="确认添加" onclick="checkOptions()">确认添加</button></a>
+        <button class="确认添加" onclick="checkOptions()" style="margin-bottom: 6px;">确认添加</button>
     </div>
     <script>
         function goToOC() {
@@ -138,8 +138,10 @@
         }
     </script>
     <div>
-
        <button class="确认添加" onclick="goToOC()">查看已添加</button>
+    </div>
+    <div id="lsx">
+        版权所有-©苏州大学数学科学学院校级大创项目组 2020
     </div>
 </body>
 

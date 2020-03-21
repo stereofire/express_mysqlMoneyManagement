@@ -36,6 +36,11 @@ var user = {
     // 奖学金发放信息页
     QueryScholarship:"SELECT * FROM `奖学金信息表` WHERE `奖学金信息表`.`学号` = ? ORDER BY `奖学金信息表`.`发放编号` ASC",
 
+    // 删除选缴订单
+    deleteOrder:"DELETE FROM `订单信息表` WHERE `订单编号` = ?; DELETE FROM `子订单信息表` WHERE `订单编号` = ?;",
+    
+    
+    
     insert: 'INSERT INTO user(id, name, age) VALUES(0,?,?)',
     update: 'update user set name=?, age=? where id=?',
     delete: 'delete from user where id=?',

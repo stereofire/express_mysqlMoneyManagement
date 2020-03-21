@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>订单记录</title>
     <link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
-    <!--<script src="javascript/首页.js"></script>-->
+    <script src="javascripts/orderRecord.js"></script>
 </head>
 
 <body>
@@ -23,14 +23,15 @@
                 <li><a href="/paymentOrder">缴费订单</a></li>
                 <li><a href="/orderRecord" style="background-color:rgb(52, 152,219)">订单记录</a></li>
                 <li><a href="/scholarshipRecord">奖学金发放信息</a></li>
-                <li class="stuname" >欢迎您：<font color="lightblue"><%= studentName%></font> 同学</li>
-                <li style="float:right"><a href="/loginOut" >注销登录</a></li>
+                <li class="stuname">欢迎您：<font color="lightblue"><%= studentName%></font> 同学</li>
+                <li style="float:right"><a href="/loginOut"><img class="loginout_picture" src="images/home/Out.png"
+                            alt="图片加载失败">注销登录</a></li>
             </ul>
         </div>
     </div>
     <div>
-        <table class="mesage_table">
-            <tr class="mesage_table">
+        <table class="mesage_table" style="width: 80%;">
+            <tr class="mesage_table" style="width: 80%;">
                 <!--标题及密码修改-->
                 <td class="mesage">
                     <!--标题-->
@@ -47,62 +48,127 @@
             </tr>
         </table>
     </div>
-    <table class="order_table" name="keyPassage">
+    <table class="order_table" id="OrderRecordTB" name="keyPassage" style="width: 80%;">
         <thead>
             <tr>
                 <!-- <th>订单编号</th> -->
-                <th>子订单编号</th>
-                <th>订单编号</th>
-                <th>商品编号</th>
-                <th>商品名称</th>
-                <th>商品属性1</th>
-                <th>商品属性2</th>
-                <th>商品属性3</th>
+                <th style="width: 65px;">订单编号</th>
+                <th style="width: 75px;">子订单编号</th>
+                <th style="width: 65px;">商品编号</th>
+                <th style="width: 95px;">商品名称</th>
+                <th>商品参数1</th>
+                <th>商品参数2</th>
+                <th>商品参数3</th>
                 <th style="width: 40px;">数量</th>
                 <th style="width: 60px;">单价(元)</th>
-                <th>子订单总额(元)</th>
+                <th style="width: 60px;">子订单总额(元)</th>
                 <th>商户名称</th>
-                <th>创建时间</th>
-                <th>支付期限</th>
-                <th>订单支付状态</th>
-                <th>操作/支付时间</th>
+                <th style="width: 75px;">创建时间</th>
+                <th style="width: 75px;">支付期限</th>
+                <th>支付状态</th>
+                <th style="width: 130px;">操作/支付时间</th>
             </tr>
         </thead>
         <% for(var i = 0; i < result.length; i++){ %>
         <tr>
-            <td style="color: lightsteelblue;"><%= result[i].子订单编号 %></td>
-            <td><%= result[i].订单编号 %></td>
-            <td style="color: lightsteelblue;"><%= result[i].商品编号 %></td>
-            <td><%= result[i].商品名称 %></td>
+            <td style="width: 65px;"><%= result[i].订单编号 %></td>
+            <td style="color: lightsteelblue;" style="width: 75px;"><%= result[i].子订单编号 %></td>
+            <td style="color: lightsteelblue;width: 65px;"><%= result[i].商品编号 %></td>
+            <td style="width: 95px;"><%= result[i].商品名称 %></td>
             <td><%= result[i].属性1 %></td>
             <td><%= result[i].属性2 %></td>
             <td><%= result[i].属性3 %></td>
             <td style="width: 40px;"><%= result[i].商品数量 %></td>
             <td style="width: 60px;"><%= result[i].商品单价 %></td>
-            <td><%= result[i].子订单总额 %></td>
+            <td style="width: 60px;"><%= result[i].子订单总额 %></td>
             <td style="color: lightsteelblue;"><%= result[i].商户名称 %></td>
-            <td><%= result[i].创建时间 %></td>
-            <td><%= result[i].支付期限 %></td>
-
+            <td style="color:rgb(173, 173, 173);"><%= result[i].创建时间 %></td>
+            <% if(result[i].订单支付状态 == 3 || result[i].订单支付状态 == 2){ %>
+            <td style="color: orange;"><%= result[i].支付期限 %></td>
+            <% }else{ %>
+            <td style="color:rgb(173, 173, 173);"><%= result[i].支付期限 %></td>
+            <% } %>
             <% if(result[i].订单支付状态 == 3){ %>
             <td style="color: red;">待缴费(必缴)</td>
-            <td><button class="gotoPayButton" onclick="location.href='/paymentMethod?orderNo=' + '<%= result[i].订单编号 %>'">去缴费</button></td>
+            <td><button class="gotoPayButton"
+                    onclick="location.href='/paymentMethod?orderNo=' + '<%= result[i].订单编号 %>'">去缴费</button></td>
 
-            <% }else if(result[i].订单支付状态 == 2){%>
-            <td style="color: orangered;">待缴费(选缴)</td>
-            <td><button class="gotoPayButton" onclick="location.href='/paymentMethod?orderNo=' + '<%= result[i].订单编号 %>'">去缴费</button></td>
+            <% }else if(result[i].订单支付状态 == 2){ %>
+            <td style="color: rgba(252, 70, 4, 0.781);">待缴费(选缴)</td>
+            <td style="width: 130px;">
+                <button class="gotoPayButton"
+                    onclick="location.href='/paymentMethod?orderNo=' + '<%= result[i].订单编号 %>'">去缴费</button>
+                <button class="deleteOrderRecord" onclick="deleteOrder('<%= result[i].订单编号 %>')">删除</button>
+            </td>
 
-            <% }else if(result[i].订单支付状态 == 1){%>
-            <td style="color: green;">缴费成功</td>
+            <% }else if(result[i].订单支付状态 == 1){ %>
+            <td style="color: rgb(2, 175, 2);">缴费成功</td>
             <td><%=result[i].支付时间%></td>
 
-            <% }else if(result[i].订单支付状态 == 0){%>
+            <% }else if(result[i].订单支付状态 == 0){ %>
             <td style="color: rgb(56, 59, 56);">缴费失败</td>
             <td>查看失败原因</td>
             <% } %>
         </tr>
         <% } %>
     </table>
+    <div id="lsx">
+        版权所有-©苏州大学数学科学学院校级大创项目组 2020
+    </div>
 </body>
 
 </html>
+<script>
+    window.onload = function () {
+        mergeSameCell(document.getElementById('OrderRecordTB'), 1, 0, [0, 11, 12, 13, 14]);
+    };
+    //tbl:table对应的dom元素，  
+    //beginRow:从第几行开始合并（从0开始），  
+    //endRow:合并到哪一行，负数表示从底下数几行不合并  
+    //colIdxes:合并的列下标的数组，如[0,1]表示合并前两列，[0]表示只合并第一列  
+    function mergeSameCell(tbl, beginRow, endRow, colIdxes) {
+        var colIdx = colIdxes[0];
+        var newColIdxes = colIdxes.concat();
+        newColIdxes.splice(0, 1)
+        var delRows = new Array();
+        var rs = tbl.rows;
+        //endRow为0的时候合并到最后一行，小于0时表示最后有-endRow行不合并  
+        if (endRow === 0) {
+            endRow = rs.length - 1;
+        } else if (endRow < 0) {
+            endRow = rs.length - 1 + endRow;
+        }
+        var rowSpan = 1; //要设置的rowSpan的值  
+        var rowIdx = beginRow; //要设置rowSpan的cell行下标  
+        var cellValue; //存储单元格里面的内容  
+        for (var i = beginRow; i <= endRow + 1; i++) {
+            if (i === endRow + 1) { //过了最后一行的时候合并前面的单元格  
+                if (newColIdxes.length > 0) {
+                    mergeSameCell(tbl, rowIdx, endRow, newColIdxes);
+                }
+                rs[rowIdx].cells[colIdx].rowSpan = rowSpan;
+            } else {
+                var cell = rs[i].cells[colIdx];
+                if (i === beginRow) { //第一行的时候初始化各个参数  
+                    cellValue = cell.innerHTML;
+                    rowSpan = 1;
+                    rowIdx = i;
+                } else if (cellValue != cell.innerHTML) { //数据改变合并前面的单元格  
+                    cellValue = cell.innerHTML;
+                    if (newColIdxes.length > 0) {
+                        mergeSameCell(tbl, rowIdx, i - 1, newColIdxes);
+                    }
+                    rs[rowIdx].cells[colIdx].rowSpan = rowSpan;
+                    rowSpan = 1;
+                    rowIdx = i;
+                } else if (cellValue === cell.innerHTML) { //数据和前面的数据重复的时候删除单元格  
+                    rowSpan++;
+                    delRows.push(i);
+                }
+            }
+        }
+        for (var j = 0; j < delRows.length; j++) {
+            rs[delRows[j]].deleteCell(colIdx);
+        }
+    }
+</script>
