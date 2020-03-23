@@ -50,8 +50,8 @@ app.use(bodyParser.urlencoded({
 })); //解析post请求主体
 
 //路由
+const users = require('./routes/users');// 测试
 const index = require('./routes/index'); // 登录页 index 路由
-const users = require('./routes/users');
 const home = require('./routes/home'); //首页 home 路由
 const changePassword = require('./routes/changePassword'); // 密码修改页 changePassword 路由
 const changePasswordOK = require('./routes/changePasswordOK'); // 密码修改成功页 changePasswordOK 路由
@@ -64,14 +64,28 @@ const paymentOrder = require('./routes/paymentOrder'); // 缴费订单页 paymen
 const paymentResult = require('./routes/paymentResult'); // 支付结果页 paymentResult 路由
 const requiredOrder = require('./routes/requiredOrder'); // 必缴订单页 requiredOrder 路由
 const loginOut = require('./routes/loginOut'); // 注销登录 loginOut 路由
-// const loginTimeOut = require('./routes/loginTimeOut');// 注销登录 loginOut 路由
 const orderSubmit = require('./routes/orderSubmit'); // 订单提交结果 orderSubmit 路由
 const scholarshipRecord = require('./routes/scholarshipRecord'); // 奖学金发放信息 scholarshipRecord 路由
-// const orderRecordFold = require('./routes/orderRecordFold'); // 订单记录(折叠)页 orderRecordFold 路由
+
+const Tindex = require('./routes/Tindex'); // 教师登录 Tindex 路由
+const Thome = require('./routes/Thome'); // 教师首页 Thome 路由
+const TchangePassword = require('./routes/TchangePassword'); // 密码修改页 changePassword 路由
+const TchangePasswordOK = require('./routes/TchangePasswordOK'); // 密码修改成功页 changePasswordOK 路由
+const TstudentInfoAdmin = require('./routes/TstudentInfoAdmin'); // 学生信息管理页 TstudentInfoAdmin 路由
+const TgroupInfoAdmin = require('./routes/TgroupInfoAdmin'); // 商户集团管理页 TgroupInfoAdmin 路由
+const TcorpInfoAdmin = require('./routes/TcorpInfoAdmin'); // 供应商管理页 TcorpInfoAdmin 路由
+const TproductListAdmin = require('./routes/TproductListAdmin'); // 缴费项目管理页 TproductListAdmin 路由
+const TrequiredOrdersAdmin = require('./routes/TrequiredOrdersAdmin'); // 必缴管理页 TrequiredOrdersAdmin 路由
+const TorderRecordsAdmin = require('./routes/TorderRecordsAdmin'); // 缴费记录管理页 TorderRecordsAdmin 路由
+const TstockListAdmin = require('./routes/TstockListAdmin'); // 供货管理页 TstockListAdmin 路由
+const TcoursePlansAdmin = require('./routes/TcoursePlansAdmin'); // 教材计划管理页 TcoursePlansAdmin 路由
+const TclearInfoAdmin = require('./routes/TclearInfoAdmin'); // 清算统计页 TclearInfoAdmin 路由
+const TscholarshipInfoAdmin = require('./routes/TscholarshipInfoAdmin'); //资金发放管理页 TscholarshipInfoAdmin 路由
+const TloginOut = require('./routes/TloginOut'); // 教师用户注销  TloginOut 路由
 
 
-app.use('/', index);
 app.use('/users', users);
+app.use('/', index);
 app.use('/home', home);
 app.use('/changePassword', changePassword);
 app.use('/changePasswordOK', changePasswordOK);
@@ -84,12 +98,24 @@ app.use('/paymentOrder', paymentOrder);
 app.use('/paymentResult', paymentResult);
 app.use('/requiredOrder', requiredOrder);
 app.use('/loginOut', loginOut);
-// app.use('/loginTimeOut', loginTimeOut);
 app.use('/orderSubmit', orderSubmit);
 app.use('/scholarshipRecord', scholarshipRecord);
-// app.use('/orderRecordFold', orderRecordFold);
 
-
+app.use('/teacher', Tindex);
+app.use('/Thome', Thome);
+app.use('/TchangePassword', TchangePassword);
+app.use('/TchangePasswordOK', TchangePasswordOK);
+app.use('/TstudentInfoAdmin', TstudentInfoAdmin);
+app.use('/TgroupInfoAdmin', TgroupInfoAdmin);
+app.use('/TcorpInfoAdmin', TcorpInfoAdmin);
+app.use('/TproductListAdmin', TproductListAdmin);
+app.use('/TrequiredOrdersAdmin', TrequiredOrdersAdmin);
+app.use('/TorderRecordsAdmin', TorderRecordsAdmin);
+app.use('/TstockListAdmin', TstockListAdmin);
+app.use('/TcoursePlansAdmin', TcoursePlansAdmin);
+app.use('/TclearInfoAdmin', TclearInfoAdmin);
+app.use('/TscholarshipInfoAdmin', TscholarshipInfoAdmin);
+app.use('/TloginOut', TloginOut);
 
 // 捕获路由404并转发到错误处理程序 
 app.use(function (req, res, next) {

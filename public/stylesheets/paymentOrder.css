@@ -65,6 +65,29 @@ ul{
     width:1260px; 	/* 和文字宽度有关，不能小于文字宽度的总和  */
     height:35px; 	/* 导航栏的宽度  */
 }
+.Tnav{
+    position:absolute;
+    margin-left: 0px;
+    text-align:center; 	/* 导航栏文字的位置  */
+    width:140px; 	/* 和文字宽度有关  */
+    padding-left: 0px;
+}
+.Tnav a{
+    float:left;				 /* 导航栏的位置配置 */
+    width:140px;			 /* 选中的文字块的长度  */
+    line-height:35px; 		         /* 选中的文字块的宽度  */
+    text-decoration: none;               /* 去掉连接下划线  */
+    font-size:14px;			 /* 字体大小 */
+    color: white;			 /* 字体颜色 */
+    background-color: rgb(18, 71,107)
+}
+.Tnav li a:hover{
+    background-color:rgb(52, 152,219);	        /* 选中的文字块的颜色 */
+    text-decoration:none;		/* 选中时去掉连接下划线 */	
+}
+.Tnav li a:link{
+    text-decoration:none; /* 连接被点之后没有下划线  */
+}
 .stuname{
     float:right;				 /* 导航栏的位置配置 */
     width:140px;			 /* 选中的文字块的长度  */
@@ -74,6 +97,15 @@ ul{
     color: white;			 /* 字体颜色 */
     background-color: rgb(18, 41,62)
     
+}
+.teaname{
+    float:right;				 /* 导航栏的位置配置 */
+    width:140px;			 /* 选中的文字块的长度  */
+    line-height:35px; 		         /* 选中的文字块的宽度  */
+    text-decoration: none;               /* 去掉连接下划线  */
+    font-size:13px;			 /* 字体大小 */
+    color: white;			 /* 字体颜色 */
+    background-color: rgb(18, 41,62);
 }
 .nav a{
     float:left;				 /* 导航栏的位置配置 */
@@ -223,6 +255,21 @@ ul{
     padding-bottom: 30px;
     background-color:white;
 }
+.teacher_mesage_table{/*白色背景框，勿动*/
+    margin-left: 160px;
+    width:85%;
+    /* margin: auto; */
+    padding-top:0px;
+    padding-bottom: 30px;
+    background-color:white;
+}
+.teacher_code_table{
+    width:85%;
+    margin-left: 160px;
+    padding-top:0px;
+    padding-bottom: 30px;
+    background-color:white;
+}
 .code_table{
     width:80%;
     margin: auto;
@@ -240,6 +287,7 @@ ul{
     width: 190px;
     margin-right: 220px;
 }
+
 #main {
     /*div居中*/
     margin:0 auto;

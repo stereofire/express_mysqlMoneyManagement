@@ -606,7 +606,7 @@ const obj = {
 
             var orderid = obj.createRandomId(); // 生成唯一订单号：YYYY-MM-DD+js13位时间戳+7位随机数字
             // res.send(orderid);
-            connection.query($sql.InsertOrder, [orderid, creattime, account,payLimitTime], function (err, result) {
+            connection.query($sql.InsertOrder, [orderid, creattime, account, payLimitTime], function (err, result) {
                 if (err) { //订单信息表插入错误
                     console.log(err);
                     console.log("订单信息表插入错误，返回订单记录页");
@@ -757,26 +757,399 @@ const obj = {
     //orderRecord订单记录页删除选缴订单
     deleteOrderRecord: function (account, res, req) {
         console.log(account + "进入deleteOrderRecord函数");
-        var orderID =  req.query.deleteOrder;
+        var orderID = req.query.deleteOrder;
         console.log(orderID);
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
                 console.log("数据库连接池错误");
                 res.send();
             }
-            connection.query($sql.deleteOrder, [orderID,orderID], function (err, result) {
+            connection.query($sql.deleteOrder, [orderID, orderID], function (err, result) {
                 if (err) { //删除选缴订单错误
                     console.log("删除选缴订单错误，返回订单记录页");
                     connection.release();
                     obj.queryOrderRecord(account, res, req);
-                }else { //删除选缴订单成功
-                    console.log("选缴订单删除结果：",result,"加载订单记录页");
+                } else { //删除选缴订单成功
+                    console.log("选缴订单删除结果：", result, "加载订单记录页");
                     connection.release();
                     obj.queryOrderRecord(account, res, req);
                 }
             });
         });
     },
+
+    // 教师登录
+    teacher_check_login: function (account, password, req, res) {
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.Tcheck, account, function (err, result) {
+                if (err) { //用户账户查询错误
+                    console.log("用户账户查询错误，请重新登录");
+                    ejs.renderFile('views/Tindex.ejs', {}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    // callback(1);
+                    connection.release();
+                } else if (result[0] == undefined) { //用户不存在
+                    console.log("用户不存在，请重新登录");
+                    ejs.renderFile('views/Tindex.ejs', {}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //用户存在
+                    console.log(result[0]);
+                    var college = new String(result[0].学校);
+                    var teacherName = new String(result[0].姓名);
+                    var job = new String(result[0].职务);
+                    var rightPassword = new String(result[0].密码);
+                    console.log("正确密码应为：", rightPassword);
+                    if (rightPassword == password) { //密码正确
+                        console.log('密码正确,登录成功');
+                        req.session.user = account;
+                        req.session.islogin = true;
+                        req.session.username = teacherName;
+                        ejs.renderFile('views/Thome.ejs', {
+                            user: {
+                                arr: {
+                                    teacherName: teacherName,
+                                    teacherID: account,
+                                    college: college,
+                                    job: job,
+                                }
+                            }
+                        }, function (err, data) {
+                            if (err) {
+                                console.log(err);
+                            }
+                            res.end(data);
+                        })
+                        connection.release();
+                    } else { //密码错误
+                        console.log("密码错误，请重新登陆！");
+                        console.log(3);
+                        ejs.renderFile('views/Tindex.ejs', {}, function (err, data) {
+                            if (err) {
+                                console.log(err);
+                            }
+                            res.end(data);
+                        })
+                        connection.release();
+                    }
+                }
+            });
+        });
+    },
+
+    // 教师密码修改操作
+    teacher_updatePassword: function (account, new_password, res) {
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TchangePssword, [new_password, account], function (err, result) {
+                if (err) {
+                    console.log('密码修改出错，请重新密码更新操作');
+                    ejs.renderFile('views/TchangePassword.ejs', {}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //密码修改成功,重新登录
+                    // console.log(result[0]);//密码修改成功后不会有反馈，result=undefined
+                    console.log("密码修改成功,请重新登录");
+                    connection.release();
+                    ejs.renderFile('views/TchangePasswordOK.ejs', {}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                }
+            });
+        });
+    },
+    // 密码修改验证，引用updatePassword
+    teacher_change_Password: function (account, old_password, new_password, res) {
+        console.log(account + "进入teacher_change_Password函数");
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.Tcheck, account, function (err, result) {
+                console.log(result);
+                if (err) { //用户账户查询错误,重新密码更新
+                    console.log("用户账户查询错误，请重新密码更新操作");
+                    ejs.renderFile('views/TchangePassword.ejs', {}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else if (result[0] == undefined) { //用户不存在,重新密码更新
+                    console.log("用户不存在，请重新密码更新操作");
+                    ejs.renderFile('views/TchangePassword.ejs', {}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //用户存在
+                    console.log(result[0]);
+                    var rightPassword = new String(result[0].密码);
+                    console.log("正确密码应为：", rightPassword);
+                    if (rightPassword == old_password) { //密码正确,可以进行密码修改操作
+                        console.log('密码正确,可以进行密码修改操作');
+                        connection.release();
+                        obj.teacher_updatePassword(account, new_password, res);
+                        console.log('调用了userDao.teacher_updatePassword');
+                    } else { //密码错误，驳回修改密码请求
+                        console.log("密码错误，驳回修改密码请求！");
+                        console.log(3);
+                        ejs.renderFile('views/TchangePassword.ejs', {}, function (err, data) {
+                            if (err) {
+                                console.log(err);
+                            }
+                            res.end(data);
+                        })
+                        connection.release();
+                    }
+                }
+            });
+        });
+    },
+
+    // Thome页信息 queryTInformation
+    queryTInformation: function (account, res) {
+        console.log(account + "进入queryTInformation函数");
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.Tcheck, account, function (err, result) {
+                if (err) { //用户账户查询错误
+                    console.log("用户账户查询错误，请重新登录");
+                    ejs.renderFile('views/Tindex.ejs', {}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else if (result[0] == undefined) { //用户不存在
+                    console.log("用户不存在，请重新登录");
+                    ejs.renderFile('views/Tindex.ejs', {}, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //用户存在
+                    console.log(result[0]);
+                    var college = new String(result[0].学校);
+                    var teacherName = new String(result[0].姓名);
+                    var job = new String(result[0].职务);
+                    ejs.renderFile('views/Thome.ejs', {
+                        user: {
+                            arr: {
+                                teacherName: teacherName,
+                                teacherID: account,
+                                college: college,
+                                job: job,
+                            }
+                        }
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+
+                }
+            });
+        });
+    },
+
+    //TstudentInfoAdmin 学生信息管理页信息
+    queryTstudentInfo: function (account, res, req) {
+        console.log(account + "进入queryTstudentInfo函数");
+        var teacherName = req.session.username;
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TstudentInfo, account, function (err, result) {
+                if (err) { //学生信息查询错误
+                    console.log("学生信息查询错误，返回Thome页");
+                    connection.release();
+                    obj.queryTInformation(account, res);
+                } else if (result[0] == undefined) { //无学生信息
+                    console.log("无学生信息");
+                    ejs.renderFile('views/TstudentInfoAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //有学生信息
+                    console.log(result);
+                    ejs.renderFile('views/TstudentInfoAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                }
+            });
+        });
+    },
+
+    // TgroupInfoAdmin 商户集团管理页信息
+    queryTgroupInfo: function (account, res, req) {
+        console.log(account + "进入queryTgroupInfo函数");
+        var teacherName = req.session.username;
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TgroupInfo, account, function (err, result) {
+                if (err) { //商户集团查询错误
+                    console.log("商户集团查询错误，返回Thome页");
+                    connection.release(account, res);
+                    obj.queryTInformation(account, res);
+                } else if (result[0] == undefined) { //无商户集团
+                    console.log("无商户集团");
+                    ejs.renderFile('views/TgroupInfoAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //有商户集团
+                    console.log(result);
+                    ejs.renderFile('views/TgroupInfoAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                }
+            });
+        });
+    },
+
+    // TcorpInfoAdmin 供应商管理页信息
+    queryTcorpInfo: function (account, res, req) {
+        console.log(account + "进入queryTcorpInfo函数");
+        var teacherName = req.session.username;
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TcorpInfo, function (err, result) {
+                if (err) { //供应商查询错误
+                    console.log("供应商查询错误，返回Thome页");
+                    connection.release(account, res);
+                    obj.queryTInformation(account, res);
+                } else if (result[0] == undefined) { //无供应商
+                    console.log("无供应商");
+                    ejs.renderFile('views/TcorpInfoAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //有供应商
+                    console.log(result);
+                    ejs.renderFile('views/TcorpInfoAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                }
+            });
+        });
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

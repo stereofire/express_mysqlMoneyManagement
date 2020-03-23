@@ -40,6 +40,17 @@ var user = {
     deleteOrder:"DELETE FROM `订单信息表` WHERE `订单编号` = ?; DELETE FROM `子订单信息表` WHERE `订单编号` = ?;",
     
     
+    // 教师个人信息
+    Tcheck: 'select * from 管理员信息表 where 管理员号=?',
+    // 更新教师密码
+    TchangePssword: 'update 管理员信息表 set 密码=? where 管理员号=?',
+    // 学生信息
+    TstudentInfo: 'select * from 用户信息表 ',
+    // 商户集团信息
+    TgroupInfo: 'select * from 商户集团信息表',
+    // 商户信息
+    TcorpInfo: 'select * from 商户信息表',
+
     
     insert: 'INSERT INTO user(id, name, age) VALUES(0,?,?)',
     update: 'update user set name=?, age=? where id=?',
