@@ -1,29 +1,48 @@
-function sendForm(){
-	if(check_login()){
+function sendForm() {
+	if (check_login()) {
 		document.userLogin.submit();
-	}else{
+	} else {
 		console.log("check_login error, u can't submit the login form.");
 		return false;
 	}
 }
 
-function check_login() {//账号密码是否为空	
+function check_login() { //检查输入合法性	
 	var my_account = document.forms["userLogin"]["account"].value;
 	var my_password = document.forms["userLogin"]["password"].value;
 	if (my_account == null || my_account == "") {
 		alert("请输入账号");
 		return false;
-	}else if (my_password == null || my_password == "") {
+	} else if (pattern.test(my_account)) {
+		alert("账号有非法字符!");
+	} else if (my_password == null || my_password == "") {
 		alert("请输入密码");
 		return false;
-	}else{
+	} else if (my_password.length < 8) {
+		alert("密码长度不能小于8位");
+		return false;
+	} else if (my_password.length > 14) {
+		alert("密码长度不能大于14位");
+		return false;
+	} else if (pattern.test(my_password)) {
+		alert("密码有非法字符!");
+	} else {
 		return verifyCode();
 	}
+}
+var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]")
+
+function stripscript(s) {
+	var rs = "";
+	for (var i = 0; i < s.length; i++) {
+		rs = rs + s.substr(i, 1).replace(pattern, '');
+	}
+	return rs;
 }
 
 var code; //在全局定义验证码    
 
-function createCode() {//生成验证码
+function createCode() { //生成验证码
 	code = "";
 	var codeLength = 4; //验证码的长度   
 	// var checkCode = document.getElementById("checkCode");

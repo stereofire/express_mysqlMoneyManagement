@@ -107,7 +107,13 @@
 
             <% }else if(result[i].订单支付状态 == 0){ %>
             <td style="color: rgb(56, 59, 56);">缴费失败</td>
-            <td>查看失败原因</td>
+            <td><%= result[i].支付失败原因 %></td>
+            <% }else if(result[i].订单支付状态 == 4){  %>
+            <td style="color: rgb(56, 59, 56);">选缴超时</td>
+            <td><%= result[i].支付失败原因 %></td>
+            <% }else if(result[i].订单支付状态 == 5){  %>
+            <td style="color: rgb(56, 59, 56);">必缴超时</td>
+            <td><%= result[i].支付失败原因 %></td>
             <% } %>
         </tr>
         <% } %>

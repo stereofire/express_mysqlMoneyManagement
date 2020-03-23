@@ -6,28 +6,50 @@
 
 var app = require('../app');
 var debug = require('debug')('express-mysql-rumen-test:server');
-var http = require('http');
+// var http = require('http');202003231059
+
+let https = require('https');
+let http = require('http');// 开发时适用
+let fs = require('fs');
+let privateKey  = fs.readFileSync('certificate/private.pem', 'utf8');
+let certificate = fs.readFileSync('certificate/csr.crt', 'utf8');
+let cert = {key: privateKey, cert: certificate};
+
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3001');
-app.set('port', port);
+// var port = normalizePort(process.env.PORT || '3001');202003231059
+var portHTTP = normalizePort(process.env.PORT || '3001');// 开发时适用
+var portHTTPS = normalizePort(process.env.PORT || '3002');
+app.set('portHTTP', portHTTP);// 开发时适用
+app.set('portHTTPS', portHTTPS);
+
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+// var server = http.createServer(app);202003231059
+
+let httpServer = http.createServer(app);// 开发时适用
+let httpsServer = https.createServer(cert, app);
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+ // server.listen(port);202003231059
+// server.on('error', onError);202003231059
+// server.on('listening', onListening);202003231059
+httpServer.listen(portHTTP);// 开发时适用
+httpServer.on('error', onError);// 开发时适用
+httpServer.on('listening', onListeningHTTP);// 开发时适用
+
+httpsServer.listen(portHTTPS);
+httpsServer.on('error', onError);
+httpsServer.on('listening', onListeningHTTPS);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -81,10 +103,21 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening() {
-  var addr = server.address();
+function onListeningHTTP() {// 开发时适用
+  // var addr = server.address();202003231059
+  var addr = httpServer.address();
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+function onListeningHTTPS() {
+  // var addr = server.address();202003231059
+  var addr = httpsServer.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
+
+

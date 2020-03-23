@@ -62,19 +62,32 @@
             <tr>
                 <td></td>
                 <td style="float: left;">
-                    应付金额：<%= Data.OrderAmount %>元
+                    应付金额：<font style="color: orangered;"><%= Data.OrderAmount %></font> 元
                 </td>
                 <td></td>
             </tr>
-            
             <tr>
                 <td></td>
-                <td>交易单号：<%= Data.OrderAccount %></td>
+                <td style="color: red;">支付倒计时：<font id="countDown"></font> </td>
+                <td></td>
+            </tr>
+            <tr></tr><tr></tr>
+            <tr>
+                <td style="display: none;"><font id="seconds"> <%= Data.CountDoun %></font></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="font-size: 11px;">交易单号：<%= Data.OrderAccount %></td>
                 <td></td>
             </tr>
             <tr>
                 <td></td>
-                <td style="color: red;font-size: 12px;">订单创建时间：<%= Data.OrderCreatTime %></td>
+                <td id="creatTime" style="font-size: 11px;">订单创建时间：<%= Data.OrderCreatTime %></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td id="limitTime" style="font-size: 11px;">订单支付截止时间：<%= Data.OrderLimitTime %></td>
                 <td></td>
             </tr>
         </table>
@@ -138,7 +151,7 @@
             <img class="insert" src="images/支付方式/宁波银行.jpg" alt="图像加载失败">宁波银行 
     </div>
     <div>
-        <a href="/paymentConfirmation?orderNo='<%= Data.OrderNo %>'" ><button class="支付">支付</button></a>
+        <a href="/paymentConfirmation?orderNo='<%= Data.OrderNo %>'" ><button class="支付" style="margin-bottom: 40px;">支付</button></a>
     </div>
     <div>
         

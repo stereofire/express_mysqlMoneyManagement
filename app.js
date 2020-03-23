@@ -9,6 +9,7 @@ var ejs = require('ejs');
 var app = express();
 // var $ = jQuery = require("./jq/jquery");
 
+
 //引入express-session
 var session = require("express-session");
 //配置中间件
@@ -66,7 +67,7 @@ const loginOut = require('./routes/loginOut'); // 注销登录 loginOut 路由
 // const loginTimeOut = require('./routes/loginTimeOut');// 注销登录 loginOut 路由
 const orderSubmit = require('./routes/orderSubmit'); // 订单提交结果 orderSubmit 路由
 const scholarshipRecord = require('./routes/scholarshipRecord'); // 奖学金发放信息 scholarshipRecord 路由
-const orderRecordFold = require('./routes/orderRecordFold'); // 订单记录(折叠)页 orderRecordFold 路由
+// const orderRecordFold = require('./routes/orderRecordFold'); // 订单记录(折叠)页 orderRecordFold 路由
 
 
 app.use('/', index);
@@ -86,7 +87,7 @@ app.use('/loginOut', loginOut);
 // app.use('/loginTimeOut', loginTimeOut);
 app.use('/orderSubmit', orderSubmit);
 app.use('/scholarshipRecord', scholarshipRecord);
-app.use('/orderRecordFold', orderRecordFold);
+// app.use('/orderRecordFold', orderRecordFold);
 
 
 

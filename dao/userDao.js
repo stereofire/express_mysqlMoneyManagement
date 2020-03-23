@@ -553,11 +553,11 @@ const obj = {
                     console.log(err);
                     console.log("订单支付查询错误，返回订单记录页");
                     connection.release();
-                    queryOrderRecord(account, res, req);
+                    obj.queryOrderRecord(account, res, req);
                 } else if (result[0] == undefined) { //订单支付不存在
                     console.log("订单支付不存在，返回订单记录页");
                     connection.release();
-                    queryOrderRecord(account, res, req);
+                    obj.queryOrderRecord(account, res, req);
                 } else { //订单支付存在
                     console.log(result);
                     var Data = {
@@ -565,7 +565,9 @@ const obj = {
                         OrderNo: orderNo,
                         OrderAccount: result[0].交易单号,
                         OrderAmount: result[0].交易金额,
-                        OrderCreatTime: result[0].创建时间
+                        OrderCreatTime: result[0].创建时间,
+                        OrderLimitTime: result[0].支付期限,
+                        CountDoun: result[0].剩余时间
                     }
                     // console.log(req.session.username);
                     var studentName = req.session.username;

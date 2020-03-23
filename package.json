@@ -16,6 +16,7 @@
     "express-partials": "^0.3.0",
     "express-session": "^1.17.0",
     "formidable": "^1.2.1",
+    "fs": "0.0.1-security",
     "http-errors": "~1.6.3",
     "jQuery": "^1.7.4",
     "jade": "~1.11.0",
