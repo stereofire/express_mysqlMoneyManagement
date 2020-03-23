@@ -26,6 +26,7 @@ mysql: {
 ```127.0.0.1:3001```
 ## 目录介绍  
 #### /bin: 用于应用启动
+#### /certificate: https网站的ssl证书与密钥文件
 #### /public: 静态资源目录
 #### /routes：可以认为是controller（控制器）目录
 #### /views: ejs模板目录，可以认为是view(视图)目录
@@ -33,6 +34,7 @@ mysql: {
 #### /util: 工具方法
 #### /conf: 配置
 #### /dao: 与数据库交互
+#### /illustration: 说明文件，包括数据库表结构、ssl说明等
 #### /node_modules:  依赖
 #### /jq:  jQuery,但目前从未使用过。。
 ##### app.js: 程序main文件
