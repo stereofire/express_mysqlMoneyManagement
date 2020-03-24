@@ -80,6 +80,12 @@ const obj = {
                         req.session.islogin = true;
                         // 设置已登录用户的欢迎名
                         req.session.username = studentName;
+                        // 开启event_scheduler
+                        connection.query($sql.setEventScheduler, account, function (err, result) {
+                            if (err) { //开启event_scheduler错误
+                                console.log("开启event_scheduler错误。");
+                            }
+                        });
                         ejs.renderFile('views/home.ejs', {
                             user: {
                                 arr: {
@@ -1116,6 +1122,306 @@ const obj = {
         });
     },
 
+    // TproductListAdmin 缴费项目管理页信息
+    queryTproductList: function (account, res, req) {
+        console.log(account + "进入queryTproductList函数");
+        var teacherName = req.session.username;
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TproductList, function (err, result) {
+                if (err) { //缴费项目查询错误
+                    console.log("缴费项目查询错误，返回Thome页");
+                    connection.release(account, res);
+                    obj.queryTInformation(account, res);
+                } else if (result[0] == undefined) { //无缴费项目
+                    console.log("无缴费项目");
+                    ejs.renderFile('views/TproductListAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //有缴费项目
+                    console.log(result);
+                    ejs.renderFile('views/TproductListAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                }
+            });
+        });
+    },
+
+    // TallOrdersAdmin 缴费订单管理页信息
+    queryTallOrders: function (account, res, req) {
+        console.log(account + "进入queryTallOrders函数");
+        var teacherName = req.session.username;
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TallOrders, function (err, result) {
+                if (err) { // 缴费订单查询错误
+                    console.log(" 缴费订单查询错误，返回Thome页");
+                    connection.release(account, res);
+                    obj.queryTInformation(account, res);
+                } else if (result[0] == undefined) { //无 缴费订单
+                    console.log("无缴费订单");
+                    ejs.renderFile('views/TallOrdersAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //有缴费订单
+                    console.log(result);
+                    ejs.renderFile('views/TallOrdersAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                }
+            });
+        });
+    },
+
+    // TpaymentRecordsAdmin 缴费记录管理页信息
+    queryTpaymentRecords: function (account, res, req) {
+        console.log(account + "进入queryTpaymentRecords函数");
+        var teacherName = req.session.username;
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TpaymentRecords, function (err, result) {
+                if (err) { // 缴费记录查询错误
+                    console.log(" 缴费记录查询错误，返回Thome页");
+                    connection.release(account, res);
+                    obj.queryTInformation(account, res);
+                } else if (result[0] == undefined) { //无 缴费记录
+                    console.log("无缴费记录");
+                    ejs.renderFile('views/TpaymentRecordsAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //有缴费记录
+                    console.log(result);
+                    ejs.renderFile('views/TpaymentRecordsAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                }
+            });
+        });
+    },
+
+    // TstockListAdmin 供货管理页信息
+    queryTstockList: function (account, res, req) {
+        console.log(account + "进入queryTstockList函数");
+        var teacherName = req.session.username;
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TstockList, function (err, result) {
+                if (err) { // 供货管理查询错误
+                    console.log(" 供货管理查询错误，返回Thome页");
+                    connection.release(account, res);
+                    obj.queryTInformation(account, res);
+                } else if (result[0] == undefined) { //无供货管理
+                    console.log("无供货管理");
+                    ejs.renderFile('views/TstockListAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //有供货管理
+                    console.log(result);
+                    ejs.renderFile('views/TstockListAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                }
+            });
+        });
+    },
+
+    // TcoursePlansAdmin 教材计划管理页信息
+    queryTcoursePlans: function (account, res, req) {
+        console.log(account + "进入queryTcoursePlans函数");
+        var teacherName = req.session.username;
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TcoursePlans, function (err, result) {
+                if (err) { // 教材计划查询错误
+                    console.log(" 教材计划查询错误，返回Thome页");
+                    connection.release(account, res);
+                    obj.queryTInformation(account, res);
+                } else if (result[0] == undefined) { //无教材计划
+                    console.log("无教材计划");
+                    ejs.renderFile('views/TcoursePlansAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //有教材计划
+                    console.log(result);
+                    ejs.renderFile('views/TcoursePlansAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                }
+            });
+        });
+    },
+
+    // TclearInfoAdmin 清算统计页信息
+    queryTclearInfo: function (account, res, req) {
+        console.log(account + "进入queryTclearInfo函数");
+        var teacherName = req.session.username;
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TclearInfo, function (err, result) {
+                if (err) { // 清算统计查询错误
+                    console.log(" 清算统计查询错误，返回Thome页");
+                    connection.release(account, res);
+                    obj.queryTInformation(account, res);
+                } else if (result[0] == undefined) { //无清算统计
+                    console.log("无清算统计");
+                    ejs.renderFile('views/TclearInfoAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //有清算统计
+                    console.log(result);
+                    ejs.renderFile('views/TclearInfoAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                }
+            });
+        });
+    },
+
+    // TscholarshipInfoAdmin 资金发放管理页信息
+    queryTscholarshipInfo: function (account, res, req) {
+        console.log(account + "进入queryTscholarshipInfo函数");
+        var teacherName = req.session.username;
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TscholarshipInfo, function (err, result) {
+                if (err) { // 资金发放查询错误
+                    console.log(" 资金发放查询错误，返回Thome页");
+                    connection.release(account, res);
+                    obj.queryTInformation(account, res);
+                } else if (result[0] == undefined) { //无资金发放
+                    console.log("无资金发放");
+                    ejs.renderFile('views/TscholarshipInfoAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //有资金发放
+                    console.log(result);
+                    ejs.renderFile('views/TscholarshipInfoAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                }
+            });
+        });
+    },
 
 
 

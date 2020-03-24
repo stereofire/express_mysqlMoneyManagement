@@ -75,8 +75,8 @@ const TstudentInfoAdmin = require('./routes/TstudentInfoAdmin'); // 学生信息
 const TgroupInfoAdmin = require('./routes/TgroupInfoAdmin'); // 商户集团管理页 TgroupInfoAdmin 路由
 const TcorpInfoAdmin = require('./routes/TcorpInfoAdmin'); // 供应商管理页 TcorpInfoAdmin 路由
 const TproductListAdmin = require('./routes/TproductListAdmin'); // 缴费项目管理页 TproductListAdmin 路由
-const TrequiredOrdersAdmin = require('./routes/TrequiredOrdersAdmin'); // 必缴管理页 TrequiredOrdersAdmin 路由
-const TorderRecordsAdmin = require('./routes/TorderRecordsAdmin'); // 缴费记录管理页 TorderRecordsAdmin 路由
+const TallOrdersAdmin = require('./routes/TallOrdersAdmin'); // 缴费订单管理页 TallOrdersAdmin 路由
+const TpaymentRecordsAdmin = require('./routes/TpaymentRecordsAdmin'); // 缴费记录管理页 TpaymentRecordsAdmin 路由
 const TstockListAdmin = require('./routes/TstockListAdmin'); // 供货管理页 TstockListAdmin 路由
 const TcoursePlansAdmin = require('./routes/TcoursePlansAdmin'); // 教材计划管理页 TcoursePlansAdmin 路由
 const TclearInfoAdmin = require('./routes/TclearInfoAdmin'); // 清算统计页 TclearInfoAdmin 路由
@@ -109,8 +109,8 @@ app.use('/TstudentInfoAdmin', TstudentInfoAdmin);
 app.use('/TgroupInfoAdmin', TgroupInfoAdmin);
 app.use('/TcorpInfoAdmin', TcorpInfoAdmin);
 app.use('/TproductListAdmin', TproductListAdmin);
-app.use('/TrequiredOrdersAdmin', TrequiredOrdersAdmin);
-app.use('/TorderRecordsAdmin', TorderRecordsAdmin);
+app.use('/TallOrdersAdmin', TallOrdersAdmin);
+app.use('/TpaymentRecordsAdmin', TpaymentRecordsAdmin);
 app.use('/TstockListAdmin', TstockListAdmin);
 app.use('/TcoursePlansAdmin', TcoursePlansAdmin);
 app.use('/TclearInfoAdmin', TclearInfoAdmin);
