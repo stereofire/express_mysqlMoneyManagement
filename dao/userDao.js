@@ -7,6 +7,8 @@ var $sql = require('./userSqlMapping');
 var ejs = require('ejs');
 var fs = require('fs');
 moment = require('moment');
+var ejsExcel = require("ejsExcel");
+var exceltt = require("./exceltt.js")
 // 使用连接池，提升性能
 var pool = mysql.createPool($util.extend({}, $conf.mysql));
 
@@ -1020,7 +1022,42 @@ const obj = {
                     })
                     connection.release();
                 } else { //有学生信息
-                    console.log(result);
+                    // console.log(result);
+                    ejs.renderFile('views/TstudentInfoAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                }
+            });
+        });
+    },
+    //down TstudentInfoAdmin 导出学生信息管理页信息
+    downTstudentInfo: function (account, res, req) {
+        console.log(account + "进入downTstudentInfo函数");
+        var teacherName = req.session.username;
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TstudentInfo, account, function (err, result) {
+                if (err) { //学生信息查询错误
+                    console.log("学生信息查询错误，返回TstudentInfoAdmin页");
+                    connection.release();
+                    obj.queryTstudentInfo(account, res);
+                } else { //有学生信息
+                    // console.log(result);
+                    var FileName = "downLoad_stuInfo"; //表下载时的名称
+                    var templateFileName = "template_stuInfo"; //模板表名称
+                    exceltt.excelta(templateFileName, FileName, { //请求另一个node模块的文件进行数据渲染
+                        rsl: result
+                    }, function (path) {})
                     ejs.renderFile('views/TstudentInfoAdmin.ejs', {
                         result: result,
                         teacherName

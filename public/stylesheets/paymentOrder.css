@@ -1,20 +1,55 @@
-*
-{
+* {
     box-sizing: border-box;
 }
 
-.col-1 {width: 8.33%;}
-.col-2 {width: 16.66%;}
-.col-3 {width: 25%;}
-.col-4 {width: 33.33%;}
-.col-5 {width: 41.66%;}
-.col-6 {width: 50%;}
-.col-7 {width: 58.33%;}
-.col-8 {width: 66.66%;}
-.col-9 {width: 75%;}
-.col-10 {width: 83.33%;}
-.col-11 {width: 91.66%;}
-.col-12 {width: 100%;color: blue;}
+.col-1 {
+    width: 8.33%;
+}
+
+.col-2 {
+    width: 16.66%;
+}
+
+.col-3 {
+    width: 25%;
+}
+
+.col-4 {
+    width: 33.33%;
+}
+
+.col-5 {
+    width: 41.66%;
+}
+
+.col-6 {
+    width: 50%;
+}
+
+.col-7 {
+    width: 58.33%;
+}
+
+.col-8 {
+    width: 66.66%;
+}
+
+.col-9 {
+    width: 75%;
+}
+
+.col-10 {
+    width: 83.33%;
+}
+
+.col-11 {
+    width: 91.66%;
+}
+
+.col-12 {
+    width: 100%;
+    color: blue;
+}
 
 /*
 [class*="col-"] 
@@ -22,136 +57,197 @@
     border: 1px solid red;
 }
 */
-table {margin: auto;}
-body{
-	display:absolute;
-	top:0;
-	bottom:0;
-	left:0;
-	right:0;
-    margin:auto;
-    background-color: rgb(242,242,242)
+table {
+    margin: auto;
 }
-#lsx {/*页末版权信息*/
+
+body {
+    display: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: rgb(242, 242, 242)
+}
+
+#lsx {
+    /*页末版权信息*/
     width: 100%;
     height: 20px;
     position: fixed;
     bottom: 0px;
-	text-align: center;
+    text-align: center;
     font-size: xx-small;
     line-height: 20px;
-	color: rgb(18, 71,107);
+    color: rgb(18, 71, 107);
     /* background-color: rgb(18, 71,107); */
     background-color: lightblue;
 }
-.header{
-	display:inline-block;
-    width:100%;
-    margin-bottom:-16px;
+
+.header {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: -16px;
 }
+
 /*以下为导航栏*/
-ul{ 
-    list-style-type:none; /* ul前面的点  */
+ul {
+    list-style-type: none;
+    /* ul前面的点  */
 }
-*
-{
-    margin:0px 0px;     /* 到边框的距离 */
+
+* {
+    margin: 0px 0px;
+    /* 到边框的距离 */
 }
-.menu{
-    background-color: rgb(18, 41,62) /* 导航条背景的颜色  */ 	
+
+.menu {
+    background-color: rgb(18, 41, 62)
+        /* 导航条背景的颜色  */
 }
-.nav{
-    text-align:center; 	/* 导航栏文字的位置  */
-    width:1260px; 	/* 和文字宽度有关，不能小于文字宽度的总和  */
-    height:35px; 	/* 导航栏的宽度  */
+
+.nav {
+    text-align: center;
+    /* 导航栏文字的位置  */
+    width: 1260px;
+    /* 和文字宽度有关，不能小于文字宽度的总和  */
+    height: 35px;
+    /* 导航栏的宽度  */
 }
-.Tnav{
-    position:absolute;
+
+.Tnav {
+    position: absolute;
     margin-left: 0px;
-    text-align:center; 	/* 导航栏文字的位置  */
-    width:140px; 	/* 和文字宽度有关  */
+    text-align: center;
+    /* 导航栏文字的位置  */
+    width: 140px;
+    /* 和文字宽度有关  */
     padding-left: 0px;
 }
-.Tnav a{
-    float:left;				 /* 导航栏的位置配置 */
-    width:140px;			 /* 选中的文字块的长度  */
-    line-height:35px; 		         /* 选中的文字块的宽度  */
-    text-decoration: none;               /* 去掉连接下划线  */
-    font-size:14px;			 /* 字体大小 */
-    color: white;			 /* 字体颜色 */
-    background-color: rgb(18, 71,107)
+
+.Tnav a {
+    float: left;
+    /* 导航栏的位置配置 */
+    width: 140px;
+    /* 选中的文字块的长度  */
+    line-height: 35px;
+    /* 选中的文字块的宽度  */
+    text-decoration: none;
+    /* 去掉连接下划线  */
+    font-size: 14px;
+    /* 字体大小 */
+    color: white;
+    /* 字体颜色 */
+    background-color: rgb(18, 71, 107)
 }
-.Tnav li a:hover{
-    background-color:rgb(52, 152,219);	        /* 选中的文字块的颜色 */
-    text-decoration:none;		/* 选中时去掉连接下划线 */	
+
+.Tnav li a:hover {
+    background-color: rgb(52, 152, 219);
+    /* 选中的文字块的颜色 */
+    text-decoration: none;
+    /* 选中时去掉连接下划线 */
 }
-.Tnav li a:link{
-    text-decoration:none; /* 连接被点之后没有下划线  */
+
+.Tnav li a:link {
+    text-decoration: none;
+    /* 连接被点之后没有下划线  */
 }
-.stuname{
-    float:right;				 /* 导航栏的位置配置 */
-    width:140px;			 /* 选中的文字块的长度  */
-    line-height:35px; 		         /* 选中的文字块的宽度  */
-    text-decoration: none;               /* 去掉连接下划线  */
-    font-size:13px;			 /* 字体大小 */
-    color: white;			 /* 字体颜色 */
-    background-color: rgb(18, 41,62)
-    
+
+.stuname {
+    float: right;
+    /* 导航栏的位置配置 */
+    width: 140px;
+    /* 选中的文字块的长度  */
+    line-height: 35px;
+    /* 选中的文字块的宽度  */
+    text-decoration: none;
+    /* 去掉连接下划线  */
+    font-size: 13px;
+    /* 字体大小 */
+    color: white;
+    /* 字体颜色 */
+    background-color: rgb(18, 41, 62)
 }
-.teaname{
-    float:right;				 /* 导航栏的位置配置 */
-    width:140px;			 /* 选中的文字块的长度  */
-    line-height:35px; 		         /* 选中的文字块的宽度  */
-    text-decoration: none;               /* 去掉连接下划线  */
-    font-size:13px;			 /* 字体大小 */
-    color: white;			 /* 字体颜色 */
-    background-color: rgb(18, 41,62);
+
+.teaname {
+    float: right;
+    /* 导航栏的位置配置 */
+    width: 140px;
+    /* 选中的文字块的长度  */
+    line-height: 35px;
+    /* 选中的文字块的宽度  */
+    text-decoration: none;
+    /* 去掉连接下划线  */
+    font-size: 13px;
+    /* 字体大小 */
+    color: white;
+    /* 字体颜色 */
+    background-color: rgb(18, 41, 62);
 }
-.nav a{
-    float:left;				 /* 导航栏的位置配置 */
-    width:140px;			 /* 选中的文字块的长度  */
-    line-height:35px; 		         /* 选中的文字块的宽度  */
-    text-decoration: none;               /* 去掉连接下划线  */
-    font-size:14px;			 /* 字体大小 */
-    color: white;			 /* 字体颜色 */
-    background-color: rgb(18, 71,107)
+
+.nav a {
+    float: left;
+    /* 导航栏的位置配置 */
+    width: 140px;
+    /* 选中的文字块的长度  */
+    line-height: 35px;
+    /* 选中的文字块的宽度  */
+    text-decoration: none;
+    /* 去掉连接下划线  */
+    font-size: 14px;
+    /* 字体大小 */
+    color: white;
+    /* 字体颜色 */
+    background-color: rgb(18, 71, 107)
 }
-.nav li a:hover{
-    background-color:rgb(52, 152,219);	        /* 选中的文字块的颜色 */
-    text-decoration:none;		/* 选中时去掉连接下划线 */	
+
+.nav li a:hover {
+    background-color: rgb(52, 152, 219);
+    /* 选中的文字块的颜色 */
+    text-decoration: none;
+    /* 选中时去掉连接下划线 */
 }
-.nav li a:link{
-    text-decoration:none; /* 连接被点之后没有下划线  */
+
+.nav li a:link {
+    text-decoration: none;
+    /* 连接被点之后没有下划线  */
 }
 
 
 /*以下为订单确认css*/
 /*以下为支付页面标题*/
-.payment_table{/*透明背景框，勿动*/
-    width:50%;
+.payment_table {
+    /*透明背景框，勿动*/
+    width: 50%;
     margin: auto;
-    padding-top:0px;
+    padding-top: 0px;
     padding-bottom: 30px;
 }
-.payment1{/*蓝色进度条标题，勿动*/
-    padding-top:10px;
-    color:rgb(52, 152, 219);
-	padding-left:20px;
+
+.payment1 {
+    /*蓝色进度条标题，勿动*/
+    padding-top: 10px;
+    color: rgb(52, 152, 219);
+    padding-left: 20px;
     width: 130px;
     font-size: 13px;
     border-bottom: 2px solid rgb(52, 152, 219);
     padding-bottom: 6px;
 }
-.payment2{/*灰色进度条标题，勿动*/
-    padding-top:10px;
-    color:rgb(148, 148, 148);
-	padding-left:20px;
+
+.payment2 {
+    /*灰色进度条标题，勿动*/
+    padding-top: 10px;
+    color: rgb(148, 148, 148);
+    padding-left: 20px;
     width: 130px;
     font-size: 13px;
     border-bottom: 2px solid rgb(148, 148, 148);
     padding-bottom: 6px;
 }
-#订单总额{
+
+#订单总额 {
     margin-top: 30px;
     margin-left: 55%;
     margin-right: 200px;
@@ -162,136 +258,181 @@ ul{
     font-size: 13px;
     text-align: center;
 }
-.提交订单,.支付,.查看记录{/*提交按钮*/
+
+.提交订单,
+.支付,
+.查看记录 {
+    /*提交按钮*/
     margin-top: 10px;
     margin-left: 55%;
     margin-right: 200px;
-    background-color: rgb(52, 152,219);
+    background-color: rgb(52, 152, 219);
     width: 80px;
     float: right;
-    color:white;
+    color: white;
     font-size: 13px;
     border-radius: 4px;
-    border:0px;
+    border: 0px;
 }
-.查询支付,.重新支付{/*提交按钮*/
+
+.查询支付,
+.重新支付 {
+    /*提交按钮*/
     margin-top: 30px;
-    background-color: rgb(52, 152,219);
+    background-color: rgb(52, 152, 219);
     width: 80px;
-    color:white;
+    color: white;
     font-size: 13px;
     border-radius: 4px;
-    border:0px;
+    border: 0px;
 }
+
 .提交订单:hover {
     background-color: #2579d1;
 }
+
 .支付:hover {
     background-color: #2579d1;
 }
+
 .查询支付:hover {
     background-color: #2579d1;
 }
+
 .重新支付:hover {
     background-color: #2579d1;
 }
+
 .查看记录:hover {
     background-color: #2579d1;
 }
 
-.successSubmit_table{/*透明背景框，勿动*/
-    width:50%;
+.successSubmit_table {
+    /*透明背景框，勿动*/
+    width: 50%;
     margin: auto;
-    padding-top:0px;
+    padding-top: 0px;
     padding-bottom: 30px;
     background-color: rgb(221, 248, 210);
 }
-.selectPayway_table{/*透明背景框，勿动*/
-    width:40%;
+
+.selectPayway_table {
+    /*透明背景框，勿动*/
+    width: 40%;
     margin: auto;
-    padding-top:10px;
+    padding-top: 10px;
     padding-bottom: 30px;
     font-size: 13px;
     color: rgb(49, 49, 128);
 }
-.submitSucPic{
+
+.submitSucPic {
     margin-left: 0px;
     margin-right: 20px;
     width: 40px;
 }
-.insert{
+
+.insert {
     margin-left: 3px;
     margin-right: 3px;
     width: 16px;
     padding-top: 7px;
 }
-.insertBig{
+
+.insertBig {
     margin: auto;
-    width:200px;
+    width: 200px;
     padding-top: 10px;
     margin-left: 150px;
 }
-#radio-1,#radio-2,#radio-3,#radio1,#radio2,#radio3,
-#radio4,#radio5,#radio6,#radio7,#radio8,#radio9,
-#radio10,#radio11,#radio12,#radio13,#radio14,#radio15,
-#radio16,#radio17,#radio18{
+
+#radio-1,
+#radio-2,
+#radio-3,
+#radio1,
+#radio2,
+#radio3,
+#radio4,
+#radio5,
+#radio6,
+#radio7,
+#radio8,
+#radio9,
+#radio10,
+#radio11,
+#radio12,
+#radio13,
+#radio14,
+#radio15,
+#radio16,
+#radio17,
+#radio18 {
     margin-left: 18px;
 }
-.银联{
-    width:40%;
+
+.银联 {
+    width: 40%;
     margin: auto;
-    padding:10px;
-    background-color:white;
+    padding: 10px;
+    background-color: white;
     color: darkblue;
     font-size: 12px;
 }
+
 /*订单确认css结束*/
 
 /*以下为个人信息标题*/
-.mesage_table{/*白色背景框，勿动*/
-    width:80%;
+.mesage_table {
+    /*白色背景框，勿动*/
+    width: 80%;
     margin: auto;
-    padding-top:0px;
+    padding-top: 0px;
     padding-bottom: 30px;
-    background-color:white;
+    background-color: white;
 }
-.teacher_mesage_table{/*白色背景框，勿动*/
+
+.teacher_mesage_table {
+    /*白色背景框，勿动*/
     margin-left: 160px;
-    width:85%;
+    width: 85%;
     /* margin: auto; */
-    padding-top:0px;
-    padding-bottom: 30px;
-    background-color:white;
+    padding-top: 0px;
+    padding-bottom: 25px;
+    background-color: white;
+    opacity: 0.8;
 }
-.teacher_code_table{
-    width:85%;
+
+.teacher_code_table {
+    width: 85%;
     margin-left: 160px;
-    padding-top:0px;
+    padding-top: 0px;
     padding-bottom: 30px;
-    background-color:white;
+    background-color: white;
 }
-.code_table{
-    width:80%;
+
+.code_table {
+    width: 80%;
     margin: auto;
-    padding-top:0px;
+    padding-top: 0px;
     padding-bottom: 30px;
-    background-color:white;
+    background-color: white;
 }
-.mesage{
+
+.mesage {
     box-sizing: border-box;
-    padding-top:10px;
-    text-align:left;
-    color: rgb(0, 153,255);
-	padding-left:20px;
-    padding-bottom:9px;
+    padding-top: 10px;
+    text-align: left;
+    color: rgb(0, 153, 255);
+    padding-left: 20px;
+    padding-bottom: 9px;
     width: 190px;
     margin-right: 220px;
 }
 
 #main {
     /*div居中*/
-    margin:0 auto;
-    background-color: rgb(242,242,242);
+    margin: 0 auto;
+    background-color: rgb(242, 242, 242);
     width: 70%;
     font-size: 13px;
     /*div垂直居中
@@ -303,34 +444,37 @@ ul{
     margin-left:-200px;
     margin-top:-100px;
     border:1px solid #00F */
-} 
-#must{
-    margin-top: 5%;
-    background-color: white;
-    width: 45%;
-    float:left;
-    text-align: center;
-    border:1px solid rgb(179, 179, 179);
-    border-radius: 4px;
 }
-#opt{
+
+#must {
     margin-top: 5%;
     background-color: white;
     width: 45%;
-    float:right;
+    float: left;
     text-align: center;
-    border:1px solid rgb(179, 179, 179);
+    border: 1px solid rgb(179, 179, 179);
     border-radius: 4px;
 }
 
-.picture{
+#opt {
+    margin-top: 5%;
+    background-color: white;
+    width: 45%;
+    float: right;
+    text-align: center;
+    border: 1px solid rgb(179, 179, 179);
+    border-radius: 4px;
+}
+
+.picture {
     padding-top: 10%;
     width: 40%;
     margin: 0 auto;
     position: relative;
     size: 10px;
 }
-#即时订单总额{
+
+#即时订单总额 {
     margin-top: 30px;
     margin-left: 55%;
     margin-right: 200px;
@@ -343,38 +487,46 @@ ul{
     text-align: center;
 }
 
-.line_picture{/*灰色分割线，勿动*/
+.line_picture {
+    /*灰色分割线，勿动*/
     position: absolute;
-    width:45%;
-    margin-bottom:15px;
-    padding-top:0px;
+    width: 45%;
+    margin-bottom: 15px;
+    padding-top: 0px;
     padding-left: 10px;
 }
-#please{
+
+#please {
     color: red;
     font-size: 12px;
     padding-top: 10px;
 }
-.必缴返回,.确认添加{/*返回按钮,添加按钮*/
+
+.必缴返回,
+.确认添加 {
+    /*返回按钮,添加按钮*/
     margin-top: 10px;
     margin-left: 55%;
     margin-right: 200px;
-    background-color: rgb(52, 152,219);
+    background-color: rgb(52, 152, 219);
     width: 80px;
     float: right;
-    color:white;
+    color: white;
     font-size: 13px;
     border-radius: 4px;
-    border:0px;
+    border: 0px;
     margin-bottom: 40px;
 }
+
 .必缴返回:hover {
     background-color: #2579d1;
 }
+
 .确认添加:hover {
     background-color: #2579d1;
 }
-#缴费订单页即时订单总额{
+
+#缴费订单页即时订单总额 {
     margin-top: 10px;
     background-color: blanchedalmond;
     width: 400px;
@@ -383,72 +535,82 @@ ul{
     font-size: 13px;
     text-align: center;
 }
-.支付订单{/*缴费订单页去支付按钮*/
-    background-color: rgb(52, 152,219);
+
+.支付订单 {
+    /*缴费订单页去支付按钮*/
+    background-color: rgb(52, 152, 219);
     width: 80px;
-    color:white;
+    color: white;
     font-size: 13px;
     border-radius: 4px;
-    border:0px;
+    border: 0px;
     text-align: center;
 }
+
 .支付订单:hover {
     background-color: #2579d1;
 }
-.gotopay_table{
+
+.gotopay_table {
     margin-left: 520px;
     margin-right: 0px;
     padding-left: 80px;
-    width:45%;
-    padding-top:0px;
+    width: 45%;
+    padding-top: 0px;
     padding-bottom: 30px;
     /* background-color:white; */
 }
-.gotopay_tr{
-    width:50%;
+
+.gotopay_tr {
+    width: 50%;
 }
-.gotopay_td1{
-    padding-top:5px;
+
+.gotopay_td1 {
+    padding-top: 5px;
     padding-bottom: 0px;
     padding-right: 15px;
-    text-align:right;
-    color: rgb(0, 153,255);
-	padding-left:0px;
+    text-align: right;
+    color: rgb(0, 153, 255);
+    padding-left: 0px;
     width: 200px;
     margin-right: 20px;
 }
-.gotopay_td2{
-    padding-top:4px;
-    padding-left:0px;
+
+.gotopay_td2 {
+    padding-top: 4px;
+    padding-left: 0px;
     padding-right: 0px;
     padding-bottom: 6px;
-    text-align:left;
-    color: rgb(0, 153,255);
+    text-align: left;
+    color: rgb(0, 153, 255);
     width: 7px;
     margin-right: 0px;
 }
-.修改密码{
-    background-color: rgb(52, 152,219);
+
+.修改密码 {
+    background-color: rgb(52, 152, 219);
     width: 80px;
     float: none;
-    color:white;
+    color: white;
     font-size: 13px;
     border-radius: 4px;
-    border:0px;
+    border: 0px;
 }
+
 .order_table {
-    width:80%;
+    width: 80%;
     margin: auto;
-    padding-top:0px;
+    padding-top: 0px;
     padding-bottom: 30px;
-    background-color:white;
+    background-color: white;
     border-collapse: collapse;
     margin: 0 auto;
     text-align: center;
     margin-bottom: 40px;
 }
 
-.order_table td,.order_table th {
+.order_table td,
+.order_table th {
     border: 1px solid #cad9ea;
     color: #666;
     font-size: 11px;
@@ -468,64 +630,84 @@ ul{
 .order_table tr:nth-child(even) {
     background: #F5FAFA;
 }
-.pen_picture{/*图标：笔*/
-    width:10px;
-    padding-top:0px;
+
+.pen_picture {
+    /*图标：笔*/
+    width: 10px;
+    padding-top: 0px;
     margin-bottom: 0px;
 }
-.loginout_picture{/*图标：注销登录*/
-    width:25px;
-    padding-top:9px;
+
+.loginout_picture {
+    /*图标：注销登录*/
+    width: 25px;
+    padding-top: 9px;
     margin-bottom: 0px;
     padding-right: 14px;
     /* margin-top: 7px; */
 }
-.change_key{/*文本：修改密码*/
-    padding-top:10px;
-    padding-left:0px;
-    text-align:left;
+
+.change_key {
+    /*文本：修改密码*/
+    padding-top: 10px;
+    padding-left: 0px;
+    text-align: left;
     font-size: 10px;
     color: blue;
 }
-.headset{/*表格框：用户头像*/
+
+.headset {
+    /*表格框：用户头像*/
     padding: 2px;
     width: 100px;
 }
-.headset_picture{/*图标：用户头像*/
+
+.headset_picture {
+    /*图标：用户头像*/
     width: 85%;
     border-radius: 10%;
-    padding-left:20px;
+    padding-left: 20px;
 }
-.information{/*表格行：用户信息*/
-    margin-left: 5%;
-    width:90%;
-    text-align:left;
-    padding:5px;
-    color:srgb(104, 103, 103);
-    font-size: 13px;
+
+.teacherInfo_mesage {
+    box-sizing: border-box;
+    padding-top: 10px;
+    text-align: left;
+    color: rgb(80, 78, 78);
+    padding-left: 150px;
+    padding-bottom: 9px;
+    font-size: 14px;
+    width:140px;
+    height:30px;
 }
-.information_picture{/*图标：用户信息*/
+
+.information_picture {
+    /*图标：用户信息*/
     width: 12px;
-    padding-left:1px;
-    padding-right:1px;
+    padding-left: 1px;
+    padding-right: 1px;
 }
 
 /*以下为修改密码页*/
-.key_table{/*表格框：密码修改*/
-    width:40%;
+.key_table {
+    /*表格框：密码修改*/
+    width: 40%;
     height: 120px;
 }
 
-.key_passage{/*表格行：密码修改*/
+.key_passage {
+    /*表格行：密码修改*/
     /*width:30%;*/
-    width:150px;
+    width: 150px;
     padding-top: 5px;
     text-align: right;
     font-size: 13px;
     margin-top: 5px;
     margin: auto;
 }
-.key_input_passage{/*输入框*/
+
+.key_input_passage {
+    /*输入框*/
     padding: 0px;
     text-align: left;
     font-size: 13px;
@@ -535,19 +717,23 @@ ul{
     border-left: 0px;
 }
 
-.code /*验证码*/
-{
-	font-family: Arial;
-	font-style: italic;
+.code
+
+/*验证码*/
+    {
+    font-family: Arial;
+    font-style: italic;
     font-weight: bold;
-    
-	border: 0;
-	letter-spacing: 3px;
-	color: black;
-	background-image:url(background.png);
+
+    border: 0;
+    letter-spacing: 3px;
+    color: black;
+    background-image: url(background.png);
 }
 
-input[type=text],input[type=password],select {
+input[type=text],
+input[type=password],
+select {
     width: 20%;
     padding-top: 6px;
     padding-bottom: 6px;
@@ -557,11 +743,13 @@ input[type=text],input[type=password],select {
     border-radius: 4px;
     box-align: left;
 }
-  
-input[type=submit] {/*提交*/
-    display:block;
-    margin-left:auto;
-    margin-right:auto;/*前三行：input文本框在div中居中 */
+
+input[type=submit] {
+    /*提交*/
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /*前三行：input文本框在div中居中 */
     width: 30%;
     background-color: #4CAF50;
     color: white;
@@ -571,52 +759,105 @@ input[type=submit] {/*提交*/
     cursor: pointer;
 }
 
-select{
+select {
     font-size: smaller;
     height: 25px;
     width: 50px;
 }
-.confirm{
+
+.confirm {
     background-color: white;
     width: 100%;
-    border:0.5px solid rgb(179, 179, 179);
+    border: 0.5px solid rgb(179, 179, 179);
     border-radius: 4px;
     height: auto;
     font-size: small;
     padding: 4px;
     text-align: center;
 }
-.delectButton{/*商品删除按钮*/
-    background-color: rgb(52, 152,219);
+
+.delectButton {
+    /*商品删除按钮*/
+    background-color: rgb(52, 152, 219);
     width: 35px;
-    color:white;
+    color: white;
     font-size: 12px;
     border-radius: 3px;
-    border:0px;
+    border: 0px;
 }
+
 .delectButton:hover {
     background-color: #2579d1;
 }
-.gotoPayButton{/*去缴费按钮*/
+
+.gotoPayButton {
+    /*去缴费按钮*/
     background-color: rgb(65, 165, 231);
     width: 50px;
-    color:white;
+    color: white;
     font-size: 12px;
     border-radius: 3px;
-    border:0px;
+    border: 0px;
 }
+
 .gotoPayButton:hover {
     background-color: #2579d1;
 }
 
-.deleteOrderRecord{/*去缴费按钮*/
+.deleteOrderRecord {
+    /*去缴费按钮*/
     background-color: rgb(253, 93, 93);
     width: 50px;
-    color:white;
+    color: white;
     font-size: 12px;
     border-radius: 3px;
-    border:0px;
+    border: 0px;
 }
+
 .deleteOrderRecord:hover {
     background-color: rgb(243, 36, 36);
+}
+
+.managementButton {
+    /*教师端管理信息按钮*/
+    background-color: rgb(46, 130, 185);
+    width: 50px;
+    height: 25px;
+    color: white;
+    font-size: 13px;
+    border-radius: 1px;
+    border: 0px;
+}
+
+.managementButton:hover {
+    background-color: #34b7f3;
+}
+
+.dataDownLoad {
+    /*教师端首页信息下载按钮*/
+    background-color: rgb(13, 72, 107);
+    width: 120px;
+    height: 25px;
+    color: white;
+    font-size: 13px;
+    border-radius: 1px;
+    border: 0px;
+}
+
+.dataDownLoad:hover {
+    background-color: rgb(23, 114, 167);
+}
+
+.manageInput {
+    width: 80px;
+    font-size: 11px;
+}
+
+.teacher_picture {
+    /*图标：教师端管理信息图标*/
+    width: 20px;
+    padding-top: 9px;
+    /* margin-bottom: 0px; */
+    padding-right: 7px;
+    /* margin-top: 7px; */
 }

@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var ejs = require('ejs');
 var app = express();
 // var $ = jQuery = require("./jq/jquery");
+var ejsExcel=require("ejsExcel");
 
 
 //引入express-session
