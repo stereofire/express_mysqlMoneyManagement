@@ -48,10 +48,20 @@ var user = {
     TchangePssword: 'update 管理员信息表 set 密码=? where 管理员号=?',
     // 学生信息
     TstudentInfo: 'select * from 用户信息表 ',
+    // 学生信息上传
+    TstuUpload:'INSERT INTO 用户信息表(学号,学校,姓名,院系,专业,性别,年级,在读状态) VALUES(?,?,?,?,?,?,?,?)',
+    // 订单信息表
+    TorderInfo: 'select * from 订单信息表 ',
+    // 子订单信息表
+    TsubOrderInfo: 'select * from 子订单信息表 ',
     // 商户集团信息
     TgroupInfo: 'select * from 商户集团信息表',
     // 商户信息
     TcorpInfo: 'select * from 商户信息表',
+    // 进货表
+    TstockInfo: 'select * from 进货表',
+    // 子进货表
+    TsubStockInfo: 'select * from 子进货表',
     // 缴费项目
     TproductList: 'select * from 商品清单',
     // 缴费订单管理

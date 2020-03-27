@@ -8,7 +8,8 @@ var ejs = require('ejs');
 var fs = require('fs');
 moment = require('moment');
 var ejsExcel = require("ejsExcel");
-var exceltt = require("./exceltt.js")
+// var exceltt = require("./exceltt.js");
+const path = require('path');
 // 使用连接池，提升性能
 var pool = mysql.createPool($util.extend({}, $conf.mysql));
 
@@ -994,6 +995,371 @@ const obj = {
             });
         });
     },
+    // 生成download文件名
+    creatfullFileName: function (FileName) {
+        var now = new Date();
+        var yy = now.getFullYear(); //年
+        var mm = now.getMonth() + 1; //月
+        var dd = now.getDate(); //日
+        var hh = now.getHours(); //时
+        var ii = now.getMinutes(); //分
+        var ss = now.getSeconds(); //秒
+        var clock = yy;
+        if (mm < 10) clock += "0";
+        clock += mm;
+        if (dd < 10) clock += "0";
+        clock += dd;
+        if (hh < 10) clock += "0";
+        clock += hh;
+        if (ii < 10) clock += '0';
+        clock += ii;
+        if (ss < 10) clock += '0';
+        clock += ss;
+        var fullFileName = FileName + clock + ".xls"; //临时文件名
+        return fullFileName;
+    },
+    // 删除文件夹下所有文件(教师在其首页每点击一次下载文件前，均会触发清除临时后台文件夹下的所有文件)
+    deleteFiles: function (folderPath) {
+        
+        let forlder_exists = fs.existsSync(folderPath);
+        if (forlder_exists) {
+            let fileList = fs.readdirSync(folderPath);
+            fileList.forEach(function (fileName) {
+                fs.unlinkSync(path.join(folderPath, fileName));
+            });
+        }
+    },
+    //Thome down = studentInfo 下载学生信息
+    downTstudentInfo: function (account, res, req) {
+        console.log(account + "进入downTstudentInfo函数");
+        var teacherName = req.session.username;
+        obj.deleteFiles("public/tables4downLoad");
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TstudentInfo, account, function (err, result) {
+                if (err) { //学生信息查询错误
+                    console.log("学生信息查询错误，返回Thome页");
+                    connection.release();
+                    obj.queryTInformation(account, res);
+                } else { //有学生信息
+                    // console.log(result);
+                    var FileName = "downLoad_stuInfo"; //表下载时的名称
+                    var templateFileName = "template_stuInfo"; //模板表名称
+                    var fullFileName = obj.creatfullFileName(FileName);
+                    var exlBuf = fs.readFileSync("public/tableTemplates4downLoad/" + templateFileName + ".xlsx");
+                    ejsExcel.renderExcel(exlBuf, {
+                        rsl: result
+                    }).then(function (exlBuf2) { //将数据放进模板开始渲染
+                        fs.writeFileSync("public/tables4downLoad/" + fullFileName, exlBuf2);
+                        res.download("public/tables4downLoad/" + fullFileName);
+                    }).catch(function (err) {
+                        console.error(err);
+                    });
+                    connection.release();
+                }
+            });
+        });
+    },
+    //Thome down = groupInfo 下载商户集团表
+    downTgroupInfo: function (account, res, req) {
+        console.log(account + "进入downTgroupInfo函数");
+        var teacherName = req.session.username;
+        obj.deleteFiles("public/tables4downLoad");
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TgroupInfo, account, function (err, result) {
+                if (err) { //商户集团信息查询错误
+                    console.log("商户集团信息查询错误，返回Thome页");
+                    connection.release();
+                    obj.queryTInformation(account, res);
+                } else { //有商户集团信息
+                    var FileName = "downLoad_groupInfo"; //表下载时的名称
+                    var templateFileName = "template_groupInfo"; //模板表名称
+                    var fullFileName = obj.creatfullFileName(FileName);
+                    var exlBuf = fs.readFileSync("public/tableTemplates4downLoad/" + templateFileName + ".xlsx");
+                    ejsExcel.renderExcel(exlBuf, {
+                        rsl: result
+                    }).then(function (exlBuf2) { //将数据放进模板开始渲染
+                        fs.writeFileSync("public/tables4downLoad/" + fullFileName, exlBuf2);
+                        res.download("public/tables4downLoad/" + fullFileName);
+                    }).catch(function (err) {
+                        console.error(err);
+                    });
+                    connection.release();
+                }
+            });
+        });
+    },
+    //Thome down = orderInfo 下载订单信息
+    downTorderInfo: function (account, res, req) {
+        console.log(account + "进入ddownTorderInfo函数");
+        var teacherName = req.session.username;
+        obj.deleteFiles("public/tables4downLoad");
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TorderInfo, account, function (err, result) {
+                if (err) { //订单信息查询错误
+                    console.log("订单信息查询错误，返回TstudentInfoAdmin页");
+                    connection.release();
+                    obj.queryTInformation(account, res);
+                } else { //有订单信息
+                    var FileName = "downLoad_orderInfo"; //表下载时的名称
+                    var templateFileName = "template_orderInfo"; //模板表名称
+                    var fullFileName = obj.creatfullFileName(FileName);
+                    var exlBuf = fs.readFileSync("public/tableTemplates4downLoad/" + templateFileName + ".xlsx");
+                    ejsExcel.renderExcel(exlBuf, {
+                        rsl: result
+                    }).then(function (exlBuf2) { //将数据放进模板开始渲染
+                        fs.writeFileSync("public/tables4downLoad/" + fullFileName, exlBuf2);
+                        res.download("public/tables4downLoad/" + fullFileName);
+                    }).catch(function (err) {
+                        console.error(err);
+                    });
+                    connection.release();
+                }
+            });
+        });
+    },
+    //Thome down = stockInfo 下载供货表
+    downTstockInfo: function (account, res, req) {
+        console.log(account + "进入downTstockInfo函数");
+        var teacherName = req.session.username;
+        obj.deleteFiles("public/tables4downLoad");
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TstockInfo, account, function (err, result) {
+                if (err) { //供货表查询错误
+                    console.log("供货表查询错误，返回TstudentInfoAdmin页");
+                    connection.release();
+                    obj.queryTInformation(account, res);
+                } else { //有供货表
+                    var FileName = "downLoad_stockInfo"; //表下载时的名称
+                    var templateFileName = "template_stockInfo"; //模板表名称
+                    var fullFileName = obj.creatfullFileName(FileName);
+                    var exlBuf = fs.readFileSync("public/tableTemplates4downLoad/" + templateFileName + ".xlsx");
+                    ejsExcel.renderExcel(exlBuf, {
+                        rsl: result
+                    }).then(function (exlBuf2) { //将数据放进模板开始渲染
+                        fs.writeFileSync("public/tables4downLoad/" + fullFileName, exlBuf2);
+                        res.download("public/tables4downLoad/" + fullFileName);
+                    }).catch(function (err) {
+                        console.error(err);
+                    });
+                    connection.release();
+                }
+            });
+        });
+    },
+    //Thome down = clearInfo 下载清算表
+    downTclearInfo: function (account, res, req) {
+        console.log(account + "进入downTclearInfo函数");
+        var teacherName = req.session.username;
+        obj.deleteFiles("public/tables4downLoad");
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TclearInfo, account, function (err, result) {
+                if (err) { //清算表查询错误
+                    console.log("清算表查询错误，返回TstudentInfoAdmin页");
+                    connection.release();
+                    obj.queryTInformation(account, res);
+                } else { //有清算表
+                    var FileName = "downLoad_clearInfo"; //表下载时的名称
+                    var templateFileName = "template_clearInfo"; //模板表名称
+                    var fullFileName = obj.creatfullFileName(FileName);
+                    var exlBuf = fs.readFileSync("public/tableTemplates4downLoad/" + templateFileName + ".xlsx");
+                    ejsExcel.renderExcel(exlBuf, {
+                        rsl: result
+                    }).then(function (exlBuf2) { //将数据放进模板开始渲染
+                        fs.writeFileSync("public/tables4downLoad/" + fullFileName, exlBuf2);
+                        res.download("public/tables4downLoad/" + fullFileName);
+                    }).catch(function (err) {
+                        console.error(err);
+                    });
+                    connection.release();
+                }
+            });
+        });
+    },
+    //Thome down = coursePlans 下载教材计划表
+    downTcoursePlans: function (account, res, req) {
+        console.log(account + "进入downTcoursePlans函数");
+        var teacherName = req.session.username;
+        obj.deleteFiles("public/tables4downLoad");
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TcoursePlans, account, function (err, result) {
+                if (err) { //教材计划表查询错误
+                    console.log("教材计划表查询错误，返回TstudentInfoAdmin页");
+                    connection.release();
+                    obj.queryTInformation(account, res);
+                } else { //有教材计划表
+                    var FileName = "downLoad_coursePlans"; //表下载时的名称
+                    var templateFileName = "template_coursePlans"; //模板表名称
+                    var fullFileName = obj.creatfullFileName(FileName);
+                    var exlBuf = fs.readFileSync("public/tableTemplates4downLoad/" + templateFileName + ".xlsx");
+                    ejsExcel.renderExcel(exlBuf, {
+                        rsl: result
+                    }).then(function (exlBuf2) { //将数据放进模板开始渲染
+                        fs.writeFileSync("public/tables4downLoad/" + fullFileName, exlBuf2);
+                        res.download("public/tables4downLoad/" + fullFileName);
+                    }).catch(function (err) {
+                        console.error(err);
+                    });
+                    connection.release();
+                }
+            });
+        });
+    },
+    //Thome down = corpInfo 下载供应商信息表
+    downTcorpInfo: function (account, res, req) {
+        console.log(account + "进入downTcorpInfo函数");
+        var teacherName = req.session.username;
+        obj.deleteFiles("public/tables4downLoad");
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TcorpInfo, account, function (err, result) {
+                if (err) { //供应商信息表查询错误
+                    console.log("供应商信息表查询错误，返回TstudentInfoAdmin页");
+                    connection.release();
+                    obj.queryTInformation(account, res);
+                } else { //有供应商信息表
+                    var FileName = "downLoad_corpInfo"; //表下载时的名称
+                    var templateFileName = "template_corpInfo"; //模板表名称
+                    var fullFileName = obj.creatfullFileName(FileName);
+                    var exlBuf = fs.readFileSync("public/tableTemplates4downLoad/" + templateFileName + ".xlsx");
+                    ejsExcel.renderExcel(exlBuf, {
+                        rsl: result
+                    }).then(function (exlBuf2) { //将数据放进模板开始渲染
+                        fs.writeFileSync("public/tables4downLoad/" + fullFileName, exlBuf2);
+                        res.download("public/tables4downLoad/" + fullFileName);
+                    }).catch(function (err) {
+                        console.error(err);
+                    });
+                    connection.release();
+                }
+            });
+        });
+    },
+    //Thome down = subOrderInfo 下载子订单信息表
+    downTsubOrderInfo: function (account, res, req) {
+        console.log(account + "进入downTsubOrderInfo函数");
+        var teacherName = req.session.username;
+        obj.deleteFiles("public/tables4downLoad");
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TsubOrderInfo, account, function (err, result) {
+                if (err) { //子订单信息表查询错误
+                    console.log("子订单信息表查询错误，返回TstudentInfoAdmin页");
+                    connection.release();
+                    obj.queryTInformation(account, res);
+                } else { //有子订单信息表
+                    var FileName = "downLoad_subOrderInfo"; //表下载时的名称
+                    var templateFileName = "template_subOrderInfo"; //模板表名称
+                    var fullFileName = obj.creatfullFileName(FileName);
+                    var exlBuf = fs.readFileSync("public/tableTemplates4downLoad/" + templateFileName + ".xlsx");
+                    ejsExcel.renderExcel(exlBuf, {
+                        rsl: result
+                    }).then(function (exlBuf2) { //将数据放进模板开始渲染
+                        fs.writeFileSync("public/tables4downLoad/" + fullFileName, exlBuf2);
+                        res.download("public/tables4downLoad/" + fullFileName);
+                    }).catch(function (err) {
+                        console.error(err);
+                    });
+                    connection.release();
+                }
+            });
+        });
+    },
+    //Thome down = subStockInfo 下载子供货表
+    downTsubStockInfo: function (account, res, req) {
+        console.log(account + "进入downTsubStockInfo函数");
+        var teacherName = req.session.username;
+        obj.deleteFiles("public/tables4downLoad");
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TsubStockInfo, account, function (err, result) {
+                if (err) { //子供货表查询错误
+                    console.log("子供货表查询错误，返回TstudentInfoAdmin页");
+                    connection.release();
+                    obj.queryTInformation(account, res);
+                } else { //有子供货表
+                    var FileName = "downLoad_subStockInfo"; //表下载时的名称
+                    var templateFileName = "template_subStockInfo"; //模板表名称
+                    var fullFileName = obj.creatfullFileName(FileName);
+                    var exlBuf = fs.readFileSync("public/tableTemplates4downLoad/" + templateFileName + ".xlsx");
+                    ejsExcel.renderExcel(exlBuf, {
+                        rsl: result
+                    }).then(function (exlBuf2) { //将数据放进模板开始渲染
+                        fs.writeFileSync("public/tables4downLoad/" + fullFileName, exlBuf2);
+                        res.download("public/tables4downLoad/" + fullFileName);
+                    }).catch(function (err) {
+                        console.error(err);
+                    });
+                    connection.release();
+                }
+            });
+        });
+    },
+    //Thome down = productList 下载商品清单表
+    downTproductList: function (account, res, req) {
+        console.log(account + "进入downTproductList函数");
+        var teacherName = req.session.username;
+        obj.deleteFiles("public/tables4downLoad");
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TproductList, account, function (err, result) {
+                if (err) { //商品清单表查询错误
+                    console.log("商品清单表查询错误，返回TstudentInfoAdmin页");
+                    connection.release();
+                    obj.queryTInformation(account, res);
+                } else { //有商品清单表
+                    var FileName = "downLoad_productList"; //表下载时的名称
+                    var templateFileName = "template_productList"; //模板表名称
+                    var fullFileName = obj.creatfullFileName(FileName);
+                    var exlBuf = fs.readFileSync("public/tableTemplates4downLoad/" + templateFileName + ".xlsx");
+                    ejsExcel.renderExcel(exlBuf, {
+                        rsl: result
+                    }).then(function (exlBuf2) { //将数据放进模板开始渲染
+                        fs.writeFileSync("public/tables4downLoad/" + fullFileName, exlBuf2);
+                        res.download("public/tables4downLoad/" + fullFileName);
+                    }).catch(function (err) {
+                        console.error(err);
+                    });
+                    connection.release();
+                }
+            });
+        });
+    },
 
     //TstudentInfoAdmin 学生信息管理页信息
     queryTstudentInfo: function (account, res, req) {
@@ -1037,42 +1403,42 @@ const obj = {
             });
         });
     },
-    //down TstudentInfoAdmin 导出学生信息管理页信息
-    downTstudentInfo: function (account, res, req) {
-        console.log(account + "进入downTstudentInfo函数");
-        var teacherName = req.session.username;
+    //TstudentInfoAdmin 上传学生信息
+    uploadUserInfo: function(file) {
+        console.log(account + "进入uploadUserInfo函数");
+        obj.deleteFiles("public/tables4downLoad");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
                 console.log("数据库连接池错误");
                 res.send();
             }
-            connection.query($sql.TstudentInfo, account, function (err, result) {
-                if (err) { //学生信息查询错误
-                    console.log("学生信息查询错误，返回TstudentInfoAdmin页");
-                    connection.release();
-                    obj.queryTstudentInfo(account, res);
-                } else { //有学生信息
-                    // console.log(result);
-                    var FileName = "downLoad_stuInfo"; //表下载时的名称
-                    var templateFileName = "template_stuInfo"; //模板表名称
-                    exceltt.excelta(templateFileName, FileName, { //请求另一个node模块的文件进行数据渲染
-                        rsl: result
-                    }, function (path) {})
-                    ejs.renderFile('views/TstudentInfoAdmin.ejs', {
-                        result: result,
-                        teacherName
-                    }, function (err, data) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        res.end(data);
-                    })
-                    connection.release();
-                }
-            });
+            var userInfo = xlsx.parse(file)[0].data;
+            for (i = 1; i < userInfo.length; i++) {
+                studentId = userInfo[i][0];
+                collage = userInfo[i][1];
+                studentName = userInfo[i][2];
+                department = userInfo[i][3];
+                major = userInfo[i][4];
+                gender = userInfo[i][5];
+                grade = userInfo[i][6];
+                status = userInfo[i][7];
+                var TstuUploadParams = [studentId, collage, studentName, department, major, gender, grade, status, password,
+                    collage, studentName, department, major, gender, grade, status];
+                    // , password
+                connection.query($sql.TstuUpload, TstuUploadParams, function (err, result) {
+                    if (err) {
+                        console.log('[INSERT ERROR] - ', err.message);
+                        connection.release();
+                    }else{
+                        console.log('学生数据上传成功');
+                        connection.release();
+                    }
+                })
+            }
         });
+        
     },
-
+    
     // TgroupInfoAdmin 商户集团管理页信息
     queryTgroupInfo: function (account, res, req) {
         console.log(account + "进入queryTgroupInfo函数");

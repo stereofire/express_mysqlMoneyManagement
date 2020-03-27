@@ -597,6 +597,10 @@ ul {
     border: 0px;
 }
 
+.修改密码:hover {
+    background-color: rgb(2, 178, 248);
+}
+
 .order_table {
     width: 80%;
     margin: auto;
@@ -677,8 +681,8 @@ ul {
     padding-left: 150px;
     padding-bottom: 9px;
     font-size: 14px;
-    width:140px;
-    height:30px;
+    width: 140px;
+    height: 30px;
 }
 
 .information_picture {
@@ -860,4 +864,29 @@ select {
     /* margin-bottom: 0px; */
     padding-right: 7px;
     /* margin-top: 7px; */
+}
+
+/* 弹框遮罩层 */
+#coverLayer {
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    position: fixed;
+    background: rgba(0, 0, 0, 0.322);
+    display: none;
+}
+
+/* 弹窗 */
+#pop {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    width: 500px;
+    height: 200px;
+    margin-top: -250px;
+    margin-left: -250px;
+    background-color: white;
+    border: 2px solid rgb(139, 139, 139);
+    border-radius: 5px;
 }
