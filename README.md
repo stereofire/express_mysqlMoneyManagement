@@ -1,5 +1,5 @@
 # express_mysqlMoneyManagement
-nodejs实践的高校学生资金综合管理平台学生端
+nodejs实践的高校学生资金综合管理平台PC端全栈
 
 ## 版本信息
 node: v12.14.1
@@ -27,7 +27,7 @@ mysql: {
 ## 目录介绍  
 #### /bin: 用于应用启动
 #### /certificate: https网站的ssl证书与密钥文件
-#### /public: 静态资源目录
+#### /public: 静态资源目录+临时下载文件存储
 #### /routes：可以认为是controller（控制器）目录
 #### /views: ejs模板目录，可以认为是view(视图)目录
 
