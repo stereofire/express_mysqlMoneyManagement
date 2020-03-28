@@ -10,6 +10,7 @@ moment = require('moment');
 var ejsExcel = require("ejsExcel");
 // var exceltt = require("./exceltt.js");
 const path = require('path');
+const xlsx = require('node-xlsx');
 // 使用连接池，提升性能
 var pool = mysql.createPool($util.extend({}, $conf.mysql));
 
@@ -357,7 +358,7 @@ const obj = {
                 if (err) {
                     console.log("必缴账单查询错误，返回缴费订单总页");
                     connection.release();
-                    queryTotalAmount(account, res);
+                    obj.queryTotalAmount(account, res);
                 } else if (result[0] == undefined) { //无必缴账单总额,返回必缴账单总额为0、必缴订单
                     console.log("无必缴账单总额,返回必缴账单总额为0、必缴订单");
                     var studentName = req.session.username;
@@ -436,7 +437,7 @@ const obj = {
                 if (err) {
                     console.log("选缴账单查询错误，返回缴费订单总页");
                     connection.release();
-                    queryTotalAmount(account, res, req);
+                    obj.queryTotalAmount(account, res, req);
                 } else if (result[0].optionalAmount == null) { //无选缴账单总额,返回选缴账单总额为0、选缴订单
                     console.log("无选缴账单总额,返回选缴账单总额为0、选缴订单");
                     var studentName = req.session.username;
@@ -480,7 +481,7 @@ const obj = {
                 if (err) { //选缴订单查询错误
                     console.log("选缴订单查询错误，返回缴费订单总页");
                     connection.release();
-                    queryTotalAmount(account, res, req);
+                    obj.queryTotalAmount(account, res, req);
                 } else if (result[0] == undefined) { //无可选缴订单
                     console.log("无可选缴订单");
                     var studentName = req.session.username;
@@ -515,7 +516,7 @@ const obj = {
                 if (err) { //订单记录查询错误
                     console.log("订单记录查询错误，返回缴费订单总页");
                     connection.release();
-                    queryTotalAmount(account, res, req);
+                    obj.queryTotalAmount(account, res, req);
                 } else if (result[0] == undefined) { //无订单记录
                     console.log("无订单记录");
                     var studentName = req.session.username;
@@ -737,7 +738,7 @@ const obj = {
                 } else if (result[0] == undefined) { //无奖学金信息
                     console.log("无奖学金信息，返回订单记录页");
                     connection.release();
-                    queryOrderRecord(account, res, req);
+                    obj.queryOrderRecord(account, res, req);
                 } else { //有奖学金信息
                     console.log(result);
                     var scholarshipAmount = 0;
@@ -1404,15 +1405,16 @@ const obj = {
         });
     },
     //TstudentInfoAdmin 上传学生信息
-    uploadUserInfo: function(file) {
+    uploadUserInfo: function (userInfo,res,req) {
         console.log(account + "进入uploadUserInfo函数");
-        obj.deleteFiles("public/tables4downLoad");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
                 console.log("数据库连接池错误");
                 res.send();
             }
-            var userInfo = xlsx.parse(file)[0].data;
+            // console.log(xlsx.parse(file)[0].data);
+            // var userInfo = xlsx.parse(file)[0].data;
+            console.length(userInfo);
             for (i = 1; i < userInfo.length; i++) {
                 studentId = userInfo[i][0];
                 collage = userInfo[i][1];
@@ -1435,6 +1437,7 @@ const obj = {
                     }
                 })
             }
+            connection.release();
         });
         
     },
