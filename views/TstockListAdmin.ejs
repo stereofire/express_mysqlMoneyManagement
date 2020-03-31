@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>供货管理页</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
+</head>
+<body>
+    <div class="col-12">
+        <img class="header" src="images/index/head.png" alt="图像加载失败">
+    </div>
+    <div>
+        <ul class="Tnav">
+            <li class="teaname">
+                欢迎您：<font color="lightblue"><%= teacherName%></font> 老师</li>
+            <li><a href="/Thome">首页</a></li>
+            <li><a href="/TstudentInfoAdmin">学生信息管理</a></li>
+            <li><a href="/TgroupInfoAdmin">商户集团管理</a></li>
+            <li><a href="/TcorpInfoAdmin">供应商管理</a></li>
+            <li><a href="/TproductListAdmin">缴费项目管理</a></li>
+            <li><a href="/TallOrdersAdmin">缴费订单管理</a></li>
+            <li><a href="/TpaymentRecordsAdmin">缴费记录管理</a></li>
+            <li><a href="/TstockListAdmin" style="background-color:rgb(52, 152,219)">供货管理</a></li>
+            <li><a href="/TcoursePlansAdmin">教材计划管理</a></li>
+            <li><a href="/TclearInfoAdmin">清算统计</a></li>
+            <li><a href="/TscholarshipInfoAdmin">资金发放管理</a></li>
+            <li><a href="/TloginOut"><img class="loginout_picture" src="images/home/Out.png" alt="图片加载失败">注销登录</a></li>
+    </div>
+    <div>
+        <table class="teacher_mesage_table" >
+            <tr>
+                <td class="mesage">
+                    供货管理<br>
+                </td>
+            </tr>
+            <tr>
+                <td><img class="line_picture" src="images/home/line.png" alt="图片加载失败">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <table class="order_table" id="OrderRecordTB" name="keyPassage" style="width: 85%;margin-left: 160px;">
+        <thead>
+            <tr>
+                <th style="width: 55px;">采购编号</th>
+                <th style="width: 65px;">子采购编号</th>
+                <th style="width: 50px;">商品编号</th>
+                <th style="width: 55px;">商品名称</th>
+                <th style="width: 60px;">商品属性1</th>
+                <th style="width: 60px;">商品属性2</th>
+                <th style="width: 60px;">商品属性3</th>
+                <th style="width: 50px;">商品单价</th>
+                <th style="width: 50px;">商品数量</th>
+                <th style="width: 55px;">子采购总额</th>
+                <th style="width: 55px;">采购金额</th>
+                <th style="width: 70px;">供应商商户号</th>
+                <th style="width: 40px;">供应商名称</th>
+                <th style="width: 40px;">集团编号</th>
+                <th style="width: 60px;">操作</th>
+            </tr>
+        </thead>
+        <% for(var i = 0; i < result.length; i++){ %>
+        <tr>
+            <td><%= result[i].采购编号 %></td>
+            <td><%= result[i].子采购编号 %></td>
+            <td style="color: lightsteelblue;"><%= result[i].商品编号 %></td>
+            <td><%= result[i].商品名称 %></td>
+            <td><%= result[i].属性1 %></td>
+            <td><%= result[i].属性2 %></td>
+            <td><%= result[i].属性3 %></td>
+            <td style="color: lightsteelblue;"><%= result[i].商品单价 %></td>
+            <td><%= result[i].数量 %></td>
+            <td><%= result[i].子采购总额 %></td>
+            <td><%= result[i].金额 %></td>
+            <td><%= result[i].供应商商户号 %></td>
+            <td><%= result[i].供应商名称 %></td>
+            <td><%= result[i].集团编号 %></td>
+            <td>
+                <button class="deleteOrderRecord" onclick="deleteOrder('<%= result[i].订单编号 %>')">删除</button>
+            </td>
+        </tr>
+        <% } %>
+    </table>
+
+
+
+    <footer>
+        <div id="lsx">
+            版权所有-©苏州大学数学科学学院校级大创项目组 2020
+        </div>
+    </footer>
+
+</body>
+
+</html>
+<script>
+    window.onload = function () {
+        mergeSameCell(document.getElementById('OrderRecordTB'), 1, 0, [0, 10, 11, 12, 13,14]);
+    };
+    //tbl:table对应的dom元素，  
+    //beginRow:从第几行开始合并（从0开始），  
+    //endRow:合并到哪一行，负数表示从底下数几行不合并  
+    //colIdxes:合并的列下标的数组，如[0,1]表示合并前两列，[0]表示只合并第一列  
+    function mergeSameCell(tbl, beginRow, endRow, colIdxes) {
+        var colIdx = colIdxes[0];
+        var newColIdxes = colIdxes.concat();
+        newColIdxes.splice(0, 1)
+        var delRows = new Array();
+        var rs = tbl.rows;
+        //endRow为0的时候合并到最后一行，小于0时表示最后有-endRow行不合并  
+        if (endRow === 0) {
+            endRow = rs.length - 1;
+        } else if (endRow < 0) {
+            endRow = rs.length - 1 + endRow;
+        }
+        var rowSpan = 1; //要设置的rowSpan的值  
+        var rowIdx = beginRow; //要设置rowSpan的cell行下标  
+        var cellValue; //存储单元格里面的内容  
+        for (var i = beginRow; i <= endRow + 1; i++) {
+            if (i === endRow + 1) { //过了最后一行的时候合并前面的单元格  
+                if (newColIdxes.length > 0) {
+                    mergeSameCell(tbl, rowIdx, endRow, newColIdxes);
+                }
+                rs[rowIdx].cells[colIdx].rowSpan = rowSpan;
+            } else {
+                var cell = rs[i].cells[colIdx];
+                if (i === beginRow) { //第一行的时候初始化各个参数  
+                    cellValue = cell.innerHTML;
+                    rowSpan = 1;
+                    rowIdx = i;
+                } else if (cellValue != cell.innerHTML) { //数据改变合并前面的单元格  
+                    cellValue = cell.innerHTML;
+                    if (newColIdxes.length > 0) {
+                        mergeSameCell(tbl, rowIdx, i - 1, newColIdxes);
+                    }
+                    rs[rowIdx].cells[colIdx].rowSpan = rowSpan;
+                    rowSpan = 1;
+                    rowIdx = i;
+                } else if (cellValue === cell.innerHTML) { //数据和前面的数据重复的时候删除单元格  
+                    rowSpan++;
+                    delRows.push(i);
+                }
+            }
+        }
+        for (var j = 0; j < delRows.length; j++) {
+            rs[delRows[j]].deleteCell(colIdx);
+        }
+    }
+</script>

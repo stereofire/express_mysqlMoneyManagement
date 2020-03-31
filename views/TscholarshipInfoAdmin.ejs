@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资金发放管理页</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
+    <script src="javascripts/down&upData.js"></script>
+    <script src="javascripts/TscholarshipInfoAdmin.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+</head>
+
+<body>
+    <div class="col-12">
+        <img class="header" src="images/index/head.png" alt="图像加载失败">
+    </div>
+    <div>
+        <ul class="Tnav">
+            <li class="teaname">
+                欢迎您：<font color="lightblue"><%= teacherName%></font> 老师</li>
+            <li><a href="/Thome">首页</a></li>
+            <li><a href="/TstudentInfoAdmin">学生信息管理</a></li>
+            <li><a href="/TgroupInfoAdmin">商户集团管理</a></li>
+            <li><a href="/TcorpInfoAdmin">供应商管理</a></li>
+            <li><a href="/TproductListAdmin">缴费项目管理</a></li>
+            <li><a href="/TallOrdersAdmin">缴费订单管理</a></li>
+            <li><a href="/TpaymentRecordsAdmin">缴费记录管理</a></li>
+            <li><a href="/TstockListAdmin">供货管理</a></li>
+            <li><a href="/TcoursePlansAdmin">教材计划管理</a></li>
+            <li><a href="/TclearInfoAdmin">清算统计</a></li>
+            <li><a href="/TscholarshipInfoAdmin" style="background-color:rgb(52, 152,219)">资金发放管理</a></li>
+            <li><a href="/TloginOut"><img class="loginout_picture" src="images/home/Out.png" alt="图片加载失败">注销登录</a></li>
+    </div>
+    <div>
+        <table class="teacher_mesage_table" >
+            <tr>
+                <td class="mesage">
+                    资金发放管理<br>
+                </td>
+            </tr>
+            <tr>
+                <td><img class="line_picture" src="images/home/line.png" alt="图片加载失败">
+                </td>
+            </tr>
+        </table><form name="choiceForm">
+            <table class="teacher_mesage_table" style="padding-bottom: 10px;" id="choices">
+                <tr>
+                    <td style="font-size: small;">
+                        <font style="margin-left: 40px;">发放编号：</font>
+                        <input type="text" class="manageInput" style="width: 140px;" name="scholarshipID">
+                        学号：<input type="text" class="manageInput" style="width: 140px;" id="stuID">
+                        奖学金类型：
+                        <select name="scholarshipType" style="height: auto;width: 140px;" id="scholarshipType">
+                            <option selected="selected" value="0"></option>
+                            <option value="校级年度奖学金">校级年度奖学金</option>
+                            <option value="竞赛奖学金">竞赛奖学金</option>
+                            <option value="捐助奖学金">捐助奖学金</option>
+                            <option value="科研奖学金">科研奖学金</option>
+                        </select>
+                        名称：<input type="text" class="manageInput" style="width: 140px;" id="scholarshipName">
+                        等级：<input type="text" class="manageInput" style="width: 140px;" id="scholarshipGread">
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <table class="teacher_mesage_table" style="padding-bottom: 10px;">
+            <tr>
+                <td>
+                    <button class="managementButton" style="width: 75px;margin-left: 40px;"
+                        onclick="queryScholarshipInfo()"><img class="teacher_picture" src="images/teacher/query.png"
+                            alt="图片加载失败">查询</button>
+                    <button class="managementButton" style="width: 75px;"
+                        onclick="tableToExcel('ScholarshipTB', '资金发放信息表', '资金发放信息.xls')"><img class="teacher_picture"
+                            src="images/teacher/putOut.png" alt="图片加载失败">导出</button>
+                    <a id="dlink" style="display: none;"></a>
+
+                    <button class="managementButton" style="width:130px;" onclick="showPOP()"><img
+                            class="teacher_picture" src="images/teacher/putIn.png" alt="图片加载失败">从Excel文件导入</button>
+
+                    <button class="managementButton" style="width:130px;"
+                        onclick="location.href = '/TscholarshipInfoAdmin?down=excelTemplate'"><img class="teacher_picture"
+                            src="images/teacher/downLoad.png" alt="图片加载失败">下载Excel模板</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="coverLayer">
+        <div id="pop">
+            <table>
+                <tr>
+                    <td class="mesage" style="text-align: center;padding-left: 0px;">
+                        上传资金发放信息
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        ____________________________________________________
+                    </td>
+                </tr>
+                <tr></tr>
+            </table>
+            <table style="margin-top: 20px;">
+                <tr>
+                    <td>
+                        <form action="/TstudentInfoAdmin?fileUpload=ture" method="post" enctype="multipart/form-data"
+                            style="display: inline" name="fileUpload" id="fileUpload">
+                            <input type="file" name="scholarshipInfoUpLoad"><br><br>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td><button class="managementButton" style="width:130px;border-radius: 5px;"
+                            onclick="LimitAttach(fileUpload,fileUpload.scholarshipInfoUpLoad.value);">确定</button></td>
+                    <td><button class="managementButton" style="width:130px;border-radius: 5px;"
+                            onclick="closePOP()">取消</button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="tbDiv">
+    <table class="order_table" id="ScholarshipTB" name="keyPassage" style="width: 85%;margin-left: 160px;">
+        <thead>
+            <tr>
+                <th style="width: 55px;">发放编号</th>
+                <th style="width: 60px;">学号</th>
+                <th style="width: 65px;">奖学金类型</th>
+                <th style="width: 55px;">名称</th>
+                <th style="width: 60px;">等级</th>
+                <th style="width: 60px;">金额</th>
+                <th style="width: 50px;">资金发放时间</th>
+                <th style="width: 50px;">发放渠道</th>
+                <th style="width: 60px;">操作</th>
+            </tr>
+        </thead>
+        <tbody id="scholarshipTBody">
+        <% for(var i = 0; i < result.length; i++){ %>
+        <tr>
+            <td><%= result[i].发放编号 %></td>
+            <td><%= result[i].学号 %></td>
+            <td><%= result[i].奖学金类型 %></td>
+            <td><%= result[i].名称 %></td>
+            <td><%= result[i].等级 %></td>
+            <td><%= result[i].金额 %></td>
+            <td><%= result[i].资金发放时间 %></td>
+            <td><%= result[i].发放渠道 %></td>
+            <td>
+                <button class="deleteOrderRecord" onclick="deleteScholarship('<%= result[i].发放编号 %>')">删除</button>
+            </td>
+        </tr>
+        <% } %>
+    </tbody>
+    </table>
+    </div>
+    <footer>
+        <div id="lsx">
+            版权所有-©苏州大学数学科学学院校级大创项目组 2020
+        </div>
+    </footer>
+
+</body>
+
+</html>

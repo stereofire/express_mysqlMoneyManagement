@@ -1,0 +1,61 @@
+<!-- 订单提交成功页 orderSubmit  -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>订单确认</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
+    <script src="javascripts/orderConfirm.js"></script>
+</head>
+
+<body onload="sessionStorage.clear();">
+    <div>
+        <img class="header" src="images/index/head.png" alt="图像加载失败">
+    </div>
+    <div class="menu">
+        <div class="nav">
+            <ul>
+                <li><a href="/home">首页</a></li>
+                <li><a href="/paymentOrder">缴费订单</a></li>
+                <li><a href="/orderRecord">订单记录</a></li>
+                <li><a href="/scholarshipRecord">奖学金发放信息</a></li>
+                <li class="stuname" >欢迎您：<font color="lightblue"><%= studentName%></font> 同学</li>
+                <li style="float:right"><a href="/loginOut"><img class="loginout_picture" src="images/home/Out.png" alt="图片加载失败">注销登录</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="payment_table">
+        <table>
+            <tr>
+                <!--进度条-->
+                <td>
+                    <p class="payment2">&#12288 订单确认 &#12288</p>
+                </td>
+                <td>
+                    <p class="payment1">&#12288 提交结果 &#12288</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="payment_table">
+        <table class="confirm" id="confirmTB">
+            <thead>
+                <tr class="confirm" style="color: rgb(89, 166, 218);">
+                    <th>订单提交成功，请至订单记录页查看并于<font style="color: orangered;">48小时</font>内进行缴费，否则订单失效哦！</th>
+                    
+                </tr>
+            </thead>
+        </table>
+        <!-- <p id="please" style="text-align: right;">此处为“购物车”数据，确认“购物车”商品后请点击“提交订单”按钮，正式生成订单，即可继续完成缴费流程。</p> -->
+    </div>
+    <div id="lsx">
+        版权所有-©苏州大学数学科学学院校级大创项目组 2020
+    </div>
+    
+    
+</body>
+
+</html>

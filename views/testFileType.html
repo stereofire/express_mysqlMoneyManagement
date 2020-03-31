@@ -1,0 +1,55 @@
+<!-- TWO STEPS TO INSTALL UPLOAD FILTER:
+
+1. Copy the coding into the HEAD of your HTML document
+2. Add the last code into the BODY of your HTML document -->
+
+<!-- STEP ONE: Paste this code into the HEAD of your HTML document -->
+<html>
+
+<HEAD>
+    <script>
+        extArray = new Array(".xls", ".xlsx");
+        function LimitAttach(form, file) {
+            allowSubmit = false;
+            if (!file) return;
+            while (file.indexOf("\\") != -1)
+                file = file.slice(file.indexOf("\\") + 1);
+            ext = file.slice(file.indexOf(".")).toLowerCase();
+            for (var i = 0; i < extArray.length; i++) {
+                if (extArray[i] == ext) { allowSubmit = true; break; }
+            }
+            if (allowSubmit) form.submit();
+            else
+                alert("Please only upload files that end in types: "
+                    + (extArray.join(" ")) + "\nPlease select a new "
+                    + "file to upload and submit again.");
+        }
+    </script>
+</HEAD>
+
+<BODY>
+
+    <center>
+        Please upload only images that end in:
+        <script>
+            document.write(extArray.join(" "));
+        </script>
+        <p>
+
+            <form method=post name=upform action="/cgi-bin/some-script.cgi" enctype="multipart/form-data">
+                <input type=file name=uploadfile>
+                <p>
+                    <input type=button name="Submit" value="Submit"
+                        onclick="LimitAttach(this.form, this.form.uploadfile.value)">
+            </form>
+    </center>
+
+    <p>
+        <center>
+            <font face="arial, helvetica" size="-2">Free JavaScripts provided<br>
+                by <a href="http://javascriptsource.com">The JavaScript Source</a></font>
+        </center>
+        <p>
+
+</html>
+

@@ -1,0 +1,44 @@
+body{
+    background-color: rgba(0,0, 0, 0.8);/*设置透明度为0.8，以突出遮罩效果*/
+}
+.dialog{
+    background-color: rgba(255,255, 255, 1);
+    width: 20%;
+    height: 100px;
+    border-radius: 5px;
+    z-index: 1;/*优先*/
+    text-align: center;
+    /* 实现对浏览器窗口的垂直居中 */
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+/* 弹出框的提示文字部分 */
+.dialogheader{
+    height: 60%;
+    line-height: 60px;
+    margin: 0 auto;
+}
+/* 弹出框的两个按钮部分 */
+.dialogfooter{
+    height: 40%;
+    display: flex;
+    flex-direction: row;
+}
+/* 取消和确认按钮的设置 */
+.dialogconfirm,.dialogcancel{
+    outline: none;
+    background-color: white;
+    width: 50%;
+}
+.dialogconfirm{
+    border-width: 1px 0px 0px 1px;
+    border-bottom-right-radius:5px; 
+}
+.dialogcancel{
+    border-width: 1px 0px 0px 0px;
+    border-bottom-left-radius:5px; 
+}
+
+

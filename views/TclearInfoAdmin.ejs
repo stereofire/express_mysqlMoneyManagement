@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>清算统计管理页</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
+    <script src="javascripts/down&upData.js"></script>
+    <script src="javascripts/TclearInfoAdmin.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+</head>
+
+<body>
+    <div class="col-12">
+        <img class="header" src="images/index/head.png" alt="图像加载失败">
+    </div>
+    <div>
+        <ul class="Tnav">
+            <li class="teaname">
+                欢迎您：<font color="lightblue"><%= teacherName%></font> 老师</li>
+            <li><a href="/Thome">首页</a></li>
+            <li><a href="/TstudentInfoAdmin">学生信息管理</a></li>
+            <li><a href="/TgroupInfoAdmin">商户集团管理</a></li>
+            <li><a href="/TcorpInfoAdmin">供应商管理</a></li>
+            <li><a href="/TproductListAdmin">缴费项目管理</a></li>
+            <li><a href="/TallOrdersAdmin">缴费订单管理</a></li>
+            <li><a href="/TpaymentRecordsAdmin">缴费记录管理</a></li>
+            <li><a href="/TstockListAdmin">供货管理</a></li>
+            <li><a href="/TcoursePlansAdmin">教材计划管理</a></li>
+            <li><a href="/TclearInfoAdmin" style="background-color:rgb(52, 152,219)">清算统计</a></li>
+            <li><a href="/TscholarshipInfoAdmin">资金发放管理</a></li>
+            <li><a href="/TloginOut"><img class="loginout_picture" src="images/home/Out.png" alt="图片加载失败">注销登录</a></li>
+    </div>
+    <div>
+        <table class="teacher_mesage_table">
+            <tr>
+                <td class="mesage">
+                    清算统计管理<br>
+                </td>
+            </tr>
+            <tr>
+                <td><img class="line_picture" src="images/home/line.png" alt="图片加载失败">
+                </td>
+            </tr>
+        </table><form name="choiceForm">
+            <table class="teacher_mesage_table" style="padding-bottom: 10px;" id="choices">
+                <tr>
+                    <td style="font-size: small;">
+                        <font style="margin-left: 40px;">清算号：</font>
+                        <input type="text" class="manageInput" style="width: 80px;" name="clearID">
+                        采购编号：<input type="text" class="manageInput" style="width: 140px;" id="stockID">
+                        定金状态：
+                        <select name="depositStatus" style="height: auto;width: 80px;" id="depositStatus">
+                            <option selected="selected" value="0"></option>
+                            <option value="已支付">已支付</option>
+                            <option value="未支付">未支付</option>
+                        </select>
+                        尾款状态：
+                        <select name="remainingPaymentStatus" style="height: auto;width: 80px;" id="remainingPaymentStatus">
+                            <option selected="selected" value="0"></option>
+                            <option value="已结算">已结算</option>
+                            <option value="未结算">未结算</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <table class="teacher_mesage_table" style="padding-bottom: 10px;">
+            <tr>
+                <td>
+                    <button class="managementButton" style="width: 75px;margin-left: 40px;"
+                        onclick="queryClearInfo()"><img class="teacher_picture" src="images/teacher/query.png"
+                            alt="图片加载失败">查询</button>
+                    <button class="managementButton" style="width: 75px;"
+                        onclick="tableToExcel('OrderRecordTB', '清算信息表', '清算信息.xls')"><img class="teacher_picture"
+                            src="images/teacher/putOut.png" alt="图片加载失败">导出</button>
+                    <a id="dlink" style="display: none;"></a>
+
+                    <button class="managementButton" style="width:130px;" onclick="showPOP()"><img
+                            class="teacher_picture" src="images/teacher/putIn.png" alt="图片加载失败">从Excel文件导入</button>
+
+                    <button class="managementButton" style="width:130px;"
+                        onclick="location.href = '/TclearInfoAdmin?down=excelTemplate'"><img class="teacher_picture"
+                            src="images/teacher/downLoad.png" alt="图片加载失败">下载Excel模板</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="coverLayer">
+        <div id="pop">
+            <table>
+                <tr>
+                    <td class="mesage" style="text-align: center;padding-left: 0px;">
+                        上传清算信息
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        ____________________________________________________
+                    </td>
+                </tr>
+                <tr></tr>
+            </table>
+            <table style="margin-top: 20px;">
+                <tr>
+                    <td>
+                        <form action="/TstudentInfoAdmin?fileUpload=ture" method="post" enctype="multipart/form-data"
+                            style="display: inline" name="fileUpload" id="fileUpload">
+                            <input type="file" name="clearInfoUpLoad"><br><br>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td><button class="managementButton" style="width:130px;border-radius: 5px;"
+                            onclick="LimitAttach(fileUpload,fileUpload.clearInfoUpLoad.value);">确定</button></td>
+                    <td><button class="managementButton" style="width:130px;border-radius: 5px;"
+                            onclick="closePOP()">取消</button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="tbDiv">
+    <table class="order_table" id="OrderRecordTB" name="keyPassage" style="width: 85%;margin-left: 160px;">
+        <thead>
+            <tr>
+                <th style="width: 55px;">清算号</th>
+                <th style="width: 65px;">采购编号</th>
+                <th style="width: 50px;">定金金额</th>
+                <th style="width: 55px;">定金状态</th>
+                <th style="width: 60px;">尾款</th>
+                <th style="width: 60px;">尾款状态</th>
+                <th style="width: 60px;">定金支付时间</th>
+                <th style="width: 50px;">尾款支付期限</th>
+                <th style="width: 60px;">操作</th>
+            </tr>
+        </thead>
+        <tbody id="clearTBody">
+        <% for(var i = 0; i < result.length; i++){ %>
+        <tr>
+            <td><%= result[i].清算号 %></td>
+            <td><%= result[i].采购编号 %></td>
+            <td><%= result[i].定金金额 %></td>
+            <% if(result[i].定金状态 == 1){ %>
+            <td style="color: rgb(77, 214, 77);">已支付</td>
+            <% }else if(result[i].定金状态 == 0){  %>
+            <td style="color: red;">未支付</td>
+            <% } %>
+            <td><%= result[i].尾款 %></td>
+            <% if(result[i].尾款状态 == 1){ %>
+                <td style="color: rgb(77, 214, 77);">已结算</td>
+                <% }else if(result[i].定金状态 == 0){  %>
+                <td style="color: red;">未结算</td>
+                <% } %>
+            <td><%= result[i].定金支付时间 %></td>
+            <td><%= result[i].尾款支付期限 %></td>
+            <td>
+                <button class="deleteOrderRecord" onclick="deleteClearInfo('<%= result[i].清算号 %>')">删除</button>
+            </td>
+        </tr>
+        <% } %>
+    </tbody>
+    </table>
+    </div>
+    <footer>
+        <div id="lsx">
+            版权所有-©苏州大学数学科学学院校级大创项目组 2020
+        </div>
+    </footer>
+
+</body>
+
+</html>

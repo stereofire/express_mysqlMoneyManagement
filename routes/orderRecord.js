@@ -19,7 +19,6 @@ router.get('/', function (req, res, next) {
     }else{
       console.log("删除订单记录：",req.query.deleteOrder);
       userDao.deleteOrderRecord(req.session.user, res,req);
-      // res.send("jjj");
     }
   } else {
     ejs.renderFile('./views/loginTimeOut.ejs', {}, function (err, data) {

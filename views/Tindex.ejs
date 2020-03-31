@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>高校学生资金综合管理平台-登录</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/index.css">
+    <script type="text/javascript" src="javascripts/index.js"></script>
+</head>
+
+<body onload="createCode()">
+    <div class="col-12">
+        <img class="header" src="images/index/head.png" alt="图像加载失败">
+    </div>
+    <table class="col-12">
+        <tr>
+            <td class="col-8">
+                <img class="left_side" src="images/index/left_side.jpg" alt="图像加载失败">
+            </td>
+            <td class="col-4 right_side">
+                <div class="right_side_first_layer">
+                    <span>管理员登录</span>
+                </div>
+                <img class="line_picture" src="images/index/line.png" alt="图片加载失败">
+                <form class="user_login" action="/teacher" name="userLogin" method="post">
+                    <div>
+                        <table>
+                            <tr>
+                                <td class="words">
+                                    学校
+                                </td>
+                                <td>
+                                    <select name="schools">
+                                        <option value="soochow university">苏州大学</option>
+                                        <option value="nanjin university">南京大学</option>
+                                        <option value="shanghai university">上海大学</option>
+                                        <option value="dongnan university">东南大学</option>
+                                        <option value="dongnan university">兰州大学</option>
+                                        <option value="dongnan university">加州大学伯克利分校</option>
+                                    </select><br>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="words">账号</td>
+                                <td><input type="text" name="account"><br></td>
+                            </tr>
+                            <tr>
+                                <td class="words">密码</td>
+                                <td><input type="password" name="password"><br></td>
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+                <table>
+                    <tr>
+                        <td class="words">验证码</td>
+                        <td><input type="text" name="vertify_code" id="codeinput"><br></td>
+                        <td><button class="code" onclick="createCode()" id="code">验证码</button></td>
+                    </tr>
+                </table>
+                <input type="submit" name="loginButton" onclick="return sendForm()" value="登录">
+            </td>
+        </tr>
+    </table>
+    <!-- <div id="lsx">
+        版权所有-©lsx 2020
+    </div> -->
+</body>
+
+</html>

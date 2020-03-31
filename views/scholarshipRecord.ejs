@@ -1,0 +1,88 @@
+<!-- 奖学金发放信息页 scholarshipRecord  -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>奖学金发放信息</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
+    <!--<script src="javascript/首页.js"></script>-->
+</head>
+
+<body>
+    <div>
+        <img class="header" src="images/index/head.png" alt="图像加载失败">
+    </div>
+    <div class="menu">
+        <div class="nav">
+            <ul>
+                <li><a href="/home">首页</a></li>
+                <li><a href="/paymentOrder">缴费订单</a></li>
+                <li><a href="/orderRecord">订单记录</a></li>
+                <li><a href="/scholarshipRecord" style="background-color:rgb(52, 152,219)">奖学金发放信息</a></li>
+                <li class="stuname" >欢迎您：<font color="lightblue"><%= studentName%></font> 同学</li>
+                <li style="float:right"><a href="/loginOut"><img class="loginout_picture" src="images/home/Out.png" alt="图片加载失败">注销登录</a></li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <table class="mesage_table">
+            <tr class="mesage_table">
+                <td class="mesage">
+                    奖学金发放信息查看页<br>
+                </td>
+                <td id="please">奖学金发放信息由您的教务老师提交，如有疑问请联系您的教务老师。</td>
+            </tr>
+            <tr>
+                <td><img class="line_picture" src="images/home/line.png" alt="图片加载失败"></td>
+            </tr>
+            <% if(result.length == 0){ %>
+            <tr class="mesage_table">
+                <td class="mesage" style="color: rebeccapurple;">
+                    您暂时没有奖学金发放信息哦~<br>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <% }else{ %>
+    </table>
+    </div>
+
+
+    <table class="order_table" name="keyPassage"style="margin-bottom: 5px;">
+        <thead>
+            <tr>
+                <th>发放编号</th>
+                <th>学号</th>
+                <th>奖学金类型</th>
+                <th>名称</th>
+                <th>等级</th>
+                <th>金额</th>
+                <th>资金发放时间</th>
+                <th>发放渠道</th>
+            </tr>
+        </thead>
+        <% for(var i = 0; i < result.length; i++){ %>
+        <tr>
+            <td style="color: lightsteelblue;"><%= result[i].发放编号 %></td>
+            <td style="color: lightsteelblue;"><%= result[i].学号 %></td>
+            <td><%= result[i].奖学金类型 %></td>
+            <td><%= result[i].名称 %></td>
+            <td><%= result[i].等级 %></td>
+            <td><%= result[i].金额 %></td>
+            <td><%= result[i].资金发放时间 %></td>
+            <td><%= result[i].发放渠道 %></td>
+        </tr> <% } %>
+
+    </table>
+    <% } %>
+    <div id="即时订单总额"style="margin-bottom: 40px;">
+        累计已发放资金总额：<%= scholarshipAmount %>元
+    </div>
+    <div id="lsx">
+        版权所有-©苏州大学数学科学学院校级大创项目组 2020
+    </div>
+</body>
+
+</html>

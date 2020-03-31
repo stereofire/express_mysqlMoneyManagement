@@ -13,7 +13,11 @@ const path = require('path');
 const xlsx = require('node-xlsx');
 // 使用连接池，提升性能
 var pool = mysql.createPool($util.extend({}, $conf.mysql));
-
+var multer = require('multer');
+var $ = require('../jq/jquery');
+var upload = multer({
+    dest: './public/uploadExcels/'
+}).single('stuInfoUpLoad');
 // 向前台返回JSON方法的简单封装
 var jsonWrite = function (res, ret) {
     if (typeof ret === 'undefined') {
@@ -27,6 +31,21 @@ var jsonWrite = function (res, ret) {
 };
 
 const obj = {
+    // 失败提示，不不加载新界面
+    showMessage: function (message, res) {
+        var result = `<script>alert('${message}');history.back()</script>`;
+        res.send(result);
+    },
+    // 成功提示，并加载新界面
+    SMessage: function (message, href, res) {
+        // res.setHeader('Content-Type', 'text/html');
+        // var result=`<script>alert('${message}'); location.replace(location.href)</script>`;
+        console.log("Enter SMessage()");
+        var result = `<script>alert('${message}'); location.href=${href}</script>`;
+        res.send(result);
+    },
+
+
     // check_login: function (account, password, callback) {
     // 登录验证
     check_login: function (account, password, req, res) {
@@ -1021,7 +1040,7 @@ const obj = {
     },
     // 删除文件夹下所有文件(教师在其首页每点击一次下载文件前，均会触发清除临时后台文件夹下的所有文件)
     deleteFiles: function (folderPath) {
-        
+
         let forlder_exists = fs.existsSync(folderPath);
         if (forlder_exists) {
             let fileList = fs.readdirSync(folderPath);
@@ -1404,44 +1423,47 @@ const obj = {
             });
         });
     },
-    //TstudentInfoAdmin 上传学生信息
-    uploadUserInfo: function (userInfo,res,req) {
-        console.log(account + "进入uploadUserInfo函数");
+    // TstudentInfoAdmin 修改学生在读状态
+    changeReadStatus: function (res, req) {
+        var stuID = req.query.changeReadStatus;
+        console.log(stuID + "进入changeReadStatus函数");
+        var teacherName = req.session.username;
+        var setStuStatusArr = [];
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
                 console.log("数据库连接池错误");
                 res.send();
             }
-            // console.log(xlsx.parse(file)[0].data);
-            // var userInfo = xlsx.parse(file)[0].data;
-            console.length(userInfo);
-            for (i = 1; i < userInfo.length; i++) {
-                studentId = userInfo[i][0];
-                collage = userInfo[i][1];
-                studentName = userInfo[i][2];
-                department = userInfo[i][3];
-                major = userInfo[i][4];
-                gender = userInfo[i][5];
-                grade = userInfo[i][6];
-                status = userInfo[i][7];
-                var TstuUploadParams = [studentId, collage, studentName, department, major, gender, grade, status, password,
-                    collage, studentName, department, major, gender, grade, status];
-                    // , password
-                connection.query($sql.TstuUpload, TstuUploadParams, function (err, result) {
-                    if (err) {
-                        console.log('[INSERT ERROR] - ', err.message);
-                        connection.release();
-                    }else{
-                        console.log('学生数据上传成功');
-                        connection.release();
+            connection.query($sql.TstudentReadStatus, stuID, function (err, result) {
+                if (err) { //学生在读状态查询错误
+                    console.log("学生在读状态查询错误，返回TstudentInfoAdmin页");
+                    connection.release();
+                    obj.TstudentInfoAdmin(req.session.user, res, req);
+                } else { //学生在读状态查询成功
+                    if (result[0].在读状态 == 1) {
+                        setStuStatusArr = [0, stuID];
+                    } else if (result[0].在读状态 == 0) {
+                        setStuStatusArr = [1, stuID];
                     }
-                })
-            }
-            connection.release();
+                    console.log("学生在读状态:", result, setStuStatusArr);
+                    connection.query($sql.TchangeReadStatus, setStuStatusArr, function (err, result) {
+                        if (err) { //学生在读状态更改错误
+                            console.log("学生在读状态更改错误，返回TstudentInfoAdmin页");
+                            connection.release();
+                            obj.TstudentInfoAdmin(req.session.user, res, req);
+                        } else { //学生在读状态更改成功
+                            connection.release();
+                            console.log("学生在读状态更改成功");
+                            var message = "学生在读状态更改成功";
+                            var re = `<script>alert('${message}'); location.href="/TstudentInfoAdmin"</script>`;
+                            res.send(re);
+                        }
+                    });
+                }
+            });
         });
-        
     },
-    
+
     // TgroupInfoAdmin 商户集团管理页信息
     queryTgroupInfo: function (account, res, req) {
         console.log(account + "进入queryTgroupInfo函数");
@@ -1598,7 +1620,7 @@ const obj = {
                     })
                     connection.release();
                 } else { //有缴费订单
-                    console.log(result);
+                    // console.log(result);
                     ejs.renderFile('views/TallOrdersAdmin.ejs', {
                         result: result,
                         teacherName

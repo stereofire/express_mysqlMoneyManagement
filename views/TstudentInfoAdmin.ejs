@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生信息管理页</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
+    <script src="javascripts/TstudentInfoAdmin.js"></script>
+    <script src="javascripts/down&upData.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+</head>
+
+<body>
+    <div class="col-12">
+        <img class="header" src="images/index/head.png" alt="图像加载失败">
+    </div>
+    <div>
+        <ul class="Tnav">
+            <li class="teaname">
+                欢迎您：<font color="lightblue"><%= teacherName%></font> 老师</li>
+            <li><a href="/Thome">首页</a></li>
+            <li><a href="/TstudentInfoAdmin" style="background-color:rgb(52, 152,219)">学生信息管理</a></li>
+            <li><a href="/TgroupInfoAdmin">商户集团管理</a></li>
+            <li><a href="/TcorpInfoAdmin">供应商管理</a></li>
+            <li><a href="/TproductListAdmin">缴费项目管理</a></li>
+            <li><a href="/TallOrdersAdmin">缴费订单管理</a></li>
+            <li><a href="/TpaymentRecordsAdmin">缴费记录管理</a></li>
+            <li><a href="/TstockListAdmin">供货管理</a></li>
+            <li><a href="/TcoursePlansAdmin">教材计划管理</a></li>
+            <li><a href="/TclearInfoAdmin">清算统计</a></li>
+            <li><a href="/TscholarshipInfoAdmin">资金发放管理</a></li>
+            <li><a href="/TloginOut"><img class="loginout_picture" src="images/home/Out.png" alt="图片加载失败">注销登录</a></li>
+    </div>
+    <div>
+        <table class="teacher_mesage_table">
+            <tr>
+                <td class="mesage">
+                    学生信息管理<br>
+                </td>
+            </tr>
+            <tr>
+                <td><img class="line_picture" src="images/home/line.png" alt="图片加载失败">
+                </td>
+            </tr>
+        </table>
+        <form name="choiceForm">
+            <table class="teacher_mesage_table" style="padding-bottom: 10px;" id="choices">
+                <tr>
+                    <td style="font-size: small;">
+                        <font style="margin-left: 40px;">学号：</font>
+                        <input type="text" class="manageInput" style="width: 80px;" name="stuID">
+                        姓名：<input type="text" class="manageInput" style="width: 80px;" id="stuName">
+                        院系：
+                        <select name="stuSchool" style="height: auto;width: 140px;" id="stuSchool">
+                            <option selected="selected" value="0"></option>
+                            <option value="数学科学学院">数学科学学院</option>
+                            <option value="计算机科学与技术学院">计算机科学与技术学院</option>
+                        </select>
+                        专业：
+                        <select name="stuMajor" style="height: auto;width: 140px;" id="stuMajor">
+                            <option selected="selected" value="0"></option>
+                            <option value="数学与应用数学（基地）">数学与应用数学（基地）</option>
+                            <option value="数学与应用数学（师范）">数学与应用数学（师范）</option>
+                            <option value="统计学">统计学</option>
+                            <option value="金融数学">金融数学</option>
+                            <option value="信息与计算科学">信息与计算科学</option>
+                            <option value="物联网">物联网</option>
+                            <option value="计算机科学与技术	">计算机科学与技术 </option>
+                            <option value="人工智能">人工智能</option>
+                            <option value="网络空间与安全">网络空间与安全</option>
+                            <option value="信息管理">信息管理</option>
+                        </select>
+                        性别：
+                        <select name="sex" style="height: auto;" id="stuSex">
+                            <option selected="selected" value="0"></option>
+                            <option value="女">女</option>
+                            <option value="男">男</option>
+                        </select>
+                        年级：
+                        <select name="grade" style="height: auto;" id="stuGrade">
+                            <option selected="selected" value="0"></option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                        </select>
+                        在读状态：
+                        <select name="readStatus" style="height: auto;" id="stuReadStatus">
+                            <option selected="selected" value="0"></option>
+                            <option value="1">在读</option>
+                            <option value="0">不在读</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <table class="teacher_mesage_table" style="padding-bottom: 10px;">
+            <tr>
+                <td>
+                    <button class="managementButton" style="width: 75px;margin-left: 40px;"
+                        onclick="queryStuInfo()"><img class="teacher_picture" src="images/teacher/query.png"
+                            alt="图片加载失败">查询</button>
+                    <button class="managementButton" style="width: 75px;"
+                        onclick="tableToExcel('OrderRecordTB', '学生信息表', '学生信息.xls')"><img class="teacher_picture"
+                            src="images/teacher/putOut.png" alt="图片加载失败">导出</button>
+                    <a id="dlink" style="display: none;"></a>
+
+                    <button class="managementButton" style="width:130px;" onclick="showPOP()"><img
+                            class="teacher_picture" src="images/teacher/putIn.png" alt="图片加载失败">从Excel文件导入</button>
+
+                    <button class="managementButton" style="width:130px;"
+                        onclick="location.href = '/TstudentInfoAdmin?down=excelTemplate'"><img class="teacher_picture"
+                            src="images/teacher/downLoad.png" alt="图片加载失败">下载Excel模板</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="coverLayer">
+        <div id="pop">
+            <table>
+                <tr>
+                    <td class="mesage" style="text-align: center;padding-left: 0px;">
+                        上传学生信息
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        ____________________________________________________
+                    </td>
+                </tr>
+                <tr></tr>
+            </table>
+            <table style="margin-top: 20px;">
+                <tr>
+                    <td>
+                        <form action="/TstudentInfoAdmin?fileUpload=ture" method="post" enctype="multipart/form-data"
+                            style="display: inline" name="fileUpload" id="fileUpload">
+                            <input type="file" name="stuInfoUpLoad" ><br><br>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td><button class="managementButton" style="width:130px;border-radius: 5px;"
+                            onclick="LimitAttach(fileUpload,fileUpload.stuInfoUpLoad.value);">确定</button></td>
+                    <td><button class="managementButton" style="width:130px;border-radius: 5px;"
+                            onclick="closePOP()">取消</button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="tbDiv">
+        <table class="order_table" id="OrderRecordTB" name="keyPassage" style="width: 85%;margin-left: 160px;">
+            <thead>
+                <tr>
+                    <th>学号</th>
+                    <th>学校</th>
+                    <th>姓名</th>
+                    <th>院系</th>
+                    <th style="width: 105px;">专业</th>
+                    <th>性别</th>
+                    <th>年级</th>
+                    <th>在读状态</th>
+                    <th>修改在读状态</th>
+                </tr>
+            </thead>
+            <tbody id="stuTBody">
+                <% for(var i = 0; i < result.length; i++){ %>
+                <tr>
+                    <td><%= result[i].学号 %></td>
+                    <td><%= result[i].学校 %></td>
+                    <td><%= result[i].姓名 %></td>
+                    <td><%= result[i].院系 %></td>
+                    <td><%= result[i].专业 %></td>
+                    <td><%= result[i].性别 %></td>
+                    <td><%= result[i].年级 %></td>
+                    <% if(result[i].在读状态 == 1 ){ %>
+                    <td>在读</td>
+                    <% }else{ %>
+                    <td>不在读</td>
+                    <% } %>
+
+                    <% if(result[i].在读状态 == 1 ){ %>
+                    <td><button class="deleteOrderRecord" style="width: 75px;"
+                            onclick="changeReadStatus('<%= result[i].学号 %>','<%= result[i].在读状态 %>')">设为不在读</button>
+                    </td>
+                    <% }else{ %>
+                    <td><button class="gotoPayButton" style="width: 75px;"
+                            onclick="changeReadStatus('<%= result[i].学号 %>','<%= result[i].在读状态 %>')">设为在读</button></td>
+                    <% } %>
+
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+    <footer>
+        <div id="lsx">
+            版权所有-©苏州大学数学科学学院校级大创项目组 2020
+        </div>
+    </footer>
+
+</body>
+
+</html>

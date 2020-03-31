@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理员首页</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
+</head>
+
+<body style="background: url('images/teacher/back.png') no-repeat;background-size: cover;">
+    <div class="col-12">
+        <img class="header" src="images/index/head.png" alt="图像加载失败">
+    </div>
+    <div>
+        <ul class="Tnav">
+            <li class="teaname">
+                欢迎您：<font color="lightblue"><%= user.arr.teacherName%></font> 老师</li>
+            <li><a href="/Thome" style="background-color:rgb(52, 152,219)">首页</a></li>
+            <li><a href="/TstudentInfoAdmin">学生信息管理</a></li>
+            <li><a href="/TgroupInfoAdmin">商户集团管理</a></li>
+            <li><a href="/TcorpInfoAdmin">供应商管理</a></li>
+            <li><a href="/TproductListAdmin">缴费项目管理</a></li>
+            <li><a href="/TallOrdersAdmin">缴费订单管理</a></li>
+            <li><a href="/TpaymentRecordsAdmin">缴费记录管理</a></li>
+            <li><a href="/TstockListAdmin">供货管理</a></li>
+            <li><a href="/TcoursePlansAdmin">教材计划管理</a></li>
+            <li><a href="/TclearInfoAdmin">清算统计</a></li>
+            <li><a href="/TscholarshipInfoAdmin">资金发放管理</a></li>
+            <li><a href="/TloginOut"><img class="loginout_picture" src="images/home/Out.png" alt="图片加载失败">注销登录</a></li>
+    </div>
+    <div>
+        <table class="teacher_mesage_table">
+            <tr>
+                <td class="mesage" style="width: 120px;">
+                    管理员信息<br>
+                </td>
+                <td class="change_key">
+                    <img class="pen_picture" src="images/home/pen.png" alt="图片加载失败">
+                    <input type="button" name="changePassword" onclick="location.href='/TchangePassword'" class="修改密码"
+                        value="修改密码">
+                </td>
+            </tr>
+            <tr>
+                <td><img class="line_picture" src="images/home/line.png" alt="图片加载失败">
+                </td>
+            </tr>
+        </table>
+        <table class="teacher_mesage_table" style="font-size: 13px;">
+            <tr>
+                <td class="teacherInfo_mesage">
+                    <img class="information_picture" src="images/home/user.png" alt="图片加载失败">
+                    <b>姓名：</b><%= user.arr.teacherName%></td>
+                <td class="teacherInfo_mesage">
+                    <img class="information_picture" src="images/home/number.png" alt="图片加载失败">
+                    <b>管理员号：</b><%=user.arr.teacherID%></td>
+            </tr>
+            <tr>
+                <td class="teacherInfo_mesage">
+                    <img class="information_picture" src="images/home/college.png" alt="图片加载失败">
+                    <b>学校：</b><%=user.arr.college%></td>
+                <td class="teacherInfo_mesage">
+                    <img class="information_picture" src="images/home/major.png" alt="图片加载失败">
+                    <b>职务：</b><%=user.arr.job%></td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <table class="teacher_mesage_table">
+            <tr>
+                <td class="mesage" style="width: 120px;">
+                    数据表格下载<br>
+                </td>
+            </tr>
+            <tr>
+                <td><img class="line_picture" src="images/home/line.png" alt="图片加载失败">
+                </td>
+            </tr>
+        </table>
+        <table class="teacher_mesage_table" style="font-size: 13px;">
+            <tr>
+                <td class="teacherInfo_mesage" style="padding-left: 80px;">
+                    <button class="dataDownLoad" onclick="location.href = '/Thome?down=stuInfo'">学生信息表</button>
+                    <a id="downStuInfo" style="display: none;"></a></td>
+                <td class="teacherInfo_mesage" style="padding-left: 20px;">
+                    <button class="dataDownLoad" onclick="location.href = '/Thome?down=groupInfo'">商户集团信息表</button>
+                    <a id="" style="display: none;"></a></td>
+                <td class="teacherInfo_mesage" style="padding-left: 20px;">
+                    <button class="dataDownLoad" onclick="location.href = '/Thome?down=orderInfo'">订单信息表</button>
+                    <a id="" style="display: none;"></a></td>
+                <td class="teacherInfo_mesage" style="padding-left: 20px;">
+                <button class="dataDownLoad" onclick="location.href = '/Thome?down=stockInfo'">供货表</button>
+                <a id="" style="display: none;"></a></td>
+                <td class="teacherInfo_mesage" style="padding-left: 20px;">
+                    <button class="dataDownLoad" onclick="location.href = '/Thome?down=clearInfo'">清算表</button>
+                    <a id="" style="display: none;"></a></td>
+
+            </tr>
+            <tr>
+                <td class="teacherInfo_mesage" style="padding-left: 80px;">
+                    <button class="dataDownLoad" onclick="location.href = '/Thome?down=coursePlans'">教材计划表</button>
+                    <a id="" style="display: none;"></a></td>
+                <td class="teacherInfo_mesage" style="padding-left: 20px;">
+                    <button class="dataDownLoad" onclick="location.href = '/Thome?down=corpInfo'">供应商信息表</button>
+                    <a id="" style="display: none;"></a></td>
+
+                <td class="teacherInfo_mesage" style="padding-left: 20px;">
+                    <button class="dataDownLoad" onclick="location.href = '/Thome?down=subOrderInfo'">子订单信息表</button>
+                    <a id="" style="display: none;"></a></td>
+
+                <td class="teacherInfo_mesage" style="padding-left: 20px;">
+                    <button class="dataDownLoad" onclick="location.href = '/Thome?down=subStockInfo'">子供货表</button>
+                    <a id="" style="display: none;"></a></td>
+                <td class="teacherInfo_mesage" style="padding-left: 20px;">
+                    <button class="dataDownLoad" onclick="location.href = '/Thome?down=productList'">商品清单表</button>
+                    <a id="" style="display: none;"></a></td>
+
+            </tr>
+        </table>
+    </div>
+
+
+    <footer>
+        <div id="lsx">
+            版权所有-©苏州大学数学科学学院校级大创项目组 2020
+        </div>
+    </footer>
+
+</body>
+
+</html>

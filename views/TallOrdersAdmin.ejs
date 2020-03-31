@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>缴费订单管理页</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
+    <script src="javascripts/down&upData.js"></script>
+    <script src="javascripts/TallOrdersAdmin.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+</head>
+
+<body>
+    <div class="col-12">
+        <img class="header" src="images/index/head.png" alt="图像加载失败">
+    </div>
+    <div>
+        <ul class="Tnav">
+            <li class="teaname">
+                欢迎您：<font color="lightblue"><%= teacherName%></font> 老师</li>
+            <li><a href="/Thome">首页</a></li>
+            <li><a href="/TstudentInfoAdmin">学生信息管理</a></li>
+            <li><a href="/TgroupInfoAdmin">商户集团管理</a></li>
+            <li><a href="/TcorpInfoAdmin">供应商管理</a></li>
+            <li><a href="/TproductListAdmin">缴费项目管理</a></li>
+            <li><a href="/TallOrdersAdmin" style="background-color:rgb(52, 152,219)">缴费订单管理</a></li>
+            <li><a href="/TpaymentRecordsAdmin">缴费记录管理</a></li>
+            <li><a href="/TstockListAdmin">供货管理</a></li>
+            <li><a href="/TcoursePlansAdmin">教材计划管理</a></li>
+            <li><a href="/TclearInfoAdmin">清算统计</a></li>
+            <li><a href="/TscholarshipInfoAdmin">资金发放管理</a></li>
+            <li><a href="/TloginOut"><img class="loginout_picture" src="images/home/Out.png" alt="图片加载失败">注销登录</a></li>
+    </div>
+    <div>
+        <table class="teacher_mesage_table">
+            <tr>
+                <td class="mesage">
+                    缴费订单管理<br>
+                </td>
+            </tr>
+            <tr>
+                <td><img class="line_picture" src="images/home/line.png" alt="图片加载失败">
+                </td>
+            </tr>
+        </table>
+        <form name="choiceForm">
+            <table class="teacher_mesage_table" style="padding-bottom: 10px;font-size: small;" id="choices">
+                <tr>
+                    <td>
+                        <font style="margin-left: 40px;">学号：</font>
+                    </td>
+                    <td><input type="text" class="manageInput" style="width: 140px;" name="stuID">
+                    </td>
+                    <td>
+                        订单编号：</td>
+                    <td><input type="text" class="manageInput" style="width: 140px;" id="orderID">
+                    </td>
+                    <td>
+                        子订单编号：</td>
+                    <td><input type="text" class="manageInput" style="width: 140px;" id="subOrderID">
+                    </td>
+                    <td>
+                        商品编号：</td>
+                    <td><input type="text" class="manageInput" style="width: 80px;" id="productID">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <font style="margin-left: 40px;">商品名称：</font>
+                    </td>
+                    <td><input type="text" class="manageInput" style="width: 140px;" id="productName">
+                    </td>
+                    <td>
+                        商户名称：
+                    </td>
+                    <td><input type="text" class="manageInput" style="width: 140px;" id="corpName">
+                    </td>
+                    <td>
+                        支付状态：
+                    </td>
+                    <td><select name="paymentStatus" style="height: auto;width: 140px;" id="paymentStatus">
+                            <option selected="selected" value="0"></option>
+                            <option value="待缴费(必缴)">待缴费(必缴)</option>
+                            <option value="待缴费(选缴)">待缴费(选缴)</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <table class="teacher_mesage_table" style="padding-bottom: 10px;">
+            <tr>
+                <td>
+                    <button class="managementButton" style="width: 75px;margin-left: 40px;"
+                        onclick="queryOrderInfo()"><img class="teacher_picture" src="images/teacher/query.png"
+                            alt="图片加载失败">查询</button>
+                    <button class="managementButton" style="width: 75px;"
+                        onclick="tableToExcel('OrderRecordTB', '缴费订单表', '缴费订单.xls')"><img class="teacher_picture"
+                            src="images/teacher/putOut.png" alt="图片加载失败">导出</button>
+                    <a id="dlink" style="display: none;"></a>
+
+                    <button class="managementButton" style="width:130px;" onclick="showPOP()"><img
+                            class="teacher_picture" src="images/teacher/putIn.png" alt="图片加载失败">从Excel文件导入</button>
+
+                    <button class="managementButton" style="width:130px;"
+                        onclick="location.href = '/TallOrdersAdmin?down=excelTemplate'"><img class="teacher_picture"
+                            src="images/teacher/downLoad.png" alt="图片加载失败">下载Excel模板</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="coverLayer">
+        <div id="pop">
+            <table>
+                <tr>
+                    <td class="mesage" style="text-align: center;padding-left: 0px;">
+                        上传缴费订单
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        ____________________________________________________
+                    </td>
+                </tr>
+                <tr></tr>
+            </table>
+            <table style="margin-top: 20px;">
+                <tr>
+                    <td>
+                        <form action="/TallOrdersAdmin?fileUpload=ture" method="post" enctype="multipart/form-data"
+                            style="display: inline" name="fileUpload" id="fileUpload">
+                            <input type="file" name="orderInfoUpLoad"><br><br>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td><button class="managementButton" style="width:130px;border-radius: 5px;"
+                            onclick="LimitAttach(fileUpload,fileUpload.orderInfoUpLoad.value);">确定</button></td>
+                    <td><button class="managementButton" style="width:130px;border-radius: 5px;"
+                            onclick="closePOP()">取消</button></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="tbDiv">
+        <table class="order_table" id="OrderRecordTB" name="keyPassage" style="width: 85%;margin-left: 160px;">
+            <thead>
+                <tr>
+                    <th style="width: 65px;">学号</th>
+                    <th style="width: 65px;">订单编号</th>
+                    <th style="width: 70px;">子订单编号</th>
+                    <th style="width: 60px;">商品编号</th>
+                    <th style="width: 115px;">商品名称</th>
+                    <th>商品参数1</th>
+                    <th style="width: 55px;">商品参数2</th>
+                    <th>商品参数3</th>
+                    <th style="width: 30px;">数量</th>
+                    <th style="width: 60px;">单价(元)</th>
+                    <th style="width: 55px;">子订单总额(元)</th>
+                    <th>商户名称</th>
+                    <th style="width: 75px;">创建时间</th>
+                    <th style="width: 75px;">支付期限</th>
+                    <th style="width: 70px;">支付状态</th>
+                    <th style="width: 60px;">操作</th>
+                </tr>
+            </thead>
+            <tbody id="orderTBody">
+                <% for(var i = 0; i < result.length; i++){ %>
+                <tr>
+                    <td><%= result[i].学号 %></td>
+                    <td><%= result[i].订单编号 %></td>
+                    <td style="color: lightsteelblue;"><%= result[i].子订单编号 %></td>
+                    <td style="color: lightsteelblue;"><%= result[i].商品编号 %></td>
+                    <td><%= result[i].商品名称 %></td>
+                    <td><%= result[i].属性1 %></td>
+                    <td><%= result[i].属性2 %></td>
+                    <td><%= result[i].属性3 %></td>
+                    <td><%= result[i].商品数量 %></td>
+                    <td><%= result[i].商品单价 %></td>
+                    <td><%= result[i].子订单总额 %></td>
+                    <td style="color: lightsteelblue;"><%= result[i].商户名称 %></td>
+                    <td style="color:rgb(173, 173, 173);"><%= result[i].创建时间 %></td>
+                    <td style="color: orange;"><%= result[i].支付期限 %></td>
+                    <% if(result[i].订单支付状态 == 3){ %>
+                    <td style="color: red;">待缴费(必缴)</td>
+                    <td>
+                        <button class="deleteOrderRecord" onclick="deleteOrder('<%= result[i].订单编号 %>')">删除</button>
+                    </td>
+                    <% }else if(result[i].订单支付状态 == 2){ %>
+                    <td style="color: rgba(252, 70, 4, 0.781);">待缴费(选缴)</td>
+                    <td>
+                        <button class="deleteOrderRecord" onclick="deleteOrder('<%= result[i].订单编号 %>')">删除</button>
+                    </td>
+                    <% } %>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+    <footer>
+        <div id="lsx">
+            版权所有-©苏州大学数学科学学院校级大创项目组 2020
+        </div>
+    </footer>
+
+</body>
+
+</html>
+<script>
+    window.onload = function () {
+        mergeSameCell(document.getElementById('OrderRecordTB'), 1, 0, [0, 1, 12, 13, 14, 15]);
+    };
+    //tbl:table对应的dom元素，  
+    //beginRow:从第几行开始合并（从0开始），  
+    //endRow:合并到哪一行，负数表示从底下数几行不合并  
+    //colIdxes:合并的列下标的数组，如[0,1]表示合并前两列，[0]表示只合并第一列  
+    function mergeSameCell(tbl, beginRow, endRow, colIdxes) {
+        var colIdx = colIdxes[0];
+        var newColIdxes = colIdxes.concat();
+        newColIdxes.splice(0, 1)
+        var delRows = new Array();
+        var rs = tbl.rows;
+        //endRow为0的时候合并到最后一行，小于0时表示最后有-endRow行不合并  
+        if (endRow === 0) {
+            endRow = rs.length - 1;
+        } else if (endRow < 0) {
+            endRow = rs.length - 1 + endRow;
+        }
+        var rowSpan = 1; //要设置的rowSpan的值  
+        var rowIdx = beginRow; //要设置rowSpan的cell行下标  
+        var cellValue; //存储单元格里面的内容  
+        for (var i = beginRow; i <= endRow + 1; i++) {
+            if (i === endRow + 1) { //过了最后一行的时候合并前面的单元格  
+                if (newColIdxes.length > 0) {
+                    mergeSameCell(tbl, rowIdx, endRow, newColIdxes);
+                }
+                rs[rowIdx].cells[colIdx].rowSpan = rowSpan;
+            } else {
+                var cell = rs[i].cells[colIdx];
+                if (i === beginRow) { //第一行的时候初始化各个参数  
+                    cellValue = cell.innerHTML;
+                    rowSpan = 1;
+                    rowIdx = i;
+                } else if (cellValue != cell.innerHTML) { //数据改变合并前面的单元格  
+                    cellValue = cell.innerHTML;
+                    if (newColIdxes.length > 0) {
+                        mergeSameCell(tbl, rowIdx, i - 1, newColIdxes);
+                    }
+                    rs[rowIdx].cells[colIdx].rowSpan = rowSpan;
+                    rowSpan = 1;
+                    rowIdx = i;
+                } else if (cellValue === cell.innerHTML) { //数据和前面的数据重复的时候删除单元格  
+                    rowSpan++;
+                    delRows.push(i);
+                }
+            }
+        }
+        for (var j = 0; j < delRows.length; j++) {
+            rs[delRows[j]].deleteCell(colIdx);
+        }
+    }
+</script>
