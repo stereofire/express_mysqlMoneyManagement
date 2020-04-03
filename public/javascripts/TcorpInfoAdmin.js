@@ -1,13 +1,11 @@
-function changeOpenStatus(corpID, OpenStatus) {
+function changeCorpOpenStatus(corpID, OpenStatus) {
     if (OpenStatus == 1) {
         if (confirm("确定修改该供应商的启用状态吗？\u000d商户代码：" + corpID + "启用状态将改为：禁用")) {
-            // location.href = '/TstudentInfoAdmin?changeOpenStatus=' + corpID;
-            alert("已修改供应商" + corpID + "的启用状态：禁用");
+            location.href = '/TcorpInfoAdmin?changeCorpOpenStatus=' + corpID;
         }
     } else if (OpenStatus == 0) {
         if (confirm("确定修改该供应商的启用状态吗？\u000d商户代码：" + corpID + "启用状态将改为：启用")) {
-            location.href = '/TstudentInfoAdmin?changeOpenStatus=' + corpID;
-            alert("已修改供应商" + corpID + "的启用状态：启用");
+            location.href = '/TcorpInfoAdmin?changeCorpOpenStatus=' + corpID;
         }
     }
 }
@@ -75,4 +73,28 @@ function querycorpInfo() {
             }
         }
     }
+}
+
+//新增供应商表单
+function addForm(){
+	if(check_addForm()){
+		document.add_corp.submit();
+	}else{
+		console.log("check_addForm error, u can't submit the changePassword form.");
+		return false;
+	}
+}
+
+function check_addForm() {//是否为空	
+    var corp_name = document.forms["add_corp"]["corp_name"].value;
+    var corp_bankNo = document.forms["add_corp"]["corp_bankNo"].value;
+	if (corp_name == null || corp_name == "") {
+		alert("请输入供应商名称！");
+		return false;
+	}else if (corp_bankNo == null || corp_bankNo == "") {
+		alert("请输入供应商商户银行账号！");
+		return false;
+	}else{
+		return true;
+	}
 }

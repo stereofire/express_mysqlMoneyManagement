@@ -1,13 +1,11 @@
 function changeOpenStatus(productID, OpenStatus) {
     if (OpenStatus == 1) {
         if (confirm("确定修改该商品的上架状态吗？\u000d商品编号：" + productID + "上架状态将改为：下架")) {
-            // location.href = '/TstudentInfoAdmin?changeOpenStatus=' + productID;
-            alert("已修改商品" + productID + "的上架状态：下架");
+            location.href = '/TproductListAdmin?changeProductOpenStatus=' + productID;
         }
     } else if (OpenStatus == 0) {
         if (confirm("确定修改该商品的上架状态吗？\u000d商品编号：" + productID + "上架状态将改为：上架")) {
-            location.href = '/TstudentInfoAdmin?changeOpenStatus=' + productID;
-            alert("已修改商品" + productID + "的上架状态：上架");
+            location.href = '/TproductListAdmin?changeProductOpenStatus=' + productID;
         }
     }
 }
@@ -44,4 +42,37 @@ function queryProductList() {
             }
         }
     }
+}
+
+function closePOP_addProduct() {
+    document.getElementById("coverLayer_addProduct").style.display = 'none';
+    return false;
+}
+
+function showPOP_addProduct() {
+    document.getElementById("coverLayer_addProduct").style.display = 'block';
+}
+
+//新增商品信息
+function addForm_addProduct(){
+	if(check_addForm()){
+		document.add_product.submit();
+	}else{
+		console.log("check_addForm error, u can't submit the changePassword form.");
+		return false;
+	}
+}
+
+function check_addForm() {//是否为空	
+    var product_name = document.forms["add_product"]["product_name"].value;
+    var product_price = document.forms["add_product"]["product_price"].value;
+	if (product_name == null || product_name == "") {
+		alert("请输入商品名称！");
+		return false;
+	}else if (product_price == null || product_price == "") {
+		alert("请输入商品单价！");
+		return false;
+	}else{
+		return true;
+	}
 }

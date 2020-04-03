@@ -58,3 +58,48 @@ function queryStuInfo() {
         }
     }
 }
+
+function closePOP_addStu() {
+    document.getElementById("coverLayer_addStu").style.display = 'none';
+    return false;
+}
+
+function showPOP_addStu() {
+    document.getElementById("coverLayer_addStu").style.display = 'block';
+}
+
+//新增新增学生信息
+function addForm_addStu(){
+	if(check_addForm()){
+		document.add_stu.submit();
+	}else{
+		console.log("check_addForm error, u can't submit the changePassword form.");
+		return false;
+	}
+}
+
+function check_addForm() {//是否为空	
+    var stu_id = document.forms["add_stu"]["stu_id"].value;
+    var stu_name = document.forms["add_stu"]["stu_name"].value;
+    var stu_school = document.forms["add_stu"]["stu_school"].value;
+    var stu_major = document.forms["add_stu"]["stu_major"].value;
+    var stu_gread = document.forms["add_stu"]["stu_gread"].value;
+	if (stu_id == null || stu_id == "") {
+		alert("请输入学号！");
+		return false;
+	}else if (stu_name == null || stu_name == "") {
+		alert("请输入学生姓名！");
+		return false;
+	}else if (stu_school == null || stu_school == "") {
+		alert("请输入学院！");
+		return false;
+	}else if (stu_major == null || stu_major == "") {
+		alert("请输入专业！");
+		return false;
+	}else if (stu_gread == null || stu_gread == "") {
+		alert("请输入年级！");
+		return false;
+	}else{
+		return true;
+	}
+}

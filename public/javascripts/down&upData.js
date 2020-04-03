@@ -26,6 +26,7 @@ var tableToExcel = (function () {
 
 function closePOP() {
     document.getElementById("coverLayer").style.display = 'none';
+    return false;
 }
 
 function showPOP() {
