@@ -72,22 +72,18 @@
                             src="images/teacher/putOut.png" alt="图片加载失败">导出</button>
                     <a id="dlink" style="display: none;"></a>
 
-                    <button class="managementButton" style="width:130px;" onclick="showPOP()"><img
-                            class="teacher_picture" src="images/teacher/putIn.png" alt="图片加载失败">从Excel文件导入</button>
-
-                    <button class="managementButton" style="width:130px;"
-                        onclick="location.href = '/TgroupInfoAdmin?down=excelTemplate'"><img class="teacher_picture"
-                            src="images/teacher/downLoad.png" alt="图片加载失败">下载Excel模板</button>
+                    <button class="managementButton" style="width:140px;" onclick="showPOP()"><img
+                            class="teacher_picture" src="images/teacher/add.png" alt="图片加载失败">新增商户集团信息</button>
                 </td>
             </tr>
         </table>
     </div>
     <div id="coverLayer">
-        <div id="pop">
+        <div id="pop" style="height: auto;">
             <table>
                 <tr>
                     <td class="mesage" style="text-align: center;padding-left: 0px;">
-                        上传商户集团信息
+                        新增商户集团
                     </td>
                 </tr>
                 <tr>
@@ -97,22 +93,39 @@
                 </tr>
                 <tr></tr>
             </table>
-            <table style="margin-top: 20px;">
-                <tr>
-                    <td>
-                        <form action="/TstudentInfoAdmin?fileUpload=ture" method="post" enctype="multipart/form-data"
-                            style="display: inline" name="fileUpload" id="fileUpload">
-                            <input type="file" name="groupInfoUpLoad"><br><br>
-                        </form>
-                    </td>
-                </tr>
-                <tr>
-                    <td><button class="managementButton" style="width:130px;border-radius: 5px;"
-                            onclick="LimitAttach(fileUpload,fileUpload.groupInfoUpLoad.value);">确定</button></td>
-                    <td><button class="managementButton" style="width:130px;border-radius: 5px;"
-                            onclick="closePOP()">取消</button></td>
-                </tr>
-            </table>
+            <form class="add_group" action="/TgroupInfoAdmin?addGroup=true" name="add_group" method="post">
+                <div>
+                    <table style="font-size: small;margin-top: 20px;margin-bottom: 10px;">
+                        <tr>
+                            <td class="words">集团名称:</td>
+                            <td><input type="text" name="group_name" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">备注：</td>
+                            <td><input type="text" name="group_remark" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">
+                                启用状态:
+                            </td>
+                            <td>
+                                <select name="open_status" style="height: 30px;width: 160px;">
+                                    <option value="启用">启用</option>
+                                    <option value="禁用">禁用</option>
+                                </select><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><button class="managementButton"
+                                    style="width:130px;border-radius: 5px;margin-top: 20px;"
+                                    onclick="return addForm();">确定</button></td>
+                            <td><button class="managementButton"
+                                    style="width:130px;border-radius: 5px;margin-top: 20px;"
+                                    onclick="return closePOP()">取消</button></td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
         </div>
     </div>
     <div id="tbDiv">
@@ -139,9 +152,11 @@
                     <% } %>
 
                     <% if(result[i].状态 == 1 ){ %>
-                    <td><button class="deleteOrderRecord" style="width: 75px;" onclick="changeOpenStatus('<%= result[i].集团编号 %>','<%= result[i].状态 %>')">设为禁用</button></td>
+                    <td><button class="deleteOrderRecord" style="width: 75px;"
+                            onclick="changeGroupOpenStatus('<%= result[i].集团编号 %>','<%= result[i].状态 %>')">设为禁用</button></td>
                     <% }else{ %>
-                    <td><button class="gotoPayButton" style="width: 75px;" onclick="changeOpenStatus('<%= result[i].集团编号 %>','<%= result[i].状态 %>')">设为启用</button></td>
+                    <td><button class="gotoPayButton" style="width: 75px;"
+                            onclick="changeGroupOpenStatus('<%= result[i].集团编号 %>','<%= result[i].状态 %>')">设为启用</button></td>
                     <% } %>
 
                 </tr>

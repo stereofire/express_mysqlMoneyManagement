@@ -33,7 +33,7 @@
             <li><a href="/TloginOut"><img class="loginout_picture" src="images/home/Out.png" alt="图片加载失败">注销登录</a></li>
     </div>
     <div>
-        <table class="teacher_mesage_table" >
+        <table class="teacher_mesage_table">
             <tr>
                 <td class="mesage">
                     教材计划管理<br>
@@ -43,7 +43,8 @@
                 <td><img class="line_picture" src="images/home/line.png" alt="图片加载失败">
                 </td>
             </tr>
-        </table><form name="choiceForm">
+        </table>
+        <form action="/TcoursePlansAdmin?querySiftCoursePlans=true" name="choiceForm" method="post">
             <table class="teacher_mesage_table" style="padding-bottom: 10px;font-size: small;" id="choices">
                 <tr>
                     <td>
@@ -54,46 +55,47 @@
                     <td>
                         教材名：
                     </td>
-                    <td><input type="text" class="manageInput" style="width: 140px;" id="textBookName">
+                    <td><input type="text" class="manageInput" style="width: 140px;" name="textBookName">
                     <td>
                         学院：</td>
-                    <td><input type="text" class="manageInput" style="width: 140px;" id="school">
+                    <td><input type="text" class="manageInput" style="width: 140px;" name="school">
                     </td>
                     <td>
                         专业：</td>
-                    <td><input type="text" class="manageInput" style="width: 140px;" id="major">
+                    <td><input type="text" class="manageInput" style="width: 140px;" name="major">
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <font style="margin-left: 40px;">学期：</font></td>
-                    <td><select name="schoolTerm" style="height: auto;width: 80px;" id="schoolTerm">
-                        <option selected="selected" value="0"></option>
-                        <option value="第1学期">第1学期</option>
-                        <option value="第2学期">第2学期</option>
-                        <option value="第3学期">第3学期</option>
-                        <option value="第4学期">第4学期</option>
-                        <option value="第5学期">第5学期</option>
-                        <option value="第6学期">第6学期</option>
-                        <option value="第7学期">第7学期</option>
-                        <option value="第8学期">第8学期</option>
-                    </select>
+                        <font style="margin-left: 40px;">学期：</font>
+                    </td>
+                    <td><select name="schoolTerm" style="height: auto;width: 80px;" name="schoolTerm">
+                            <option selected="selected" value="0"></option>
+                            <option value="第1学期">第1学期</option>
+                            <option value="第2学期">第2学期</option>
+                            <option value="第3学期">第3学期</option>
+                            <option value="第4学期">第4学期</option>
+                            <option value="第5学期">第5学期</option>
+                            <option value="第6学期">第6学期</option>
+                            <option value="第7学期">第7学期</option>
+                            <option value="第8学期">第8学期</option>
+                        </select>
                     </td>
                     <td>
                         课程名：
                     </td>
-                    <td><input type="text" class="manageInput" style="width: 140px;" id="courseName">
+                    <td><input type="text" class="manageInput" style="width: 140px;" name="courseName">
                     </td>
-                    
+
                     </td>
-                    
+
                     <td>
                         单价：</td>
-                    <td><input type="text" class="manageInput" style="width: 140px;" id="textBookprice">
+                    <td><input type="text" class="manageInput" style="width: 140px;" name="textBookprice">
                     </td>
                     <td>
                         出版社：</td>
-                    <td><input type="text" class="manageInput" style="width: 140px;" id="publishingHouse">
+                    <td><input type="text" class="manageInput" style="width: 140px;" name="publishingHouse">
                     </td>
                 </tr>
             </table>
@@ -102,7 +104,7 @@
             <tr>
                 <td>
                     <button class="managementButton" style="width: 75px;margin-left: 40px;"
-                        onclick="queryCoursePlans()"><img class="teacher_picture" src="images/teacher/query.png"
+                        onclick="siftCoursePlans()"><img class="teacher_picture" src="images/teacher/query.png"
                             alt="图片加载失败">查询</button>
                     <button class="managementButton" style="width: 75px;"
                         onclick="tableToExcel('CoursePlansTB', '教材计划表', '教材计划.xls')"><img class="teacher_picture"
@@ -111,10 +113,11 @@
 
                     <button class="managementButton" style="width:130px;" onclick="showPOP()"><img
                             class="teacher_picture" src="images/teacher/putIn.png" alt="图片加载失败">从Excel文件导入</button>
-
                     <button class="managementButton" style="width:130px;"
                         onclick="location.href = '/TcoursePlansAdmin?down=excelTemplate'"><img class="teacher_picture"
                             src="images/teacher/downLoad.png" alt="图片加载失败">下载Excel模板</button>
+                    <button class="managementButton" style="width:130px;" onclick="showPOP_addCoursePlan()"><img
+                            class="teacher_picture" src="images/teacher/add.png" alt="图片加载失败">新增教材计划</button>
                 </td>
             </tr>
         </table>
@@ -137,54 +140,125 @@
             <table style="margin-top: 20px;">
                 <tr>
                     <td>
-                        <form action="/TcoursePlansAdmin?fileUpload=ture" method="post" enctype="multipart/form-data"
+                        <form action="/TcoursePlansAdmin?fileUpload=true" method="post" enctype="multipart/form-data"
                             style="display: inline" name="fileUpload" id="fileUpload">
-                            <input type="file" name="corpInfoUpLoad"><br><br>
+                            <input type="file" name="coursePlansUpLoad"><br><br>
                         </form>
                     </td>
                 </tr>
                 <tr>
                     <td><button class="managementButton" style="width:130px;border-radius: 5px;"
-                            onclick="LimitAttach(fileUpload,fileUpload.corpInfoUpLoad.value);">确定</button></td>
+                            onclick="LimitAttach(fileUpload,fileUpload.coursePlansUpLoad.value);">确定</button></td>
                     <td><button class="managementButton" style="width:130px;border-radius: 5px;"
                             onclick="closePOP()">取消</button></td>
                 </tr>
             </table>
         </div>
     </div>
+    <div id="coverLayer_addCoursePlan">
+        <div id="pop" style="height: auto;">
+            <table>
+                <tr>
+                    <td class="mesage" style="text-align: center;padding-left: 0px;">
+                        新增教材计划
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        ____________________________________________________
+                    </td>
+                </tr>
+                <tr></tr>
+            </table>
+            <form action="/TcoursePlansAdmin?addCoursePlan=true" name="add_coursePlan" method="post">
+                <div>
+                    <table style="font-size: small;margin-top: 20px;margin-bottom: 10px;">
+                        <tr>
+                            <td class="words">教材名：</td>
+                            <td><input type="text" name="textBook_name" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">学院：</td>
+                            <td><input type="text" name="coursePlan_school" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">专业：</td>
+                            <td><input type="text" name="coursePlan_major" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">学期：</td>
+                            <td>
+                                <select name="coursePlan_term" style="height: auto;width: 80px;" id="coursePlan_term">
+                                    <option value="第1学期">第1学期</option>
+                                    <option value="第2学期">第2学期</option>
+                                    <option value="第3学期">第3学期</option>
+                                    <option value="第4学期">第4学期</option>
+                                    <option value="第5学期">第5学期</option>
+                                    <option value="第6学期">第6学期</option>
+                                    <option value="第7学期">第7学期</option>
+                                    <option value="第8学期">第8学期</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="words">课程名：</td>
+                            <td><input type="text" name="coursePlan_courseName" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">单价：</td>
+                            <td><input type="text" name="coursePlan_price" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">出版社：</td>
+                            <td><input type="text" name="coursePlan_publishingHouse" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td><button class="managementButton"
+                                    style="width:130px;border-radius: 5px;margin-top: 20px;"
+                                    onclick="return addForm_addCoursePlan();">确定</button></td>
+                            <td><button class="managementButton"
+                                    style="width:130px;border-radius: 5px;margin-top: 20px;"
+                                    onclick="return closePOP_addCoursePlan()">取消</button></td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
     <div id="tbDiv">
-    <table class="order_table" id="CoursePlansTB" name="keyPassage" style="width: 85%;margin-left: 160px;">
-        <thead>
-            <tr>
-                <th style="width: 55px;">教材代码</th>
-                <th style="width: 60px;">教材名</th>
-                <th style="width: 65px;">学院</th>
-                <th style="width: 55px;">专业</th>
-                <th style="width: 60px;">学期</th>
-                <th style="width: 60px;">课程名</th>
-                <th style="width: 50px;">单价</th>
-                <th style="width: 50px;">出版社</th>
-                <th style="width: 60px;">操作</th>
-            </tr>
-        </thead>
-        <tbody id="coursePlanTBody">
-        <% for(var i = 0; i < result.length; i++){ %>
-        <tr>
-            <td><%= result[i].教材代码 %></td>
-            <td><%= result[i].教材名 %></td>
-            <td><%= result[i].学院 %></td>
-            <td><%= result[i].专业 %></td>
-            <td><%= result[i].学期 %></td>
-            <td><%= result[i].课程名 %></td>
-            <td><%= result[i].单价 %></td>
-            <td><%= result[i].出版社 %></td>
-            <td>
-                <button class="deleteOrderRecord" onclick="deleteCoursePlan('<%= result[i].教材代码 %>')">删除</button>
-            </td>
-        </tr>
-        <% } %>
-    </tbody>
-    </table>
+        <table class="order_table" id="CoursePlansTB" name="keyPassage" style="width: 85%;margin-left: 160px;">
+            <thead>
+                <tr>
+                    <th style="width: 55px;">教材代码</th>
+                    <th style="width: 60px;">教材名</th>
+                    <th style="width: 65px;">学院</th>
+                    <th style="width: 55px;">专业</th>
+                    <th style="width: 60px;">学期</th>
+                    <th style="width: 60px;">课程名</th>
+                    <th style="width: 50px;">单价</th>
+                    <th style="width: 50px;">出版社</th>
+                    <th style="width: 60px;">操作</th>
+                </tr>
+            </thead>
+            <tbody id="coursePlanTBody">
+                <% for(var i = 0; i < result.length; i++){ %>
+                <tr>
+                    <td><%= result[i].教材代码 %></td>
+                    <td><%= result[i].教材名 %></td>
+                    <td><%= result[i].学院 %></td>
+                    <td><%= result[i].专业 %></td>
+                    <td><%= result[i].学期 %></td>
+                    <td><%= result[i].课程名 %></td>
+                    <td><%= result[i].单价 %></td>
+                    <td><%= result[i].出版社 %></td>
+                    <td>
+                        <button class="deleteOrderRecord"
+                            onclick="deleteCoursePlan('<%= result[i].教材代码 %>')">删除</button>
+                    </td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
     </div>
     <footer>
         <div id="lsx">

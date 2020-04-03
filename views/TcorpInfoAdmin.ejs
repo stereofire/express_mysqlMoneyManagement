@@ -118,23 +118,18 @@
                         onclick="tableToExcel('OrderRecordTB', '供应商信息表', '供应商信息.xls')"><img class="teacher_picture"
                             src="images/teacher/putOut.png" alt="图片加载失败">导出</button>
                     <a id="dlink" style="display: none;"></a>
-
                     <button class="managementButton" style="width:130px;" onclick="showPOP()"><img
-                            class="teacher_picture" src="images/teacher/putIn.png" alt="图片加载失败">从Excel文件导入</button>
-
-                    <button class="managementButton" style="width:130px;"
-                        onclick="location.href = '/TcorpInfoAdmin?down=excelTemplate'"><img class="teacher_picture"
-                            src="images/teacher/downLoad.png" alt="图片加载失败">下载Excel模板</button>
+                            class="teacher_picture" src="images/teacher/add.png" alt="图片加载失败">新增供应商信息</button>
                 </td>
             </tr>
         </table>
     </div>
     <div id="coverLayer">
-        <div id="pop">
+        <div id="pop" style="height: auto;">
             <table>
                 <tr>
                     <td class="mesage" style="text-align: center;padding-left: 0px;">
-                        上传供应商信息
+                        新增供应商
                     </td>
                 </tr>
                 <tr>
@@ -144,22 +139,96 @@
                 </tr>
                 <tr></tr>
             </table>
-            <table style="margin-top: 20px;">
-                <tr>
-                    <td>
-                        <form action="/TcorpInfoAdmin?fileUpload=ture" method="post" enctype="multipart/form-data"
-                            style="display: inline" name="fileUpload" id="fileUpload">
-                            <input type="file" name="corpInfoUpLoad"><br><br>
-                        </form>
-                    </td>
-                </tr>
-                <tr>
-                    <td><button class="managementButton" style="width:130px;border-radius: 5px;"
-                            onclick="LimitAttach(fileUpload,fileUpload.corpInfoUpLoad.value);">确定</button></td>
-                    <td><button class="managementButton" style="width:130px;border-radius: 5px;"
-                            onclick="closePOP()">取消</button></td>
-                </tr>
-            </table>
+            <form action="/TcorpInfoAdmin?addCorp=true" name="add_corp" method="post">
+                <div>
+                    <table style="font-size: small;margin-top: 20px;margin-bottom: 10px;">
+                        <tr>
+                            <td class="words">商户名称：</td>
+                            <td><input type="text" name="corp_name" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">商户银行账号：</td>
+                            <td><input type="text" name="corp_bankNo" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">对账联系人：</td>
+                            <td><input type="text" name="corp_principal" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">对账联系人电话：</td>
+                            <td><input type="text" name="corp_prinPhone" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">对账联系人邮箱：</td>
+                            <td><input type="text" name="corp_email" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">商户对账联系人备注：</td>
+                            <td><input type="text" name="corp_prinRemark" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">结算类型：</td>
+                            <td>
+                                <select name="corp_settleType" style="height: 30px;width: 160px;">
+                                    <option value="1">全款结算</option>
+                                    <option value="2">分期结算</option>
+                                </select><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="words">是否支持退货：</td>
+                            <td>
+                                <select name="corp_returnGoods" style="height: 30px;width: 160px;">
+                                    <option value="否">否</option>
+                                    <option value="是">是</option>
+                                </select><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="words">商户类型：</td>
+                            <td><input type="text" name="corp_type" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">集团编号：</td>
+                            <td>
+                                <select name="group_ID" style="height: 30px;width: 160px;">
+                                    <option value="10000001">10000001</option>
+                                    <option value="10000002">10000002</option>
+                                    <option value="10000003">10000003</option>
+                                    <option value="10000004">10000004</option>
+                                    <option value="10000005">10000005</option>
+                                    <option value="10000006">10000006</option>
+                                    <option value="10000007">10000007</option>
+                                    <option value="10000008">10000008</option>
+                                </select><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="words">商户地址：</td>
+                            <td><input type="text" name="corp_address" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">
+                                启用状态:
+                            </td>
+                            <td>
+                                <select name="open_status" style="height: 30px;width: 160px;">
+                                    <option value="1">启用</option>
+                                    <option value="0">禁用</option>
+                                </select><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><button class="managementButton"
+                                    style="width:130px;border-radius: 5px;margin-top: 20px;"
+                                    onclick="return addForm();">确定</button></td>
+                            <td><button class="managementButton"
+                                    style="width:130px;border-radius: 5px;margin-top: 20px;"
+                                    onclick="return closePOP()">取消</button></td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
         </div>
     </div>
     <div id="tbDiv">
@@ -210,9 +279,13 @@
                     <% } %>
 
                     <% if(result[i].状态 == 1 ){ %>
-                    <td><button class="deleteOrderRecord" style="width: 75px;" onclick="changeOpenStatus('<%= result[i].商户代码 %>','<%= result[i].状态 %>')">设为禁用</button></td>
+                    <td><button class="deleteOrderRecord" style="width: 75px;"
+                            onclick="changeCorpOpenStatus('<%= result[i].商户代码 %>','<%= result[i].状态 %>')">设为禁用</button>
+                    </td>
                     <% }else{ %>
-                    <td><button class="gotoPayButton" style="width: 75px;" onclick="changeOpenStatus('<%= result[i].商户代码 %>','<%= result[i].状态 %>')">设为启用</button></td>
+                    <td><button class="gotoPayButton" style="width: 75px;"
+                            onclick="changeCorpOpenStatus('<%= result[i].商户代码 %>','<%= result[i].状态 %>')">设为启用</button>
+                    </td>
                     <% } %>
 
                 </tr>

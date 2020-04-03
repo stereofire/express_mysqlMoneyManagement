@@ -106,10 +106,11 @@
 
                     <button class="managementButton" style="width:130px;" onclick="showPOP()"><img
                             class="teacher_picture" src="images/teacher/putIn.png" alt="图片加载失败">从Excel文件导入</button>
-
                     <button class="managementButton" style="width:130px;"
                         onclick="location.href = '/TstudentInfoAdmin?down=excelTemplate'"><img class="teacher_picture"
                             src="images/teacher/downLoad.png" alt="图片加载失败">下载Excel模板</button>
+                    <button class="managementButton" style="width:130px;" onclick="showPOP_addStu()"><img
+                            class="teacher_picture" src="images/teacher/add.png" alt="图片加载失败">新增学生信息</button>
                 </td>
             </tr>
         </table>
@@ -132,9 +133,9 @@
             <table style="margin-top: 20px;">
                 <tr>
                     <td>
-                        <form action="/TstudentInfoAdmin?fileUpload=ture" method="post" enctype="multipart/form-data"
+                        <form action="/TstudentInfoAdmin?fileUpload=true" method="post" enctype="multipart/form-data"
                             style="display: inline" name="fileUpload" id="fileUpload">
-                            <input type="file" name="stuInfoUpLoad" ><br><br>
+                            <input type="file" name="stuInfoUpLoad"><br><br>
                         </form>
                     </td>
                 </tr>
@@ -145,6 +146,75 @@
                             onclick="closePOP()">取消</button></td>
                 </tr>
             </table>
+        </div>
+    </div>
+    <div id="coverLayer_addStu">
+        <div id="pop" style="height: auto;">
+            <table>
+                <tr>
+                    <td class="mesage" style="text-align: center;padding-left: 0px;">
+                        新增学生信息
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        ____________________________________________________
+                    </td>
+                </tr>
+                <tr></tr>
+            </table>
+            <form action="/TstudentInfoAdmin?addStu=true" name="add_stu" method="post">
+                <div>
+                    <table style="font-size: small;margin-top: 20px;margin-bottom: 10px;">
+                        <tr>
+                            <td class="words">学号：</td>
+                            <td><input type="text" name="stu_id" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">姓名：</td>
+                            <td><input type="text" name="stu_name" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">院系：</td>
+                            <td><input type="text" name="stu_school" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">专业：</td>
+                            <td><input type="text" name="stu_major" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">性别：</td>
+                            <td>
+                                <select name="stu_gender" style="height: 30px;width: 160px;">
+                                    <option value="男">男</option>
+                                    <option value="女">女</option>
+                                </select><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="words">年级：</td>
+                            <td><input type="text" name="stu_gread" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">在读状态：</td>
+                            <td>
+                                <select name="stu_readStatus" style="height: 30px;width: 160px;">
+                                    <option value="1">在读</option>
+                                    <option value="0">不在读</option>
+                                </select><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><button class="managementButton"
+                                    style="width:130px;border-radius: 5px;margin-top: 20px;"
+                                    onclick="return addForm_addStu();">确定</button></td>
+                            <td><button class="managementButton"
+                                    style="width:130px;border-radius: 5px;margin-top: 20px;"
+                                    onclick="return closePOP_addStu()">取消</button></td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
         </div>
     </div>
     <div id="tbDiv">

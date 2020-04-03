@@ -75,10 +75,11 @@
 
                     <button class="managementButton" style="width:130px;" onclick="showPOP()"><img
                             class="teacher_picture" src="images/teacher/putIn.png" alt="图片加载失败">从Excel文件导入</button>
-
                     <button class="managementButton" style="width:130px;"
                         onclick="location.href = '/TproductListAdmin?down=excelTemplate'"><img class="teacher_picture"
                             src="images/teacher/downLoad.png" alt="图片加载失败">下载Excel模板</button>
+                    <button class="managementButton" style="width:130px;" onclick="showPOP_addProduct()"><img
+                            class="teacher_picture" src="images/teacher/add.png" alt="图片加载失败">新增缴费项目</button>
                 </td>
             </tr>
         </table>
@@ -88,7 +89,7 @@
             <table>
                 <tr>
                     <td class="mesage" style="text-align: center;padding-left: 0px;">
-                        上传商户集团信息
+                        上传缴费项目信息
                     </td>
                 </tr>
                 <tr>
@@ -101,7 +102,7 @@
             <table style="margin-top: 20px;">
                 <tr>
                     <td>
-                        <form action="/TproductListAdmin?fileUpload=ture" method="post" enctype="multipart/form-data"
+                        <form action="/TproductListAdmin?fileUpload=true" method="post" enctype="multipart/form-data"
                             style="display: inline" name="fileUpload" id="fileUpload">
                             <input type="file" name="productListUpLoad"><br><br>
                         </form>
@@ -114,6 +115,85 @@
                             onclick="closePOP()">取消</button></td>
                 </tr>
             </table>
+        </div>
+    </div>
+    <div id="coverLayer_addProduct">
+        <div id="pop" style="height: auto;">
+            <table>
+                <tr>
+                    <td class="mesage" style="text-align: center;padding-left: 0px;">
+                        新增缴费项目
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        ____________________________________________________
+                    </td>
+                </tr>
+                <tr></tr>
+            </table>
+            <form action="/TproductListAdmin?addProduct=true" name="add_product" method="post">
+                <div>
+                    <table style="font-size: small;margin-top: 20px;margin-bottom: 10px;">
+                        <tr>
+                            <td class="words">商品名称：</td>
+                            <td><input type="text" name="product_name" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">商品单价：</td>
+                            <td><input type="text" name="product_price" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">商户名称：</td>
+                            <td>
+                                <select name="product_corpID" style="height: 30px;width: 160px;">
+                                    <option value="A00001">明光牛奶</option>
+                                    <option value="A00002">美琳服饰</option>
+                                    <option value="A00003">齐彤电力</option>
+                                    <option value="A00004">东吴物业</option>
+                                    <option value="A00005">江苏水厂</option>
+                                    <option value="A00006">本校教材教务中心</option>
+                                    <option value="A00007">校团委委员会</option>
+                                </select><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="words">商品状态：</td>
+                            <td>
+                                <select name="product_openStatus" style="height: 30px;width: 160px;">
+                                    <option value="1">上架</option>
+                                    <option value="0">下架</option>
+                                </select><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="words">属性1：</td>
+                            <td><input type="text" name="product_attri1st" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">属性2：</td>
+                            <td><input type="text" name="product_attri2nd" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">属性3：</td>
+                            <td><input type="text" name="product_attri3rd" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">备注：</td>
+                            <td><input type="text" name="product_remark" style="width: 160px;"><br></td>
+                        </tr>
+                        
+                        <tr>
+                            <td><button class="managementButton"
+                                    style="width:130px;border-radius: 5px;margin-top: 20px;"
+                                    onclick="return addForm_addProduct();">确定</button></td>
+                            <td><button class="managementButton"
+                                    style="width:130px;border-radius: 5px;margin-top: 20px;"
+                                    onclick="return closePOP_addProduct()">取消</button></td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
         </div>
     </div>
     <div id="tbDiv">
@@ -149,9 +229,9 @@
                     <td><%= result[i].属性3 %></td>
                     <td><%= result[i].备注 %></td>
                     <% if(result[i].商品状态 == 1 ){ %>
-                    <td><button class="deleteOrderRecord" style="width: 75px;" onclick="">设为禁用</button></td>
+                    <td><button class="deleteOrderRecord" style="width: 75px;" onclick="changeOpenStatus('<%= result[i].商品编号 %>','<%= result[i].商品状态 %>')">设为下架</button></td>
                     <% }else{ %>
-                    <td><button class="gotoPayButton" style="width: 75px;" onclick="">设为启用</button></td>
+                    <td><button class="gotoPayButton" style="width: 75px;" onclick="changeOpenStatus('<%= result[i].商品编号 %>','<%= result[i].商品状态 %>')">设为上架</button></td>
                     <% } %>
 
                 </tr>

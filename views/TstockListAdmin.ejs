@@ -6,7 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>供货管理页</title>
     <link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
+    <script src="javascripts/down&upData.js"></script>
+    <script src="javascripts/TstockListAdmin.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 </head>
+
 <body>
     <div class="col-12">
         <img class="header" src="images/index/head.png" alt="图像加载失败">
@@ -29,7 +33,7 @@
             <li><a href="/TloginOut"><img class="loginout_picture" src="images/home/Out.png" alt="图片加载失败">注销登录</a></li>
     </div>
     <div>
-        <table class="teacher_mesage_table" >
+        <table class="teacher_mesage_table">
             <tr>
                 <td class="mesage">
                     供货管理<br>
@@ -40,52 +44,155 @@
                 </td>
             </tr>
         </table>
-    </div>
-    <table class="order_table" id="OrderRecordTB" name="keyPassage" style="width: 85%;margin-left: 160px;">
-        <thead>
+        <form action="/TstockListAdmin?querySiftStocks=true" name="choiceForm" method="post">
+            <table class="teacher_mesage_table" style="padding-bottom: 10px;font-size: small;" id="choices">
+                <tr>
+                    <td>
+                        <font style="margin-left: 40px;">采购编号：</font>
+                    </td>
+                    <td><input type="text" class="manageInput" style="width: 140px;" name="stockID">
+                    </td>
+                    <td>
+                        子采购编号：</td>
+                    <td><input type="text" class="manageInput" style="width: 140px;" name="subStockID">
+                    </td>
+                    <td>
+                        商品编号：</td>
+                    <td><input type="text" class="manageInput" style="width: 140px;" name="productID">
+                    </td>
+                    <td>
+                        商品名称：</td>
+                    <td><input type="text" class="manageInput" style="width: 80px;" name="productName">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <font style="margin-left: 40px;">供应商商户号：</font>
+                    </td>
+                    <td><input type="text" class="manageInput" style="width: 140px;" name="corpID">
+                    </td>
+                    <td>
+                        供应商名称：
+                    </td>
+                    <td><input type="text" class="manageInput" style="width: 140px;" name="corpName">
+                    </td>
+                    <td>
+                        集团编号：
+                    </td>
+                    <td>
+                        <input type="text" class="manageInput" style="width: 140px;" name="groupName">
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <table class="teacher_mesage_table" style="padding-bottom: 10px;">
             <tr>
-                <th style="width: 55px;">采购编号</th>
-                <th style="width: 65px;">子采购编号</th>
-                <th style="width: 50px;">商品编号</th>
-                <th style="width: 55px;">商品名称</th>
-                <th style="width: 60px;">商品属性1</th>
-                <th style="width: 60px;">商品属性2</th>
-                <th style="width: 60px;">商品属性3</th>
-                <th style="width: 50px;">商品单价</th>
-                <th style="width: 50px;">商品数量</th>
-                <th style="width: 55px;">子采购总额</th>
-                <th style="width: 55px;">采购金额</th>
-                <th style="width: 70px;">供应商商户号</th>
-                <th style="width: 40px;">供应商名称</th>
-                <th style="width: 40px;">集团编号</th>
-                <th style="width: 60px;">操作</th>
+                <td>
+                    <button class="managementButton" style="width: 75px;margin-left: 40px;" onclick="siftStocks()"><img
+                            class="teacher_picture" src="images/teacher/query.png" alt="图片加载失败">查询</button>
+                    <button class="managementButton" style="width: 75px;"
+                        onclick="tableToExcel('OrderRecordTB', '采购信息表', '采购信息.xls')"><img class="teacher_picture"
+                            src="images/teacher/putOut.png" alt="图片加载失败">导出</button>
+                    <a id="dlink" style="display: none;"></a>
+                    <!-- <button class="managementButton" style="width:130px;" onclick="showPOP()"><img
+                            class="teacher_picture" src="images/teacher/putIn.png" alt="图片加载失败">从Excel文件导入</button>
+                    <button class="managementButton" style="width:130px;"
+                        onclick="location.href = '/TstockListAdmin?down=excelTemplate'"><img class="teacher_picture"
+                            src="images/teacher/downLoad.png" alt="图片加载失败">下载Excel模板</button> -->
+                    <button class="managementButton" style="width:130px;" onclick="showPOP_addStock()"><img
+                            class="teacher_picture" src="images/teacher/add.png" alt="图片加载失败">新增采购信息</button>
+                    <button class="managementButton" style="width:200px;" onclick="showPOP_addStock()"><img
+                            class="teacher_picture" src="images/teacher/add.png" alt="图片加载失败">批量创建选缴订单采购信息</button>
+                </td>
             </tr>
-        </thead>
-        <% for(var i = 0; i < result.length; i++){ %>
-        <tr>
-            <td><%= result[i].采购编号 %></td>
-            <td><%= result[i].子采购编号 %></td>
-            <td style="color: lightsteelblue;"><%= result[i].商品编号 %></td>
-            <td><%= result[i].商品名称 %></td>
-            <td><%= result[i].属性1 %></td>
-            <td><%= result[i].属性2 %></td>
-            <td><%= result[i].属性3 %></td>
-            <td style="color: lightsteelblue;"><%= result[i].商品单价 %></td>
-            <td><%= result[i].数量 %></td>
-            <td><%= result[i].子采购总额 %></td>
-            <td><%= result[i].金额 %></td>
-            <td><%= result[i].供应商商户号 %></td>
-            <td><%= result[i].供应商名称 %></td>
-            <td><%= result[i].集团编号 %></td>
-            <td>
-                <button class="deleteOrderRecord" onclick="deleteOrder('<%= result[i].订单编号 %>')">删除</button>
-            </td>
-        </tr>
-        <% } %>
-    </table>
-
-
-
+        </table>
+    </div>
+    <div id="coverLayer_addStock">
+        <div id="pop" style="height: auto;">
+            <table>
+                <tr>
+                    <td class="mesage" style="text-align: center;padding-left: 0px;">
+                        新增采购信息
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        ____________________________________________________
+                    </td>
+                </tr>
+                <tr></tr>
+            </table>
+            <form action="/TstudentInfoAdmin?addStock=true" name="add_stock" method="post">
+                <div>
+                    <table style="font-size: small;margin-top: 20px;margin-bottom: 10px;">
+                        <tr>
+                            <td class="words">供应商名称：</td>
+                            <td><input type="text" name="stu_name" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">供应商名称：</td>
+                            <td><input type="text" name="stu_name" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td><button class="managementButton"
+                                    style="width:130px;border-radius: 5px;margin-top: 20px;"
+                                    onclick="return addForm_addStock();">确定</button></td>
+                            <td><button class="managementButton"
+                                    style="width:130px;border-radius: 5px;margin-top: 20px;"
+                                    onclick="return closePOP_addStock()">取消</button></td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="tbDiv">
+        <table class="order_table" id="OrderRecordTB" name="keyPassage" style="width: 85%;margin-left: 160px;">
+            <thead>
+                <tr>
+                    <th style="width: 55px;">采购编号</th>
+                    <th style="width: 65px;">子采购编号</th>
+                    <th style="width: 50px;">商品编号</th>
+                    <th style="width: 55px;">商品名称</th>
+                    <th style="width: 60px;">商品属性1</th>
+                    <th style="width: 60px;">商品属性2</th>
+                    <th style="width: 60px;">商品属性3</th>
+                    <th style="width: 50px;">商品单价</th>
+                    <th style="width: 50px;">商品数量</th>
+                    <th style="width: 55px;">子采购总额</th>
+                    <th style="width: 55px;">采购金额</th>
+                    <th style="width: 70px;">供应商商户号</th>
+                    <th style="width: 40px;">供应商名称</th>
+                    <th style="width: 40px;">集团编号</th>
+                    <th style="width: 60px;">操作</th>
+                </tr>
+            </thead>
+            <tbody id="orderTBody">
+                <% for(var i = 0; i < result.length; i++){ %>
+                <tr>
+                    <td><%= result[i].采购编号 %></td>
+                    <td><%= result[i].子采购编号 %></td>
+                    <td style="color: lightsteelblue;"><%= result[i].商品编号 %></td>
+                    <td><%= result[i].商品名称 %></td>
+                    <td><%= result[i].属性1 %></td>
+                    <td><%= result[i].属性2 %></td>
+                    <td><%= result[i].属性3 %></td>
+                    <td style="color: lightsteelblue;"><%= result[i].商品单价 %></td>
+                    <td><%= result[i].数量 %></td>
+                    <td><%= result[i].子采购总额 %></td>
+                    <td><%= result[i].金额 %></td>
+                    <td><%= result[i].供应商商户号 %></td>
+                    <td><%= result[i].供应商名称 %></td>
+                    <td><%= result[i].集团编号 %></td>
+                    <td>
+                        <button class="deleteOrderRecord"
+                            onclick="deleteStockRecord('<%= result[i].采购编号 %>')">删除</button>
+                    </td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
     <footer>
         <div id="lsx">
             版权所有-©苏州大学数学科学学院校级大创项目组 2020
@@ -97,7 +204,7 @@
 </html>
 <script>
     window.onload = function () {
-        mergeSameCell(document.getElementById('OrderRecordTB'), 1, 0, [0, 10, 11, 12, 13,14]);
+        mergeSameCell(document.getElementById('OrderRecordTB'), 1, 0, [0, 10, 11, 12, 13, 14]);
     };
     //tbl:table对应的dom元素，  
     //beginRow:从第几行开始合并（从0开始），  

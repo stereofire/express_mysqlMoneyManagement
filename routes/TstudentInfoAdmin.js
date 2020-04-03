@@ -46,7 +46,7 @@ router.get('/', function (req, res, next) {
 router.post('/', upload, function (req, res, next) {
   if (req.session.islogin) {
     console.log("已登录用户查询：", req.session.user);
-    if (req.query.fileUpload == "ture") {
+    if (req.query.fileUpload == "true") {
       console.log("进入TstudentInfoAdmin?fileUpload=ture");
       if (req.file.length == 0) { //判断一下文件是否存在，前端代码中也已进行判断。
         res.render("error", {
@@ -131,6 +131,11 @@ router.post('/', upload, function (req, res, next) {
         });
         SMessage('学生数据上传成功！', res);
       }
+    }
+    if (req.query.addStu == "true") {
+      console.log('进入TcorpInfoAdmin?addStu=true，get FormData Params: ', req.body);
+      /*插入新增学生信息*/
+      userDao.addStuInfo(res,req);
     }
   } else {
     ejs.renderFile('./views/TloginTimeOut.ejs', {}, function (err, data) {
