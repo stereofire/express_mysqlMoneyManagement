@@ -44,7 +44,7 @@
                 </td>
             </tr>
         </table>
-        <form name="choiceForm">
+        <form action="/TallOrdersAdmin?querySiftAllOrders=true" name="choiceForm" method="post">
             <table class="teacher_mesage_table" style="padding-bottom: 10px;font-size: small;" id="choices">
                 <tr>
                     <td>
@@ -54,32 +54,32 @@
                     </td>
                     <td>
                         订单编号：</td>
-                    <td><input type="text" class="manageInput" style="width: 140px;" id="orderID">
+                    <td><input type="text" class="manageInput" style="width: 140px;" name="orderID">
                     </td>
                     <td>
                         子订单编号：</td>
-                    <td><input type="text" class="manageInput" style="width: 140px;" id="subOrderID">
+                    <td><input type="text" class="manageInput" style="width: 140px;" name="subOrderID">
                     </td>
                     <td>
                         商品编号：</td>
-                    <td><input type="text" class="manageInput" style="width: 80px;" id="productID">
+                    <td><input type="text" class="manageInput" style="width: 80px;" name="productID">
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <font style="margin-left: 40px;">商品名称：</font>
                     </td>
-                    <td><input type="text" class="manageInput" style="width: 140px;" id="productName">
+                    <td><input type="text" class="manageInput" style="width: 140px;" name="productName">
                     </td>
                     <td>
                         商户名称：
                     </td>
-                    <td><input type="text" class="manageInput" style="width: 140px;" id="corpName">
+                    <td><input type="text" class="manageInput" style="width: 140px;" name="corpName">
                     </td>
                     <td>
                         支付状态：
                     </td>
-                    <td><select name="paymentStatus" style="height: auto;width: 140px;" id="paymentStatus">
+                    <td><select name="paymentStatus" style="height: auto;width: 140px;" name="paymentStatus">
                             <option selected="selected" value="0"></option>
                             <option value="待缴费(必缴)">待缴费(必缴)</option>
                             <option value="待缴费(选缴)">待缴费(选缴)</option>
@@ -92,7 +92,7 @@
             <tr>
                 <td>
                     <button class="managementButton" style="width: 75px;margin-left: 40px;"
-                        onclick="queryOrderInfo()"><img class="teacher_picture" src="images/teacher/query.png"
+                        onclick="sifttAllOrders()"><img class="teacher_picture" src="images/teacher/query.png"
                             alt="图片加载失败">查询</button>
                     <button class="managementButton" style="width: 75px;"
                         onclick="tableToExcel('OrderRecordTB', '缴费订单表', '缴费订单.xls')"><img class="teacher_picture"

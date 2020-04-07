@@ -9,55 +9,10 @@ function changeReadStatus(stuID, readStatus) {
         }
     }
 }
-
-function queryStuInfo() {
-    var stuID = document.forms["choiceForm"]["stuID"].value;
-    var stuName = document.forms["choiceForm"]["stuName"].value;
-    var stuSchool = document.forms["choiceForm"]["stuSchool"].value;
-    var stuMajor = document.forms["choiceForm"]["stuMajor"].value;
-    var stuSex = document.forms["choiceForm"]["stuSex"].value;
-    var stuGrade = document.forms["choiceForm"]["stuGrade"].value;
-    var stuReadStatus = document.forms["choiceForm"]["stuReadStatus"].value;
-    console.log(stuID, stuName, stuSchool, stuMajor, stuSex, stuGrade, stuReadStatus);
-
-    const stuTBody = document.getElementById("stuTBody");
-    for (var i = 0; i < stuTBody.rows.length; i++) { //遍历行
-        stuTBody.rows[i].style.display = "";
-    }
-    console.log(stuTBody);
-    for (var i = 0; i < stuTBody.rows.length; i++) { //遍历行
-        for (var j = 0; j < stuTBody.rows[i].cells.length; j++) { //遍历列
-            if (j == 0 && stuID != "") { //stuID有值
-                if (stuTBody.rows[i].cells[j].innerHTML != stuID)
-                    stuTBody.rows[i].style.display = "none";
-            }
-            if (j == 2 && stuName != "") { //stuName有值
-                if (stuTBody.rows[i].cells[j].innerHTML != stuName)
-                    stuTBody.rows[i].style.display = "none";
-            }
-            if (j == 3 && stuSchool != 0) { //stuSchool有值
-                if (stuTBody.rows[i].cells[j].innerHTML != stuSchool)
-                    stuTBody.rows[i].style.display = "none";
-            }
-            if (j == 4 && stuMajor != 0) { //stuMajor有值
-                if (stuTBody.rows[i].cells[j].innerHTML != stuMajor)
-                    stuTBody.rows[i].style.display = "none";
-            }
-            if (j == 5 && stuSex != 0) { //stuSex有值
-                if (stuTBody.rows[i].cells[j].innerHTML != stuSex)
-                    stuTBody.rows[i].style.display = "none";
-            }
-            if (j == 6 && stuGrade != 0) { //stuGrade有值
-                if (stuTBody.rows[i].cells[j].innerHTML != stuGrade)
-                    stuTBody.rows[i].style.display = "none";
-            }
-            if (j == 7 && stuReadStatus != 0) { //stuReadStatus有值
-                if (stuTBody.rows[i].cells[j].innerHTML != stuReadStatus)
-                    stuTBody.rows[i].style.display = "none";
-            }
-        }
-    }
+function siftStuInfo() {
+    document.choiceForm.submit();
 }
+
 
 function closePOP_addStu() {
     document.getElementById("coverLayer_addStu").style.display = 'none';
@@ -103,3 +58,52 @@ function check_addForm() {//是否为空
 		return true;
 	}
 }
+
+// function queryStuInfo() {
+//     var stuID = document.forms["choiceForm"]["stuID"].value;
+//     var stuName = document.forms["choiceForm"]["stuName"].value;
+//     var stuSchool = document.forms["choiceForm"]["stuSchool"].value;
+//     var stuMajor = document.forms["choiceForm"]["stuMajor"].value;
+//     var stuSex = document.forms["choiceForm"]["stuSex"].value;
+//     var stuGrade = document.forms["choiceForm"]["stuGrade"].value;
+//     var stuReadStatus = document.forms["choiceForm"]["stuReadStatus"].value;
+//     console.log(stuID, stuName, stuSchool, stuMajor, stuSex, stuGrade, stuReadStatus);
+
+//     const stuTBody = document.getElementById("stuTBody");
+//     for (var i = 0; i < stuTBody.rows.length; i++) { //遍历行
+//         stuTBody.rows[i].style.display = "";
+//     }
+//     console.log(stuTBody);
+//     for (var i = 0; i < stuTBody.rows.length; i++) { //遍历行
+//         for (var j = 0; j < stuTBody.rows[i].cells.length; j++) { //遍历列
+//             if (j == 0 && stuID != "") { //stuID有值
+//                 if (stuTBody.rows[i].cells[j].innerHTML != stuID)
+//                     stuTBody.rows[i].style.display = "none";
+//             }
+//             if (j == 2 && stuName != "") { //stuName有值
+//                 if (stuTBody.rows[i].cells[j].innerHTML != stuName)
+//                     stuTBody.rows[i].style.display = "none";
+//             }
+//             if (j == 3 && stuSchool != 0) { //stuSchool有值
+//                 if (stuTBody.rows[i].cells[j].innerHTML != stuSchool)
+//                     stuTBody.rows[i].style.display = "none";
+//             }
+//             if (j == 4 && stuMajor != 0) { //stuMajor有值
+//                 if (stuTBody.rows[i].cells[j].innerHTML != stuMajor)
+//                     stuTBody.rows[i].style.display = "none";
+//             }
+//             if (j == 5 && stuSex != 0) { //stuSex有值
+//                 if (stuTBody.rows[i].cells[j].innerHTML != stuSex)
+//                     stuTBody.rows[i].style.display = "none";
+//             }
+//             if (j == 6 && stuGrade != 0) { //stuGrade有值
+//                 if (stuTBody.rows[i].cells[j].innerHTML != stuGrade)
+//                     stuTBody.rows[i].style.display = "none";
+//             }
+//             if (j == 7 && stuReadStatus != 0) { //stuReadStatus有值
+//                 if (stuTBody.rows[i].cells[j].innerHTML != stuReadStatus)
+//                     stuTBody.rows[i].style.display = "none";
+//             }
+//         }
+//     }
+// }

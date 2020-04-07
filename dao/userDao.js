@@ -1506,6 +1506,117 @@ const obj = {
             });
         });
     },
+    // TstudentInfoAdmin 筛选学生信息
+    querySiftStuInfo: function(res,req){
+        var teacherName = req.session.username;
+        console.log(teacherName + "进入querySiftStuInfo函数");
+        console.log(req.body);
+        var stuID = req.body.stuID;
+        var stuName = req.body.stuName;
+        var stuSchool = req.body.stuSchool;
+        var stuMajor = req.body.stuMajor;
+        var sex = req.body.sex;
+        var grade = req.body.grade;
+        var readStatus = req.body.readStatus;
+        var sift = [stuID, stuName, stuSchool, stuMajor, sex, grade, readStatus];
+        var mark = [1, 1, 1, 1, 1, 1, 1];
+        var sql = "select * from 用户信息表";
+        var k = 7;
+        for (var i = 0; i < sift.length; i++) {
+            if (sift[i] == '' || sift[i] == 0 || sift[i] == undefined) {
+                mark[i] = 0;
+                k--;
+            }
+        }
+        console.log(sift);
+        console.log(mark);
+        if (k > 0) {
+            sql += " WHERE"
+        }
+        if (mark[0] == 1) {
+            sql += " 学号 = "+ "'" + sift[0] + "'";
+            if (--k > 0) {
+                sql += " AND";
+            }
+        }
+        if (mark[1] == 1) {
+            sql += " 姓名 = " + "'" + sift[1] + "'";
+            if (--k > 0) {
+                sql += " AND";
+            }
+        }
+        if (mark[2] == 1) {
+            sql += " 院系 = " + "'" + sift[2] + "'";
+            if (--k > 0) {
+                sql += " AND";
+            }
+        }
+        if (mark[3] == 1) {
+            sql += " 专业 = " + "'" + sift[3] + "'";
+            if (--k > 0) {
+                sql += " AND";
+            }
+        }
+        if (mark[4] == 1) {
+            sql += " 性别 = " + "'" + sift[4] + "'";
+            if (--k > 0) {
+                sql += " AND";
+            }
+        }
+        if (mark[5] == 1) {
+            sql += " 年级 = " + "'" + sift[5] + "'";
+            if (--k > 0) {
+                sql += " AND";
+            }
+        }
+        if (mark[6] == 1) {
+            if(sift[6] == "在读"){
+                sql += " 在读状态 = 1";
+            }else if(sift[6] == "不在读"){
+                sql += " 在读状态 = 0";
+            }
+        }
+        sql += " ORDER BY 学号 ASC;"
+        console.log("sql:", sql);
+        // res.send(sql);
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query(sql, function (err, result) {
+                if (err) { // 学生信息查询错误
+                    console.log(" 学生信息查询错误，返回TstudentInfoAdmin页");
+                    connection.release();
+                    obj.queryTstudentInfo(req.session.user, res, req);
+                } else if (result[0] == undefined) { //无学生信息
+                    console.log("无学生信息");
+                    ejs.renderFile('views/TstudentInfoAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //有学生信息
+                    // console.log(result);
+                    ejs.renderFile('views/TstudentInfoAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                }
+            });
+        });
+    },
 
     // TgroupInfoAdmin 商户集团管理页信息
     queryTgroupInfo: function (account, res, req) {
@@ -1624,6 +1735,88 @@ const obj = {
             });
         });
     },
+    // TgroupInfoAdmin 筛选商户集团信息
+    querySiftGroupInfo: function(res,req){
+        var teacherName = req.session.username;
+        console.log(teacherName + "进入querySiftGroupInfo函数");
+        var groupID = req.body.groupID;
+        var groupName = req.body.groupName;
+        var groupOpenStatus = req.body.groupOpenStatus;
+        var sift = [groupID, groupName, groupOpenStatus];
+        var mark = [1, 1, 1];
+        var sql = "select * from 商户集团信息表";
+        var k = 3;
+        for (var i = 0; i < sift.length; i++) {
+            if (sift[i] == '' || sift[i] == 0 || sift[i] == undefined) {
+                mark[i] = 0;
+                k--;
+            }
+        }
+        console.log(sift);
+        console.log(mark);
+        if (k > 0) {
+            sql += " WHERE"
+        }
+        if (mark[0] == 1) {
+            sql += " 集团编号 = " + sift[0];
+            if (--k > 0) {
+                sql += " AND";
+            }
+        }
+        if (mark[1] == 1) {
+            sql += " 集团名称 = " + "'" + sift[1] + "'";
+            if (--k > 0) {
+                sql += " AND";
+            }
+        }
+        if (mark[2] == 1) {
+            if(sift[2] == "启用"){
+                sql += " 状态 = 1";
+            }else if(sift[2] == "禁用"){
+                sql += " 状态 = 0";
+            }
+        }
+        sql += " ORDER BY 集团编号 ASC;"
+        console.log("sql:", sql);
+        // res.send(sql);
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query(sql, function (err, result) {
+                if (err) { // 商户集团信息查询错误
+                    console.log(" 商户集团信息查询错误，返回TgroupInfoAdmin页");
+                    connection.release();
+                    obj.queryTgroupInfo(req.session.user, res, req);
+                } else if (result[0] == undefined) { //无商户集团信息
+                    console.log("无商户集团信息");
+                    ejs.renderFile('views/TgroupInfoAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //有商户集团信息
+                    // console.log(result);
+                    ejs.renderFile('views/TgroupInfoAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                }
+            });
+        });
+    },
 
     // TcorpInfoAdmin 供应商管理页信息
     queryTcorpInfo: function (account, res, req) {
@@ -1652,7 +1845,7 @@ const obj = {
                     })
                     connection.release();
                 } else { //有供应商
-                    console.log(result);
+                    // console.log(result);
                     ejs.renderFile('views/TcorpInfoAdmin.ejs', {
                         result: result,
                         teacherName
@@ -1817,6 +2010,145 @@ const obj = {
             });
         });
     },
+    // TcorpInfoAdmin 筛选供应商信息
+    querySiftCorpInfo: function(res,req){
+        var teacherName = req.session.username;
+        console.log(teacherName + "进入querySiftCorpInfos函数");
+        console.log(req.body);
+        var corpID = req.body.corpID;
+        var corpName = req.body.corpName;
+        var corpBankNo = req.body.corpBankNo;
+        var corpPrincipal = req.body.corpPrincipal;
+        var corpPrinPhone = req.body.corpPrinPhone;
+        var corpSettleType = req.body.corpSettleType;
+        var corpReturnGoods = req.body.corpReturnGoods;
+        var corpType = req.body.corpType;
+        var groupID = req.body.groupID;
+        var corpOpenStatus = req.body.corpOpenStatus;
+        var sift = [corpID, corpName, corpBankNo, corpPrincipal, corpPrinPhone, corpSettleType, corpReturnGoods, corpType, groupID,corpOpenStatus];
+        var mark = [1, 1, 1, 1, 1, 1, 1, 1,1,1];
+        var sql = "select * from 商户信息表";
+        var k = 10;
+        for (var i = 0; i < sift.length; i++) {
+            if (sift[i] == '' || sift[i] == 0 || sift[i] == undefined) {
+                mark[i] = 0;
+                k--;
+            }
+        }
+        console.log(sift);
+        console.log(mark);
+        if (k > 0) {
+            sql += " WHERE"
+        }
+        if (mark[0] == 1) {
+            sql += " 商户代码 = " + "'" + sift[0] + "'";
+            if (--k > 0) {
+                sql += " AND";
+            }
+        }
+        if (mark[1] == 1) {
+            sql += " 商户名称 = " + "'" + sift[1] + "'";
+            if (--k > 0) {
+                sql += " AND";
+            }
+        }
+        if (mark[2] == 1) {
+            sql += " 商户银行账号 = " + sift[2];
+            if (--k > 0) {
+                sql += " AND";
+            }
+        }
+        if (mark[3] == 1) {
+            sql += " 商户对账联系人 = " + "'" + sift[3] + "'";
+            if (--k > 0) {
+                sql += " AND";
+            }
+        }
+        if (mark[4] == 1) {
+            sql += " 商户对账联系人电话 = " + "'" + sift[4] + "'";
+            if (--k > 0) {
+                sql += " AND";
+            }
+        }
+        if (mark[5] == 1) {
+            if (sift[5] == "全款结算") {
+                sql += " 结算类型 = 1";
+                if (--k > 0) {
+                    sql += " AND";
+                }
+            }else if (sift[5] == "分期结算") {
+                sql += " 结算类型 = 2";
+                if (--k > 0) {
+                    sql += " AND";
+                }
+            }
+        }
+        if (mark[6] == 1) {
+            sql += " 是否支持退货 = " + "'" + sift[6] + "'";
+            if (--k > 0) {
+                sql += " AND";
+            }
+        }
+        if (mark[7] == 1) {
+            sql += " 商户类型 = " + "'" + sift[7] + "'";
+            if (--k > 0) {
+                sql += " AND";
+            }
+        }
+        if (mark[8] == 1) {
+            sql += " 集团编号 = " + "'" + sift[8] + "'";
+            if (--k > 0) {
+                sql += " AND";
+            }
+        }
+        if (mark[9] == 1) {
+            if(sift[9] == "启用"){
+                sql += " 状态 = 1";
+            }else if(sift[9] == "禁用"){
+                sql += " 状态 = 0";
+            }
+        }
+        sql += " ORDER BY 商户代码 ASC;"
+        console.log("sql:", sql);
+        // res.send(sql);
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query(sql, function (err, result) {
+                if (err) { // 教材计划查询错误
+                    console.log(" 教材计划查询错误，返回TcorpInfoAdmin页");
+                    connection.release();
+                    obj.queryTcorpInfo(req.session.user, res, req);
+                } else if (result[0] == undefined) { //无教材计划
+                    console.log("无教材计划");
+                    ejs.renderFile('views/TcorpInfoAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //有教材计划
+                    // console.log(result);
+                    ejs.renderFile('views/TcorpInfoAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                }
+            });
+        });
+    },
 
     // TproductListAdmin 缴费项目管理页信息
     queryTproductList: function (account, res, req) {
@@ -1952,6 +2284,95 @@ const obj = {
             });
         });
     },
+    // TproductListAdmin 筛选商品信息
+    querySiftProductListInfo: function (res, req) {
+        var teacherName = req.session.username;
+        console.log(teacherName + "进入querySiftProductListInfo函数");
+        var productID = req.body.productID;
+        var productName = req.body.productName;
+        var corpID = req.body.corpID;
+        var productOpenStatus = req.body.productOpenStatus;
+        var sift = [productID, productName, corpID, productOpenStatus];
+        var mark = [1, 1, 1, 1];
+        var sql = "select * from 商品清单";
+        var k = 4;
+        for (var i = 0; i < sift.length; i++) {
+            if (sift[i] == '' || sift[i] == 0 || sift[i] == undefined) {
+                mark[i] = 0;
+                k--;
+            }
+        }
+        console.log(sift);
+        console.log(mark);
+        if (k > 0) {
+            sql += " WHERE"
+        }
+        if (mark[0] == 1) {
+            sql += " 商品编号 = " + "'" + sift[0] + "'";
+            if (--k > 0) {
+                sql += " AND";
+            }
+        }
+        if (mark[1] == 1) {
+            sql += " 商品名称 = " + "'" + sift[1] + "'";
+            if (--k > 0) {
+                sql += " AND";
+            }
+        }
+        if (mark[2] == 1) {
+            sql += " 商户代码 = " + "'" + sift[2] + "'";
+            if (--k > 0) {
+                sql += " AND";
+            }
+        }
+        if (mark[3] == 1) {
+            if (sift[3] == "上架") {
+                sql += " 商品状态 = 1";
+            }else if (sift[3] == "下架") {
+                sql += " 商品状态 = 0";
+            }
+        }
+        sql += " ORDER BY 商品编号 ASC;"
+        console.log("sql:", sql);
+        // res.send(sql);
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query(sql, function (err, result) {
+                if (err) { // 商品信息查询错误
+                    console.log(" 商品信息查询错误，返回TproductListAdmin页");
+                    connection.release();
+                    obj.queryTproductList(req.session.user, res, req);
+                } else if (result[0] == undefined) { //无商品信息
+                    console.log("无商品信息");
+                    ejs.renderFile('views/TproductListAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //有商品信息
+                    // console.log(result);
+                    ejs.renderFile('views/TproductListAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                }
+            });
+        });
+    },
 
     // TallOrdersAdmin 缴费订单管理页信息
     queryTallOrders: function (account, res, req) {
@@ -1968,6 +2389,121 @@ const obj = {
                     connection.release(account, res);
                     obj.queryTInformation(account, res);
                 } else if (result[0] == undefined) { //无 缴费订单
+                    console.log("无缴费订单");
+                    ejs.renderFile('views/TallOrdersAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //有缴费订单
+                    // console.log(result);
+                    ejs.renderFile('views/TallOrdersAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                }
+            });
+        });
+    },
+    // TallOrdersAdmin 教师端删除缴费订单
+    TdeleteOrder: function (res, req) {
+        var teacherName = req.session.username;
+        console.log(teacherName + "进入TdeleteOrder函数");
+        var orderID = req.query.TdeleteOrder;
+        // res.send(orderID);
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TdeleteOrderRecord, [orderID, orderID], function (err, result) {
+                if (err) { //教师端删除缴费订单错误
+                    console.log("教师端删除缴费订单错误，返回订单订单页");
+                    connection.release();
+                    obj.queryOrderRecord(req.session.user, res, req);
+                } else { //教师端删除缴费订单成功
+                    console.log("教师端删除缴费订单结果：", result);
+                    connection.release();
+                    var message = "删除缴费订单成功";
+                    var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
+                    res.send(re);
+                }
+            });
+        });
+    },
+    // TallOrdersAdmin 筛选订单记录
+    querySiftAllOrders: function (res, req) {
+        var teacherName = req.session.username;
+        console.log(teacherName + "进入querySiftAllOrders函数");
+        console.log(req.body);
+        var stuID = req.body.stuID;
+        var orderID = req.body.orderID;
+        var subOrderID = req.body.subOrderID;
+        var productID = req.body.productID;
+        var productName = req.body.productName;
+        var corpName = req.body.corpName;
+        var paymentStatus = req.body.paymentStatus;
+        var sift = [stuID, orderID, subOrderID, productID, productName, corpName, paymentStatus];
+        var mark = [1, 1, 1, 1, 1, 1, 1];
+        var sql = "SELECT `订单信息表`.`学号`,`子订单信息表`.`子订单编号`,`子订单信息表`.`订单编号`,`子订单信息表`.`商品编号`,`商品清单`.`商品名称`,`子订单信息表`.`商品数量`,`子订单信息表`.`商品单价`,`子订单信息表`.`子订单总额`,`子订单信息表`.`商户代码`,`商户信息表`.`商户名称`,`商品清单`.`属性1`,`商品清单`.`属性2`,`商品清单`.`属性3`, `订单信息表`.`订单支付状态`,`订单信息表`.`创建时间`,`订单信息表`.`支付时间`,`订单信息表`.`支付期限`,`订单信息表`.`支付失败原因`,`订单信息表`.`支付渠道` FROM `子订单信息表` INNER JOIN `订单信息表`ON `订单信息表`.`订单编号` = `子订单信息表`.`订单编号` INNER JOIN `商户信息表`ON `子订单信息表`.`商户代码` = `商户信息表`. `商户代码` INNER JOIN `商品清单` ON `商品清单`.`商品编号` = `子订单信息表`.`商品编号` WHERE (`订单信息表`.`订单支付状态` = 2 OR `订单信息表`.`订单支付状态` = 3)";
+        for (var i = 0; i < sift.length; i++) {
+            if (sift[i] == '' || sift[i] == 0 || sift[i] == undefined) {
+                mark[i] = 0;
+            }
+        }
+        console.log(sift);
+        console.log(mark);
+        if (mark[0] == 1) {
+            sql += " AND `订单信息表`.`学号` = " + "'" + sift[0] + "'";
+        }
+        if (mark[1] == 1) {
+            sql += " AND `子订单信息表`.`订单编号` = " + sift[1];
+        }
+        if (mark[2] == 1) {
+            sql += " AND `子订单信息表`.`子订单编号` = " + "'" + sift[2] + "'";
+        }
+        if (mark[3] == 1) {
+            sql += " AND `子订单信息表`.`商品编号` = " + "'" + sift[3] + "'";
+        }
+        if (mark[4] == 1) {
+            sql += " AND `商品清单`.`商品名称` = " + "'" + sift[4] + "'";
+        }
+        if (mark[5] == 1) {
+            sql += " AND `商户信息表`.`商户名称` = " + "'" + sift[5] + "'";
+        }
+        if (mark[6] == 1) {
+            if (req.body.paymentStatus == "待缴费(必缴)") {
+                sql += " AND `订单信息表`.`订单支付状态` = 3";
+            } else if (req.body.paymentStatus == "待缴费(选缴)") {
+                sql += " AND (`订单信息表`.`订单支付状态` = 2)";
+            }
+
+        }
+        sql += " ORDER BY `订单信息表`.`订单支付状态` ASC,`子订单信息表`.`子订单编号` DESC,`订单信息表`.`学号` ASC;"
+        console.log("sql:", sql);
+        // res.send(sql);
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query(sql, function (err, result) {
+                if (err) { // 缴费订单查询错误
+                    console.log(" 缴费订单查询错误，返回TallOrdersAdmin页");
+                    connection.release();
+                    obj.queryTallOrders(req.session.user, res, req);
+                } else if (result[0] == undefined) { //无缴费订单
                     console.log("无缴费订单");
                     ejs.renderFile('views/TallOrdersAdmin.ejs', {
                         result: result,
@@ -2039,9 +2575,9 @@ const obj = {
         });
     },
     // TpaymentRecordsAdmin 教师端删除缴费记录
-    deleteOrderRecord: function (res, req) {
+    TdeleteOrderRecord: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入deleteOrderRecord函数");
+        console.log(teacherName + "进入TdeleteOrderRecord函数");
         var orderID = req.query.deleteOrderRecord;
         // res.send(orderID);
         pool.getConnection(function (err, connection) {
@@ -2406,7 +2942,7 @@ const obj = {
                     var newProductID = "S" + num;
                     textBook_ID = newProductID;
                     console.log(lastProductID, num, newProductID);
-                    TcoursePlansUploadParams = [textBook_ID,  coursePlan_school,coursePlan_price, coursePlan_major, coursePlan_term, coursePlan_courseName, textBook_name, coursePlan_publishingHouse, newProductID, textBook_name, coursePlan_price, 'A00006', 0, coursePlan_major, coursePlan_term, coursePlan_courseName, ''];
+                    TcoursePlansUploadParams = [textBook_ID, coursePlan_school, coursePlan_price, coursePlan_major, coursePlan_term, coursePlan_courseName, textBook_name, coursePlan_publishingHouse, newProductID, textBook_name, coursePlan_price, 'A00006', 0, coursePlan_major, coursePlan_term, coursePlan_courseName, ''];
                     console.log("TcoursePlansUploadParams:", TcoursePlansUploadParams);
                     // varTcoursePlansUploadParams2 = [newProductID, textBook_name, coursePlan_price, 'A00006', 0, coursePlan_major, coursePlan_term, coursePlan_courseName, ''];
                     connection.query($sql.TcoursePlansUpload, TcoursePlansUploadParams, function (err, result) {
@@ -2432,7 +2968,7 @@ const obj = {
         });
     },
     // TcoursePlansAdmin 删除教材计划
-    deleteCoursePlan: function(res,req){
+    deleteCoursePlan: function (res, req) {
         var teacherName = req.session.username;
         console.log(teacherName + "进入deleteCoursePlan函数");
         var coursePlanID = req.query.deleteCoursePlan;
@@ -2457,7 +2993,7 @@ const obj = {
         });
     },
     // TcoursePlansAdmin 筛选教材计划信息
-    querySiftCoursePlans: function(res,req){
+    querySiftCoursePlans: function (res, req) {
         var teacherName = req.session.username;
         console.log(teacherName + "进入querySiftCoursePlans函数");
         console.log(req.body);
@@ -2469,8 +3005,8 @@ const obj = {
         var courseName = req.body.courseName;
         var textBookprice = req.body.textBookprice;
         var publishingHouse = req.body.publishingHouse;
-        var sift = [textBookID, school, textBookprice, major, schoolTerm, courseName, textBookName,publishingHouse];
-        var mark = [1, 1, 1, 1, 1, 1, 1,1];
+        var sift = [textBookID, school, textBookprice, major, schoolTerm, courseName, textBookName, publishingHouse];
+        var mark = [1, 1, 1, 1, 1, 1, 1, 1];
         var sql = "select * from 教材计划";
         var k = 8;
         for (var i = 0; i < sift.length; i++) {
@@ -2598,7 +3134,139 @@ const obj = {
                     })
                     connection.release();
                 } else { //有清算统计
-                    console.log(result);
+                    // console.log(result);
+                    ejs.renderFile('views/TclearInfoAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                }
+            });
+        });
+    },
+    // TclearInfoAdmin 删除清算记录
+    deleteTclearInfo: function (res, req) {
+        var teacherName = req.session.username;
+        console.log(teacherName + "进入deleteTclearInfo函数");
+        var clearInfoID = req.query.deleteClearInfo;
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TdeleteClearInfo, clearInfoID, function (err, result) {
+                if (err) { //删除清算记录错误
+                    console.log("删除清算记录错误，返回清算记录管理页");
+                    connection.release();
+                    obj.queryTclearInfo(req.session.user, res, req);
+                } else { //删除清算记录成功
+                    console.log("删除清算记录成功结果：", result);
+                    connection.release();
+                    var message = "删除清算记录成功";
+                    var re = `<script>alert('${message}'); location.href="/TclearInfoAdmin"</script>`;
+                    res.send(re);
+                }
+            });
+        });
+    },
+    // TclearInfoAdmin 筛选清算记录
+    querySiftClearInfo: function (res, req) {
+        var teacherName = req.session.username;
+        console.log(teacherName + "进入querySiftClearInfo函数");
+        console.log(req.body);
+        var clearID = req.body.clearID;
+        var stockID = req.body.stockID;
+        var depositStatus = req.body.depositStatus;
+        var remainingPaymentStatus = req.body.remainingPaymentStatus;
+        // if(req.body.depositStatus == "已支付"){
+        //     var depositStatus = 1;
+        // }else if(req.body.depositStatus == "未支付"){
+        //     var depositStatus = 0;
+        // }
+        // if(req.body.remainingPaymentStatus == "已结算"){
+        //     var remainingPaymentStatus = 1;
+        // }else if(req.body.remainingPaymentStatus == "未结算"){
+        //     var remainingPaymentStatus = 0;
+        // }
+        var sift = [clearID, stockID, depositStatus, remainingPaymentStatus];
+        var mark = [1, 1, 1, 1];
+        var sql = "SELECT * FROM 清算表";
+        var k = 4;
+        for (var i = 0; i < sift.length; i++) {
+            if (sift[i] == '' || sift[i] == 0 || sift[i] == undefined) {
+                mark[i] = 0;
+                k--;
+            }
+        }
+        console.log(sift);
+        console.log(mark);
+        if (k > 0) {
+            sql += " WHERE"
+        }
+        if (mark[0] == 1) {
+            sql += " 清算号 = " + "'" + sift[0] + "'";
+            if (--k > 0) {
+                sql += " AND";
+            }
+        }
+        if (mark[1] == 1) {
+            sql += " 采购编号 = " + "'" + sift[1] + "'";
+            if (--k > 0) {
+                sql += " AND";
+            }
+        }
+        if (mark[2] == 1) {
+            if (sift[2] == "已支付") {
+                sql += " 定金状态 = 1";
+                if (--k > 0) {
+                    sql += " AND";
+                }
+            } else if (sift[2] == "未支付") {
+                sql += " 定金状态 = 0";
+                if (--k > 0) {
+                    sql += " AND";
+                }
+            }
+        }
+        if (mark[3] == 1) {
+            if (sift[3] == "已结算") {
+                sql += " 尾款状态 = 1";
+            } else if (sift[3] == "未结算") {
+                sql += " 尾款状态 = 0";
+            }
+        }
+        sql += " ORDER BY 清算号 ASC;"
+        console.log("sql:", sql);
+        // res.send(sql);
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query(sql, function (err, result) {
+                if (err) { // 清算信息查询错误
+                    console.log(" 清算信息查询错误，返回TclearInfoAdmin页");
+                    connection.release();
+                    obj.queryTclearInfo(req.session.user, res, req);
+                } else if (result[0] == undefined) { //无清算信息
+                    console.log("无清算信息");
+                    ejs.renderFile('views/TclearInfoAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //有清算信息
+                    // console.log(result);
                     ejs.renderFile('views/TclearInfoAdmin.ejs', {
                         result: result,
                         teacherName
@@ -2641,7 +3309,178 @@ const obj = {
                     })
                     connection.release();
                 } else { //有资金发放
-                    console.log(result);
+                    // console.log(result);
+                    ejs.renderFile('views/TscholarshipInfoAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                }
+            });
+        });
+    },
+    // TscholarshipInfoAdmin 删除资金发放记录
+    deleteScholarship: function (res, req) {
+        var teacherName = req.session.username;
+        console.log(teacherName + "进入deleteScholarship函数");
+        var scholarshipID = req.query.deleteScholarship;
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TdeleteScholarship, scholarshipID, function (err, result) {
+                if (err) { //删除资金发放记录错误
+                    console.log("删除资金发放记录错误，返回资金发放管理页");
+                    connection.release();
+                    obj.queryTscholarshipInfo(req.session.user, res, req);
+                } else { //删除资金发放记录成功
+                    console.log("删除资金发放记录成功结果：", result);
+                    connection.release();
+                    var message = "删除资金发放记录成功";
+                    var re = `<script>alert('${message}'); location.href="/TscholarshipInfoAdmin"</script>`;
+                    res.send(re);
+                }
+            });
+        });
+    },
+    // TscholarshipInfoAdmin 插入新增资金发放信息
+    addScholarshipInfo: function (res, req) {
+        var teacherName = req.session.username;
+        console.log(teacherName + "进入addScholarshipInfo函数");
+        var stu_id = req.body.stu_id;
+        var scholarship_type = req.body.scholarship_type;
+        var scholarship_name = req.body.scholarship_name;
+        var scholarship_gread = req.body.scholarship_gread;
+        var scholarship_amount = req.body.scholarship_amount;
+        var scholarship_channel = req.body.scholarship_channel;
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TscholarshipInfoUpload_queryLastScholarshipID, function (err, result) {
+                if (err) { //查询最后一个资金发放id错误
+                    console.log("查询最后一个资金发放id错误，返回TscholarshipInfoAdmin页");
+                    connection.release();
+                    obj.queryTscholarshipInfo(req.session.user, res, req);
+                } else { //查询最后一个资金发放id成功
+                    console.log("查询最后一个资金发放id成功");
+                    var lastScholarshipID = result[0].发放编号;
+                    var num = lastScholarshipID.substring(1);
+                    num++;
+                    if (String(num).length < 10) {
+                        num = (Array(10).join(0) + num).slice(-10)
+                    }
+                    var scholarshipID = "F" + num;
+                    console.log(lastScholarshipID, num, scholarshipID);
+                    console.log((new Date()).getTime()); // js13位时间戳
+                    console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss')); // mysql的datetime时间类型
+                    var creatTime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+
+                    var TscholarshipUploadParams = [scholarshipID, stu_id, scholarship_type, scholarship_name, scholarship_gread, scholarship_amount, creatTime, scholarship_channel];
+                    console.log(TscholarshipUploadParams);
+                    connection.query($sql.TscholarshipInfoUpload, TscholarshipUploadParams, function (err, result) {
+                        if (err) { //新增资金发放信息错误
+                            console.log("新增资金发放信息错误，返回TscholarshipInfoAdmin页");
+                            console.log(err);
+                            connection.release();
+                            obj.queryTscholarshipInfo(req.session.user, res, req);
+                        } else { //新增资金发放信息成功
+                            connection.release();
+                            console.log("新增资金发放信息成功");
+                            var message = "新增资金发放信息成功";
+                            var re = `<script>alert('${message}'); location.href="/TscholarshipInfoAdmin"</script>`;
+                            res.send(re);
+                        }
+                    });
+                }
+            });
+        });
+    },
+    // TscholarshipInfoAdmin 筛选资金发放记录
+    querySiftScholarshipInfo: function (res, req) {
+        var teacherName = req.session.username;
+        console.log(teacherName + "进入querySiftScholarshipInfo函数");
+        var scholarshipID = req.body.scholarshipID;
+        var stuID = req.body.stuID;
+        var scholarshipType = req.body.scholarshipType;
+        var scholarshipName = req.body.scholarshipName;
+        var scholarshipGread = req.body.scholarshipGread;
+        var sift = [scholarshipID, stuID, scholarshipType, scholarshipName, scholarshipGread];
+        var mark = [1, 1, 1, 1, 1];
+        var sql = "select * from 奖学金信息表";
+        var k = 5;
+        for (var i = 0; i < sift.length; i++) {
+            if (sift[i] == '' || sift[i] == 0 || sift[i] == undefined) {
+                mark[i] = 0;
+                k--;
+            }
+        }
+        console.log(sift);
+        console.log(mark);
+        if (k > 0) {
+            sql += " WHERE"
+        }
+        if (mark[0] == 1) {
+            sql += " 发放编号 = " + "'" + sift[0] + "'";
+            if (--k > 0) {
+                sql += " AND";
+            }
+        }
+        if (mark[1] == 1) {
+            sql += " 学号 = " + sift[1];
+            if (--k > 0) {
+                sql += " AND";
+            }
+        }
+        if (mark[2] == 1) {
+            sql += " 奖学金类型 = " + "'" + sift[2] + "'";
+            if (--k > 0) {
+                sql += " AND";
+            }
+        }
+        if (mark[3] == 1) {
+            sql += " 名称 = " + "'" + sift[3] + "'";
+            if (--k > 0) {
+                sql += " AND";
+            }
+        }
+        if (mark[4] == 1) {
+            sql += " 等级 = " + "'" + sift[4] + "'";
+        }
+        sql += " ORDER BY 发放编号 ASC;"
+        console.log("sql:", sql);
+        // res.send(sql);
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query(sql, function (err, result) {
+                if (err) { // 资金发放信息查询错误
+                    console.log(" 资金发放信息查询错误，返回TscholarshipInfoAdmin页");
+                    connection.release();
+                    obj.queryTscholarshipInfo(req.session.user, res, req);
+                } else if (result[0] == undefined) { //无资金发放信息
+                    console.log("无资金发放信息");
+                    ejs.renderFile('views/TscholarshipInfoAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //有资金发放信息
+                    // console.log(result);
                     ejs.renderFile('views/TscholarshipInfoAdmin.ejs', {
                         result: result,
                         teacherName

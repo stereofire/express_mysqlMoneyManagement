@@ -44,14 +44,14 @@
                 </td>
             </tr>
         </table>
-        <form name="choiceForm">
+        <form action="/TproductListAdmin?querySiftProductListInfo=true" name="choiceForm" method="post">
             <table class="teacher_mesage_table" style="padding-bottom: 10px;" id="choices">
                 <tr>
                     <td style="font-size: small;">
                         <font style="margin-left: 40px;">商品编号：</font>
                         <input type="text" class="manageInput" style="width: 80px;" name="productID">
-                        商品名称：<input type="text" class="manageInput" style="width: 140px;" id="productName">
-                        商户代码：<input type="text" class="manageInput" style="width: 140px;" id="corpID">
+                        商品名称：<input type="text" class="manageInput" style="width: 140px;" name="productName">
+                        商户代码：<input type="text" class="manageInput" style="width: 140px;" name="corpID">
                         上架状态：
                         <select name="productOpenStatus" style="height: auto;width: 80px;" id="productOpenStatus">
                             <option selected="selected" value="0"></option>
@@ -66,7 +66,7 @@
             <tr>
                 <td>
                     <button class="managementButton" style="width: 75px;margin-left: 40px;"
-                        onclick="queryProductList()"><img class="teacher_picture" src="images/teacher/query.png"
+                        onclick="siftProductList()"><img class="teacher_picture" src="images/teacher/query.png"
                             alt="图片加载失败">查询</button>
                     <button class="managementButton" style="width: 75px;"
                         onclick="tableToExcel('OrderRecordTB', '缴费项目信息表', '缴费项目信息.xls')"><img class="teacher_picture"

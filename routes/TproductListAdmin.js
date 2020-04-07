@@ -138,6 +138,11 @@ router.post('/', upload, function (req, res, next) {
       /*插入新增商品信息*/
       userDao.addProductInfo(res,req);
     }
+    if (req.query.querySiftProductListInfo == "true") {
+      console.log('进入TcorpInfoAdmin?querySiftProductListInfo=true，get FormData Params: ', req.body);
+      /*筛选商品信息*/
+      userDao.querySiftProductListInfo(res, req);
+    }
   } else {
     ejs.renderFile('./views/TloginTimeOut.ejs', {}, function (err, data) {
       if (err) {

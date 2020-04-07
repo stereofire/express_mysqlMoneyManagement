@@ -44,7 +44,7 @@
                 </td>
             </tr>
         </table>
-        <form name="choiceForm">
+        <form action="/TcorpInfoAdmin?querySiftCorpInfo=true" name="choiceForm" method="post">
             <table class="teacher_mesage_table" style="padding-bottom: 10px;font-size: small;" id="choices">
                 <tr>
                     <td>
@@ -54,19 +54,19 @@
                     </td>
                     <td>
                         商户名称：</td>
-                    <td><input type="text" class="manageInput" style="width: 80px;" id="corpName">
+                    <td><input type="text" class="manageInput" style="width: 80px;" name="corpName">
                     </td>
                     <td>
                         商户银行账号：</td>
-                    <td><input type="text" class="manageInput" style="width: 140px;" id="corpBankNo">
+                    <td><input type="text" class="manageInput" style="width: 140px;" name="corpBankNo">
                     </td>
                     <td>
                         对账联系人：</td>
-                    <td><input type="text" class="manageInput" style="width: 80px;" id="corpPrincipal">
+                    <td><input type="text" class="manageInput" style="width: 80px;" name="corpPrincipal">
                     </td>
                     <td>
                         对账联系人电话：</td>
-                    <td><input type="text" class="manageInput" style="width: 80px;" id="corpPrinPhone">
+                    <td><input type="text" class="manageInput" style="width: 80px;" name="corpPrinPhone">
                     </td>
                 </tr>
                 <tr>
@@ -90,11 +90,11 @@
                     </td>
                     <td>
                         商户类型：</td>
-                    <td><input type="text" class="manageInput" style="width: 140px;" id="corpType">
+                    <td><input type="text" class="manageInput" style="width: 140px;" name="corpType">
                     </td>
                     <td>
                         集团编号：</td>
-                    <td><input type="text" class="manageInput" style="width: 80px;" id="groupID">
+                    <td><input type="text" class="manageInput" style="width: 80px;" name="groupID">
                     </td>
                     <td>
                         启用状态：
@@ -112,7 +112,7 @@
             <tr>
                 <td>
                     <button class="managementButton" style="width: 75px;margin-left: 40px;"
-                        onclick="querycorpInfo()"><img class="teacher_picture" src="images/teacher/query.png"
+                        onclick="siftCorpInfo()"><img class="teacher_picture" src="images/teacher/query.png"
                             alt="图片加载失败">查询</button>
                     <button class="managementButton" style="width: 75px;"
                         onclick="tableToExcel('OrderRecordTB', '供应商信息表', '供应商信息.xls')"><img class="teacher_picture"

@@ -43,13 +43,14 @@
                 <td><img class="line_picture" src="images/home/line.png" alt="图片加载失败">
                 </td>
             </tr>
-        </table><form name="choiceForm">
+        </table>
+        <form action="/TclearInfoAdmin?querySiftClearInfo=true" name="choiceForm" method="post">
             <table class="teacher_mesage_table" style="padding-bottom: 10px;" id="choices">
                 <tr>
                     <td style="font-size: small;">
                         <font style="margin-left: 40px;">清算号：</font>
                         <input type="text" class="manageInput" style="width: 80px;" name="clearID">
-                        采购编号：<input type="text" class="manageInput" style="width: 140px;" id="stockID">
+                        采购编号：<input type="text" class="manageInput" style="width: 140px;" name="stockID">
                         定金状态：
                         <select name="depositStatus" style="height: auto;width: 80px;" id="depositStatus">
                             <option selected="selected" value="0"></option>
@@ -57,7 +58,8 @@
                             <option value="未支付">未支付</option>
                         </select>
                         尾款状态：
-                        <select name="remainingPaymentStatus" style="height: auto;width: 80px;" id="remainingPaymentStatus">
+                        <select name="remainingPaymentStatus" style="height: auto;width: 80px;"
+                            id="remainingPaymentStatus">
                             <option selected="selected" value="0"></option>
                             <option value="已结算">已结算</option>
                             <option value="未结算">未结算</option>
@@ -70,19 +72,17 @@
             <tr>
                 <td>
                     <button class="managementButton" style="width: 75px;margin-left: 40px;"
-                        onclick="queryClearInfo()"><img class="teacher_picture" src="images/teacher/query.png"
+                        onclick="siftClearInfo()"><img class="teacher_picture" src="images/teacher/query.png"
                             alt="图片加载失败">查询</button>
                     <button class="managementButton" style="width: 75px;"
                         onclick="tableToExcel('OrderRecordTB', '清算信息表', '清算信息.xls')"><img class="teacher_picture"
                             src="images/teacher/putOut.png" alt="图片加载失败">导出</button>
                     <a id="dlink" style="display: none;"></a>
-
-                    <button class="managementButton" style="width:130px;" onclick="showPOP()"><img
+                    <!-- <button class="managementButton" style="width:130px;" onclick="showPOP()"><img
                             class="teacher_picture" src="images/teacher/putIn.png" alt="图片加载失败">从Excel文件导入</button>
-
                     <button class="managementButton" style="width:130px;"
                         onclick="location.href = '/TclearInfoAdmin?down=excelTemplate'"><img class="teacher_picture"
-                            src="images/teacher/downLoad.png" alt="图片加载失败">下载Excel模板</button>
+                            src="images/teacher/downLoad.png" alt="图片加载失败">下载Excel模板</button> -->
                 </td>
             </tr>
         </table>
@@ -105,7 +105,7 @@
             <table style="margin-top: 20px;">
                 <tr>
                     <td>
-                        <form action="/TstudentInfoAdmin?fileUpload=ture" method="post" enctype="multipart/form-data"
+                        <form action="/TclearInfoAdmin?fileUpload=true" method="post" enctype="multipart/form-data"
                             style="display: inline" name="fileUpload" id="fileUpload">
                             <input type="file" name="clearInfoUpLoad"><br><br>
                         </form>
@@ -121,46 +121,46 @@
         </div>
     </div>
     <div id="tbDiv">
-    <table class="order_table" id="OrderRecordTB" name="keyPassage" style="width: 85%;margin-left: 160px;">
-        <thead>
-            <tr>
-                <th style="width: 55px;">清算号</th>
-                <th style="width: 65px;">采购编号</th>
-                <th style="width: 50px;">定金金额</th>
-                <th style="width: 55px;">定金状态</th>
-                <th style="width: 60px;">尾款</th>
-                <th style="width: 60px;">尾款状态</th>
-                <th style="width: 60px;">定金支付时间</th>
-                <th style="width: 50px;">尾款支付期限</th>
-                <th style="width: 60px;">操作</th>
-            </tr>
-        </thead>
-        <tbody id="clearTBody">
-        <% for(var i = 0; i < result.length; i++){ %>
-        <tr>
-            <td><%= result[i].清算号 %></td>
-            <td><%= result[i].采购编号 %></td>
-            <td><%= result[i].定金金额 %></td>
-            <% if(result[i].定金状态 == 1){ %>
-            <td style="color: rgb(77, 214, 77);">已支付</td>
-            <% }else if(result[i].定金状态 == 0){  %>
-            <td style="color: red;">未支付</td>
-            <% } %>
-            <td><%= result[i].尾款 %></td>
-            <% if(result[i].尾款状态 == 1){ %>
-                <td style="color: rgb(77, 214, 77);">已结算</td>
-                <% }else if(result[i].定金状态 == 0){  %>
-                <td style="color: red;">未结算</td>
+        <table class="order_table" id="OrderRecordTB" name="keyPassage" style="width: 85%;margin-left: 160px;">
+            <thead>
+                <tr>
+                    <th style="width: 55px;">清算号</th>
+                    <th style="width: 65px;">采购编号</th>
+                    <th style="width: 50px;">定金金额</th>
+                    <th style="width: 55px;">定金状态</th>
+                    <th style="width: 60px;">尾款</th>
+                    <th style="width: 60px;">尾款状态</th>
+                    <th style="width: 60px;">定金支付时间</th>
+                    <th style="width: 50px;">尾款支付期限</th>
+                    <th style="width: 60px;">操作</th>
+                </tr>
+            </thead>
+            <tbody id="clearTBody">
+                <% for(var i = 0; i < result.length; i++){ %>
+                <tr>
+                    <td><%= result[i].清算号 %></td>
+                    <td><%= result[i].采购编号 %></td>
+                    <td><%= result[i].定金金额 %></td>
+                    <% if(result[i].定金状态 == 1){ %>
+                    <td style="color: rgb(77, 214, 77);">已支付</td>
+                    <% }else if(result[i].定金状态 == 0){  %>
+                    <td style="color: red;">未支付</td>
+                    <% } %>
+                    <td><%= result[i].尾款 %></td>
+                    <% if(result[i].尾款状态 == 1){ %>
+                    <td style="color: rgb(77, 214, 77);">已结算</td>
+                    <% }else if(result[i].定金状态 == 0){  %>
+                    <td style="color: red;">未结算</td>
+                    <% } %>
+                    <td><%= result[i].定金支付时间 %></td>
+                    <td><%= result[i].尾款支付期限 %></td>
+                    <td>
+                        <button class="deleteOrderRecord" onclick="deleteClearInfo('<%= result[i].清算号 %>')">删除</button>
+                    </td>
+                </tr>
                 <% } %>
-            <td><%= result[i].定金支付时间 %></td>
-            <td><%= result[i].尾款支付期限 %></td>
-            <td>
-                <button class="deleteOrderRecord" onclick="deleteClearInfo('<%= result[i].清算号 %>')">删除</button>
-            </td>
-        </tr>
-        <% } %>
-    </tbody>
-    </table>
+            </tbody>
+        </table>
     </div>
     <footer>
         <div id="lsx">

@@ -146,13 +146,20 @@ var user = {
     // 清算统计管理
     TclearInfo: 'select * from 清算表',
     // 清算统计上传
-    TclearInfoUpload: 'INSERT INTO 清算表(清算号,采购编号,定金金额,定金状态,尾款,尾款状态,定金支付时间,尾款支付期限) VALUES(?,?,?,?,?,?,?,?)',
-
+    // TclearInfoUpload: 'INSERT INTO 清算表(清算号,采购编号,定金金额,定金状态,尾款,尾款状态,定金支付时间,尾款支付期限) VALUES(?,?,?,?,?,?,?,?)',
+    // 删除清算统计
+    TdeleteClearInfo: 'DELETE FROM 清算表 WHERE 清算号 = ?',
+    
+    
+    
     // 资金发放管理
     TscholarshipInfo: 'select * from 奖学金信息表',
     // 资金发放信息上传
     TscholarshipInfoUpload: 'INSERT INTO 奖学金信息表(发放编号,学号,奖学金类型,名称,等级,金额,资金发放时间,发放渠道) VALUES(?,?,?,?,?,?,?,?)',
-
+    // 删除资金发放
+    TdeleteScholarship: 'DELETE FROM 奖学金信息表 WHERE 发放编号 = ?',
+    // 查询最后一个资金发放id
+    TscholarshipInfoUpload_queryLastScholarshipID: 'SELECT 发放编号 FROM 奖学金信息表 ORDER BY 发放编号 DESC LIMIT 1;',
 
 
 

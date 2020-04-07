@@ -40,6 +40,11 @@ router.post('/',function (req, res, next) {
       /*插入新增商户集团信息*/
       userDao.addGroupInfo(res,req);
     }
+    if (req.query.querySiftGroupInfo == "true") {
+      console.log('进入TcorpInfoAdmin?querySiftGroupInfo=true，get FormData Params: ', req.body);
+      /*筛选商户集团信息*/
+      userDao.querySiftGroupInfo(res, req);
+    }
   } else {
     ejs.renderFile('./views/TloginTimeOut.ejs', {}, function (err, data) {
       if (err) {

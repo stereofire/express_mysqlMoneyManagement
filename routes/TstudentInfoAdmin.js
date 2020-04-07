@@ -137,6 +137,11 @@ router.post('/', upload, function (req, res, next) {
       /*插入新增学生信息*/
       userDao.addStuInfo(res,req);
     }
+    if (req.query.querySiftStuInfo == "true") {
+      console.log('进入TcorpInfoAdmin?querySiftStuInfo=true，get FormData Params: ', req.body);
+      /*筛选学生信息*/
+      userDao.querySiftStuInfo(res, req);
+    }
   } else {
     ejs.renderFile('./views/TloginTimeOut.ejs', {}, function (err, data) {
       if (err) {

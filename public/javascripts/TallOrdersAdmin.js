@@ -1,8 +1,10 @@
 function deleteOrder(orderID) {
-    if (confirm("确定删除该订单记录吗？\u000d顶大编号：" + orderID)) {
-        // location.href = '/TallOrdersAdmin?deleteOrder=' + orderID;
-        alert("已删除订单记录");
+    if (confirm("确定删除该订单记录吗？\u000d订单编号：" + orderID)) {
+        location.href = '/TallOrdersAdmin?TdeleteOrder=' + orderID;
     }
+}
+function sifttAllOrders() {
+    document.choiceForm.submit();
 }
 
 // 待改进，暂时禁用

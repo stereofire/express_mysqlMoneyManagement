@@ -17,7 +17,7 @@ router.get('/', function (req, res, next) {
       userDao.queryTpaymentRecords(req.session.user,res,req);
     }else{
       console.log("删除缴费记录：", req.query.deleteOrderRecord);
-      userDao.deleteOrderRecord(res, req);
+      userDao.TdeleteOrderRecord(res, req);
     }
   } else {
     ejs.renderFile('./views/TloginTimeOut.ejs', {}, function (err, data) {

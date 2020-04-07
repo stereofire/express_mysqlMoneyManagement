@@ -42,7 +42,6 @@ router.get('/', function (req, res, next) {
       res.end(data);
     })
   }
-
 });
 router.post('/', upload, function (req, res, next) {
   if (req.session.islogin) {

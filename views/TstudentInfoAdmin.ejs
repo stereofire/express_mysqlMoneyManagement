@@ -44,13 +44,13 @@
                 </td>
             </tr>
         </table>
-        <form name="choiceForm">
+        <form action="/TstudentInfoAdmin?querySiftStuInfo=true" name="choiceForm" method="post">
             <table class="teacher_mesage_table" style="padding-bottom: 10px;" id="choices">
                 <tr>
                     <td style="font-size: small;">
                         <font style="margin-left: 40px;">学号：</font>
                         <input type="text" class="manageInput" style="width: 80px;" name="stuID">
-                        姓名：<input type="text" class="manageInput" style="width: 80px;" id="stuName">
+                        姓名：<input type="text" class="manageInput" style="width: 80px;" name="stuName">
                         院系：
                         <select name="stuSchool" style="height: auto;width: 140px;" id="stuSchool">
                             <option selected="selected" value="0"></option>
@@ -84,10 +84,10 @@
                             <option value="17">17</option>
                         </select>
                         在读状态：
-                        <select name="readStatus" style="height: auto;" id="stuReadStatus">
+                        <select name="readStatus" style="height: auto;width: auto;" id="stuReadStatus">
                             <option selected="selected" value="0"></option>
-                            <option value="1">在读</option>
-                            <option value="0">不在读</option>
+                            <option value="在读">在读</option>
+                            <option value="不在读">不在读</option>
                         </select>
                     </td>
                 </tr>
@@ -97,7 +97,7 @@
             <tr>
                 <td>
                     <button class="managementButton" style="width: 75px;margin-left: 40px;"
-                        onclick="queryStuInfo()"><img class="teacher_picture" src="images/teacher/query.png"
+                        onclick="siftStuInfo()"><img class="teacher_picture" src="images/teacher/query.png"
                             alt="图片加载失败">查询</button>
                     <button class="managementButton" style="width: 75px;"
                         onclick="tableToExcel('OrderRecordTB', '学生信息表', '学生信息.xls')"><img class="teacher_picture"

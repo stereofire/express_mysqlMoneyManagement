@@ -44,13 +44,13 @@
                 </td>
             </tr>
         </table>
-        <form name="choiceForm">
+        <form action="/TgroupInfoAdmin?querySiftGroupInfo=true" name="choiceForm" method="post">
             <table class="teacher_mesage_table" style="padding-bottom: 10px;" id="choices">
                 <tr>
                     <td style="font-size: small;">
                         <font style="margin-left: 40px;">集团编号：</font>
                         <input type="text" class="manageInput" style="width: 80px;" name="groupID">
-                        集团名称：<input type="text" class="manageInput" style="width: 140px;" id="groupName">
+                        集团名称：<input type="text" class="manageInput" style="width: 140px;" name="groupName">
                         启用状态：
                         <select name="groupOpenStatus" style="height: auto;width: 80px;" id="groupOpenStatus">
                             <option selected="selected" value="0"></option>
@@ -65,7 +65,7 @@
             <tr>
                 <td>
                     <button class="managementButton" style="width: 75px;margin-left: 40px;"
-                        onclick="queryGroupInfo()"><img class="teacher_picture" src="images/teacher/query.png"
+                        onclick="siftGroupInfo()"><img class="teacher_picture" src="images/teacher/query.png"
                             alt="图片加载失败">查询</button>
                     <button class="managementButton" style="width: 75px;"
                         onclick="tableToExcel('OrderRecordTB', '商户集团信息表', '商户集团信息.xls')"><img class="teacher_picture"
