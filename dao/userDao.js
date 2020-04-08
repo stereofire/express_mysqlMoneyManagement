@@ -1507,7 +1507,7 @@ const obj = {
         });
     },
     // TstudentInfoAdmin 筛选学生信息
-    querySiftStuInfo: function(res,req){
+    querySiftStuInfo: function (res, req) {
         var teacherName = req.session.username;
         console.log(teacherName + "进入querySiftStuInfo函数");
         console.log(req.body);
@@ -1534,7 +1534,7 @@ const obj = {
             sql += " WHERE"
         }
         if (mark[0] == 1) {
-            sql += " 学号 = "+ "'" + sift[0] + "'";
+            sql += " 学号 = " + "'" + sift[0] + "'";
             if (--k > 0) {
                 sql += " AND";
             }
@@ -1570,9 +1570,9 @@ const obj = {
             }
         }
         if (mark[6] == 1) {
-            if(sift[6] == "在读"){
+            if (sift[6] == "在读") {
                 sql += " 在读状态 = 1";
-            }else if(sift[6] == "不在读"){
+            } else if (sift[6] == "不在读") {
                 sql += " 在读状态 = 0";
             }
         }
@@ -1736,7 +1736,7 @@ const obj = {
         });
     },
     // TgroupInfoAdmin 筛选商户集团信息
-    querySiftGroupInfo: function(res,req){
+    querySiftGroupInfo: function (res, req) {
         var teacherName = req.session.username;
         console.log(teacherName + "进入querySiftGroupInfo函数");
         var groupID = req.body.groupID;
@@ -1770,9 +1770,9 @@ const obj = {
             }
         }
         if (mark[2] == 1) {
-            if(sift[2] == "启用"){
+            if (sift[2] == "启用") {
                 sql += " 状态 = 1";
-            }else if(sift[2] == "禁用"){
+            } else if (sift[2] == "禁用") {
                 sql += " 状态 = 0";
             }
         }
@@ -2011,7 +2011,7 @@ const obj = {
         });
     },
     // TcorpInfoAdmin 筛选供应商信息
-    querySiftCorpInfo: function(res,req){
+    querySiftCorpInfo: function (res, req) {
         var teacherName = req.session.username;
         console.log(teacherName + "进入querySiftCorpInfos函数");
         console.log(req.body);
@@ -2025,8 +2025,8 @@ const obj = {
         var corpType = req.body.corpType;
         var groupID = req.body.groupID;
         var corpOpenStatus = req.body.corpOpenStatus;
-        var sift = [corpID, corpName, corpBankNo, corpPrincipal, corpPrinPhone, corpSettleType, corpReturnGoods, corpType, groupID,corpOpenStatus];
-        var mark = [1, 1, 1, 1, 1, 1, 1, 1,1,1];
+        var sift = [corpID, corpName, corpBankNo, corpPrincipal, corpPrinPhone, corpSettleType, corpReturnGoods, corpType, groupID, corpOpenStatus];
+        var mark = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
         var sql = "select * from 商户信息表";
         var k = 10;
         for (var i = 0; i < sift.length; i++) {
@@ -2076,7 +2076,7 @@ const obj = {
                 if (--k > 0) {
                     sql += " AND";
                 }
-            }else if (sift[5] == "分期结算") {
+            } else if (sift[5] == "分期结算") {
                 sql += " 结算类型 = 2";
                 if (--k > 0) {
                     sql += " AND";
@@ -2102,9 +2102,9 @@ const obj = {
             }
         }
         if (mark[9] == 1) {
-            if(sift[9] == "启用"){
+            if (sift[9] == "启用") {
                 sql += " 状态 = 1";
-            }else if(sift[9] == "禁用"){
+            } else if (sift[9] == "禁用") {
                 sql += " 状态 = 0";
             }
         }
@@ -2328,7 +2328,7 @@ const obj = {
         if (mark[3] == 1) {
             if (sift[3] == "上架") {
                 sql += " 商品状态 = 1";
-            }else if (sift[3] == "下架") {
+            } else if (sift[3] == "下架") {
                 sql += " 商品状态 = 0";
             }
         }
@@ -3482,6 +3482,93 @@ const obj = {
                 } else { //有资金发放信息
                     // console.log(result);
                     ejs.renderFile('views/TscholarshipInfoAdmin.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                }
+            });
+        });
+    },
+
+    // TcreatOrdersInBatches_CPro 批量创建必缴订单页信息——选择商品
+    queryTcreatOrdersInBatches_CPro: function (res, req) {
+        var teacherName = req.session.username;
+        console.log(teacherName + "进入queryTcreatOrdersInBatches_CPro函数");
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TcreatOrdersInBatches_CPro_queryAllProducts, function (err, result) {
+                if (err) { // 商品信息查询错误
+                    console.log(" 商品信息查询错误，返回TallOrdersAdmin页");
+                    connection.release();
+                    obj.queryTallOrders(req.session.user, res, req);
+                } else if (result[0] == undefined) { //无商品信息
+                    console.log("无商品信息");
+                    ejs.renderFile('views/TcreatOrdersInBatches_CPro.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //有商品信息
+                    // console.log(result);
+                    ejs.renderFile('views/TcreatOrdersInBatches_CPro.ejs', {
+                        result: result,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                }
+            });
+        });
+    },
+    // TcreatOrdersInBatches_CStu 批量创建必缴订单页信息——选择学号
+    queryTcreatOrdersInBatches_CStu: function(res,req){
+        var teacherName = req.session.username;
+        // var products = req.body.submitData;
+        console.log(teacherName + "进入queryTcreatOrdersInBatches_CStu函数");
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            connection.query($sql.TcreatOrdersInBatches_CStu_queryAllStudents, function (err, result) {
+                if (err) { // 学生信息查询错误
+                    console.log(" 学生信息查询错误，返回TallOrdersAdmin页");
+                    connection.release();
+                    obj.queryTallOrders(req.session.user, res, req);
+                } else if (result[0] == undefined) { //无学生信息
+                    console.log("无学生信息");
+                    ejs.renderFile('views/TcreatOrdersInBatches_CStu.ejs', {
+                        result: result,
+                        // products: products,
+                        teacherName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                    connection.release();
+                } else { //有学生信息
+                    // console.log(result);
+                    ejs.renderFile('views/TcreatOrdersInBatches_CStu.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {

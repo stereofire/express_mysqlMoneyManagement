@@ -50,7 +50,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 })); //解析post请求主体
 
-//路由
+// 学生端路由
 const users = require('./routes/users');// 测试
 const index = require('./routes/index'); // 登录页 index 路由
 const home = require('./routes/home'); //首页 home 路由
@@ -67,7 +67,7 @@ const requiredOrder = require('./routes/requiredOrder'); // 必缴订单页 requ
 const loginOut = require('./routes/loginOut'); // 注销登录 loginOut 路由
 const orderSubmit = require('./routes/orderSubmit'); // 订单提交结果 orderSubmit 路由
 const scholarshipRecord = require('./routes/scholarshipRecord'); // 奖学金发放信息 scholarshipRecord 路由
-
+// 教师端路由
 const Tindex = require('./routes/Tindex'); // 教师登录 Tindex 路由
 const Thome = require('./routes/Thome'); // 教师首页 Thome 路由
 const TchangePassword = require('./routes/TchangePassword'); // 密码修改页 changePassword 路由
@@ -83,8 +83,14 @@ const TcoursePlansAdmin = require('./routes/TcoursePlansAdmin'); // 教材计划
 const TclearInfoAdmin = require('./routes/TclearInfoAdmin'); // 清算统计页 TclearInfoAdmin 路由
 const TscholarshipInfoAdmin = require('./routes/TscholarshipInfoAdmin'); //资金发放管理页 TscholarshipInfoAdmin 路由
 const TloginOut = require('./routes/TloginOut'); // 教师用户注销  TloginOut 路由
+const TcreatOrdersInBatches_CPro = require('./routes/TcreatOrdersInBatches_CPro'); //批量创建必缴订单——选择缴费项目 TcreatOrdersInBatches 路由
+const TcreatOrdersInBatches_Pconfirm = require('./routes/TcreatOrdersInBatches_Pconfirm'); //批量创建必缴订单——缴费项目确认 TcreatOrdersInBatches_Pconfirm 路由
+const TcreatOrdersInBatches_CStu = require('./routes/TcreatOrdersInBatches_CStu'); //批量创建必缴订单——选择学号 TcreatOrdersInBatches 路由
+const TcreatOrdersInBatches_Sconfirm = require('./routes/TcreatOrdersInBatches_Sconfirm'); //批量创建必缴订单——学号确认 TcreatOrdersInBatches_Pconfirm 路由
+// const TcreatOrdersInBatches_Window = require('./routes/TcreatOrdersInBatches_Window'); //批量创建必缴订单——选择窗口期 TcreatOrdersInBatches 路由
+// const TcreatOrdersInBatches_Result = require('./routes/TcreatOrdersInBatches_Result'); //批量创建必缴订单——创建结果 TcreatOrdersInBatches_Pconfirm 路由
 
-
+// 学生端
 app.use('/users', users);
 app.use('/', index);
 app.use('/home', home);
@@ -101,7 +107,7 @@ app.use('/requiredOrder', requiredOrder);
 app.use('/loginOut', loginOut);
 app.use('/orderSubmit', orderSubmit);
 app.use('/scholarshipRecord', scholarshipRecord);
-
+// 教师端
 app.use('/teacher', Tindex);
 app.use('/Thome', Thome);
 app.use('/TchangePassword', TchangePassword);
@@ -117,6 +123,12 @@ app.use('/TcoursePlansAdmin', TcoursePlansAdmin);
 app.use('/TclearInfoAdmin', TclearInfoAdmin);
 app.use('/TscholarshipInfoAdmin', TscholarshipInfoAdmin);
 app.use('/TloginOut', TloginOut);
+app.use('/TcreatOrdersInBatches_CPro', TcreatOrdersInBatches_CPro);
+app.use('/TcreatOrdersInBatches_Pconfirm', TcreatOrdersInBatches_Pconfirm);
+app.use('/TcreatOrdersInBatches_CStu', TcreatOrdersInBatches_CStu);
+app.use('/TcreatOrdersInBatches_Sconfirm', TcreatOrdersInBatches_Sconfirm);
+// app.use('/TcreatOrdersInBatches_Window', TcreatOrdersInBatches_Window);
+// app.use('/TcreatOrdersInBatches_Result', TcreatOrdersInBatches_Result);
 
 // 捕获路由404并转发到错误处理程序 
 app.use(function (req, res, next) {

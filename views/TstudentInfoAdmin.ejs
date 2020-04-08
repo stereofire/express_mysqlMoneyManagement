@@ -24,7 +24,9 @@
             <li><a href="/TgroupInfoAdmin">商户集团管理</a></li>
             <li><a href="/TcorpInfoAdmin">供应商管理</a></li>
             <li><a href="/TproductListAdmin">缴费项目管理</a></li>
+            <!-- <li onmouseover = showCRO() onmouseout = closeCRO()><a href="/TallOrdersAdmin">缴费订单管理</a></li>            <li onmouseover = showCRO() onmouseout = closeCRO()><a href="/TallOrdersAdmin">缴费订单管理</a></li> -->
             <li><a href="/TallOrdersAdmin">缴费订单管理</a></li>
+            <!-- <li id="TcreatRequiredOrders" style="display: none;"><a href="/TallOrdersAdmin" style="background-color: rgb(40, 130, 190);">批量创建必缴订单</a></li> -->
             <li><a href="/TpaymentRecordsAdmin">缴费记录管理</a></li>
             <li><a href="/TstockListAdmin">供货管理</a></li>
             <li><a href="/TcoursePlansAdmin">教材计划管理</a></li>
@@ -256,7 +258,6 @@
                     <td><button class="gotoPayButton" style="width: 75px;"
                             onclick="changeReadStatus('<%= result[i].学号 %>','<%= result[i].在读状态 %>')">设为在读</button></td>
                     <% } %>
-
                 </tr>
                 <% } %>
             </tbody>

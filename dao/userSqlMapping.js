@@ -161,8 +161,10 @@ var user = {
     // 查询最后一个资金发放id
     TscholarshipInfoUpload_queryLastScholarshipID: 'SELECT 发放编号 FROM 奖学金信息表 ORDER BY 发放编号 DESC LIMIT 1;',
 
-
-
+    // 批量创建必缴订单页信息——选择商品
+    TcreatOrdersInBatches_CPro_queryAllProducts: 'SELECT `商品清单`.`商品编号`, `商品清单`.`商品名称`, `商品清单`.`商品单价`, `商户信息表`.`商户名称`,`商品清单`.`属性1`, `商品清单`.`属性2`, `商品清单`.`属性3` FROM `商品清单` INNER JOIN `商户信息表` ON `商品清单`.`商户代码` = `商户信息表`.`商户代码` ORDER BY `商品清单`.`商品编号` ASC',
+    // 批量创建必缴订单页信息——选择学号
+    TcreatOrdersInBatches_CStu_queryAllStudents: 'select * from 用户信息表 where 在读状态 = 1',
 
 
     insert: 'INSERT INTO user(id, name, age) VALUES(0,?,?)',
