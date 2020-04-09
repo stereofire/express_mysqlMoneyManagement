@@ -3539,7 +3539,7 @@ const obj = {
         });
     },
     // TcreatOrdersInBatches_CStu 批量创建必缴订单页信息——选择学号
-    queryTcreatOrdersInBatches_CStu: function(res,req){
+    queryTcreatOrdersInBatches_CStu: function (res, req) {
         var teacherName = req.session.username;
         // var products = req.body.submitData;
         console.log(teacherName + "进入queryTcreatOrdersInBatches_CStu函数");
@@ -3580,6 +3580,197 @@ const obj = {
                     connection.release();
                 }
             });
+        });
+    },
+
+    // TcreatOrdersInBatches_Window 批量创建必缴订单页信息——设置缴费窗口
+    TcreatOrdersInBatches_Window: function (res, req) {
+        var teacherName = req.session.username;
+        console.log(teacherName + "进入TcreatOrdersInBatches_Window函数");
+        var pro_stu = req.body.submitData;
+        var pro_stuObj = JSON.parse(pro_stu); //由JSON字符串转换为JSON对象
+        var pro_stuObjKey = Object.keys(pro_stuObj); //为arr object类型
+        console.log("get submitDataObj(pro_stuObj):", pro_stuObj);
+        console.log("get pro_stuObjKey:", pro_stuObjKey);
+        var proData = []; // 商品数组
+        var proDataNum = []; //商品数量数组
+        var stuData = []; //学号数组
+        for (var item in pro_stuObjKey) {
+            var itemToString = JSON.stringify(pro_stuObjKey[item]);
+            var itemToString = itemToString.slice(1, -1);
+            console.log('itemToString:', itemToString);
+            if (itemToString.indexOf("S") != -1) {
+                proData.push(itemToString);
+                proDataNum.push(pro_stuObj[itemToString]);
+            } else {
+                stuData.push(itemToString);
+            }
+        }
+        console.log("proData:", proData);
+        console.log("proDataNum:", proDataNum);
+        console.log("stuData:", stuData);
+        // res.send(pro_stuObj);
+        ejs.renderFile('views/TcreatOrdersInBatches_Window.ejs', {
+            proData: proData,
+            proDataNum: proDataNum,
+            stuData: stuData,
+            teacherName
+        }, function (err, data) {
+            if (err) {
+                console.log(err);
+            }
+            res.end(data);
+        })
+    },
+    // TcreatOrdersInBatches_Window 批量创建必缴订单页信息——创建必缴订单
+    TcreatOrdersInBatches_CreatOrders: function (res, req) {
+        var teacherName = req.session.username;
+        console.log(teacherName + "进入TcreatOrdersInBatches_CreatOrders函数");
+        var limitDate = req.body.txtDate;//2020-04-12 string
+        var pro_stu = req.body.submitData;// {"1607400496":"true","1607400499":"true","S000282":"1","S000285":"1","S000286":"1","S000283":"1","S000284":"1","S000281":"1"}
+        
+        // 以下同TcreatOrdersInBatches_Window函数，提取数据
+        var pro_stuObj = JSON.parse(pro_stu); //由JSON字符串转换为JSON对象
+        var pro_stuObjKey = Object.keys(pro_stuObj); //为arr object类型
+        console.log("get submitDataObj(pro_stuObj):", pro_stuObj);
+        console.log("get pro_stuObjKey:", pro_stuObjKey);
+        var proData = []; // 商品数组
+        var proDataNum = []; //商品数量数组
+        var stuData = []; //学号数组
+        for (var item in pro_stuObjKey) {
+            var itemToString = JSON.stringify(pro_stuObjKey[item]);
+            var itemToString = itemToString.slice(1, -1);
+            console.log('itemToString:', itemToString);
+            if (itemToString.indexOf("S") != -1) {
+                proData.push(itemToString);
+                proDataNum.push(pro_stuObj[itemToString]);
+            } else {
+                stuData.push(itemToString);
+            }
+        }
+        console.log("proData:", proData);
+        console.log("proDataNum:", proDataNum);
+        console.log("stuData:", stuData);
+
+        // 创建商品编号+数量json对象
+        var data = {};
+        for(var i=0;i<proData.length;i++){
+            data[proData[i]] = proDataNum[i];
+        }
+        console.log(data);
+
+        // 以下为创建必缴订单
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                console.log("数据库连接池错误");
+                res.send();
+            }
+            console.log(data); // { S000002: '1', S000001: '1' }
+            var studentName = req.session.username;
+
+
+            // 插入订单信息
+            console.log((new Date()).getTime()); // js13位时间戳
+            console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss')); // mysql的datetime时间类型
+            var creattime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+            var payLimitTime = moment(new Date()).add(2, 'days').format('YYYY-MM-DD HH:mm:ss');;
+
+            var orderid = obj.createRandomId(); // 生成唯一订单号：YYYY-MM-DD+js13位时间戳+7位随机数字
+            // res.send(orderid);
+            connection.query($sql.InsertOrder, [orderid, creattime, account, payLimitTime], function (err, result) {
+                if (err) { //订单信息表插入错误
+                    console.log(err);
+                    console.log("订单信息表插入错误，返回订单记录页");
+                    connection.release();
+                    obj.queryOrderRecord(account, res, req);
+                } else { //订单信息表插入成功
+                    console.log(result.insertId);
+                    var insertOrderId = result.insertId;
+                    // 引用查询商品单价和供应商代码的函数
+                    // obj.queryCmmodit(account, insertOrderId, data, res, req);
+
+                    // 循环查询所有商品单价和供应商代码，并插入子订单信息表
+                    var goodsList = Object.keys(data);
+                    console.log(goodsList);
+                    var k = 0;
+                    for (var i = 0; i < goodsList.length; i++) {
+                        connection.query($sql.QueryCmmodit, goodsList[i], function (err, result) {
+                            if (err) { //查询商品单价和供应商代码错误
+                                console.log(err);
+                                console.log("查询商品单价和供应商代码错误，返回订单记录页");
+                                connection.release();
+                                obj.queryOrderRecord(account, res, req);
+                            } else {
+                                // console.log(result);
+                                var Result = JSON.parse(JSON.stringify(result));
+                                // console.log(Result);
+                                var price = Result[0].商品单价;
+                                var MerchantID = Result[0].商户代码;
+                                // console.log(price,MerchantID);
+
+                                // 产生子订单编号
+                                var childOrderID = "";
+                                childOrderID = insertOrderId + obj.PrefixInteger(k + 1, 2);
+                                console.log("childOrderID:", childOrderID);
+
+                                // 订单编号：insertOrderId
+                                // 商品编号：goodsList[i]
+                                // 数量：data.goodsList[i]
+                                // 单价：price
+                                // 子订单总额：data.goodsList[i]*price
+                                // 商户代码：MerchantID
+                                // console.log(insertOrderId,goodsList[k],data[goodsList[k]],price,data[goodsList[k++]]*price,MerchantID);
+
+                                var arrChildOrder = [childOrderID, insertOrderId, goodsList[k], parseInt(data[goodsList[k]]), price, data[goodsList[k++]] * price, MerchantID];
+                                console.log(arrChildOrder);
+                                connection.query($sql.InsertChildOrder, arrChildOrder, function (err, result) {
+                                    if (err) { //插入子订单错误
+                                        console.log(err);
+                                        console.log("插入子订单错误，返回订单记录页");
+                                        connection.release();
+                                        obj.queryOrderRecord(account, res, req);
+                                    } else { // SUM查询需要插入订单信息表的订单总额
+                                        connection.query($sql.SumOrderAmount, insertOrderId, function (err, result) {
+                                            if (err) { //SUM查询订单总额错误
+                                                console.log(err);
+                                                console.log("SUM查询订单总额错误，返回订单记录页");
+                                                connection.release();
+                                                obj.queryOrderRecord(account, res, req);
+                                            } else { //SUM查询订单总额成功
+                                                console.log(insertOrderId, result[0].订单总额);
+                                                var amount = result[0].订单总额;
+                                                connection.query($sql.UpdateOrderAmount, [amount, insertOrderId], function (err, result) {
+                                                    if (err) { //更新订单总额错误
+                                                        console.log(err);
+                                                        console.log("更新订单总额错误，返回订单记录页");
+                                                        connection.release();
+                                                        obj.queryOrderRecord(account, res, req);
+                                                    }
+                                                });
+
+                                            }
+
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                    connection.release();
+
+                    // res.send("插入插入子订单成功");
+                    ejs.renderFile('./views/orderSubmit.ejs', {
+                        // Data,
+                        studentName
+                    }, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.end(data);
+                    })
+                }
+            });
+
         });
     },
 

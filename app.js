@@ -87,7 +87,7 @@ const TcreatOrdersInBatches_CPro = require('./routes/TcreatOrdersInBatches_CPro'
 const TcreatOrdersInBatches_Pconfirm = require('./routes/TcreatOrdersInBatches_Pconfirm'); //批量创建必缴订单——缴费项目确认 TcreatOrdersInBatches_Pconfirm 路由
 const TcreatOrdersInBatches_CStu = require('./routes/TcreatOrdersInBatches_CStu'); //批量创建必缴订单——选择学号 TcreatOrdersInBatches 路由
 const TcreatOrdersInBatches_Sconfirm = require('./routes/TcreatOrdersInBatches_Sconfirm'); //批量创建必缴订单——学号确认 TcreatOrdersInBatches_Pconfirm 路由
-// const TcreatOrdersInBatches_Window = require('./routes/TcreatOrdersInBatches_Window'); //批量创建必缴订单——选择窗口期 TcreatOrdersInBatches 路由
+const TcreatOrdersInBatches_Window = require('./routes/TcreatOrdersInBatches_Window'); //批量创建必缴订单——选择窗口期 TcreatOrdersInBatches 路由
 // const TcreatOrdersInBatches_Result = require('./routes/TcreatOrdersInBatches_Result'); //批量创建必缴订单——创建结果 TcreatOrdersInBatches_Pconfirm 路由
 
 // 学生端
@@ -127,7 +127,7 @@ app.use('/TcreatOrdersInBatches_CPro', TcreatOrdersInBatches_CPro);
 app.use('/TcreatOrdersInBatches_Pconfirm', TcreatOrdersInBatches_Pconfirm);
 app.use('/TcreatOrdersInBatches_CStu', TcreatOrdersInBatches_CStu);
 app.use('/TcreatOrdersInBatches_Sconfirm', TcreatOrdersInBatches_Sconfirm);
-// app.use('/TcreatOrdersInBatches_Window', TcreatOrdersInBatches_Window);
+app.use('/TcreatOrdersInBatches_Window', TcreatOrdersInBatches_Window);
 // app.use('/TcreatOrdersInBatches_Result', TcreatOrdersInBatches_Result);
 
 // 捕获路由404并转发到错误处理程序 
