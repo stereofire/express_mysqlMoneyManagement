@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>批量创建必缴订单</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script> -->
+    <!-- <script src="javascripts/down&upData.js"></script> -->
+    <script src="javascripts/TcreatOrdersInBatches_CStu.js"></script>
+</head>
+
+<body>
+    <div class="col-12">
+        <img class="header" src="images/index/head.png" alt="图像加载失败">
+    </div>
+    <div>
+        <ul class="Tnav">
+            <li class="teaname">
+                欢迎您：<font color="lightblue"><%= teacherName%></font> 老师</li>
+            <li><a href="/Thome">首页</a></li>
+            <li><a href="/TstudentInfoAdmin">学生信息管理</a></li>
+            <li><a href="/TgroupInfoAdmin">商户集团管理</a></li>
+            <li><a href="/TcorpInfoAdmin">供应商管理</a></li>
+            <li><a href="/TproductListAdmin">缴费项目管理</a></li>
+            <li><a href="/TallOrdersAdmin">缴费订单管理</a></li>
+            <li><a href="/TpaymentRecordsAdmin">缴费记录管理</a></li>
+            <li><a href="/TstockListAdmin">供货管理</a></li>
+            <li><a href="/TcoursePlansAdmin">教材计划管理</a></li>
+            <li><a href="/TclearInfoAdmin">清算统计</a></li>
+            <li><a href="/TscholarshipInfoAdmin">资金发放管理</a></li>
+            <li><a href="/TloginOut"><img class="loginout_picture" src="images/home/Out.png" alt="图片加载失败">注销登录</a></li>
+    </div>
+    <div>
+        <table class="teacher_mesage_table" style="background-color:transparent;">
+            <tr>
+                <td class="mesage">
+                    批量创建必缴订单——选择缴费学生<br>
+                </td>
+            </tr>
+            <tr>
+                <td><img class="line_picture" src="images/home/line.png" alt="图片加载失败">
+                </td>
+            </tr>
+        </table>
+        <div class="payment_table" style="padding-bottom: 20px;">
+            <table>
+                <tr>
+                    <td>
+                        <p class="payment2">&#12288 商品选择 &#12288</p>
+                    </td>
+                    <td>
+                        <p class="payment2">&#12288 商品确认 &#12288</p>
+                    </td>
+                    <td>
+                        <p class="payment1">&#12288 学号选择 &#12288</p>
+                    </td>
+                    <td>
+                        <p class="payment2">&#12288 学号确认 &#12288</p>
+                    </td>
+                    <td>
+                        <p class="payment2">设置缴费窗口期</p>
+                    </td>
+                    <td>
+                        <p class="payment2">&#12288 创建结果 &#12288</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <form action="/TcreatOrdersInBatches_CStu?querySiftStuInfo_CStu=true" name="choiceForm" method="post"
+            style="display: inline;">
+            <table class="teacher_mesage_table"
+                style="padding-bottom: 10px;background-color: transparent;display: inline;" id="choices">
+                <tr>
+                    <td style="font-size: small;">
+                        <font style="margin-left: 40px;">学号：</font>
+                        <input type="text" class="manageInput" style="width: 80px;" name="stuID">
+                        姓名：<input type="text" class="manageInput" style="width: 80px;" name="stuName">
+                        院系：
+                        <select name="stuSchool" style="height: auto;width: 140px;" id="stuSchool">
+                            <option selected="selected" value="0"></option>
+                            <option value="数学科学学院">数学科学学院</option>
+                            <option value="计算机科学与技术学院">计算机科学与技术学院</option>
+                        </select>
+                        专业：
+                        <select name="stuMajor" style="height: auto;width: 140px;" id="stuMajor">
+                            <option selected="selected" value="0"></option>
+                            <option value="数学与应用数学（基地）">数学与应用数学（基地）</option>
+                            <option value="数学与应用数学（师范）">数学与应用数学（师范）</option>
+                            <option value="统计学">统计学</option>
+                            <option value="金融数学">金融数学</option>
+                            <option value="信息与计算科学">信息与计算科学</option>
+                            <option value="物联网">物联网</option>
+                            <option value="计算机科学与技术	">计算机科学与技术 </option>
+                            <option value="人工智能">人工智能</option>
+                            <option value="网络空间与安全">网络空间与安全</option>
+                            <option value="信息管理">信息管理</option>
+                        </select>
+                        性别：
+                        <select name="sex" style="height: auto;" id="stuSex">
+                            <option selected="selected" value="0"></option>
+                            <option value="女">女</option>
+                            <option value="男">男</option>
+                        </select>
+                        年级：
+                        <select name="grade" style="height: auto;" id="stuGrade">
+                            <option selected="selected" value="0"></option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                        </select>
+                    </td>
+                    <td><button class="managementButton" style="width: 75px;margin-left: 10px;"
+                            onclick="siftStuInfo()"><img class="teacher_picture" src="images/teacher/query.png"
+                                alt="图片加载失败">查询</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div id="tbDiv">
+        <table class="order_table" id="OrderRecordTB" name="keyPassage" style="width: 65%;margin-left: 270px;">
+            <thead>
+                <tr>
+                    <th style="width: 40px;">序号</th>
+                    <th>学号</th>
+                    <th>学校</th>
+                    <th style="width: 80px;">姓名</th>
+                    <th style="width: 120px;">院系</th>
+                    <th style="width: 120px;">专业</th>
+                    <th style="width: 40px;">性别</th>
+                    <th style="width: 40px;">年级</th>
+                    <th style="width: 55px;">在读状态</th>
+                    <th style="width: 40px;">勾选框</th>
+                </tr>
+            </thead>
+            <tbody id="stuTBody">
+                <% for(var i = 0; i < result.length; i++){ %>
+                <tr id='<%= i %>'>
+                    <td><%= i+1 %></td>
+                    <td><%= result[i].学号 %></td>
+                    <td><%= result[i].学校 %></td>
+                    <td><%= result[i].姓名 %></td>
+                    <td><%= result[i].院系 %></td>
+                    <td><%= result[i].专业 %></td>
+                    <td><%= result[i].性别 %></td>
+                    <td><%= result[i].年级 %></td>
+                    <% if(result[i].在读状态 == 1 ){ %>
+                    <td>在读</td>
+                    <% }else{ %>
+                    <td>不在读</td>
+                    <% } %>
+                    <td><input type="checkbox" /></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <button class="确认添加" onclick="checkOptions()" style="margin-bottom: 6px;">确认添加</button>
+    </div>
+    <script>
+        function goToSconfirm() {
+            // 以下为获取已经在购物车里的商品id和学生id，若有学生id则跳转至学生确认页面
+            var allData = sessionStorage.valueOf(); //获得所有sessionStorage数据，为一个普通js对象
+            var jsonAllData = JSON.stringify(allData); //普通object转换为JSON字符串
+            var jsonAllDataObj = JSON.parse(jsonAllData); //由JSON字符串转换为JSON对象
+            var oldKey = Object.keys(jsonAllDataObj);
+            console.log("jsonAllDataObj.keys()", oldKey, typeof (oldKey), oldKey.length);
+
+            var oldProIDLength = 0; //统计购物车内已有的商品数量
+            var oldStuIDLength = 0; //统计购物车内已有的学生学号数量
+
+            for (var item in oldKey) {
+                var itemToString = JSON.stringify(oldKey[item]);
+                // console.log(item, itemToString);
+                if (itemToString.indexOf("goods") != -1) {
+                    if (oldProIDLength + oldStuIDLength == 0) {
+                        keys = "ProIDs[]=" + oldKey[oldProIDLength + oldStuIDLength];
+                    } else {
+                        keys += "&" + "ProIDs[]=" + oldKey[oldProIDLength + oldStuIDLength];
+                    }
+                    oldProIDLength++;
+                } else if (itemToString.indexOf("stuIDs") != -1) {
+                    if (oldProIDLength + oldStuIDLength == 0) {
+                        keys = "stuIDs[]=" + oldKey[oldProIDLength + oldStuIDLength];
+                    } else {
+                        keys += "&" + "stuIDs[]=" + oldKey[oldProIDLength + oldStuIDLength];
+                    }
+                    oldStuIDLength++;
+                }
+            }
+            // console.log(keys);
+            if (oldStuIDLength == 0) {
+                alert("还没有已添加的学生哦！")
+            } else {
+                location.href = '/TcreatOrdersInBatches_Sconfirm?' + keys;
+            }
+        }
+    </script>
+    <div>
+        <button class="确认添加" onclick="goToSconfirm()">查看已添加</button>
+    </div>
+    <div id="dtop" name="dtop" style="display: inline;">
+        <a href="javascript:;" style="display:inline;">
+            <img src="images/teacher/btop.png" title="返回顶部" style="width: 40px;" id="a_top" />
+        </a>
+    </div>
+    <div id="dbottom" name="dbottom">
+        <a href="javascript:;">
+            <img src="images/teacher/bbottom.png" title="返回底部" style="width: 40px;" id="a_bottom" />
+        </a>
+    </div>
+    <!-- <a href="javascript:void(0)">go</a> -->
+    <footer>
+        <div id="lsx">
+            版权所有-©苏州大学数学科学学院校级大创项目组 2020
+        </div>
+    </footer>
+</body>
+
+</html>
+<script>
+    // 原生js实现
+    let dtop = document.getElementsByTagName("dtop")[0];
+    let myTimer = null;
+    //页面监听scroll事件，当发生scroll事件时就进行判断，是否需要让a标签显示    
+    window.addEventListener("scroll", function () {
+
+        //获取scroll的滚动值    
+        let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+        // console.log(scrollTop);
+        document.getElementById("dtop").style.display = 'block';
+        document.getElementById("dbottom").style.display = 'block';
+        if (scrollTop < 180) {//在顶部
+            document.getElementById("dtop").style.display = 'none';
+            document.getElementById("dbottom").style.display = 'block';
+        }
+    });
+    $("#a_top").click(function () {
+        $("html,body").animate({ scrollTop: "0px" }, 500);//500毫秒完成回到顶部动画    
+        return false;
+    });
+
+    $("#a_bottom").click(function () {
+        $("html,body").animate({ scrollTop: document.getElementsByTagName('body')[0].scrollHeight }, 500);//500毫秒完成回到顶部动画    
+        return false;
+    });
+    // //a标签点击事件，回到页面顶部
+    // let a = document.getElementsByTagName("a")[0];
+    // a.onclick = function () {
+    //     let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+    //     let speed = 30;//定义一个速度，即每隔30毫秒走多少px    
+    //     myTimer = setInterval(function () {
+    //         document.documentElement.scrollTop = document.documentElement.scrollTop - speed;
+    //         // 如果scroll的滚动值为0，也就是到达了页面顶部，需要停止定时器
+    //         if (document.documentElement.scrollTop <= 0) {
+    //             clearInterval(myTimer)
+    //         }
+    //     }, 30)
+    // }
+</script>

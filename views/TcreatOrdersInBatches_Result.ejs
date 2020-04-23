@@ -1,0 +1,88 @@
+<!-- 批量创建必缴订单——结果页 TcreatOrdersInBatches_Result  -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>批量创建必缴订单——商品确认页</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
+    <script src="javascripts/down&upData.js"></script>
+    <!-- <script src="javascripts/TcreatOrdersInBatches_Pconfirm.js"></script> -->
+    <!-- <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script> -->
+</head>
+
+<body onload="sessionStorage.clear();">
+    <div class="col-12">
+        <img class="header" src="images/index/head.png" alt="图像加载失败">
+    </div>
+    <div>
+        <ul class="Tnav">
+            <li class="teaname">
+                欢迎您：<font color="lightblue"><%= teacherName%></font> 老师</li>
+            <li><a href="/Thome">首页</a></li>
+            <li><a href="/TstudentInfoAdmin">学生信息管理</a></li>
+            <li><a href="/TgroupInfoAdmin">商户集团管理</a></li>
+            <li><a href="/TcorpInfoAdmin">供应商管理</a></li>
+            <li><a href="/TproductListAdmin">缴费项目管理</a></li>
+            <li><a href="/TallOrdersAdmin">缴费订单管理</a></li>
+            <li><a href="/TpaymentRecordsAdmin">缴费记录管理</a></li>
+            <li><a href="/TstockListAdmin">供货管理</a></li>
+            <li><a href="/TcoursePlansAdmin">教材计划管理</a></li>
+            <li><a href="/TclearInfoAdmin">清算统计</a></li>
+            <li><a href="/TscholarshipInfoAdmin">资金发放管理</a></li>
+            <li><a href="/TloginOut"><img class="loginout_picture" src="images/home/Out.png" alt="图片加载失败">注销登录</a></li>
+    </div>
+    <div>
+        <table class="teacher_mesage_table" style="background-color:transparent;">
+            <tr>
+                <td class="mesage">
+                    批量创建必缴订单——缴费项目确认<br>
+                </td>
+            </tr>
+            <tr>
+                <td><img class="line_picture" src="images/home/line.png" alt="图片加载失败">
+                </td>
+            </tr>
+        </table>
+        <div class="payment_table">
+            <table>
+                <tr>
+                    <td>
+                        <p class="payment2">&#12288 商品选择 &#12288</p>
+                    </td>
+                    <td>
+                        <p class="payment2">&#12288 商品确认 &#12288</p>
+                    </td>
+                    <td>
+                        <p class="payment2">&#12288 学号选择 &#12288</p>
+                    </td>
+                    <td>
+                        <p class="payment2">&#12288 学号确认 &#12288</p>
+                    </td>
+                    <td>
+                        <p class="payment2">设置缴费窗口期</p>
+                    </td>
+                    <td>
+                        <p class="payment1">&#12288 创建结果 &#12288</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="payment_table">
+        <table class="confirm" id="confirmTB">
+            <thead>
+                <tr class="confirm" style="color: rgb(89, 166, 218);">
+                    <th>批量必缴订单创建成功，请至"缴费订单管理"查看</th>
+                </tr>
+            </thead>
+            <tbody id="tbMain"></tbody>
+        </table>
+    </div>
+    <div id="lsx">
+        版权所有-©苏州大学数学科学学院校级大创项目组 2020
+    </div>
+</body>
+
+</html>
