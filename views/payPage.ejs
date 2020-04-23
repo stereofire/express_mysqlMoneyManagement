@@ -1,0 +1,110 @@
+<!-- 支付页 payPage  -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>支付页面</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script src="javascripts/payPage.js"></script>
+</head>
+
+<body onload="createCode()">
+    <div>
+        <img class="header" src="images/index/head.png" alt="图像加载失败">
+    </div>
+    <div class="menu">
+        <!-- class选择器 -->
+        <div class="nav">
+            <ul>
+                <!-- ul标签 -->
+                <li><a href="/home">首页</a></li> <!-- li标签 -->
+                <li><a href="/paymentOrder">缴费订单</a></li>
+                <li><a href="/orderRecord">订单记录</a></li>
+                <li><a href="/scholarshipRecord">奖学金发放信息</a></li>
+                <li class="stuname">欢迎您：<font color="lightblue"><%= studentName%></font> 同学</li>
+                <li style="float:right"><a href="/loginOut"><img class="loginout_picture" src="images/home/Out.png"
+                            alt="图片加载失败">注销登录</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="payment_table">
+        <table>
+            <tr>
+                <td>
+                    <p class="payment2">&#12288 支付方式 &#12288</p>
+                </td>
+                <td>
+                    <p class="payment1">&#12288 支付 &#12288</p>
+                </td>
+                <td>
+                    <p class="payment2">&#12288 支付结果 &#12288</p>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="successSubmit_table" style="padding-bottom: 5px;">
+        <table style="font-size: 14px;color: gray;">
+            <tr>
+                <td>
+                    <img class="submitSucPic" src="images/支付方式/submitSuccess.png" alt="图像加载失败">
+                </td>
+                <td style="font-size: large;color: forestgreen;float: left;padding-top: 10px;">
+                    <b>支付</b>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    订单号：<font id="tradeID"><%= tradeID%></font>
+                </td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>交易流水号：<font id="transactionID"><%= transactionID%></font>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="float: left;">
+                    订单金额：<font color="red" id="sum"><%= sum%></font>元
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+    <form class="mesage_table" action="/changePassword" name="keyPassage" method="post"
+        style="background-color: transparent;padding-bottom: 5px;">
+        <table class="key_table">
+            <tr class="key_passage">
+                <td>支付账号:</td>
+                <td><input type="text" name="account" style="width:150px;" id="account"><br></td>
+                <td>&#12288&#12288&#12288&#12288&#12288</td>
+            </tr>
+            <tr class="key_passage">
+                <td>支付密码:</td>
+                <td><input type="password" name="password" style="width:150px;" id="password"><br></td>
+            </tr>
+        </table>
+    </form>
+    <form class="code_table" style="background-color: transparent;">
+        <table class="key_table" style="height: 20px;">
+            <tr class="key_passage">
+                <td>&#12288 验证码:</td>
+                <td><input type="text" name="vertify_code" id="codeinput" style="width:150px;"><br></td>
+                <td><button class="code" onclick="createCode()" id="code">验证码</button></td>
+            </tr>
+        </table>
+    </form>
+    <input type="submit" name="change" onclick="return changeForm()" value="支付" style="margin-bottom: 40px;">
+    <div id="lsx">
+        版权所有-©苏州大学数学科学学院校级大创项目组 2020
+    </div>
+</body>
