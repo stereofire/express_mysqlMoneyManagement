@@ -67,6 +67,9 @@ const requiredOrder = require('./routes/requiredOrder'); // 必缴订单页 requ
 const loginOut = require('./routes/loginOut'); // 注销登录 loginOut 路由
 const orderSubmit = require('./routes/orderSubmit'); // 订单提交结果 orderSubmit 路由
 const scholarshipRecord = require('./routes/scholarshipRecord'); // 奖学金发放信息 scholarshipRecord 路由
+const ajaxTest = require('./routes/ajaxTest'); //  ajaxTest 路由
+const payPage = require('./routes/payPage'); //  payPage 路由
+
 // 教师端路由
 const Tindex = require('./routes/Tindex'); // 教师登录 Tindex 路由
 const Thome = require('./routes/Thome'); // 教师首页 Thome 路由
@@ -107,6 +110,9 @@ app.use('/requiredOrder', requiredOrder);
 app.use('/loginOut', loginOut);
 app.use('/orderSubmit', orderSubmit);
 app.use('/scholarshipRecord', scholarshipRecord);
+app.use('/ajaxTest',ajaxTest);
+app.use('/payPage',payPage);
+
 // 教师端
 app.use('/teacher', Tindex);
 app.use('/Thome', Thome);

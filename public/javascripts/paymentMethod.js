@@ -19,11 +19,13 @@ function changePay(index) {
 }
 var seconds;
 var SECOND = 0;
-window.onload = function(){
+window.onload = function () {
     seconds = document.getElementById("seconds");
     SECOND = parseInt(seconds.innerHTML);
-    console.log("SECOND:",SECOND);
+    console.log("SECOND:", SECOND);
+    window.setInterval("count()", 1000);
 }
+
 function count() {
     if (SECOND == 0) {
         location.href = "/orderRecord";
@@ -68,5 +70,3 @@ function setTimes(value) {
     }
     return results;
 };
-
-window.setInterval("count()", 1000);

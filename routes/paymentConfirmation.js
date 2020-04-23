@@ -14,22 +14,28 @@ router.get('/', function (req, res, next) {
   if (req.session.islogin) {
     /*获取session.islogin*/
     console.log("已登录用户查询：", req.session.user);
-    console.log("req.query.orderNo:", req.query.orderNo); //输出req.query.orderNo:10000104
-    console.log(typeof (req.query.orderNo));
-    var orderNo = req.query.orderNo;
-    var length = orderNo.length - 2;
-    orderNo = orderNo.substr(1, length); //－－－'hello world';
-    console.log(orderNo);
-    var studentName= req.session.username;
-    ejs.renderFile('./views/paymentConfirmation.ejs', {
-      orderNo,
-      studentName
-    }, function (err, data) {
-      if (err) {
-        console.log(err);
-      }
-      res.end(data);
-    })
+    // console.log("req.query.orderNo:", req.query.orderNo); //输出req.query.orderNo:10000104
+    // console.log(typeof (req.query.orderNo));
+    // var orderNo = req.query.orderNo;
+    // var length = orderNo.length - 2;
+    // orderNo = orderNo.substr(1, length); //－－－'hello world';
+    // console.log(orderNo);
+
+    // var studentName = req.session.username;
+    // var payResult = req.query.payResult;
+    // var orderNo = req.query.orderNo;
+    // console.log(orderNo, payResult);
+    // ejs.renderFile('./views/paymentConfirmation.ejs', {
+    //   orderNo,
+    //   payResult,
+    //   studentName
+    // }, function (err, data) {
+    //   if (err) {
+    //     console.log(err);
+    //   }
+    //   res.end(data);
+    // })
+
   } else {
     ejs.renderFile('./views/loginTimeOut.ejs', {}, function (err, data) {
       if (err) {

@@ -1,4 +1,3 @@
-
 function checkOptions() {
     var keys = '';
     if (sessionStorage.valueOf().length == 0) { //确实是购物车没东西
@@ -20,27 +19,27 @@ function checkOptions() {
     for (var item in oldKey) {
         oldKeyLength++;
     }
-    console.log("oldKeyLength:",oldKeyLength);
+    console.log("oldKeyLength:", oldKeyLength);
     for (var j = 0; j < oldKeyLength; j++) {
-        if(j == 0){
+        if (j == 0) {
             keys = "keys[]=" + oldKey[j];
-        }else{
-            keys += "&" + "keys[]=" + oldKey[j] ;
+        } else {
+            keys += "&" + "keys[]=" + oldKey[j];
         }
         console.log(keys);
     }
     // var length = keys.length - 1;
     // keys = keys.substr(0, length);
-    
-    var checkboxlist = document.getElementsByTagName("input");
+
+    // var checkboxlist = document.getElementsByTagName("input");
+    var checkboxlist = document.getElementsByName("check"); //正解
     var check = false;
-
-
-    for (var i = 0; i < checkboxlist.length; i++) {
-        if (checkboxlist[i].type == "checkbox" && checkboxlist[i].checked == true) {
+    for (var i = 0; i < checkboxlist.length;) {
+        // if (checkboxlist[i].type == "checkbox" && checkboxlist[i].checked == true) {
+        var item = document.getElementById(i);
+        if (checkboxlist[i].checked == true) {
+            console.log("i:", i);
             check = true;
-            var item = document.getElementById(i);
-
             var JsonData = new Object();
             JsonData.商品编号 = item.cells[1].innerHTML;
             JsonData.商品名称 = item.cells[2].innerHTML;
@@ -69,6 +68,9 @@ function checkOptions() {
             // keys.forEach(element => {
             //     console.log(element);
             // });
+            i++;
+        } else {
+            i++;
         }
     }
     if (check == false) {

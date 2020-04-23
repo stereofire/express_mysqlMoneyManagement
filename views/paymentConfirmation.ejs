@@ -59,12 +59,23 @@
                 </td>
                 <td>&#12288</td>
             </tr>
+            <tr>
+                <td>&#12288</td>
+                <td>
+                    支付结果：<%= payResult %>
+                </td>
+                <td>&#12288</td>
+            </tr>
         
             <tr>
+                <% if(payResult != "支付失败"){ %>
                 <td>
                     <a href="/paymentResult"><button class="查询支付">支付成功</button></a>
                     
                 </td>
+                <% }else{ %>
+                    <td>&#12288 &#12288</td>
+                <% } %>
                 <td>&#12288</td>
                 <td>
                     <a href="/paymentMethod?orderNo=<%= orderNo %>"><button class="重新支付">重新支付</button></a>

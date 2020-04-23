@@ -141,6 +141,7 @@ window.onload = function () { //加载完页面后，计算表格内购物车总
 		}
 		console.log("arr:", data);
 	}
+	// cumputerCar = cumputerCar.toFixed(2); //toFixed()方法，自带四舍五入和补零的功能
 	text += "购物车总额：" + cumputerCar + "元";
 	textDiv.innerHTML = text;
 

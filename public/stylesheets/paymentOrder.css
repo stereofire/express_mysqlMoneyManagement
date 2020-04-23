@@ -257,6 +257,8 @@ ul {
     color: red;
     font-size: 13px;
     text-align: center;
+    /* background-color: rgb(215, 246, 255); */
+
 }
 
 .提交订单,
@@ -903,4 +905,31 @@ select {
 }
 .creatOrdersInBatchesButton:hover {
     background-color: rgb(5, 211, 108);
+}
+#dbottom {
+    position: fixed;
+    /*固定位置*/
+    right: 10px;
+    bottom: 20px;
+    display: none;
+    /*开始默认隐藏*/
+    margin-bottom: 5px;
+    width: 40px;
+    height: 36px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+#dtop {
+    position: fixed;
+    /*固定位置*/
+    right: 60px;
+    bottom: 20px;
+    display: none;
+    /*开始默认隐藏*/
+    margin-bottom: 5px;
+    width: 40px;
+    height: 36px;
+    border-radius: 2px;
+    cursor: pointer;
 }

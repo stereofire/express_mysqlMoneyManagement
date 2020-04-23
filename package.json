@@ -28,6 +28,7 @@
     "multiparty": "^4.2.1",
     "mysql": "latest",
     "node-xlsx": "^0.15.0",
+    "querystring": "^0.2.0",
     "serve-favicon": "^2.5.0"
   }
 }

@@ -11,16 +11,17 @@ router.get('/', function (req, res, next) {
   console.log(pathname + 'get-paymentResult');
 
   console.log("已登录用户查询：", req.session.islogin);
-  var studentName= req.session.username;
+  var studentName = req.session.username;
+  var payResult = req.query.payResult;
+  var orderNo = req.query.orderNo;
   if (req.session.islogin) {
     /*获取session.islogin*/
     console.log("已登录用户查询：", req.session.user);
-    ejs.renderFile('./views/paymentResult.ejs', {studentName}, function (err, data) {
-      if (err) {
-        console.log(err);
-      }
-      res.end(data);
-    })
+    if(payResult=="支付成功"){
+      userDao.queryPaySuccRe(res,req);
+    }else{
+      userDao.queryPayFailRe(res,req);
+    }
   } else {
     ejs.renderFile('./views/loginTimeOut.ejs', {}, function (err, data) {
       if (err) {
