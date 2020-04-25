@@ -179,8 +179,11 @@ var user = {
     // 批量创建必缴订单页信息——创建供货信息——查询 商户代码、商户名称、集团编号
     TinsertStockInfo_queryCor: 'SELECT DISTINCT `商品清单`.`商户代码`, `商户信息表`.`商户名称`,`商户信息表`.`集团编号` FROM `商品清单` INNER JOIN `商户信息表` ON `商品清单`.`商户代码` = `商户信息表`.`商户代码` , `子进货表` , `进货表` WHERE `商品清单`.`商品编号` IN (?) ORDER BY `商品清单`.`商户代码` ASC;',
     // 批量创建必缴订单页信息——创建供货信息——查询最后一个进货编号（采购编号）
-    TinsertStockInfo_queryLastStockID: 'SELECT 采购编号 FROM 进货表 ORDER BY 采购编号 DESC LIMIT 1;',
-
+    TinsertStockInfo_queryLastStockID: 'SELECT 采购编号 FROM 进货表 ORDER BY 采购编号 DESC LIMIT 1;SELECT 清算号 FROM 清算表 ORDER BY 清算号 DESC LIMIT 1;',
+    // 批量创建必缴订单页信息——创建供货信息——插入供货信息
+    TinsertStockInfo_insertStockInfo: 'INSERT INTO `进货表`(`采购编号`, `金额`, `供应商商户号`, `供应商名称`,`集团编号`) VALUES(?,?,?,?,?);INSERT INTO `清算表`(`清算号`,`采购编号`, `定金金额`, `定金状态`, `尾款状态`) VALUES(?,?,?,?,?);',
+    // 批量创建必缴订单页信息——创建供货信息——插入子供货信息
+    TinsertStockInfo_insertSubStockInfo: 'INSERT INTO `子进货表`(`子采购编号`,`采购编号`, `商品编号`, `商品单价`, `数量`,`子采购总额`) VALUES(?,?,?,?,?,?)',
     insert: 'INSERT INTO user(id, name, age) VALUES(0,?,?)',
     update: 'update user set name=?, age=? where id=?',
     delete: 'delete from user where id=?',

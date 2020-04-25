@@ -1,13 +1,13 @@
-Date : 2020-04-18 22:45:12
+Date : 2020-04-25 21:35:51
 Directory : e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test
-Total : 151 files,  19271 codes, 1523 comments, 779 blanks, all 21573 lines
+Total : 151 files,  19307 codes, 1529 comments, 744 blanks, all 21580 lines
 
 Languages
 +------------+------------+------------+------------+------------+------------+
 | language   | files      | code       | comment    | blank      | total      |
 +------------+------------+------------+------------+------------+------------+
-| JavaScript |         70 |      7,726 |      1,187 |        379 |      9,292 |
-| HTML       |         45 |      5,442 |        219 |        240 |      5,901 |
+| JavaScript |         70 |      7,765 |      1,193 |        344 |      9,302 |
+| HTML       |         45 |      5,439 |        219 |        240 |      5,898 |
 | Excel      |         27 |      3,233 |          0 |         21 |      3,254 |
 | JSON       |          2 |      1,962 |          0 |          2 |      1,964 |
 | CSS        |          4 |        861 |        117 |        128 |      1,106 |
@@ -19,22 +19,22 @@ Directories
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
 | path                                                                                                                                          | files      | code       | comment    | blank      | total      |
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
-| .                                                                                                                                             |        151 |     19,271 |      1,523 |        779 |     21,573 |
+| .                                                                                                                                             |        151 |     19,307 |      1,529 |        744 |     21,580 |
 | conf                                                                                                                                          |          1 |         11 |         13 |          1 |         25 |
-| dao                                                                                                                                           |          3 |      4,116 |        322 |        140 |      4,578 |
+| dao                                                                                                                                           |          3 |      4,154 |        329 |        105 |      4,588 |
 | illustration                                                                                                                                  |          1 |      1,160 |          0 |          9 |      1,169 |
 | jq                                                                                                                                            |          1 |          9 |          3 |          3 |         15 |
-| public                                                                                                                                        |         56 |      4,461 |        556 |        294 |      5,311 |
+| public                                                                                                                                        |         56 |      4,462 |        555 |        294 |      5,311 |
 | public\excelTemplates4downLoad                                                                                                                |         11 |        791 |          0 |          5 |        796 |
 | public\images                                                                                                                                 |          2 |         12 |          0 |          2 |         14 |
 | public\images\index                                                                                                                           |          2 |         12 |          0 |          2 |         14 |
-| public\javascripts                                                                                                                            |         25 |      1,553 |        443 |        155 |      2,151 |
+| public\javascripts                                                                                                                            |         25 |      1,554 |        442 |        155 |      2,151 |
 | public\stylesheets                                                                                                                            |          3 |        823 |        113 |        125 |      1,061 |
 | public\tableTemplates4downLoad                                                                                                                |         10 |        691 |          0 |          6 |        697 |
 | public\tables4downLoad                                                                                                                        |          1 |        310 |          0 |          1 |        311 |
 | routes                                                                                                                                        |         38 |      1,906 |        380 |         66 |      2,352 |
 | util                                                                                                                                          |          1 |         11 |          0 |          0 |         11 |
-| views                                                                                                                                         |         46 |      5,480 |        223 |        243 |      5,946 |
+| views                                                                                                                                         |         46 |      5,477 |        223 |        243 |      5,943 |
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
 
 Files
@@ -45,8 +45,8 @@ Files
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\app.js                                                            | JavaScript |        120 |         26 |         14 |        160 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\conf\db.js                                                        | JavaScript |         11 |         13 |          1 |         25 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\dao\exceltt.js                                                    | JavaScript |         33 |          5 |          2 |         40 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\dao\userDao.js                                                    | JavaScript |      4,005 |        236 |        106 |      4,347 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\dao\userSqlMapping.js                                             | JavaScript |         78 |         81 |         32 |        191 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\dao\userDao.js                                                    | JavaScript |      4,041 |        241 |         72 |      4,354 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\dao\userSqlMapping.js                                             | JavaScript |         80 |         83 |         31 |        194 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\illustration\DB设计20200213.xlsx                                    | Excel      |      1,160 |          0 |          9 |      1,169 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\jq\jquery.js                                                      | JavaScript |          9 |          3 |          3 |         15 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\package-lock.json                                                 | JSON       |      1,928 |          0 |          1 |      1,929 |
@@ -69,7 +69,7 @@ Files
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\TclearInfoAdmin.js                             | JavaScript |          8 |          0 |          1 |          9 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\TcorpInfoAdmin.js                              | JavaScript |         35 |         64 |          5 |        104 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\TcoursePlansAdmin.js                           | JavaScript |         53 |          1 |          4 |         58 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\TcreatOrdersInBatches_CPro.js                  | JavaScript |         92 |         20 |          9 |        121 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\TcreatOrdersInBatches_CPro.js                  | JavaScript |         93 |         19 |          9 |        121 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\TcreatOrdersInBatches_CStu.js                  | JavaScript |         69 |         28 |          6 |        103 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\TcreatOrdersInBatches_Pconfirm.js              | JavaScript |        215 |         15 |         26 |        256 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\TcreatOrdersInBatches_Sconfirm.js              | JavaScript |        137 |          9 |         13 |        159 |
@@ -102,7 +102,7 @@ Files
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\tableTemplates4downLoad\template_stuInfo.xlsx              | Excel      |         54 |          0 |          1 |         55 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\tableTemplates4downLoad\template_subOrderInfo.xlsx         | Excel      |         70 |          0 |          0 |         70 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\tableTemplates4downLoad\template_subStockInfo.xlsx         | Excel      |         72 |          0 |          1 |         73 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\tables4downLoad\downLoad_stuInfo20200416211307.xls         | Excel      |        310 |          0 |          1 |        311 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\tables4downLoad\downLoad_stuInfo20200419203132.xls         | Excel      |        310 |          0 |          1 |        311 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\uploadTestCoursePlans.xlsx                                 | Excel      |         70 |          0 |          0 |         70 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\uploadTestProductInfo.xlsx                                 | Excel      |         78 |          0 |          0 |         78 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\uploadTestScholarshipInfo.xlsx                             | Excel      |         66 |          0 |          0 |         66 |
@@ -182,7 +182,7 @@ Files
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\orderConfirm.ejs                                            | HTML       |         92 |         12 |          7 |        111 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\orderRecord.ejs                                             | HTML       |        167 |          4 |          7 |        178 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\orderSubmit.ejs                                             | HTML       |         51 |          3 |          7 |         61 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\payPage.ejs                                                 | HTML       |        106 |          3 |          4 |        113 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\payPage.ejs                                                 | HTML       |        103 |          3 |          4 |        110 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\paymentConfirmation.ejs                                     | HTML       |         81 |          5 |          3 |         89 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\paymentMethod.ejs                                           | HTML       |        186 |          6 |          6 |        198 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\paymentOrder.ejs                                            | HTML       |         60 |          8 |          3 |         71 |
@@ -192,5 +192,5 @@ Files
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\suc.ejs                                                     | HTML       |         14 |          4 |          1 |         19 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\test.html                                                   | HTML       |         17 |          0 |          3 |         20 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\testFileType.html                                           | HTML       |         42 |          5 |          9 |         56 |
-| Total                                                                                                                                         |            |     19,271 |      1,523 |        779 |     21,573 |
+| Total                                                                                                                                         |            |     19,307 |      1,529 |        744 |     21,580 |
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

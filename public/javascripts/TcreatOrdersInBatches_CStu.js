@@ -39,13 +39,20 @@ function checkOptions() {
     console.log("keys:", keys);
 
     // 统计是否有新学生被勾选，有则写入session并跳转，无则驳回跳转
-    var checkboxlist = document.getElementsByTagName("input");
+    // var checkboxlist = document.getElementsByTagName("input");
+    var checkboxlist = document.getElementsByName("check"); //正解
+
+    console.log("checkboxlist:", checkboxlist);
     var check = false; //是否有学生被勾选
-    for (var i = 0; i < checkboxlist.length; i++) {
-        if (checkboxlist[i].type == "checkbox" && checkboxlist[i].checked == true) {
+    var newStuIDLength = 0;
+    for (var i = 0; i < checkboxlist.length;) {
+        var item = document.getElementById(i);
+        if (checkboxlist[i].checked == true) {
+            newStuIDLength++; // 重要，解决每次购物车为空时添加商品跳转确认只有最后一个的问题
+            console.log("i:", i);
             check = true;
             // 将学生信息写入session
-            var item = document.getElementById(i);
+            // var item = document.getElementById(i);
             var JsonData = new Object();
             JsonData.学号 = item.cells[1].innerHTML;
             JsonData.学校 = item.cells[2].innerHTML;
@@ -59,25 +66,46 @@ function checkOptions() {
             //存储数据前：利用JSON.stringify将对象转换成字符串
             JsonData = JSON.stringify(JsonData);
             var key = 'stuIDs' + i;
-            if (oldProIDLength + oldStuIDLength == 0) { // 当前购物车为空
+            // 判断该学生是否已经在购物车内
+            var stunum = item.cells[1].innerHTML;
+            for (var o in oldKey) {
+                var oToString = JSON.stringify(oldKey[o]);
+                oToString = oToString.slice(1, -1);
+                console.log(o, oToString, key);
+                if ((oToString.indexOf("stuIDs") != -1) && (oToString == key)) {
+                    var alertStr = "抱歉，学号为：" + stunum + "的学到已存在您的批量必缴计划内！";
+                    alert(alertStr);
+                    return false;
+                }
+            }
+            // 当前购物车为空且为第一个新添加学号
+            if (oldProIDLength + oldStuIDLength + newStuIDLength== 0) { // 当前购物车为空
                 keys = "stuIDs[]=" + key + "&"; //用于url传参
             } else {
                 keys += "&" + "stuIDs[]=" + key;
             }
             sessionStorage.setItem(key, JsonData);
+            console.log("keys:", keys.length, keys);
+            i++;
+
+        } else {
+            i++;
         }
     }
     if (check == false) {
         alert("还未勾选缴费学生哦！");
     } else {
-        console.log("有缴费学生被勾选,已经加入sessionstorage购物车，现在跳转至学号确认页面");
-        console.log("keys.length,keys:", keys.length, keys);
-        // 重置所有勾选框为未勾选状态
-        for (var i = 0; i < checkboxlist.length; i++) {
-            checkboxlist[i].checked = false;
+        console.log(i);
+        if (i == checkboxlist.length) {
+            console.log("有缴费学生被勾选,已经加入sessionstorage购物车，现在跳转至学号确认页面");
+            console.log("keys.length,keys:", keys.length, keys);
+            // 重置所有勾选框为未勾选状态
+            for (var i = 0; i < checkboxlist.length; i++) {
+                checkboxlist[i].checked = false;
+            }
+            // 跳转
+            location.href = '/TcreatOrdersInBatches_Sconfirm?' + keys;
         }
-        // 跳转
-        location.href = '/TcreatOrdersInBatches_Sconfirm?' + keys;
     }
 }
 

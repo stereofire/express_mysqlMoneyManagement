@@ -1,10 +1,10 @@
 # Details
 
-Date : 2020-04-18 22:45:12
+Date : 2020-04-25 21:35:51
 
 Directory e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test
 
-Total : 151 files,  19271 codes, 1523 comments, 779 blanks, all 21573 lines
+Total : 151 files,  19307 codes, 1529 comments, 744 blanks, all 21580 lines
 
 [summary](results.md)
 
@@ -15,8 +15,8 @@ Total : 151 files,  19271 codes, 1523 comments, 779 blanks, all 21573 lines
 | [app.js](/app.js) | JavaScript | 120 | 26 | 14 | 160 |
 | [conf/db.js](/conf/db.js) | JavaScript | 11 | 13 | 1 | 25 |
 | [dao/exceltt.js](/dao/exceltt.js) | JavaScript | 33 | 5 | 2 | 40 |
-| [dao/userDao.js](/dao/userDao.js) | JavaScript | 4,005 | 236 | 106 | 4,347 |
-| [dao/userSqlMapping.js](/dao/userSqlMapping.js) | JavaScript | 78 | 81 | 32 | 191 |
+| [dao/userDao.js](/dao/userDao.js) | JavaScript | 4,041 | 241 | 72 | 4,354 |
+| [dao/userSqlMapping.js](/dao/userSqlMapping.js) | JavaScript | 80 | 83 | 31 | 194 |
 | [illustration/DB设计20200213.xlsx](/illustration/DB设计20200213.xlsx) | Excel | 1,160 | 0 | 9 | 1,169 |
 | [jq/jquery.js](/jq/jquery.js) | JavaScript | 9 | 3 | 3 | 15 |
 | [package-lock.json](/package-lock.json) | JSON | 1,928 | 0 | 1 | 1,929 |
@@ -39,7 +39,7 @@ Total : 151 files,  19271 codes, 1523 comments, 779 blanks, all 21573 lines
 | [public/javascripts/TclearInfoAdmin.js](/public/javascripts/TclearInfoAdmin.js) | JavaScript | 8 | 0 | 1 | 9 |
 | [public/javascripts/TcorpInfoAdmin.js](/public/javascripts/TcorpInfoAdmin.js) | JavaScript | 35 | 64 | 5 | 104 |
 | [public/javascripts/TcoursePlansAdmin.js](/public/javascripts/TcoursePlansAdmin.js) | JavaScript | 53 | 1 | 4 | 58 |
-| [public/javascripts/TcreatOrdersInBatches_CPro.js](/public/javascripts/TcreatOrdersInBatches_CPro.js) | JavaScript | 92 | 20 | 9 | 121 |
+| [public/javascripts/TcreatOrdersInBatches_CPro.js](/public/javascripts/TcreatOrdersInBatches_CPro.js) | JavaScript | 93 | 19 | 9 | 121 |
 | [public/javascripts/TcreatOrdersInBatches_CStu.js](/public/javascripts/TcreatOrdersInBatches_CStu.js) | JavaScript | 69 | 28 | 6 | 103 |
 | [public/javascripts/TcreatOrdersInBatches_Pconfirm.js](/public/javascripts/TcreatOrdersInBatches_Pconfirm.js) | JavaScript | 215 | 15 | 26 | 256 |
 | [public/javascripts/TcreatOrdersInBatches_Sconfirm.js](/public/javascripts/TcreatOrdersInBatches_Sconfirm.js) | JavaScript | 137 | 9 | 13 | 159 |
@@ -72,7 +72,7 @@ Total : 151 files,  19271 codes, 1523 comments, 779 blanks, all 21573 lines
 | [public/tableTemplates4downLoad/template_stuInfo.xlsx](/public/tableTemplates4downLoad/template_stuInfo.xlsx) | Excel | 54 | 0 | 1 | 55 |
 | [public/tableTemplates4downLoad/template_subOrderInfo.xlsx](/public/tableTemplates4downLoad/template_subOrderInfo.xlsx) | Excel | 70 | 0 | 0 | 70 |
 | [public/tableTemplates4downLoad/template_subStockInfo.xlsx](/public/tableTemplates4downLoad/template_subStockInfo.xlsx) | Excel | 72 | 0 | 1 | 73 |
-| [public/tables4downLoad/downLoad_stuInfo20200416211307.xls](/public/tables4downLoad/downLoad_stuInfo20200416211307.xls) | Excel | 310 | 0 | 1 | 311 |
+| [public/tables4downLoad/downLoad_stuInfo20200419203132.xls](/public/tables4downLoad/downLoad_stuInfo20200419203132.xls) | Excel | 310 | 0 | 1 | 311 |
 | [public/uploadTestCoursePlans.xlsx](/public/uploadTestCoursePlans.xlsx) | Excel | 70 | 0 | 0 | 70 |
 | [public/uploadTestProductInfo.xlsx](/public/uploadTestProductInfo.xlsx) | Excel | 78 | 0 | 0 | 78 |
 | [public/uploadTestScholarshipInfo.xlsx](/public/uploadTestScholarshipInfo.xlsx) | Excel | 66 | 0 | 0 | 66 |
@@ -152,7 +152,7 @@ Total : 151 files,  19271 codes, 1523 comments, 779 blanks, all 21573 lines
 | [views/orderConfirm.ejs](/views/orderConfirm.ejs) | HTML | 92 | 12 | 7 | 111 |
 | [views/orderRecord.ejs](/views/orderRecord.ejs) | HTML | 167 | 4 | 7 | 178 |
 | [views/orderSubmit.ejs](/views/orderSubmit.ejs) | HTML | 51 | 3 | 7 | 61 |
-| [views/payPage.ejs](/views/payPage.ejs) | HTML | 106 | 3 | 4 | 113 |
+| [views/payPage.ejs](/views/payPage.ejs) | HTML | 103 | 3 | 4 | 110 |
 | [views/paymentConfirmation.ejs](/views/paymentConfirmation.ejs) | HTML | 81 | 5 | 3 | 89 |
 | [views/paymentMethod.ejs](/views/paymentMethod.ejs) | HTML | 186 | 6 | 6 | 198 |
 | [views/paymentOrder.ejs](/views/paymentOrder.ejs) | HTML | 60 | 8 | 3 | 71 |

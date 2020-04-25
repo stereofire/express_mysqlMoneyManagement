@@ -114,7 +114,7 @@ function checkOptions() {
                 checkboxlist[j].checked = false;
             }
             // 跳转
-            // location.href = '/TcreatOrdersInBatches_Pconfirm?' + keys;
+            location.href = '/TcreatOrdersInBatches_Pconfirm?' + keys;
         }
     }
 
