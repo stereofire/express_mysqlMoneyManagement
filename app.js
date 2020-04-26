@@ -2,13 +2,14 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
-var logger = require('morgan');
+// var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
 var app = express();
 // var $ = jQuery = require("./jq/jquery");
 var ejsExcel=require("ejsExcel");
+var log = require("./logs/log");
 
 
 //引入express-session
@@ -42,7 +43,7 @@ app.set('view engine', 'ejs');
 // app.use(partials());
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+// app.use(logger('dev'));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public'))); //静态资源目录
 app.use(bodyParser.json()); //数据JSON类型(载入body-parser中间件才可以使用req.body解析body)

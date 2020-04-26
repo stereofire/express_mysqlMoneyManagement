@@ -70,7 +70,7 @@ function getDataRow(listI) { //创建行数据
 	row.appendChild(delCell);
 	var btnDel = document.createElement('input'); //创建一个input控件       
 	btnDel.setAttribute('type', 'button'); //type="button" 
-	btnDel.setAttribute('name', 'delectstudents'); //name="delectstudents"     
+	btnDel.setAttribute('name', 'deleteStudents'); //name="deleteStudents"     
 	btnDel.setAttribute('class', 'delectButton'); //class="delectButton"       
 	btnDel.setAttribute('value', '删除');
 	//删除操作       

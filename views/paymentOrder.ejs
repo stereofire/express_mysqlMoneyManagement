@@ -10,7 +10,7 @@
     <!--<script src="javascript/首页.js"></script>-->
 </head>
 
-<body>
+<body style="background: url('images/teacher/back.png') no-repeat;background-size: cover;">
     <div>
         <img class="header" src="images/index/head.png" alt="图像加载失败">
     </div>
@@ -26,23 +26,23 @@
             </ul>
         </div>
     </div>
-    <div id="main">
+    <div id="main" style="background-color: transparent;">
         <!--容器-->
-        <div id="must">
+        <div id="must" style="opacity: 1;">
             <!--必缴-->
             <div>
                 <a href="/requiredOrder"><img class="picture" src="images/缴费订单/必缴2.png" alt="图像加载失败"></a>
             </div>
             <div style="margin-bottom: 10px;color:steelblue;"><b>必缴订单(仅供查看)</b></div>
         </div>
-        <div id="opt">
+        <div id="opt" style="opacity:1;">
             <!--选缴-->
             <div>
                 <a href="/optionalOrder"><img class="picture" src="images/缴费订单/选缴2.png" alt="图像加载失败"></a>
             </div>
             <div style="margin-bottom: 10px;color:steelblue;"><b>选缴订单</b></div>
         </div>
-        <table class="gotopay_table">
+        <table class="gotopay_table" style="opacity: 0.8;">
             <tr class="gotopay_tr">
                 <td class="gotopay_td1">
                     <span id="缴费订单页即时订单总额">未缴费订单总额：<%= totalAmount[0].totalAmount%> 元</span>
