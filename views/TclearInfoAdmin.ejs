@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>清算统计管理页</title>
     <link rel="stylesheet" type="text/css" href="stylesheets/paymentOrder.css">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
     <script src="javascripts/down&upData.js"></script>
     <script src="javascripts/TclearInfoAdmin.js"></script>
-    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 </head>
 
 <body>
@@ -120,6 +120,81 @@
             </table>
         </div>
     </div>
+    <div id="coverLayer_updateClearInfo">
+        <div id="pop" style="height: auto;">
+            <table>
+                <tr>
+                    <td class="mesage" style="text-align: center;padding-left: 0px;">
+                        编辑清算信息
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        ____________________________________________________
+                    </td>
+                </tr>
+                <tr></tr>
+            </table>
+            <form action="/TclearInfoAdmin?updateClearInfo=true" name="update_clearInfo" method="post">
+                <div>
+                    <table style="font-size: small;margin-top: 20px;margin-bottom: 10px;">
+                        <tr>
+                            <td class="words">清算号：</td>
+                            <td><input type="text" name="update_clearID" style="width: 160px;" disabled="disabled"><br></td>
+                            <input type="text" name="update_clearId" style="display: none;">
+                        </tr>
+                        <tr>
+                            <td class="words">采购号：</td>
+                            <td><input type="text" name="update_stockID" style="width: 160px;" disabled="disabled"><br></td>
+                            <input type="text" name="update_stockId" style="display: none;">
+                        </tr>
+                        <tr>
+                            <td class="words">定金金额(元)：</td>
+                            <td><input type="text" name="update_deposit" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">定金状态：</td>
+                            <td>
+                                <select name="update_depositStatus" style="height: auto;width: 80px;" id="update_depositStatus">
+                                    <option value="未支付">未支付</option>
+                                    <option value="已支付">已支付</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="words">尾款(元)：</td>
+                            <td><input type="text" name="update_remainingPayment" style="width: 160px;"><br></td>
+                        </tr>
+                        <tr>
+                            <td class="words">尾款状态：</td>
+                            <td>
+                                <select name="update_remainingPaymentStatus" style="height: auto;width: 80px;" id="update_remainingPaymentStatus">
+                                    <option value="未结算">未结算</option>
+                                    <option value="已结算">已结算</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="words">定金支付时间：</td>
+                            <td><input type="date" id="update_depositPayTime" name="update_depositPayTime" /></td>
+                        </tr>
+                        <tr>
+                            <td class="words">尾款支付期限：</td>
+                            <td><input type="date" id="update_remainingPayLimit" name="update_remainingPayLimit" /></td>
+                        </tr>
+                        <tr>
+                            <td><button class="managementButton"
+                                    style="width:130px;border-radius: 5px;margin-top: 20px;"
+                                    onclick="return updateForm_updateClearInfo();">确定</button></td>
+                            <td><button class="managementButton"
+                                    style="width:130px;border-radius: 5px;margin-top: 20px;"
+                                    onclick="return closePOP_updateClearInfo()">取消</button></td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
     <div id="tbDiv">
         <table class="order_table" id="OrderRecordTB" name="keyPassage" style="width: 85%;margin-left: 160px;">
             <thead>
@@ -149,12 +224,13 @@
                     <td><%= result[i].尾款 %></td>
                     <% if(result[i].尾款状态 == 1){ %>
                     <td style="color: rgb(77, 214, 77);">已结算</td>
-                    <% }else if(result[i].定金状态 == 0){  %>
+                    <% }else if(result[i].尾款状态 == 0){  %>
                     <td style="color: red;">未结算</td>
                     <% } %>
                     <td><%= result[i].定金支付时间 %></td>
                     <td><%= result[i].尾款支付期限 %></td>
                     <td>
+                        <button class="gotoPayButton" onclick="showPOP_updateClearInfo('<%= result[i].清算号 %>','<%= result[i].采购编号 %>','<%= result[i].定金金额 %>','<%= result[i].定金状态 %>','<%= result[i].尾款 %>','<%= result[i].尾款状态 %>','<%= result[i].定金支付时间 %>','<%= result[i].尾款支付期限 %>')">编辑</button>
                         <button class="deleteOrderRecord" onclick="deleteClearInfo('<%= result[i].清算号 %>')">删除</button>
                     </td>
                 </tr>

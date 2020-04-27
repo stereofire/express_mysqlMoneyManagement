@@ -4784,5 +4784,71 @@ const obj = {
             res.send(re);
         });
     },
+
+    // TclearInfoAdmin 修改清算信息
+    updateClearInfo: function(res,req){
+        var teacherName = req.session.username;
+        logger.info(teacherName + "进入TcreatOrdersInBatches_CreatOrders函数");
+        var update_clearId = req.body.update_clearId;
+        var update_stockId = req.body.update_stockId;
+        var update_deposit = req.body.update_deposit.slice(1.-1);
+        update_deposit = parseFloat(update_deposit);
+        if(req.body.update_depositStatus == "未支付"){
+            var update_depositStatus =0;
+        }else{
+            var update_depositStatus =1;
+        }
+        var update_remainingPayment = req.body.update_remainingPayment.slice(1.-1);
+        update_remainingPayment = parseFloat(update_remainingPayment);
+        if(req.body.update_remainingPaymentStatus == "未结算"){
+            var update_remainingPaymentStatus =0;
+        }else{
+            var update_remainingPaymentStatus =1;
+        }
+        var update_depositPayTime = req.body.update_depositPayTime;
+        var update_remainingPayLimit = req.body.update_remainingPayLimit;
+        var update_dataArr = [update_deposit,update_depositStatus,update_remainingPayment,update_remainingPaymentStatus,update_depositPayTime,update_remainingPayLimit,update_clearId];
+        var sql = "update 清算表 set 定金金额=?,定金状态=?,尾款=?,尾款状态=?,定金支付时间=?,尾款支付期限=? where 清算号=?";
+        if(update_depositPayTime == ''){
+            if(update_remainingPayLimit == ''){//两个时间都为空
+                update_dataArr = [update_deposit,update_depositStatus,update_remainingPayment,update_remainingPaymentStatus,update_clearId];
+                sql = "update 清算表 set 定金金额=?,定金状态=?,尾款=?,尾款状态=? where 清算号=?";
+            }else{//定金支付时间为空
+                update_dataArr = [update_deposit,update_depositStatus,update_remainingPayment,update_remainingPaymentStatus,update_remainingPayLimit,update_clearId];
+                sql = "update 清算表 set 定金金额=?,定金状态=?,尾款=?,尾款状态=?,尾款支付期限=? where 清算号=?"
+            }
+        }else if(update_remainingPayLimit == ''){//尾款支付期限为空
+            update_dataArr = [update_deposit,update_depositStatus,update_remainingPayment,update_remainingPaymentStatus,update_depositPayTime,update_clearId];
+            sql = "update 清算表 set 定金金额=?,定金状态=?,尾款=?,尾款状态=?,定金支付时间=? where 清算号=?";
+        }else{//两个时间都不为空
+        }
+        logger.info("待更新清算信息update_dataArr:",update_dataArr);
+        logger.info("待更新清算信息sql:",sql);
+        pool.getConnection(function (err, connection) {
+            if (err) { //数据库连接池错误
+                logger.info("数据库连接池错误。错误编号：00244");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00244，返回清算统计页";
+                var re = `<script>alert('${message}'); location.href="/TclearInfoAdmin"</script>`;
+                res.send(re);
+            }
+            connection.query(sql, update_dataArr, function (err, result) {
+                if (err) { //更改清算信息错误
+                    logger.info("更改清算信息错误。错误编号：00245",err);
+                    var message = "抱歉，更改清算信息错误。错误编号：00245，返回清算统计页";
+                    var re = `<script>alert('${message}'); location.href="/TclearInfoAdmin"</script>`;
+                    res.send(re);
+                    connection.release();
+                } else { //更改清算信息错误成功
+                    connection.release();
+                    logger.info("更改清算信息成功");
+                    var message = "更改清算信息成功";
+                    var re = `<script>alert('${message}'); location.href="/TclearInfoAdmin"</script>`;
+                    res.send(re);
+                }
+            });
+
+        });
+    },
+
 };
 module.exports = obj;

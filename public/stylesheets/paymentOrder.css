@@ -869,7 +869,7 @@ select {
 }
 
 /* 弹框遮罩层 */
-#coverLayer, #coverLayer_addStu,#coverLayer_addProduct,#coverLayer_addStock,#coverLayer_addCoursePlan, #coverLayer_addClearInfo,#coverLayer_addScholarship {
+#coverLayer, #coverLayer_addStu,#coverLayer_addProduct,#coverLayer_addStock,#coverLayer_addCoursePlan, #coverLayer_addClearInfo,#coverLayer_addScholarship,#coverLayer_updateClearInfo {
     width: 100%;
     height: 100%;
     left: 0;

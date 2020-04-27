@@ -156,6 +156,8 @@ var user = {
     // TclearInfoUpload: 'INSERT INTO 清算表(清算号,采购编号,定金金额,定金状态,尾款,尾款状态,定金支付时间,尾款支付期限) VALUES(?,?,?,?,?,?,?,?)',
     // 删除清算统计
     TdeleteClearInfo: 'DELETE FROM 清算表 WHERE 清算号 = ?',
+    // 更改信息
+    TupdateClearInfo: 'update 清算表 set 定金金额=?,定金状态=?,尾款=?,尾款状态=?,定金支付时间=?,尾款支付期限=? where 清算号=?',
 
 
 

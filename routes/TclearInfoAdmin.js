@@ -38,6 +38,10 @@ router.post('/', function (req, res, next) {
       logger.info('TclearInfoAdmin?querySiftClearInfo=true，get FormData Params: ', req.body);
       /*筛选清算记录*/
       userDao.querySiftClearInfo(res,req);
+    }else if (req.query.updateClearInfo == "true") {
+      logger.info('TclearInfoAdmin?updateClearInfo=true，get FormData Params: ', req.body);
+      /*筛选清算记录*/
+      userDao.updateClearInfo(res,req);
     }
   } else {
     ejs.renderFile('./views/TloginTimeOut.ejs', {}, function (err, data) {

@@ -435,3 +435,746 @@
 [2020-04-27T14:40:27.743] [INFO] default - /get-Tindex
 [2020-04-27T14:43:06.238] [INFO] default - get
 [2020-04-27T14:43:06.242] [INFO] default - /get-Tindex
+[2020-04-27T14:59:34.177] [DEBUG] debug - Server started
+[2020-04-27T14:59:40.229] [INFO] default - get
+[2020-04-27T14:59:40.231] [INFO] default - /get-Tindex
+[2020-04-27T15:04:53.117] [INFO] default - get
+[2020-04-27T15:04:53.121] [INFO] default - /get-Tindex
+[2020-04-27T15:18:08.555] [INFO] default - post
+[2020-04-27T15:18:08.557] [INFO] default - /post-Tindex
+[2020-04-27T15:18:08.567] [INFO] default - get FormData Params:  {
+  schools: 'soochow university',
+  account: '202001001',
+  password: '11111111'
+}
+[2020-04-27T15:18:08.638] [INFO] default - 教师登录表单参数： soochow university 202001001 11111111
+[2020-04-27T15:18:08.694] [INFO] default - 开启event_scheduler成功。
+[2020-04-27T15:18:08.722] [INFO] default - 正确密码应为： [String: '11111111']
+[2020-04-27T15:18:08.723] [INFO] default - 密码正确,登录成功
+[2020-04-27T15:18:11.141] [INFO] default - get
+[2020-04-27T15:18:11.145] [INFO] default - /get-TstudentInfoAdmin
+[2020-04-27T15:18:11.150] [INFO] default - 登录状态： true
+[2020-04-27T15:18:11.177] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T15:18:11.221] [INFO] default - 202001001进入queryTstudentInfo函数
+[2020-04-27T15:18:15.302] [INFO] default - get
+[2020-04-27T15:18:15.304] [INFO] default - /get-TgroupInfoAdmin
+[2020-04-27T15:18:15.305] [INFO] default - 登录状态： true
+[2020-04-27T15:18:15.344] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T15:18:15.383] [INFO] default - 202001001进入queryTgroupInfo函数
+[2020-04-27T15:18:16.872] [INFO] default - get
+[2020-04-27T15:18:16.874] [INFO] default - /get-TcorpInfoAdmin
+[2020-04-27T15:18:16.874] [INFO] default - 登录状态： true
+[2020-04-27T15:18:16.879] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T15:18:16.963] [INFO] default - 202001001进入queryTcorpInfo函数
+[2020-04-27T15:18:57.576] [INFO] default - get
+[2020-04-27T15:18:57.577] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T15:18:57.577] [INFO] default - 登录状态： true
+[2020-04-27T15:18:57.578] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T15:18:57.598] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T15:18:58.972] [INFO] default - get
+[2020-04-27T15:18:58.974] [INFO] default - /get-TscholarshipInfoAdmin
+[2020-04-27T15:18:58.976] [INFO] default - 登录状态： true
+[2020-04-27T15:18:58.995] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T15:18:58.998] [INFO] default - 202001001进入queryTscholarshipInfo函数
+[2020-04-27T15:19:00.355] [INFO] default - get
+[2020-04-27T15:19:00.356] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T15:19:00.356] [INFO] default - 登录状态： true
+[2020-04-27T15:19:00.359] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T15:19:00.427] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T15:19:03.589] [INFO] default - get
+[2020-04-27T15:19:03.590] [INFO] default - /get-TcoursePlansAdmin
+[2020-04-27T15:19:03.592] [INFO] default - 登录状态： true
+[2020-04-27T15:19:03.593] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T15:19:03.596] [INFO] default - 202001001进入queryTcoursePlans函数
+[2020-04-27T15:19:06.074] [INFO] default - get
+[2020-04-27T15:19:06.076] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T15:19:06.078] [INFO] default - 登录状态： true
+[2020-04-27T15:19:06.080] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T15:19:06.170] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T15:21:03.429] [INFO] default - get
+[2020-04-27T15:21:03.433] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T15:21:03.439] [INFO] default - 登录状态： true
+[2020-04-27T15:21:03.528] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T15:21:03.693] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T15:24:32.496] [INFO] default - get
+[2020-04-27T15:24:32.497] [INFO] default - /get-TcoursePlansAdmin
+[2020-04-27T15:24:32.499] [INFO] default - 登录状态： true
+[2020-04-27T15:24:32.524] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T15:24:32.528] [INFO] default - 202001001进入queryTcoursePlans函数
+[2020-04-27T15:24:34.057] [INFO] default - get
+[2020-04-27T15:24:34.058] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T15:24:34.062] [INFO] default - 登录状态： true
+[2020-04-27T15:24:34.087] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T15:24:34.122] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T15:31:01.846] [INFO] default - get
+[2020-04-27T15:31:01.848] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T15:31:01.848] [INFO] default - 登录状态： true
+[2020-04-27T15:31:01.881] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T15:31:01.919] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T15:31:33.475] [INFO] default - get
+[2020-04-27T15:31:33.477] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T15:31:33.478] [INFO] default - 登录状态： true
+[2020-04-27T15:31:33.560] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T15:31:33.608] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T15:35:34.241] [INFO] default - get
+[2020-04-27T15:35:34.249] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T15:35:34.257] [INFO] default - 登录状态： true
+[2020-04-27T15:35:34.616] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T15:35:34.765] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T15:46:42.113] [INFO] default - get
+[2020-04-27T15:46:42.143] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T15:46:42.149] [INFO] default - 登录状态： true
+[2020-04-27T15:46:42.150] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T15:46:42.150] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T15:47:57.918] [INFO] default - get
+[2020-04-27T15:47:57.920] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T15:47:57.920] [INFO] default - 登录状态： true
+[2020-04-27T15:47:57.925] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T15:47:57.996] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T15:58:49.724] [INFO] default - get
+[2020-04-27T15:58:49.724] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T15:58:49.724] [INFO] default - 登录状态： true
+[2020-04-27T15:58:49.725] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T15:58:49.725] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:01:23.053] [INFO] default - get
+[2020-04-27T16:01:23.054] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:01:23.055] [INFO] default - 登录状态： true
+[2020-04-27T16:01:23.060] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:01:23.116] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:01:57.034] [INFO] default - get
+[2020-04-27T16:01:57.035] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:01:57.036] [INFO] default - 登录状态： true
+[2020-04-27T16:01:57.036] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:01:57.037] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:02:01.698] [INFO] default - get
+[2020-04-27T16:02:01.699] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:02:01.702] [INFO] default - 登录状态： true
+[2020-04-27T16:02:01.704] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:02:01.705] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:03:08.530] [INFO] default - get
+[2020-04-27T16:03:08.535] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:03:08.540] [INFO] default - 登录状态： true
+[2020-04-27T16:03:08.576] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:03:08.578] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:05:31.985] [INFO] default - get
+[2020-04-27T16:05:31.986] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:05:31.987] [INFO] default - 登录状态： true
+[2020-04-27T16:05:31.988] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:05:32.049] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:05:45.966] [INFO] default - get
+[2020-04-27T16:05:45.967] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:05:45.968] [INFO] default - 登录状态： true
+[2020-04-27T16:05:45.968] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:05:46.010] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:11:14.965] [INFO] default - get
+[2020-04-27T16:11:14.966] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:11:14.967] [INFO] default - 登录状态： true
+[2020-04-27T16:11:14.975] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:11:15.755] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:12:46.701] [INFO] default - get
+[2020-04-27T16:12:46.901] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:12:47.216] [INFO] default - 登录状态： true
+[2020-04-27T16:12:47.440] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:12:47.667] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:13:08.157] [INFO] default - get
+[2020-04-27T16:13:08.161] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:13:08.164] [INFO] default - 登录状态： true
+[2020-04-27T16:13:08.166] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:13:08.167] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:14:02.624] [INFO] default - get
+[2020-04-27T16:14:02.625] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:14:02.625] [INFO] default - 登录状态： true
+[2020-04-27T16:14:02.626] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:14:02.662] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:16:21.417] [INFO] default - get
+[2020-04-27T16:16:21.419] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:16:21.456] [INFO] default - 登录状态： true
+[2020-04-27T16:16:21.585] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:16:21.598] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:16:56.375] [INFO] default - get
+[2020-04-27T16:16:56.458] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:16:56.459] [INFO] default - 登录状态： true
+[2020-04-27T16:16:56.460] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:16:56.716] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:17:08.205] [INFO] default - get
+[2020-04-27T16:17:08.206] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:17:08.207] [INFO] default - 登录状态： true
+[2020-04-27T16:17:08.208] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:17:08.403] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:17:28.968] [INFO] default - get
+[2020-04-27T16:17:28.969] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:17:28.974] [INFO] default - 登录状态： true
+[2020-04-27T16:17:29.016] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:17:29.116] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:17:47.001] [INFO] default - get
+[2020-04-27T16:17:47.012] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:17:47.012] [INFO] default - 登录状态： true
+[2020-04-27T16:17:47.113] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:17:47.225] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:18:33.087] [INFO] default - get
+[2020-04-27T16:18:33.092] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:18:33.093] [INFO] default - 登录状态： true
+[2020-04-27T16:18:33.099] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:18:33.249] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:18:49.533] [INFO] default - get
+[2020-04-27T16:18:49.537] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:18:49.539] [INFO] default - 登录状态： true
+[2020-04-27T16:18:49.782] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:18:50.173] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:19:27.625] [INFO] default - get
+[2020-04-27T16:19:27.626] [INFO] default - /get-TcoursePlansAdmin
+[2020-04-27T16:19:27.627] [INFO] default - 登录状态： true
+[2020-04-27T16:19:27.631] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:19:27.706] [INFO] default - 202001001进入queryTcoursePlans函数
+[2020-04-27T16:19:59.214] [INFO] default - get
+[2020-04-27T16:19:59.215] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:19:59.216] [INFO] default - 登录状态： true
+[2020-04-27T16:19:59.218] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:19:59.385] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:28:56.253] [INFO] default - get
+[2020-04-27T16:28:56.253] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:28:56.254] [INFO] default - 登录状态： true
+[2020-04-27T16:28:56.255] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:28:56.331] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:29:33.840] [INFO] default - get
+[2020-04-27T16:29:33.842] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:29:33.842] [INFO] default - 登录状态： true
+[2020-04-27T16:29:33.844] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:29:33.845] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:30:28.310] [INFO] default - get
+[2020-04-27T16:30:28.314] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:30:28.328] [INFO] default - 登录状态： true
+[2020-04-27T16:30:28.355] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:30:28.525] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:34:13.122] [INFO] default - get
+[2020-04-27T16:34:13.158] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:34:13.238] [INFO] default - 登录状态： true
+[2020-04-27T16:34:13.244] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:34:13.311] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:35:32.850] [INFO] default - get
+[2020-04-27T16:35:32.851] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:35:32.852] [INFO] default - 登录状态： true
+[2020-04-27T16:35:32.857] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:35:33.020] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:36:42.279] [INFO] default - get
+[2020-04-27T16:36:42.286] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:36:42.286] [INFO] default - 登录状态： true
+[2020-04-27T16:36:42.414] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:36:42.483] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:36:46.616] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:38:46.621] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:40:52.422] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:41:04.439] [INFO] default - get
+[2020-04-27T16:41:04.443] [INFO] default - /get-TallOrdersAdmin
+[2020-04-27T16:41:04.445] [INFO] default - 登录状态： true
+[2020-04-27T16:41:04.454] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:41:04.668] [INFO] default - 202001001进入queryTallOrders函数
+[2020-04-27T16:41:04.757] [INFO] default - 无缴费订单
+[2020-04-27T16:41:27.879] [INFO] default - get
+[2020-04-27T16:41:27.883] [INFO] default - /get-TscholarshipInfoAdmin
+[2020-04-27T16:41:27.885] [INFO] default - 登录状态： true
+[2020-04-27T16:41:27.885] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:41:27.887] [INFO] default - 202001001进入queryTscholarshipInfo函数
+[2020-04-27T16:41:32.954] [INFO] default - get
+[2020-04-27T16:41:32.957] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:41:33.032] [INFO] default - 登录状态： true
+[2020-04-27T16:41:33.113] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:41:33.128] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:41:39.195] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:42:12.384] [DEBUG] debug - Server started
+[2020-04-27T16:42:23.552] [INFO] default - get
+[2020-04-27T16:42:23.555] [INFO] default - /get-Tindex
+[2020-04-27T16:42:29.537] [INFO] default - post
+[2020-04-27T16:42:29.540] [INFO] default - /post-Tindex
+[2020-04-27T16:42:29.582] [INFO] default - get FormData Params:  {
+  schools: 'soochow university',
+  account: '202001001',
+  password: '11111111'
+}
+[2020-04-27T16:42:29.584] [INFO] default - 教师登录表单参数： soochow university 202001001 11111111
+[2020-04-27T16:42:29.616] [INFO] default - 开启event_scheduler成功。
+[2020-04-27T16:42:29.654] [INFO] default - 正确密码应为： [String: '11111111']
+[2020-04-27T16:42:29.691] [INFO] default - 密码正确,登录成功
+[2020-04-27T16:42:32.522] [INFO] default - get
+[2020-04-27T16:42:32.525] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:42:32.531] [INFO] default - 登录状态： true
+[2020-04-27T16:42:32.532] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:42:32.533] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:42:35.819] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:42:35.827] [INFO] default - TclearInfoAdmin?updateClearInfo=true，get FormData Params:  {
+  update_deposit: '9168.5',
+  update_depositStatus: '已支付',
+  update_remainingPayment: '0',
+  update_remainingPaymentStatus: '已结算',
+  update_depositPayTime: '2020-01-01',
+  update_remainingPayLimit: '2020-01-01'
+}
+[2020-04-27T16:50:12.362] [INFO] default - get
+[2020-04-27T16:50:12.373] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T16:50:12.374] [INFO] default - 登录状态： true
+[2020-04-27T16:50:12.451] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:50:12.688] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T16:50:15.752] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T16:50:15.755] [INFO] default - TclearInfoAdmin?updateClearInfo=true，get FormData Params:  {
+  update_clearId: 'Q000001',
+  update_stockId: 'C000001',
+  update_deposit: '9168.5',
+  update_depositStatus: '已支付',
+  update_remainingPayment: '0',
+  update_remainingPaymentStatus: '已结算',
+  update_depositPayTime: '2020-01-01',
+  update_remainingPayLimit: '2020-01-01'
+}
+[2020-04-27T17:07:08.798] [DEBUG] debug - Server started
+[2020-04-27T17:07:36.795] [INFO] default - get
+[2020-04-27T17:07:36.797] [INFO] default - /get-Tindex
+[2020-04-27T17:07:41.970] [INFO] default - post
+[2020-04-27T17:07:41.975] [INFO] default - /post-Tindex
+[2020-04-27T17:07:42.031] [INFO] default - get FormData Params:  {
+  schools: 'soochow university',
+  account: '202001001',
+  password: '11111111'
+}
+[2020-04-27T17:07:42.064] [INFO] default - 教师登录表单参数： soochow university 202001001 11111111
+[2020-04-27T17:07:42.080] [INFO] default - 开启event_scheduler成功。
+[2020-04-27T17:07:42.139] [INFO] default - 正确密码应为： [String: '11111111']
+[2020-04-27T17:07:42.196] [INFO] default - 密码正确,登录成功
+[2020-04-27T17:07:44.038] [INFO] default - get
+[2020-04-27T17:07:44.038] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T17:07:44.039] [INFO] default - 登录状态： true
+[2020-04-27T17:07:44.040] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:07:44.103] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T17:07:52.414] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:07:52.415] [INFO] default - TclearInfoAdmin?updateClearInfo=true，get FormData Params:  {
+  update_clearId: 'Q000003',
+  update_stockId: 'C000003',
+  update_deposit: '44',
+  update_depositStatus: '未支付',
+  update_remainingPayment: '0',
+  update_remainingPaymentStatus: '未结算',
+  update_depositPayTime: '',
+  update_remainingPayLimit: ''
+}
+[2020-04-27T17:07:52.445] [INFO] default - 刘舒璇进入TcreatOrdersInBatches_CreatOrders函数
+[2020-04-27T17:07:52.562] [INFO] default - 更改清算信息错误。错误编号：00245
+[2020-04-27T17:07:54.460] [INFO] default - get
+[2020-04-27T17:07:54.461] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T17:07:54.461] [INFO] default - 登录状态： true
+[2020-04-27T17:07:54.463] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:07:54.465] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T17:10:43.353] [DEBUG] debug - Server started
+[2020-04-27T17:10:45.362] [INFO] default - get
+[2020-04-27T17:10:45.364] [INFO] default - /get-Tindex
+[2020-04-27T17:10:50.042] [INFO] default - post
+[2020-04-27T17:10:50.043] [INFO] default - /post-Tindex
+[2020-04-27T17:10:50.043] [INFO] default - get FormData Params:  {
+  schools: 'soochow university',
+  account: '202001001',
+  password: '11111111'
+}
+[2020-04-27T17:10:50.149] [INFO] default - 教师登录表单参数： soochow university 202001001 11111111
+[2020-04-27T17:10:50.191] [INFO] default - 开启event_scheduler成功。
+[2020-04-27T17:10:50.211] [INFO] default - 正确密码应为： [String: '11111111']
+[2020-04-27T17:10:50.212] [INFO] default - 密码正确,登录成功
+[2020-04-27T17:10:53.206] [INFO] default - get
+[2020-04-27T17:10:53.208] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T17:10:53.234] [INFO] default - 登录状态： true
+[2020-04-27T17:10:53.235] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:10:53.237] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T17:10:59.996] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:10:59.997] [INFO] default - TclearInfoAdmin?updateClearInfo=true，get FormData Params:  {
+  update_clearId: 'Q000003',
+  update_stockId: 'C000003',
+  update_deposit: '44',
+  update_depositStatus: '未支付',
+  update_remainingPayment: '0',
+  update_remainingPaymentStatus: '未结算',
+  update_depositPayTime: '',
+  update_remainingPayLimit: ''
+}
+[2020-04-27T17:11:00.129] [INFO] default - 刘舒璇进入TcreatOrdersInBatches_CreatOrders函数
+[2020-04-27T17:13:56.737] [DEBUG] debug - Server started
+[2020-04-27T17:13:58.294] [INFO] default - get
+[2020-04-27T17:13:58.295] [INFO] default - /get-Tindex
+[2020-04-27T17:14:02.415] [INFO] default - post
+[2020-04-27T17:14:02.416] [INFO] default - /post-Tindex
+[2020-04-27T17:14:02.416] [INFO] default - get FormData Params:  {
+  schools: 'soochow university',
+  account: '202001001',
+  password: '11111111'
+}
+[2020-04-27T17:14:02.537] [INFO] default - 教师登录表单参数： soochow university 202001001 11111111
+[2020-04-27T17:14:02.597] [INFO] default - 开启event_scheduler成功。
+[2020-04-27T17:14:02.638] [INFO] default - 正确密码应为： [String: '11111111']
+[2020-04-27T17:14:02.639] [INFO] default - 密码正确,登录成功
+[2020-04-27T17:14:04.954] [INFO] default - get
+[2020-04-27T17:14:04.957] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T17:14:04.993] [INFO] default - 登录状态： true
+[2020-04-27T17:14:04.996] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:14:04.997] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T17:14:08.653] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:14:08.657] [INFO] default - TclearInfoAdmin?updateClearInfo=true，get FormData Params:  {
+  update_clearId: 'Q000003',
+  update_stockId: 'C000003',
+  update_deposit: '44',
+  update_depositStatus: '未支付',
+  update_remainingPayment: '0',
+  update_remainingPaymentStatus: '未结算',
+  update_depositPayTime: '',
+  update_remainingPayLimit: ''
+}
+[2020-04-27T17:14:08.697] [INFO] default - 刘舒璇进入TcreatOrdersInBatches_CreatOrders函数
+[2020-04-27T17:14:32.896] [DEBUG] debug - Server started
+[2020-04-27T17:14:35.157] [INFO] default - get
+[2020-04-27T17:14:35.159] [INFO] default - /get-Tindex
+[2020-04-27T17:14:39.479] [INFO] default - post
+[2020-04-27T17:14:39.480] [INFO] default - /post-Tindex
+[2020-04-27T17:14:39.483] [INFO] default - get FormData Params:  {
+  schools: 'soochow university',
+  account: '202001001',
+  password: '11111111'
+}
+[2020-04-27T17:14:39.508] [INFO] default - 教师登录表单参数： soochow university 202001001 11111111
+[2020-04-27T17:14:39.522] [INFO] default - 开启event_scheduler成功。
+[2020-04-27T17:14:39.543] [INFO] default - 正确密码应为： [String: '11111111']
+[2020-04-27T17:14:39.544] [INFO] default - 密码正确,登录成功
+[2020-04-27T17:14:41.269] [INFO] default - get
+[2020-04-27T17:14:41.271] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T17:14:41.272] [INFO] default - 登录状态： true
+[2020-04-27T17:14:41.273] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:14:41.308] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T17:14:43.749] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:14:43.750] [INFO] default - TclearInfoAdmin?updateClearInfo=true，get FormData Params:  {
+  update_clearId: 'Q000003',
+  update_stockId: 'C000003',
+  update_deposit: '44',
+  update_depositStatus: '未支付',
+  update_remainingPayment: '0',
+  update_remainingPaymentStatus: '未结算',
+  update_depositPayTime: '',
+  update_remainingPayLimit: ''
+}
+[2020-04-27T17:14:43.810] [INFO] default - 刘舒璇进入TcreatOrdersInBatches_CreatOrders函数
+[2020-04-27T17:14:43.885] [INFO] default - 更改清算信息错误。错误编号：00245
+[2020-04-27T17:14:45.556] [INFO] default - get
+[2020-04-27T17:14:45.557] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T17:14:45.557] [INFO] default - 登录状态： true
+[2020-04-27T17:14:45.558] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:14:45.600] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T17:15:13.854] [DEBUG] debug - Server started
+[2020-04-27T17:15:15.542] [INFO] default - get
+[2020-04-27T17:15:15.546] [INFO] default - /get-Tindex
+[2020-04-27T17:15:22.649] [INFO] default - post
+[2020-04-27T17:15:22.650] [INFO] default - /post-Tindex
+[2020-04-27T17:15:22.650] [INFO] default - get FormData Params:  {
+  schools: 'soochow university',
+  account: '202001001',
+  password: '11111111'
+}
+[2020-04-27T17:15:22.741] [INFO] default - 教师登录表单参数： soochow university 202001001 11111111
+[2020-04-27T17:15:22.794] [INFO] default - 开启event_scheduler成功。
+[2020-04-27T17:15:22.815] [INFO] default - 正确密码应为： [String: '11111111']
+[2020-04-27T17:15:22.816] [INFO] default - 密码正确,登录成功
+[2020-04-27T17:15:25.902] [INFO] default - get
+[2020-04-27T17:15:25.905] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T17:15:25.906] [INFO] default - 登录状态： true
+[2020-04-27T17:15:25.931] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:15:25.932] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T17:15:28.596] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:15:28.598] [INFO] default - TclearInfoAdmin?updateClearInfo=true，get FormData Params:  {
+  update_clearId: 'Q000003',
+  update_stockId: 'C000003',
+  update_deposit: '44',
+  update_depositStatus: '未支付',
+  update_remainingPayment: '0',
+  update_remainingPaymentStatus: '未结算',
+  update_depositPayTime: '',
+  update_remainingPayLimit: ''
+}
+[2020-04-27T17:15:28.782] [INFO] default - 刘舒璇进入TcreatOrdersInBatches_CreatOrders函数
+[2020-04-27T17:15:28.788] [INFO] default - 更改清算信息错误。错误编号：00245 Error: ER_TRUNCATED_WRONG_VALUE: Incorrect datetime value: '' for column '定金支付时间' at row 1
+    at Query.Sequence._packetToError (E:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\node_modules\mysql\lib\protocol\sequences\Sequence.js:47:14)
+    at Query.ErrorPacket (E:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\node_modules\mysql\lib\protocol\sequences\Query.js:79:18)
+    at Protocol._parsePacket (E:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\node_modules\mysql\lib\protocol\Protocol.js:291:23)
+    at Parser._parsePacket (E:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\node_modules\mysql\lib\protocol\Parser.js:433:10)
+    at Parser.write (E:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\node_modules\mysql\lib\protocol\Parser.js:43:10)
+    at Protocol.write (E:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\node_modules\mysql\lib\protocol\Protocol.js:38:16)
+    at Socket.<anonymous> (E:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\node_modules\mysql\lib\Connection.js:88:28)
+    at Socket.<anonymous> (E:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\node_modules\mysql\lib\Connection.js:526:10)
+    at Socket.emit (events.js:223:5)
+    at addChunk (_stream_readable.js:309:12)
+    --------------------
+    at Protocol._enqueue (E:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\node_modules\mysql\lib\protocol\Protocol.js:144:48)
+    at PoolConnection.query (E:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\node_modules\mysql\lib\Connection.js:198:25)
+    at E:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\dao\userDao.js:4819:24
+    at Ping.onOperationComplete (E:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\node_modules\mysql\lib\Pool.js:110:5)
+    at Ping.<anonymous> (E:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\node_modules\mysql\lib\Connection.js:526:10)
+    at Ping._callback (E:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\node_modules\mysql\lib\Connection.js:488:16)
+    at Ping.Sequence.end (E:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\node_modules\mysql\lib\protocol\sequences\Sequence.js:83:24)
+    at Ping.Sequence.OkPacket (E:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\node_modules\mysql\lib\protocol\sequences\Sequence.js:92:8)
+    at Protocol._parsePacket (E:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\node_modules\mysql\lib\protocol\Protocol.js:291:23)
+    at Parser._parsePacket (E:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\node_modules\mysql\lib\protocol\Parser.js:433:10) {
+  code: 'ER_TRUNCATED_WRONG_VALUE',
+  errno: 1292,
+  sqlMessage: "Incorrect datetime value: '' for column '定金支付时间' at row 1",
+  sqlState: '22007',
+  index: 0,
+  sql: "update 清算表 set 定金金额=44,定金状态=0,尾款=0,尾款状态=1,定金支付时间='',尾款支付期限='' where 清算号='Q000003'"
+}
+[2020-04-27T17:15:29.721] [INFO] default - get
+[2020-04-27T17:15:29.723] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T17:15:29.723] [INFO] default - 登录状态： true
+[2020-04-27T17:15:29.807] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:15:29.914] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T17:16:16.822] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:16:16.825] [INFO] default - TclearInfoAdmin?updateClearInfo=true，get FormData Params:  {
+  update_clearId: 'Q000002',
+  update_stockId: 'C000002',
+  update_deposit: '76328',
+  update_depositStatus: '已支付',
+  update_remainingPayment: '0',
+  update_remainingPaymentStatus: '已结算',
+  update_depositPayTime: '2020-01-01',
+  update_remainingPayLimit: '2020-01-01'
+}
+[2020-04-27T17:16:17.013] [INFO] default - 刘舒璇进入TcreatOrdersInBatches_CreatOrders函数
+[2020-04-27T17:16:17.023] [INFO] default - 更改清算信息错误成功
+[2020-04-27T17:16:18.303] [INFO] default - get
+[2020-04-27T17:16:18.304] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T17:16:18.304] [INFO] default - 登录状态： true
+[2020-04-27T17:16:18.305] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:16:18.354] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T17:24:24.348] [DEBUG] debug - Server started
+[2020-04-27T17:24:26.444] [INFO] default - get
+[2020-04-27T17:24:26.446] [INFO] default - /get-Tindex
+[2020-04-27T17:24:31.440] [INFO] default - post
+[2020-04-27T17:24:31.441] [INFO] default - /post-Tindex
+[2020-04-27T17:24:31.442] [INFO] default - get FormData Params:  {
+  schools: 'soochow university',
+  account: '202001001',
+  password: '11111111'
+}
+[2020-04-27T17:24:31.545] [INFO] default - 教师登录表单参数： soochow university 202001001 11111111
+[2020-04-27T17:24:31.650] [INFO] default - 开启event_scheduler成功。
+[2020-04-27T17:24:31.685] [INFO] default - 正确密码应为： [String: '11111111']
+[2020-04-27T17:24:31.738] [INFO] default - 密码正确,登录成功
+[2020-04-27T17:24:33.534] [INFO] default - get
+[2020-04-27T17:24:33.535] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T17:24:33.538] [INFO] default - 登录状态： true
+[2020-04-27T17:24:33.567] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:24:33.597] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T17:24:36.933] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:24:36.935] [INFO] default - TclearInfoAdmin?updateClearInfo=true，get FormData Params:  {
+  update_clearId: 'Q000001',
+  update_stockId: 'C000001',
+  update_deposit: '9168.5',
+  update_depositStatus: '已支付',
+  update_remainingPayment: '0',
+  update_remainingPaymentStatus: '已结算',
+  update_depositPayTime: '2020-01-01',
+  update_remainingPayLimit: '2020-01-01'
+}
+[2020-04-27T17:24:36.975] [INFO] default - 刘舒璇进入TcreatOrdersInBatches_CreatOrders函数
+[2020-04-27T17:24:36.979] [INFO] default - 更改清算信息成功
+[2020-04-27T17:24:38.280] [INFO] default - get
+[2020-04-27T17:24:38.281] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T17:24:38.282] [INFO] default - 登录状态： true
+[2020-04-27T17:24:38.282] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:24:38.331] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T17:24:41.946] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:24:41.947] [INFO] default - TclearInfoAdmin?updateClearInfo=true，get FormData Params:  {
+  update_clearId: 'Q000004',
+  update_stockId: 'C000004',
+  update_deposit: '276',
+  update_depositStatus: '未支付',
+  update_remainingPayment: '0',
+  update_remainingPaymentStatus: '未结算',
+  update_depositPayTime: '',
+  update_remainingPayLimit: ''
+}
+[2020-04-27T17:24:42.120] [INFO] default - 刘舒璇进入TcreatOrdersInBatches_CreatOrders函数
+[2020-04-27T17:24:42.177] [INFO] default - 更改清算信息成功
+[2020-04-27T17:24:43.262] [INFO] default - get
+[2020-04-27T17:24:43.263] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T17:24:43.263] [INFO] default - 登录状态： true
+[2020-04-27T17:24:43.264] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:24:43.312] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T17:24:52.313] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:24:52.316] [INFO] default - TclearInfoAdmin?updateClearInfo=true，get FormData Params:  {
+  update_clearId: 'Q000004',
+  update_stockId: 'C000004',
+  update_deposit: '276',
+  update_depositStatus: '未支付',
+  update_remainingPayment: '0',
+  update_remainingPaymentStatus: '未结算',
+  update_depositPayTime: '',
+  update_remainingPayLimit: ''
+}
+[2020-04-27T17:24:52.345] [INFO] default - 刘舒璇进入TcreatOrdersInBatches_CreatOrders函数
+[2020-04-27T17:24:52.351] [INFO] default - 更改清算信息成功
+[2020-04-27T17:24:53.566] [INFO] default - get
+[2020-04-27T17:24:53.567] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T17:24:53.567] [INFO] default - 登录状态： true
+[2020-04-27T17:24:53.569] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:24:53.628] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T17:25:10.508] [INFO] default - get
+[2020-04-27T17:25:10.509] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T17:25:10.511] [INFO] default - 登录状态： true
+[2020-04-27T17:25:10.513] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:25:10.550] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T17:25:17.364] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:25:17.365] [INFO] default - TclearInfoAdmin?updateClearInfo=true，get FormData Params:  {
+  update_clearId: 'Q000004',
+  update_stockId: 'C000004',
+  update_deposit: '276',
+  update_depositStatus: '未支付',
+  update_remainingPayment: '0',
+  update_remainingPaymentStatus: '未结算',
+  update_depositPayTime: '',
+  update_remainingPayLimit: ''
+}
+[2020-04-27T17:25:17.423] [INFO] default - 刘舒璇进入TcreatOrdersInBatches_CreatOrders函数
+[2020-04-27T17:25:17.431] [INFO] default - 更改清算信息成功
+[2020-04-27T17:25:18.679] [INFO] default - get
+[2020-04-27T17:25:18.681] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T17:25:18.682] [INFO] default - 登录状态： true
+[2020-04-27T17:25:18.731] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:25:18.733] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T17:26:12.718] [DEBUG] debug - Server started
+[2020-04-27T17:26:14.181] [INFO] default - get
+[2020-04-27T17:26:14.182] [INFO] default - /get-Tindex
+[2020-04-27T17:26:18.522] [INFO] default - post
+[2020-04-27T17:26:18.522] [INFO] default - /post-Tindex
+[2020-04-27T17:26:18.523] [INFO] default - get FormData Params:  {
+  schools: 'soochow university',
+  account: '202001001',
+  password: '11111111'
+}
+[2020-04-27T17:26:18.640] [INFO] default - 教师登录表单参数： soochow university 202001001 11111111
+[2020-04-27T17:26:18.686] [INFO] default - 开启event_scheduler成功。
+[2020-04-27T17:26:18.721] [INFO] default - 正确密码应为： [String: '11111111']
+[2020-04-27T17:26:18.722] [INFO] default - 密码正确,登录成功
+[2020-04-27T17:26:20.964] [INFO] default - get
+[2020-04-27T17:26:20.967] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T17:26:21.001] [INFO] default - 登录状态： true
+[2020-04-27T17:26:21.003] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:26:21.004] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T17:26:28.508] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:26:28.510] [INFO] default - TclearInfoAdmin?updateClearInfo=true，get FormData Params:  {
+  update_clearId: 'Q000004',
+  update_stockId: 'C000004',
+  update_deposit: '276',
+  update_depositStatus: '未支付',
+  update_remainingPayment: '0',
+  update_remainingPaymentStatus: '未结算',
+  update_depositPayTime: '',
+  update_remainingPayLimit: ''
+}
+[2020-04-27T17:26:28.539] [INFO] default - 刘舒璇进入TcreatOrdersInBatches_CreatOrders函数
+[2020-04-27T17:26:28.568] [INFO] default - 待更新清算信息update_dataArr: [ 276, 0, 0, 1, 'Q000004' ]
+[2020-04-27T17:26:28.569] [INFO] default - 待更新清算信息sql: update 清算表 set 定金金额=?,定金状态=?,尾款=?,尾款状态=? where 清算号=?
+[2020-04-27T17:26:28.577] [INFO] default - 更改清算信息成功
+[2020-04-27T17:26:29.413] [INFO] default - get
+[2020-04-27T17:26:29.415] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T17:26:29.449] [INFO] default - 登录状态： true
+[2020-04-27T17:26:29.451] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:26:29.452] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T17:27:09.303] [DEBUG] debug - Server started
+[2020-04-27T17:27:11.761] [INFO] default - get
+[2020-04-27T17:27:11.766] [INFO] default - /get-Tindex
+[2020-04-27T17:27:16.308] [INFO] default - post
+[2020-04-27T17:27:16.309] [INFO] default - /post-Tindex
+[2020-04-27T17:27:16.309] [INFO] default - get FormData Params:  {
+  schools: 'soochow university',
+  account: '202001001',
+  password: '11111111'
+}
+[2020-04-27T17:27:16.433] [INFO] default - 教师登录表单参数： soochow university 202001001 11111111
+[2020-04-27T17:27:16.448] [INFO] default - 开启event_scheduler成功。
+[2020-04-27T17:27:16.473] [INFO] default - 正确密码应为： [String: '11111111']
+[2020-04-27T17:27:16.474] [INFO] default - 密码正确,登录成功
+[2020-04-27T17:27:17.939] [INFO] default - get
+[2020-04-27T17:27:17.941] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T17:27:17.970] [INFO] default - 登录状态： true
+[2020-04-27T17:27:17.972] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:27:17.973] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T17:27:22.468] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:27:22.469] [INFO] default - TclearInfoAdmin?updateClearInfo=true，get FormData Params:  {
+  update_clearId: 'Q000004',
+  update_stockId: 'C000004',
+  update_deposit: '276',
+  update_depositStatus: '未支付',
+  update_remainingPayment: '0',
+  update_remainingPaymentStatus: '未结算',
+  update_depositPayTime: '',
+  update_remainingPayLimit: ''
+}
+[2020-04-27T17:27:22.636] [INFO] default - 刘舒璇进入TcreatOrdersInBatches_CreatOrders函数
+[2020-04-27T17:27:22.645] [INFO] default - 待更新清算信息update_dataArr: [ 276, 0, 0, 0, 'Q000004' ]
+[2020-04-27T17:27:22.648] [INFO] default - 待更新清算信息sql: update 清算表 set 定金金额=?,定金状态=?,尾款=?,尾款状态=? where 清算号=?
+[2020-04-27T17:27:22.653] [INFO] default - 更改清算信息成功
+[2020-04-27T17:27:23.631] [INFO] default - get
+[2020-04-27T17:27:23.632] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T17:27:23.633] [INFO] default - 登录状态： true
+[2020-04-27T17:27:23.634] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:27:23.640] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T17:27:29.406] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:27:29.407] [INFO] default - TclearInfoAdmin?updateClearInfo=true，get FormData Params:  {
+  update_clearId: 'Q000003',
+  update_stockId: 'C000003',
+  update_deposit: '44',
+  update_depositStatus: '未支付',
+  update_remainingPayment: '0',
+  update_remainingPaymentStatus: '未结算',
+  update_depositPayTime: '',
+  update_remainingPayLimit: ''
+}
+[2020-04-27T17:27:29.422] [INFO] default - 刘舒璇进入TcreatOrdersInBatches_CreatOrders函数
+[2020-04-27T17:27:29.423] [INFO] default - 待更新清算信息update_dataArr: [ 44, 0, 0, 0, 'Q000003' ]
+[2020-04-27T17:27:29.424] [INFO] default - 待更新清算信息sql: update 清算表 set 定金金额=?,定金状态=?,尾款=?,尾款状态=? where 清算号=?
+[2020-04-27T17:27:29.430] [INFO] default - 更改清算信息成功
+[2020-04-27T17:27:30.432] [INFO] default - get
+[2020-04-27T17:27:30.434] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T17:27:30.437] [INFO] default - 登录状态： true
+[2020-04-27T17:27:30.449] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:27:30.453] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T17:27:33.876] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:27:33.877] [INFO] default - TclearInfoAdmin?updateClearInfo=true，get FormData Params:  {
+  update_clearId: 'Q000005',
+  update_stockId: 'C000005',
+  update_deposit: '200',
+  update_depositStatus: '未支付',
+  update_remainingPayment: '0',
+  update_remainingPaymentStatus: '未结算',
+  update_depositPayTime: '',
+  update_remainingPayLimit: ''
+}
+[2020-04-27T17:27:33.896] [INFO] default - 刘舒璇进入TcreatOrdersInBatches_CreatOrders函数
+[2020-04-27T17:27:33.897] [INFO] default - 待更新清算信息update_dataArr: [ 200, 0, 0, 0, 'Q000005' ]
+[2020-04-27T17:27:33.900] [INFO] default - 待更新清算信息sql: update 清算表 set 定金金额=?,定金状态=?,尾款=?,尾款状态=? where 清算号=?
+[2020-04-27T17:27:33.903] [INFO] default - 更改清算信息成功
+[2020-04-27T17:27:34.732] [INFO] default - get
+[2020-04-27T17:27:34.734] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T17:27:34.736] [INFO] default - 登录状态： true
+[2020-04-27T17:27:34.746] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:27:34.748] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T17:27:37.017] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:27:37.018] [INFO] default - TclearInfoAdmin?updateClearInfo=true，get FormData Params:  {
+  update_clearId: 'Q000006',
+  update_stockId: 'C000006',
+  update_deposit: '3000',
+  update_depositStatus: '未支付',
+  update_remainingPayment: '0',
+  update_remainingPaymentStatus: '未结算',
+  update_depositPayTime: '',
+  update_remainingPayLimit: ''
+}
+[2020-04-27T17:27:37.035] [INFO] default - 刘舒璇进入TcreatOrdersInBatches_CreatOrders函数
+[2020-04-27T17:27:37.036] [INFO] default - 待更新清算信息update_dataArr: [ 3000, 0, 0, 0, 'Q000006' ]
+[2020-04-27T17:27:37.037] [INFO] default - 待更新清算信息sql: update 清算表 set 定金金额=?,定金状态=?,尾款=?,尾款状态=? where 清算号=?
+[2020-04-27T17:27:37.041] [INFO] default - 更改清算信息成功
+[2020-04-27T17:27:37.988] [INFO] default - get
+[2020-04-27T17:27:37.990] [INFO] default - /get-TclearInfoAdmin
+[2020-04-27T17:27:37.999] [INFO] default - 登录状态： true
+[2020-04-27T17:27:38.000] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T17:27:38.002] [INFO] default - 202001001进入queryTclearInfo函数
