@@ -1747,3 +1747,23 @@
 [2020-04-27T22:36:39.262] [INFO] default - 已登录用户查询： true
 [2020-04-27T22:36:39.264] [INFO] default - 已登录用户查询： 1607400001
 [2020-04-27T22:36:39.390] [INFO] default - 1607400001进入queryScholarshipRecord函数
+[2020-04-27T23:16:14.609] [DEBUG] debug - Server started
+[2020-04-27T23:19:46.147] [INFO] default - get
+[2020-04-27T23:19:46.152] [INFO] default - /get-Tindex
+[2020-04-27T23:20:00.046] [INFO] default - post
+[2020-04-27T23:20:00.048] [INFO] default - /post-Tindex
+[2020-04-27T23:20:00.051] [INFO] default - get FormData Params:  {
+  schools: 'soochow university',
+  account: '202001001',
+  password: '11111111'
+}
+[2020-04-27T23:20:00.111] [INFO] default - 教师登录表单参数： soochow university 202001001 11111111
+[2020-04-27T23:20:00.192] [INFO] default - 开启event_scheduler成功。
+[2020-04-27T23:20:00.211] [INFO] default - 正确密码应为： [String: '11111111']
+[2020-04-27T23:20:00.225] [INFO] default - 密码正确,登录成功
+[2020-04-27T23:20:04.302] [INFO] default - get
+[2020-04-27T23:20:04.303] [INFO] default - /get-TstudentInfoAdmin
+[2020-04-27T23:20:04.304] [INFO] default - 登录状态： true
+[2020-04-27T23:20:04.306] [INFO] default - 已登录用户查询： 202001001
+[2020-04-27T23:20:04.306] [INFO] default - 202001001进入queryTstudentInfo函数
+[2020-04-27T23:52:53.962] [DEBUG] debug - Server started

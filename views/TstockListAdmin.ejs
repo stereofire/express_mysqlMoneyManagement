@@ -193,6 +193,16 @@
             </tbody>
         </table>
     </div>
+    <div id="dtop" name="dtop" style="display: inline;">
+        <a href="javascript:;" style="display:inline;">
+            <img src="images/teacher/btop.png" title="返回顶部" style="width: 40px;" id="a_top" />
+        </a>
+    </div>
+    <div id="dbottom" name="dbottom">
+        <a href="javascript:;">
+            <img src="images/teacher/bbottom.png" title="返回底部" style="width: 40px;" id="a_bottom" />
+        </a>
+    </div>
     <footer>
         <div id="lsx">
             版权所有-©苏州大学数学科学学院校级大创项目组 2020
@@ -255,4 +265,31 @@
             rs[delRows[j]].deleteCell(colIdx);
         }
     }
+</script>
+<script>
+    // 原生js实现
+    let dtop = document.getElementsByTagName("dtop")[0];
+    let myTimer = null;
+    //页面监听scroll事件，当发生scroll事件时就进行判断，是否需要让a标签显示    
+    window.addEventListener("scroll", function () {
+
+        //获取scroll的滚动值    
+        let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+        // console.log(scrollTop);
+        document.getElementById("dtop").style.display = 'block';
+        document.getElementById("dbottom").style.display = 'block';
+        if (scrollTop < 180) {//在顶部
+            document.getElementById("dtop").style.display = 'none';
+            document.getElementById("dbottom").style.display = 'block';
+        }
+    });
+    $("#a_top").click(function () {
+        $("html,body").animate({ scrollTop: "0px" }, 500);//500毫秒完成回到顶部动画    
+        return false;
+    });
+
+    $("#a_bottom").click(function () {
+        $("html,body").animate({ scrollTop: document.getElementsByTagName('body')[0].scrollHeight }, 500);//500毫秒完成回到顶部动画    
+        return false;
+    });
 </script>

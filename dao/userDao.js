@@ -1095,7 +1095,7 @@ const obj = {
                     // logger.info(result[0]);//密码修改成功后不会有反馈，result=undefined
                     logger.info("密码修改成功,请重新登录");
                     var message = "密码修改成功。请重新登录";
-                    var re = `<script>alert('${message}'); location.href="/TchangePassword"</script>`;
+                    var re = `<script>alert('${message}'); location.href="/teacher"</script>`;
                     res.send(re);
                     connection.release();
                 }
@@ -1732,7 +1732,7 @@ const obj = {
                     var addStuInfoArr = [stu_id, stu_college, stu_name, stu_school, stu_major, stu_gender, stu_gread, stu_readStatus];
                     connection.query($sql.TaddStuInfo, addStuInfoArr, function (err, result) {
                         if (err) { //新增学生信息错误
-                            logger.info("新增学生信息错误。错误编号：00100");
+                            logger.info("新增学生信息错误。错误编号：00100",err);
                             var message = "抱歉，新增学生信息错误。错误编号：00100，返回学生信息管理页";
                             var re = `<script>alert('${message}'); location.href="/TstudentInfoAdmin"</script>`;
                             res.send(re);
@@ -4438,7 +4438,7 @@ const obj = {
 
             // 插入订单信息
             // logger.info((new Date()).getTime()); // js13位时间戳
-            // var creattime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss'); // mysql的datetime时间类型
+            var creattime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss'); // mysql的datetime时间类型
             // logger.info(creattime);
             var payLimitTime = limitDate;
             // logger.info(payLimitTime, typeof (payLimitTime));
