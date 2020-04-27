@@ -16,20 +16,22 @@ var $ = require('../jq/jquery');
 var upload = multer({
   dest: './public/uploadExcels/'
 }).single('stuInfoUpLoad'); //注意路径最前面的点，表示根目录
-
+var log4js = require('log4js');
+var log = require("../logs/log");
+var logger = log4js.getLogger();
 router.get('/', function (req, res, next) {
   var method = req.method.toLowerCase();
-  console.log(method);
+  logger.info(method);
   var pathname = url.parse(req.url, true).pathname;
-  console.log(pathname + 'get-TstudentInfoAdmin');
-  console.log("登录状态：", req.session.islogin);
+  logger.info(pathname + 'get-TstudentInfoAdmin');
+  logger.info("登录状态：", req.session.islogin);
   if (req.session.islogin) {
-    console.log("已登录用户查询：", req.session.user);
+    logger.info("已登录用户查询：", req.session.user);
     if (req.query.changeReadStatus != undefined) {
-      console.log("修改学生在读状态：", req.query.changeReadStatus);
+      logger.info("修改学生在读状态：", req.query.changeReadStatus);
       userDao.changeReadStatus(res, req);
     } else if (req.query.down == "excelTemplate") {
-      console.log("下载学生信息表模板：", req.query.down);
+      logger.info("下载学生信息表模板：", req.query.down);
       res.download("public/excelTemplates4downLoad/stuInfoTemplate4Excel.xlsx");
     } else {
       userDao.queryTstudentInfo(req.session.user, res, req);
@@ -37,7 +39,7 @@ router.get('/', function (req, res, next) {
   } else {
     ejs.renderFile('./views/TloginTimeOut.ejs', {}, function (err, data) {
       if (err) {
-        console.log(err);
+        logger.info(err);
       }
       res.end(data);
     })
@@ -45,9 +47,9 @@ router.get('/', function (req, res, next) {
 });
 router.post('/', upload, function (req, res, next) {
   if (req.session.islogin) {
-    console.log("已登录用户查询：", req.session.user);
+    logger.info("已登录用户查询：", req.session.user);
     if (req.query.fileUpload == "true") {
-      console.log("进入TstudentInfoAdmin?fileUpload=ture");
+      logger.info("进入TstudentInfoAdmin?fileUpload=ture");
       if (req.file.length == 0) { //判断一下文件是否存在，前端代码中也已进行判断。
         res.render("error", {
           message: "上传文件不能为空！"
@@ -56,8 +58,8 @@ router.post('/', upload, function (req, res, next) {
       } else {
         // 文件信息
         if (req.file) {
-          console.log("----------接收文件----------\n");
-          console.log(req.file);
+          logger.info("----------接收文件----------\n");
+          logger.info(req.file);
         }
         var des_file = './public/uploadExcels/' + req.file.originalname;
         fs.readFile(req.file.path, function (error, data) {
@@ -72,7 +74,7 @@ router.post('/', upload, function (req, res, next) {
                 message: 'File uploaded successfully!',
                 filename: req.file.originalname
               };
-              console.log('\n----------SAVING-----------\n');
+              logger.info('\n----------SAVING-----------\n');
 
               var TstuUploadParams = [];
               var userInfo = xlsx.parse('./public/uploadExcels/' + req.file.originalname)[0].data;
@@ -81,14 +83,14 @@ router.post('/', upload, function (req, res, next) {
                 if (err) {
                   return console.error(error);
                 } else {
-                  console.log("删除缓存文件:", req.file.path);
+                  logger.info("删除缓存文件:", req.file.path);
                 }
               })
               fs.unlinkSync('./public/uploadExcels/' + req.file.originalname, function (err) {
                 if (err) {
                   return console.error(error);
                 } else {
-                  console.log("删除缓存文件:", './public/uploadExcels/' + req.file.originalname);
+                  logger.info("删除缓存文件:", './public/uploadExcels/' + req.file.originalname);
                 }
               })
               var k = 0;
@@ -102,25 +104,25 @@ router.post('/', upload, function (req, res, next) {
                 grade = userInfo[i][6];
                 status = userInfo[i][7];
                 TstuUploadParams[i - 1] = [studentId, collage, studentName, department, major, gender, grade, status];
-                console.log("TstuUploadParams[i-1]:", i - 1, TstuUploadParams[i - 1]);
+                logger.info("TstuUploadParams[i-1]:", i - 1, TstuUploadParams[i - 1]);
                 // 插入数据
                 pool.getConnection(function (err, connection) {
                   if (err) { //数据库连接池错误
                     return console.error(error);
                   }
                   connection.query($sql.TstuUpload, TstuUploadParams[k++], function (err, result) {
-                    // console.log("TstuUploadParams[k]:",k,TstuUploadParams[k]);
+                    // logger.info("TstuUploadParams[k]:",k,TstuUploadParams[k]);
                     if (err) {
                       connection.release();
-                      console.log(err);
+                      logger.info(err);
                       return console.error(error);
                       // return SMessage("学生数据上传失败", res);
                     } else {
-                      console.log('学生数据上传成功');
+                      logger.info('学生数据上传成功');
                       connection.release();
-                      console.log(JSON.stringify(response));
-                      // console.log(result);
-                      console.log('\n----------SUCCEED----------\n\n');
+                      logger.info(JSON.stringify(response));
+                      // logger.info(result);
+                      logger.info('\n----------SUCCEED----------\n\n');
                       // res.json(response);
                     }
                   })
@@ -133,19 +135,19 @@ router.post('/', upload, function (req, res, next) {
       }
     }
     if (req.query.addStu == "true") {
-      console.log('进入TcorpInfoAdmin?addStu=true，get FormData Params: ', req.body);
+      logger.info('进入TcorpInfoAdmin?addStu=true，get FormData Params: ', req.body);
       /*插入新增学生信息*/
       userDao.addStuInfo(res,req);
     }
     if (req.query.querySiftStuInfo == "true") {
-      console.log('进入TcorpInfoAdmin?querySiftStuInfo=true，get FormData Params: ', req.body);
+      logger.info('进入TcorpInfoAdmin?querySiftStuInfo=true，get FormData Params: ', req.body);
       /*筛选学生信息*/
       userDao.querySiftStuInfo(res, req);
     }
   } else {
     ejs.renderFile('./views/TloginTimeOut.ejs', {}, function (err, data) {
       if (err) {
-        console.log(err);
+        logger.info(err);
       }
       res.end(data);
     })

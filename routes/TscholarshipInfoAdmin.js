@@ -16,20 +16,22 @@ var $ = require('../jq/jquery');
 var upload = multer({
   dest: './public/uploadExcels/'
 }).single('scholarshipInfoUpLoad'); //注意路径最前面的点，表示根目录
-
+var log4js = require('log4js');
+var log = require("../logs/log");
+var logger = log4js.getLogger();
 router.get('/', function (req, res, next) {
   var method = req.method.toLowerCase();
-  console.log(method);
+  logger.info(method);
   var pathname = url.parse(req.url, true).pathname;
-  console.log(pathname + 'get-TscholarshipInfoAdmin');
-  console.log("登录状态：", req.session.islogin);
+  logger.info(pathname + 'get-TscholarshipInfoAdmin');
+  logger.info("登录状态：", req.session.islogin);
   if (req.session.islogin) {
-    console.log("已登录用户查询：", req.session.user);
+    logger.info("已登录用户查询：", req.session.user);
     if (req.query.deleteScholarship != undefined) {
-      console.log("删除资金发放：", req.query.deleteScholarship);
+      logger.info("删除资金发放：", req.query.deleteScholarship);
       userDao.deleteScholarship(res, req);
     } else if (req.query.down == "excelTemplate") {
-      console.log("下载资金发放表模板：", req.query.down);
+      logger.info("下载资金发放表模板：", req.query.down);
       res.download("public/excelTemplates4downLoad/scholarshipInfoTemplate4Excel.xlsx");
     } else {
       userDao.queryTscholarshipInfo(req.session.user, res, req);
@@ -37,7 +39,7 @@ router.get('/', function (req, res, next) {
   } else {
     ejs.renderFile('./views/TloginTimeOut.ejs', {}, function (err, data) {
       if (err) {
-        console.log(err);
+        logger.info(err);
       }
       res.end(data);
     })
@@ -45,9 +47,9 @@ router.get('/', function (req, res, next) {
 });
 router.post('/', upload, function (req, res, next) {
   if (req.session.islogin) {
-    console.log("已登录用户查询：", req.session.user);
+    logger.info("已登录用户查询：", req.session.user);
     if (req.query.fileUpload == "true") {
-      console.log("进入TscholarshipInfoAdmin?fileUpload=true");
+      logger.info("进入TscholarshipInfoAdmin?fileUpload=true");
       if (req.file.length == 0) { //判断一下文件是否存在，前端代码中也已进行判断。
         res.render("error", {
           message: "上传文件不能为空！"
@@ -56,8 +58,8 @@ router.post('/', upload, function (req, res, next) {
       } else {
         // 文件信息
         if (req.file) {
-          console.log("----------接收文件----------\n");
-          console.log(req.file);
+          logger.info("----------接收文件----------\n");
+          logger.info(req.file);
         }
         var des_file = './public/uploadExcels/' + req.file.originalname;
         fs.readFile(req.file.path, function (error, data) {
@@ -72,7 +74,7 @@ router.post('/', upload, function (req, res, next) {
                 message: 'File uploaded successfully!',
                 filename: req.file.originalname
               };
-              console.log('\n----------SAVING-----------\n');
+              logger.info('\n----------SAVING-----------\n');
 
               var TscholarshipUploadParams = [];
               var scholarshipInfo = xlsx.parse('./public/uploadExcels/' + req.file.originalname)[0].data;
@@ -81,14 +83,14 @@ router.post('/', upload, function (req, res, next) {
                 if (err) {
                   return console.error(error);
                 } else {
-                  console.log("删除缓存文件:", req.file.path);
+                  logger.info("删除缓存文件:", req.file.path);
                 }
               })
               fs.unlinkSync('./public/uploadExcels/' + req.file.originalname, function (err) {
                 if (err) {
                   return console.error(error);
                 } else {
-                  console.log("删除缓存文件:", './public/uploadExcels/' + req.file.originalname);
+                  logger.info("删除缓存文件:", './public/uploadExcels/' + req.file.originalname);
                 }
               })
               var k = 0;
@@ -109,10 +111,10 @@ router.post('/', upload, function (req, res, next) {
                   connection.query($sql.TscholarshipInfoUpload_queryLastScholarshipID, function (err, result) {
                     if (err) {
                       connection.release();
-                      console.log(err);
+                      logger.info(err);
                       return console.error(error);
                     } else {
-                      console.log('查询最后一个奖学金id成功');
+                      logger.info('查询最后一个奖学金id成功');
                       for (var j = 1; j < scholarshipInfo.length; j++) {
                         var lastScholarshipID = result[0].发放编号;
                         var num = lastScholarshipID.substring(1);
@@ -124,25 +126,25 @@ router.post('/', upload, function (req, res, next) {
                         }
                         var newProductID = "F" + num;
                         scholarshipID[j - 1] = newProductID;
-                        console.log("j - 1:", j - 1, lastScholarshipID, num, scholarshipID[j - 1]);
+                        logger.info("j - 1:", j - 1, lastScholarshipID, num, scholarshipID[j - 1]);
 
-                        console.log((new Date()).getTime()); // js13位时间戳
-                        console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss')); // mysql的datetime时间类型
+                        logger.info((new Date()).getTime()); // js13位时间戳
+                        logger.info(moment(new Date()).format('YYYY-MM-DD HH:mm:ss')); // mysql的datetime时间类型
                         var creatTime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
 
                         TscholarshipUploadParams[k] = [scholarshipID[k], stuID, scholarshipType, scholarshipName, scholarshipGread, scholarshipAmount, creatTime, scholarshipChannel];
                       }
-                      console.log("TscholarshipUploadParams:", TscholarshipUploadParams);
+                      logger.info("TscholarshipUploadParams:", TscholarshipUploadParams);
                       connection.query($sql.TscholarshipInfoUpload, TscholarshipUploadParams[k++], function (err, result) {
                         if (err) {
                           connection.release();
-                          console.log(err);
+                          logger.info(err);
                           return console.error(error);
                         } else {
-                          console.log('资金发放上传成功');
+                          logger.info('资金发放上传成功');
                           connection.release();
-                          console.log(JSON.stringify(response));
-                          console.log('\n----------SUCCEED----------\n\n');
+                          logger.info(JSON.stringify(response));
+                          logger.info('\n----------SUCCEED----------\n\n');
                         }
                       })
                     }
@@ -156,19 +158,19 @@ router.post('/', upload, function (req, res, next) {
       }
     }
     if (req.query.addScholarship == "true") {
-      console.log('进入TcorpInfoAdmin?addScholarship=true，get FormData Params: ', req.body);
+      logger.info('进入TcorpInfoAdmin?addScholarship=true，get FormData Params: ', req.body);
       /*插入新增资金发放信息*/
       userDao.addScholarshipInfo(res, req);
     }
     if (req.query.querySiftScholarshipInfo == "true") {
-      console.log('进入TcorpInfoAdmin?querySiftScholarshipInfo=true，get FormData Params: ', req.body);
+      logger.info('进入TcorpInfoAdmin?querySiftScholarshipInfo=true，get FormData Params: ', req.body);
       /*筛选资金发放信息*/
       userDao.querySiftScholarshipInfo(res, req);
     }
   } else {
     ejs.renderFile('./views/TloginTimeOut.ejs', {}, function (err, data) {
       if (err) {
-        console.log(err);
+        logger.info(err);
       }
       res.end(data);
     })

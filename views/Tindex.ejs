@@ -5,10 +5,11 @@
     <meta charset="utf-8">
     <title>高校学生资金综合管理平台-登录</title>
     <link rel="stylesheet" type="text/css" href="stylesheets/index.css">
+    <!-- <script src="http://pv.sohu.com/cityjson"></script> -->
     <script type="text/javascript" src="javascripts/index.js"></script>
 </head>
 
-<body onload="createCode()">
+<body onload="createCode();">
     <div class="col-12">
         <img class="header" src="images/index/head.png" alt="图像加载失败">
     </div>
@@ -25,30 +26,37 @@
                 <form class="user_login" action="/teacher" name="userLogin" method="post">
                     <div>
                         <table>
-                            <tr>
-                                <td class="words">
-                                    学校
-                                </td>
-                                <td>
-                                    <select name="schools">
-                                        <option value="soochow university">苏州大学</option>
-                                        <option value="nanjin university">南京大学</option>
-                                        <option value="shanghai university">上海大学</option>
-                                        <option value="dongnan university">东南大学</option>
-                                        <option value="dongnan university">兰州大学</option>
-                                        <option value="dongnan university">加州大学伯克利分校</option>
-                                    </select><br>
-                                </td>
-                            </tr>
+                            <tbody name="tb">
 
-                            <tr>
-                                <td class="words">账号</td>
-                                <td><input type="text" name="account"><br></td>
-                            </tr>
-                            <tr>
-                                <td class="words">密码</td>
-                                <td><input type="password" name="password"><br></td>
-                            </tr>
+                                <tr>
+                                    <td class="words">
+                                        学校
+                                    </td>
+                                    <td>
+                                        <select name="schools">
+                                            <option value="soochow university">苏州大学</option>
+                                            <option value="nanjin university">南京大学</option>
+                                            <option value="shanghai university">上海大学</option>
+                                            <option value="dongnan university">东南大学</option>
+                                            <option value="dongnan university">兰州大学</option>
+                                            <option value="dongnan university">加州大学伯克利分校</option>
+                                        </select><br>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="words">账号</td>
+                                    <td><input type="text" name="account"><br></td>
+                                </tr>
+                                <tr>
+                                    <td class="words">密码</td>
+                                    <td><input type="password" name="password"><br></td>
+                                </tr>
+                                <!-- <tr style="display: none;">
+                                <td class="words">ip及地址</td>
+                                <td><input type="text" name="ip" id="ip"><br></td>
+                            </tr> -->
+                            </tbody>
                         </table>
                     </div>
                 </form>
@@ -69,3 +77,41 @@
 </body>
 
 </html>
+<!-- 
+<script type="text/javascript">
+    function getIP() {
+        // var ipEle = document.getElementById("ip");
+        // var ipstr = String(returnCitySN["cip"] + ',' + returnCitySN["cname"]);
+        // ipEle.innerHTML = ipstr;
+        // console.log("ip:", ipEle.innerText);
+
+        var ipstr = returnCitySN.cip;
+        var tb = document.getElementsByName('tb')[0];
+
+        var row = document.createElement('tr'); //创建行    
+        row.setAttribute('style', 'display: none');
+
+        var idCell = document.createElement('td'); //创建第一列
+        idCell.setAttribute('class', 'words');
+        idCell.innerHTML = "ip及地址"; //填充数据       
+        row.appendChild(idCell); //加入行，下面类似 
+
+        var idCell2 = document.createElement('td'); //创建第2列
+        var inputEle = document.createElement('input');
+        inputEle.setAttribute('type', 'text;');
+        inputEle.setAttribute('name', 'ip');
+        inputEle.setAttribute('id', 'ip');
+        inputEle.value = ipstr;
+        // inputEle.innerHTML = ipstr; //填充数据  
+        idCell2.appendChild(inputEle);
+        row.appendChild(idCell2); //加入行，下面类似 
+
+        tb.appendChild(row);
+
+
+        console.log(ipstr);
+        console.log(row);
+        console.log(tb);
+    }
+
+</script> -->

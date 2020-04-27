@@ -4,25 +4,28 @@ var router = express.Router();
 var ejs = require('ejs');
 var url = require('url');
 var userDao = require('../dao/userDao');
+var log4js = require('log4js');
+var log = require("../logs/log");
+var logger = log4js.getLogger();
 router.get('/', function (req, res, next) {
   var method = req.method.toLowerCase();
-  console.log(method);
+  logger.info(method);
   var pathname = url.parse(req.url, true).pathname;
-  console.log(pathname + 'get-home');
+  logger.info(pathname + 'get-home');
 
   // var account = req.query.account;//通过url解析的目前用户信息时用的，采用session后替代了
-  // console.log("get account:" + account);
+  // logger.info("get account:" + account);
 
-  console.log("已登录用户查询：", req.session.islogin);
+  logger.info("已登录用户查询：", req.session.islogin);
   if (req.session.islogin) {
     /*获取session.islogin*/
-    console.log("已登录用户查询：", req.session.user);
-    console.log("req.session:",req.session);
+    logger.info("已登录用户查询：", req.session.user);
+    logger.info("req.session:",req.session);
     userDao.queryInformation(req.session.user, res);
   } else {
     ejs.renderFile('./views/loginTimeOut.ejs', {}, function (err, data) {
       if (err) {
-        console.log(err);
+        logger.info(err);
       }
       res.end(data);
     })
@@ -32,18 +35,18 @@ router.get('/', function (req, res, next) {
   // function getInformation(){
   //   return new Promise(resolve=>{
   //     user = userDao.queryInformation(account);
-  //     console.log(user);
-  //     console.log(1);
+  //     logger.info(user);
+  //     logger.info(1);
   //     resolve();
   //   })
   // }
   // async function openWeb(){
   //   await getInformation();
-  //   console.log(2);
+  //   logger.info(2);
   //   if(!(user=={})){
   //       ejs.renderFile('./views/home.ejs', {user}, function (err, data) {
   //         if (err) {
-  //           console.log(err);
+  //           logger.info(err);
   //         }
   //         res.end(data);
   //       })
@@ -55,11 +58,11 @@ router.get('/', function (req, res, next) {
 
   // 使用有返回值的函数尝试——因为异步特性，失效
   // var user = userDao.queryInformation(account);
-  // console.log(user);
+  // logger.info(user);
   // if(!(user=={})){
   //   ejs.renderFile('./views/home.ejs', {user}, function (err, data) {
   //     if (err) {
-  //       console.log(err);
+  //       logger.info(err);
   //     }
   //     res.end(data);
   //   })
@@ -93,13 +96,13 @@ module.exports = router;
 // 使用async和await异步变同步demo：132
 // function fn(){
 //   return new Promise(resolve=>{
-//       console.log(1)
+//       logger.info(1)
 //       resolve()
 //   })
 // }
 // async function f1(){
 //   await fn()
-//   console.log(2)
+//   logger.info(2)
 // }
 // f1()
-// console.log(3)
+// logger.info(3)

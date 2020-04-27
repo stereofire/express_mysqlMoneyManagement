@@ -4,25 +4,28 @@ var router = express.Router();
 var ejs = require('ejs');
 var url = require('url');
 var userDao = require('../dao/userDao');
+var log4js = require('log4js');
+var log = require("../logs/log");
+var logger = log4js.getLogger();
 router.get('/', function (req, res, next) {
   var method = req.method.toLowerCase();
-  console.log(method);
+  logger.info(method);
   var pathname = url.parse(req.url, true).pathname;
-  console.log(pathname + 'get-TclearInfoAdmin');
-  console.log("登录状态：", req.session.islogin);
+  logger.info(pathname + 'get-TclearInfoAdmin');
+  logger.info("登录状态：", req.session.islogin);
   if (req.session.islogin) {
     /*获取session.islogin*/
-    console.log("已登录用户查询：", req.session.user);
+    logger.info("已登录用户查询：", req.session.user);
     if (req.query.deleteClearInfo == undefined) {
       userDao.queryTclearInfo(req.session.user,res,req);
     }else{
-      console.log("删除清算记录：", req.query.deleteClearInfo);
+      logger.info("删除清算记录：", req.query.deleteClearInfo);
       userDao.deleteTclearInfo(res, req);
     }
   } else {
     ejs.renderFile('./views/TloginTimeOut.ejs', {}, function (err, data) {
       if (err) {
-        console.log(err);
+        logger.info(err);
       }
       res.end(data);
     })
@@ -30,16 +33,16 @@ router.get('/', function (req, res, next) {
 });
 router.post('/', function (req, res, next) {
   if (req.session.islogin) {
-    console.log("已登录用户查询：", req.session.user);
+    logger.info("已登录用户查询：", req.session.user);
     if (req.query.querySiftClearInfo == "true") {
-      console.log('TclearInfoAdmin?querySiftClearInfo=true，get FormData Params: ', req.body);
+      logger.info('TclearInfoAdmin?querySiftClearInfo=true，get FormData Params: ', req.body);
       /*筛选清算记录*/
       userDao.querySiftClearInfo(res,req);
     }
   } else {
     ejs.renderFile('./views/TloginTimeOut.ejs', {}, function (err, data) {
       if (err) {
-        console.log(err);
+        logger.info(err);
       }
       res.end(data);
     })

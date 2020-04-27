@@ -4,17 +4,19 @@ var router = express.Router();
 var ejs = require('ejs');
 var url = require('url');
 var userDao = require('../dao/userDao');
-
+var log4js = require('log4js');
+var log = require("../logs/log");
+var logger = log4js.getLogger();
 router.get('/', function (req, res, next) {
   var method = req.method.toLowerCase();
-  console.log(method);
+  logger.info(method);
   var pathname = url.parse(req.url, true).pathname;
-  console.log(pathname + 'get-TgroupInfoAdmin');
-  console.log("登录状态：", req.session.islogin);
+  logger.info(pathname + 'get-TgroupInfoAdmin');
+  logger.info("登录状态：", req.session.islogin);
   if (req.session.islogin) {
-    console.log("已登录用户查询：", req.session.user);
+    logger.info("已登录用户查询：", req.session.user);
     if (req.query.changeGroupOpenStatus != undefined) {
-      console.log("修改商户集团启用状态：", req.query.changeGroupOpenStatus);
+      logger.info("修改商户集团启用状态：", req.query.changeGroupOpenStatus);
       userDao.changeGroupOpenStatus(res, req);
     }else{
       userDao.queryTgroupInfo(req.session.user, res, req);
@@ -22,7 +24,7 @@ router.get('/', function (req, res, next) {
   } else {
     ejs.renderFile('./views/TloginTimeOut.ejs', {}, function (err, data) {
       if (err) {
-        console.log(err);
+        logger.info(err);
       }
       res.end(data);
     })
@@ -30,25 +32,25 @@ router.get('/', function (req, res, next) {
 });
 router.post('/',function (req, res, next) {
   if (req.session.islogin) {
-    console.log("已登录用户查询：", req.session.user);
+    logger.info("已登录用户查询：", req.session.user);
     if (req.query.addGroup == "true") {
-      console.log('进入TgroupdentInfoAdmin?addGroup=true，get FormData Params: ', req.body);
+      logger.info('进入TgroupdentInfoAdmin?addGroup=true，get FormData Params: ', req.body);
       var group_name = req.body.group_name;
       var group_remark = req.body.group_remark;
       var open_status = req.body.open_status;
-      console.log(group_name, group_remark, open_status);
+      logger.info(group_name, group_remark, open_status);
       /*插入新增商户集团信息*/
       userDao.addGroupInfo(res,req);
     }
     if (req.query.querySiftGroupInfo == "true") {
-      console.log('进入TcorpInfoAdmin?querySiftGroupInfo=true，get FormData Params: ', req.body);
+      logger.info('进入TcorpInfoAdmin?querySiftGroupInfo=true，get FormData Params: ', req.body);
       /*筛选商户集团信息*/
       userDao.querySiftGroupInfo(res, req);
     }
   } else {
     ejs.renderFile('./views/TloginTimeOut.ejs', {}, function (err, data) {
       if (err) {
-        console.log(err);
+        logger.info(err);
       }
       res.end(data);
     })

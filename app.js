@@ -8,9 +8,8 @@ var bodyParser = require('body-parser');
 var ejs = require('ejs');
 var app = express();
 // var $ = jQuery = require("./jq/jquery");
-var ejsExcel=require("ejsExcel");
+var ejsExcel = require("ejsExcel");
 var log = require("./logs/log");
-
 
 //引入express-session
 var session = require("express-session");
@@ -52,7 +51,7 @@ app.use(bodyParser.urlencoded({
 })); //解析post请求主体
 
 // 学生端路由
-const users = require('./routes/users');// 测试
+const users = require('./routes/users'); // 测试
 const index = require('./routes/index'); // 登录页 index 路由
 const home = require('./routes/home'); //首页 home 路由
 const changePassword = require('./routes/changePassword'); // 密码修改页 changePassword 路由
@@ -111,8 +110,8 @@ app.use('/requiredOrder', requiredOrder);
 app.use('/loginOut', loginOut);
 app.use('/orderSubmit', orderSubmit);
 app.use('/scholarshipRecord', scholarshipRecord);
-app.use('/ajaxTest',ajaxTest);
-app.use('/payPage',payPage);
+app.use('/ajaxTest', ajaxTest);
+app.use('/payPage', payPage);
 
 // 教师端
 app.use('/teacher', Tindex);

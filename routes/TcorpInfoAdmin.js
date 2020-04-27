@@ -4,17 +4,19 @@ var router = express.Router();
 var ejs = require('ejs');
 var url = require('url');
 var userDao = require('../dao/userDao');
-
+var log4js = require('log4js');
+var log = require("../logs/log");
+var logger = log4js.getLogger();
 router.get('/', function (req, res, next) {
   var method = req.method.toLowerCase();
-  console.log(method);
+  logger.info(method);
   var pathname = url.parse(req.url, true).pathname;
-  console.log(pathname + 'get-TcorpInfoAdmin');
-  console.log("登录状态：", req.session.islogin);
+  logger.info(pathname + 'get-TcorpInfoAdmin');
+  logger.info("登录状态：", req.session.islogin);
   if (req.session.islogin) {
-    console.log("已登录用户查询：", req.session.user);
+    logger.info("已登录用户查询：", req.session.user);
     if (req.query.changeCorpOpenStatus != undefined) {
-      console.log("修改商户集团启用状态：", req.query.changeCorpOpenStatus);
+      logger.info("修改商户集团启用状态：", req.query.changeCorpOpenStatus);
       userDao.changeCorpOpenStatus(res, req);
     }else{
       userDao.queryTcorpInfo(req.session.user,res,req);
@@ -22,7 +24,7 @@ router.get('/', function (req, res, next) {
   } else {
     ejs.renderFile('./views/TloginTimeOut.ejs', {}, function (err, data) {
       if (err) {
-        console.log(err);
+        logger.info(err);
       }
       res.end(data);
     })
@@ -30,21 +32,21 @@ router.get('/', function (req, res, next) {
 });
 router.post('/', function (req, res, next) {
   if (req.session.islogin) {
-    console.log("已登录用户查询：", req.session.user);
+    logger.info("已登录用户查询：", req.session.user);
     if (req.query.addCorp == "true") {
-      console.log('进入TcorpInfoAdmin?addCorp=true，get FormData Params: ', req.body);
+      logger.info('进入TcorpInfoAdmin?addCorp=true，get FormData Params: ', req.body);
       /*插入新增商户信息*/
       userDao.addCorpInfo(res,req);
     }
     if (req.query.querySiftCorpInfo == "true") {
-      console.log('进入TcorpInfoAdmin?querySiftCorpInfo=true，get FormData Params: ', req.body);
+      logger.info('进入TcorpInfoAdmin?querySiftCorpInfo=true，get FormData Params: ', req.body);
       /*筛选商户信息*/
       userDao.querySiftCorpInfo(res, req);
     }
   } else {
     ejs.renderFile('./views/TloginTimeOut.ejs', {}, function (err, data) {
       if (err) {
-        console.log(err);
+        logger.info(err);
       }
       res.end(data);
     })

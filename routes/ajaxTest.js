@@ -8,20 +8,23 @@ var userDao = require('../dao/userDao');
 // var $ = require('jQuery');
 const http = require("http");
 // var querystring = require('querystring');
+var log4js = require('log4js');
+var log = require("../logs/log");
+var logger = log4js.getLogger();
 router.get('/', function (req, res, next) {
     var method = req.method.toLowerCase();
-    console.log(method);
+    logger.info(method);
     var pathname = url.parse(req.url, true).pathname;
-    console.log(pathname + 'get-ajaxTest');
-    console.log("ajax Test已登录用户查询：", req.session.islogin);
+    logger.info(pathname + 'get-ajaxTest');
+    logger.info("ajax Test已登录用户查询：", req.session.islogin);
     if (req.session.islogin) {
         /*获取session.islogin*/
-        console.log("ajax Test已登录用户查询：", req.session.user);
+        logger.info("ajax Test已登录用户查询：", req.session.user);
         res.send("ajax Test");
     } else {
         ejs.renderFile('./views/loginTimeOut.ejs', {}, function (err, data) {
             if (err) {
-                console.log(err);
+                logger.info(err);
             }
             res.end(data);
         })
@@ -29,15 +32,15 @@ router.get('/', function (req, res, next) {
 });
 router.post('/', function (req, res, next) {
     var method = req.method.toLowerCase();
-    console.log(method);
+    logger.info(method);
     var pathname = url.parse(req.url, true).pathname;
-    console.log(pathname + 'post-ajaxTest');
-    console.log("ajax Test已登录用户查询：", req.session.islogin);
+    logger.info(pathname + 'post-ajaxTest');
+    logger.info("ajax Test已登录用户查询：", req.session.islogin);
     var studentName = req.session.username;
     if (req.session.islogin) {
         /*获取session.islogin*/
-        console.log("ajax Test已登录用户查询：", req.session.user);
-        console.log(req.body.tradeID, req.body.sum);
+        logger.info("ajax Test已登录用户查询：", req.session.user);
+        logger.info(req.body.tradeID, req.body.sum);
         // $.post("http://114.115.222.89:20056/PaySim", {
         //     "method": "发起交易",
         //     "target": "测试用户1", //转账对象
@@ -47,13 +50,13 @@ router.post('/', function (req, res, next) {
         //     "timeLimit": 120 //分钟
         // }, function (err, data) {
         //     if (err) {
-        //         console.log(err);
+        //         logger.info(err);
         //     }
-        //     console.log("sas");
-        //     console.log(data);
+        //     logger.info("sas");
+        //     logger.info(data);
         //     // res.end(data);
         // })
-        console.log("aaa");
+        logger.info("aaa");
         var tradeID = req.body.tradeID;
         var sum = req.body.sum;
         var post_data = {
@@ -64,9 +67,9 @@ router.post('/', function (req, res, next) {
             sum: sum,
             timeLimit: 120
         }    
-        console.log("post_data:", post_data);
+        logger.info("post_data:", post_data);
         var content = JSON.stringify(post_data);
-        console.log("content:", content);
+        logger.info("content:", content);
         var options = {
             hostname: '114.115.222.89',
             port: 20056,
@@ -76,16 +79,16 @@ router.post('/', function (req, res, next) {
                 'Content-Type': 'application/json; charset=UTF-8'
             }
         };
-        console.log("options:", options);
+        logger.info("options:", options);
         var reqest = http.request(options, function (response) {
-            console.log('STATUS: ' + response.statusCode);
-            console.log('HEADERS: ' + JSON.stringify(response.headers));
+            logger.info('STATUS: ' + response.statusCode);
+            logger.info('HEADERS: ' + JSON.stringify(response.headers));
             response.setEncoding('utf8');
             response.on('data', function (chunk) {
-                console.log('BODY: ' + chunk); 
+                logger.info('BODY: ' + chunk); 
                 var chunkObj = JSON.parse(chunk); 
                 var transactionID = chunkObj.transactionID;
-                console.log("chunkObj.transactionID:",transactionID);
+                logger.info("chunkObj.transactionID:",transactionID);
                 var sendData = {
                     studentName: studentName,
                     tradeID: tradeID,
@@ -95,14 +98,14 @@ router.post('/', function (req, res, next) {
                 res.send(sendData);
                 // ejs.renderFile('./views/payPage.ejs', {studentName,tradeID,sum,transactionID}, function (err, data) {
                 //     if (err) {
-                //         console.log(err);
+                //         logger.info(err);
                 //     }
                 //     res.end(data);
                 // })
             });
         });
         req.on('error', function (e) {
-            console.log('problem with request: ' + e.message);
+            logger.info('problem with request: ' + e.message);
         }); // write data to request body  
         reqest.write(content);
         reqest.end();
@@ -113,7 +116,7 @@ router.post('/', function (req, res, next) {
     } else {
         ejs.renderFile('./views/loginTimeOut.ejs', {}, function (err, data) {
             if (err) {
-                console.log(err);
+                logger.info(err);
             }
             res.end(data);
         })

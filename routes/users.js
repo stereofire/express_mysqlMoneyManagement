@@ -3,7 +3,9 @@ var router = express.Router();
  
 var userDao = require('../dao/userDao');
  var ejs=require('ejs');
-
+var log4js = require('log4js');
+var log = require("../logs/log");
+var logger = log4js.getLogger();
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('LSX respond with a resource');

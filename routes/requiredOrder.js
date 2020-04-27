@@ -4,21 +4,24 @@ var router = express.Router();
 var ejs = require('ejs');
 var url = require('url');
 var userDao = require('../dao/userDao');
+var log4js = require('log4js');
+var log = require("../logs/log");
+var logger = log4js.getLogger();
 router.get('/', function (req, res, next) {
   var method = req.method.toLowerCase();
-  console.log(method);
+  logger.info(method);
   var pathname = url.parse(req.url, true).pathname;
-  console.log(pathname + 'get-requiredOrder');
+  logger.info(pathname + 'get-requiredOrder');
 
-  console.log("已登录用户查询：", req.session.islogin);
+  logger.info("已登录用户查询：", req.session.islogin);
   if (req.session.islogin) {
     /*获取session.islogin*/
-    console.log("已登录用户查询：", req.session.user);
+    logger.info("已登录用户查询：", req.session.user);
     userDao.queryRequireOrders(req.session.user, res, req);
   } else {
     ejs.renderFile('./views/loginTimeOut.ejs', {}, function (err, data) {
       if (err) {
-        console.log(err);
+        logger.info(err);
       }
       res.end(data);
     })

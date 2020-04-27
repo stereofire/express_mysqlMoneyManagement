@@ -4,28 +4,31 @@ var router = express.Router();
 var ejs = require('ejs');
 var url = require('url');
 var userDao = require('../dao/userDao');
+var log4js = require('log4js');
+var log = require("../logs/log");
+var logger = log4js.getLogger();
 router.get('/', function (req, res, next) {
   var method = req.method.toLowerCase();
-  console.log(method);
+  logger.info(method);
   var pathname = url.parse(req.url, true).pathname;
-  console.log(pathname + 'get-paymentMethod');
+  logger.info(pathname + 'get-paymentMethod');
 
-  console.log("已登录用户查询：", req.session.islogin);
+  logger.info("已登录用户查询：", req.session.islogin);
   if (req.session.islogin) {
     /*获取session.islogin*/
-    console.log("已登录用户查询：", req.session.user);
-    console.log("req.query.orderNo:", req.query.orderNo); //输出req.query.orderNo:10000104
+    logger.info("已登录用户查询：", req.session.user);
+    logger.info("req.query.orderNo:", req.query.orderNo); //输出req.query.orderNo:10000104
     var orderNo = req.query.orderNo;
     var data={
       text :"订单为可支付状态",
       OrderNo : orderNo
     }
-    console.log(data);
+    logger.info(data);
     userDao.queryPayMethod(req.session.user, data,res,req);
   } else {
     ejs.renderFile('./views/loginTimeOut.ejs', {}, function (err, data) {
       if (err) {
-        console.log(err);
+        logger.info(err);
       }
       res.end(data);
     })

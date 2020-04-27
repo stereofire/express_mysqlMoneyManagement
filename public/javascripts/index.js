@@ -1,4 +1,12 @@
 function sendForm() {
+	// console.log(document.forms["userLogin"]);
+	// var ip = document.forms["userLogin"]["ip"].value;
+	// alert("ip：",ip);
+	// console.log("ip元素：",document.forms["userLogin"]["ip"]);
+	// if(ip == ""){
+	// 	alert("ip为空");
+	// }
+	// return false;
 	if (check_login()) {
 		document.userLogin.submit();
 	} else {
@@ -29,6 +37,8 @@ function check_login() { //检查输入合法性
 	} else {
 		return verifyCode();
 	}
+
+	
 }
 var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]")
 

@@ -30,55 +30,39 @@ var jsonWrite = function (res, ret) {
     }
 };
 
+var log4js = require('log4js');
+var log = require("../logs/log");
+var logger = log4js.getLogger();
 const obj = {
-    // 失败提示，不不加载新界面
-    showMessage: function (message, res) {
-        var result = `<script>alert('${message}');history.back()</script>`;
-        res.send(result);
-    },
-    // 成功提示，并加载新界面
-    SMessage: function (message, href, res) {
-        // res.setHeader('Content-Type', 'text/html');
-        // var result=`<script>alert('${message}'); location.replace(location.href)</script>`;
-        console.log("Enter SMessage()");
-        var result = `<script>alert('${message}'); location.href=${href}</script>`;
-        res.send(result);
-    },
-
-
     // check_login: function (account, password, callback) {
     // 登录验证
     check_login: function (account, password, req, res) {
-        // console.log(account, password);
+        // logger.info(account, password);
         pool.getConnection(function (err, connection) {
-            // console.log(account, password);
+            // logger.info(account, password);
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
                 // callback(0);
-                res.send();
+                logger.info("数据库连接池错误，错误编号：00001");
+                var message = "抱歉，发生了错误，请联系管理员。错误编号：00001，返回学生登录页";
+                var re = `<script>alert('${message}'); location.href="/"</script>`;
+                res.send(re);
             }
             connection.query($sql.check, account, function (err, result) {
                 if (err) { //用户账户查询错误
-                    console.log("用户账户查询错误，请重新登录");
-                    ejs.renderFile('views/index.ejs', {}, function (err, data) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        res.end(data);
-                    })
+                    logger.info("用户账户查询错误，请重新登录，错误编号：00002");
+                    var message = "抱歉，发生了错误，请联系管理员。错误编号：00002，返回学生登录页";
+                    var re = `<script>alert('${message}'); location.href="/"</script>`;
+                    res.send(re);
                     // callback(1);
                     connection.release();
                 } else if (result[0] == undefined) { //用户不存在
-                    console.log("用户不存在，请重新登录");
-                    ejs.renderFile('views/index.ejs', {}, function (err, data) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        res.end(data);
-                    })
+                    logger.info("用户不存在，请重新登录");
+                    var message = "用户不存在，请重新登录";
+                    var re = `<script>alert('${message}'); location.href="/"</script>`;
+                    res.send(re);
                     connection.release();
                 } else { //用户存在
-                    console.log(result[0]);
+                    // logger.info(result[0]);
                     var college = new String(result[0].学校);
                     var studentName = new String(result[0].姓名);
                     var school = new String(result[0].院系);
@@ -87,16 +71,15 @@ const obj = {
                     var grade = new String(result[0].年级);
                     var readStatus = new String(result[0].在读状态);
                     var rightPassword = new String(result[0].密码);
-                    console.log(readStatus);
                     if (readStatus == '1') {
                         readStatus = "在读";
                     } else {
                         readStatus = "不在读";
                     }
-                    console.log(readStatus);
-                    console.log("正确密码应为：", rightPassword);
+                    logger.info("在读状态：",readStatus);
+                    logger.info("正确密码应为：", rightPassword);
                     if (rightPassword == password) { //密码正确
-                        console.log('密码正确,登录成功');
+                        logger.info('密码正确,登录成功');
                         // 将登录的用户保存到session中
                         req.session.user = account;
                         // 设置是否登录为true
@@ -104,9 +87,12 @@ const obj = {
                         // 设置已登录用户的欢迎名
                         req.session.username = studentName;
                         // 开启event_scheduler
-                        connection.query($sql.setEventScheduler, account, function (err, result) {
+                        connection.query($sql.setEventScheduler, function (err, result) {
                             if (err) { //开启event_scheduler错误
-                                console.log("开启event_scheduler错误。");
+                                logger.info("开启event_scheduler错误。错误编号：00003");
+                                var message = "抱歉，发生了错误，请联系管理员。错误编号：00003，返回学生登录页";
+                                var re = `<script>alert('${message}'); location.href="/"</script>`;
+                                res.send(re);
                             }
                         });
                         ejs.renderFile('views/home.ejs', {
@@ -125,18 +111,23 @@ const obj = {
                             }
                         }, function (err, data) {
                             if (err) {
-                                console.log(err);
+                                logger.info("刷新首页错误。错误编号：00004");
+                                var message = "抱歉，发生了错误，请联系管理员。错误编号：00004，返回学生登录页";
+                                var re = `<script>alert('${message}'); location.href="/"</script>`;
+                                res.send(re);
                             }
                             res.end(data);
                         })
                         // callback(2);
                         connection.release();
                     } else { //密码错误
-                        console.log("密码错误，请重新登陆！");
-                        console.log(3);
-                        ejs.renderFile('views/index.ejs', {}, function (err, data) {
+                        logger.info("密码错误，请重新登陆！");
+                        ejs.renderFile('views/.ejs', {}, function (err, data) {
                             if (err) {
-                                console.log(err);
+                                logger.info("刷新登录页错误。错误编号：00005");
+                                var message = "抱歉，发生了错误，请联系管理员。错误编号：00005，返回学生登录页";
+                                var re = `<script>alert('${message}'); location.href="/"</script>`;
+                                res.send(re);
                             }
                             res.end(data);
                         })
@@ -152,26 +143,37 @@ const obj = {
     updatePassword: function (account, new_password, res) {
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00006");
+                var message = "抱歉，发生了错误，请联系管理员。错误编号：00006，返回学生首页";
+                var re = `<script>alert('${message}'); location.href="/home"</script>`;
+                res.send(re);
             }
             connection.query($sql.changePssword, [new_password, account], function (err, result) {
                 if (err) {
-                    console.log('密码修改出错，请重新密码更新操作');
+                    logger.info("密码修改出错，请重新密码更新操作。错误编号：00007");
+                    var message = "抱歉，密码修改出错，请重新密码更新操作。错误编号：00007，返回学生首页";
+                    var re = `<script>alert('${message}'); location.href="/home"</script>`;
+                    res.send(re);
                     ejs.renderFile('views/changePassword.ejs', {}, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("密码修改出错后，刷新学生首页错误。错误编号：00008");
+                            var message = "抱歉，刷新学生首页错误，请联系管理员。错误编号：00008，返回学生首页";
+                            var re = `<script>alert('${message}'); location.href="/home"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //密码修改成功,重新登录
-                    // console.log(result[0]);//密码修改成功后不会有反馈，result=undefined
-                    console.log("密码修改成功,请重新登录");
+                    // logger.info(result[0]);//密码修改成功后不会有反馈，result=undefined
+                    logger.info("密码修改成功,请重新登录");
                     connection.release();
                     ejs.renderFile('views/changePasswordOK.ejs', {}, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("密码修改成功,刷新登录页出错。错误编号：00009");
+                            var message = "抱歉，刷新登录页出错，请重新刷新登录。错误编号：00009，返回登录页";
+                            var re = `<script>alert('${message}'); location.href="/"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -183,46 +185,38 @@ const obj = {
     change_Password: function (account, old_password, new_password, res) {
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00010");
+                var message = "抱歉，发生了错误，请联系管理员。错误编号：00010，返回密码修改页";
+                var re = `<script>alert('${message}'); location.href="/changePassword"</script>`;
+                res.send(re);
             }
             connection.query($sql.check, account, function (err, result) {
                 if (err) { //用户账户查询错误,重新密码更新
-                    console.log("用户账户查询错误，请重新密码更新操作");
-                    ejs.renderFile('views/changePassword.ejs', {}, function (err, data) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        res.end(data);
-                    })
+                    logger.info("用户账户查询错误，请重新密码更新操作。错误编号：00011");
+                    var message = "抱歉，用户账户查询错误，请重新密码更新操作。错误编号：00011，返回密码修改页";
+                    var re = `<script>alert('${message}'); location.href="/changePassword"</script>`;
+                    res.send(re);
                     connection.release();
                 } else if (result[0] == undefined) { //用户不存在,重新密码更新
-                    console.log("用户不存在，请重新密码更新操作");
-                    ejs.renderFile('views/changePassword.ejs', {}, function (err, data) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        res.end(data);
-                    })
+                    logger.info("用户不存在，请重新密码更新操作");
+                    var message = "用户不存在，请重新密码更新操作。返回密码修改页";
+                    var re = `<script>alert('${message}'); location.href="/changePassword"</script>`;
+                    res.send(re);
                     connection.release();
                 } else { //用户存在
-                    console.log(result[0]);
+                    // logger.info(result[0]);
                     var rightPassword = new String(result[0].密码);
-                    console.log("正确密码应为：", rightPassword);
+                    logger.info("正确密码应为：", rightPassword);
                     if (rightPassword == old_password) { //密码正确,可以进行密码修改操作
-                        console.log('密码正确,可以进行密码修改操作');
+                        logger.info('密码正确,可以进行密码修改操作');
                         connection.release();
                         obj.updatePassword(account, new_password, res);
-                        console.log('调用了userDao.updatePassword');
+                        logger.info('调用了userDao.updatePassword');
                     } else { //密码错误，驳回修改密码请求
-                        console.log("密码错误，驳回修改密码请求！");
-                        console.log(3);
-                        ejs.renderFile('views/changePassword.ejs', {}, function (err, data) {
-                            if (err) {
-                                console.log(err);
-                            }
-                            res.end(data);
-                        })
+                        logger.info("密码错误，驳回修改密码请求！");
+                        var message = "抱歉，密码错误，请重新密码更新操作。返回密码修改页";
+                        var re = `<script>alert('${message}'); location.href="/changePassword"</script>`;
+                        res.send(re);
                         connection.release();
                     }
                 }
@@ -232,33 +226,29 @@ const obj = {
 
     // home页信息
     queryInformation: function (account, res) {
-        console.log(account + "进入queryInformation函数");
+        logger.info(account + "进入queryInformation函数");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00012");
+                var message = "抱歉，发生了错误，请联系管理员。错误编号：00012，返回登录页";
+                var re = `<script>alert('${message}'); location.href="/"</script>`;
+                res.send(re);
             }
             connection.query($sql.check, account, function (err, result) {
                 if (err) { //用户账户查询错误
-                    console.log("用户账户查询错误，请重新登录");
-                    ejs.renderFile('views/index.ejs', {}, function (err, data) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        res.end(data);
-                    })
+                    logger.info("用户账户查询错误。错误编号：00013");
+                    var message = "抱歉，发生了错误，请联系管理员。错误编号：00013，返回登录页";
+                    var re = `<script>alert('${message}'); location.href="/"</script>`;
+                    res.send(re);
                     connection.release();
                 } else if (result[0] == undefined) { //用户不存在
-                    console.log("用户不存在，请重新登录");
-                    ejs.renderFile('views/index.ejs', {}, function (err, data) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        res.end(data);
-                    })
+                    logger.info("用户不存在。错误编号：00014");
+                    var message = "抱歉，用户不存在，请重新登录。错误编号：00014，返回登录页";
+                    var re = `<script>alert('${message}'); location.href="/"</script>`;
+                    res.send(re);
                     connection.release();
                 } else { //用户存在
-                    console.log(result[0]);
+                    // logger.info(result[0]);
                     var college = new String(result[0].学校);
                     var studentName = new String(result[0].姓名);
                     var school = new String(result[0].院系);
@@ -267,13 +257,12 @@ const obj = {
                     var grade = new String(result[0].年级);
                     var readStatus = new String(result[0].在读状态);
                     var rightPassword = new String(result[0].密码);
-                    console.log(readStatus);
                     if (readStatus == '1') {
                         readStatus = "在读";
                     } else {
                         readStatus = "不在读";
                     }
-                    console.log(readStatus);
+                    logger.info("在读状态：",readStatus);
                     ejs.renderFile('views/home.ejs', {
                         user: {
                             arr: {
@@ -290,7 +279,10 @@ const obj = {
                         }
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新学生首页错误。错误编号：00015");
+                            var message = "抱歉，发生了错误，请联系管理员。错误编号：00015，返回登录页";
+                            var re = `<script>alert('${message}'); location.href="/"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -301,53 +293,48 @@ const obj = {
     },
     // paymentOrder缴费订单页信息（仅需订单总额）
     queryTotalAmount: function (account, res, req) {
-        console.log(account + "进入queryTotalAmount函数");
+        logger.info(account + "进入queryTotalAmount函数");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00016");
+                var message = "抱歉，发生了错误，请联系管理员。错误编号：00016，返回首页";
+                var re = `<script>alert('${message}'); location.href="/home"</script>`;
+                res.send(re);
             }
             var arrAccount = [account, account, account];
             connection.query($sql.TotalAmount, arrAccount, function (err, result) {
                 if (err) { //用户账户查询错误
-                    console.log(err);
-                    console.log("用户账户查询错误，请重新登录");
-                    ejs.renderFile('views/index.ejs', {}, function (err, data) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        res.end(data);
-                    })
+                    logger.info("用户账户查询错误。错误编号：00017");
+                    var message = "抱歉，用户账户查询错误，请重试。返回首页";
+                    var re = `<script>alert('${message}'); location.href="/home"</script>`;
+                    res.send(re);
                     connection.release();
                 } else if (result[0] == undefined) { //用户不存在
-                    console.log("用户不存在，请重新登录");
-                    ejs.renderFile('views/index.ejs', {}, function (err, data) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        res.end(data);
-                    })
+                    logger.info("用户不存在。错误编号：00018");
+                    var message = "抱歉，用户不存在，请重新登录。错误编号：00018，返回登录页";
+                    var re = `<script>alert('${message}'); location.href="/"</script>`;
+                    res.send(re);
                     connection.release();
                 } else { //用户存在
-                    // console.log(result[0]);
+                    // logger.info(result[0]);
                     // var totalAmount = new String(result[0].totalAmount);
                     // var totalAmount = 2000;
-                    console.log(result);
+                    // logger.info(result);
                     var totalAmount = result;
-                    console.log(totalAmount[0].totalAmount);
-                    console.log(totalAmount[1].totalAmount);
-                    console.log(totalAmount[2].totalAmount);
+                    // logger.info(totalAmount[0].totalAmount);
+                    // logger.info(totalAmount[1].totalAmount);
+                    // logger.info(totalAmount[2].totalAmount);
                     if (totalAmount[0].totalAmount == null) {
                         totalAmount[0].totalAmount = 0;
-                        console.log(totalAmount[0].totalAmount);
+                        // logger.info(totalAmount[0].totalAmount);
                     }
                     if (totalAmount[1].totalAmount == null) {
                         totalAmount[1].totalAmount = 0;
-                        console.log(totalAmount[1].totalAmount);
+                        // logger.info(totalAmount[1].totalAmount);
                     }
                     if (totalAmount[2].totalAmount == null) {
                         totalAmount[2].totalAmount = 0;
-                        console.log(totalAmount[2].totalAmount);
+                        // logger.info(totalAmount[2].totalAmount);
                     }
                     var studentName = req.session.username;
                     ejs.renderFile('views/paymentOrder.ejs', {
@@ -355,7 +342,10 @@ const obj = {
                         studentName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新缴费订单页错误。错误编号：00019");
+                            var message = "抱歉，发生了错误，请联系管理员。错误编号：00019，返回首页";
+                            var re = `<script>alert('${message}'); location.href="/home"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -367,19 +357,23 @@ const obj = {
 
     // requireOrder必缴订单页信息(两个函数)
     queryRequireAmount: function (account, Result, res, req) {
-        console.log(account + "进入queryRequireAmount函数");
+        logger.info(account + "进入queryRequireAmount函数");
         pool.getConnection(function (err, connection) {
             if (err) {
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00020");
+                var message = "抱歉，发生了错误，请联系管理员。错误编号：00020，返回缴费订单页";
+                var re = `<script>alert('${message}'); location.href="/paymentOrder"</script>`;
+                res.send(re);
             }
             connection.query($sql.RequireAmount, account, function (err, result) {
                 if (err) {
-                    console.log("必缴账单查询错误，返回缴费订单总页");
+                    logger.info("必缴账单查询错误。错误编号：00021");
+                    var message = "抱歉，必缴账单查询错误。错误编号：00021，返回缴费订单页";
+                    var re = `<script>alert('${message}'); location.href="/paymentOrder"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTotalAmount(account, res);
                 } else if (result[0] == undefined) { //无必缴账单总额,返回必缴账单总额为0、必缴订单
-                    console.log("无必缴账单总额,返回必缴账单总额为0、必缴订单");
+                    logger.info("无必缴账单总额,返回必缴账单总额为0、必缴订单");
                     var studentName = req.session.username;
                     ejs.renderFile('views/requiredOrder.ejs', {
                         requireAmount: 0,
@@ -387,12 +381,15 @@ const obj = {
                         studentName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新必缴订单页错误。错误编号：00022");
+                            var message = "抱歉，发生了错误，请联系管理员。错误编号：00022，返回缴费订单页";
+                            var re = `<script>alert('${message}'); location.href="/paymentOrder"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                 } else { //有必缴账单总额
-                    console.log(result[0]);
+                    // logger.info(result[0]);
                     var requireAmount = new String(result[0].requireAmount);
                     var studentName = req.session.username;
                     ejs.renderFile('views/requiredOrder.ejs', {
@@ -401,7 +398,10 @@ const obj = {
                         studentName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新必缴订单页错误。错误编号：00023");
+                            var message = "抱歉，发生了错误，请联系管理员。错误编号：00023，返回缴费订单页";
+                            var re = `<script>alert('${message}'); location.href="/paymentOrder"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -411,18 +411,22 @@ const obj = {
         });
     },
     queryRequireOrders: function (account, res, req) {
-        console.log(account + "进入queryRequireOrders函数");
+        logger.info(account + "进入queryRequireOrders函数");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00024");
+                var message = "抱歉，发生了错误，请联系管理员。错误编号：00024，返回缴费订单页";
+                var re = `<script>alert('${message}'); location.href="/paymentOrder"</script>`;
+                res.send(re);
             }
             connection.query($sql.RequireOrders, account, function (err, result) {
                 if (err) { //必缴账单查询错误
-                    console.log("必缴账单查询错误，返回缴费订单总页");
-                    obj.queryTotalAmount(account, res, req);
+                    logger.info("必缴账单查询错误。错误编号：00025");
+                    var message = "抱歉，必缴账单查询错误。错误编号：00025，返回缴费订单总页";
+                    var re = `<script>alert('${message}'); location.href="/paymentOrder"</script>`;
+                    res.send(re);
                 } else if (result[0] == undefined) { //无必缴账单
-                    console.log("无必缴账单");
+                    logger.info("无必缴账单");
                     var studentName = req.session.username;
                     ejs.renderFile('views/requiredOrder.ejs', {
                         requireAmount: 0,
@@ -430,13 +434,16 @@ const obj = {
                         studentName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新必缴订单页错误。错误编号：00026");
+                            var message = "抱歉，发生了错误，请联系管理员。错误编号：00026，返回缴费订单页";
+                            var re = `<script>alert('${message}'); location.href="/paymentOrder"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有必缴账单
-                    console.log(result);
+                    // logger.info(result);
                     obj.queryRequireAmount(account, result, res, req);
                     connection.release();
                 }
@@ -446,19 +453,23 @@ const obj = {
 
     //optionalOrder 选缴订单页信息(两个函数)
     queryOptionalAmount: function (account, Result, res, req) {
-        console.log(account + "进入queryOptionalAmount函数");
+        logger.info(account + "进入queryOptionalAmount函数");
         pool.getConnection(function (err, connection) {
             if (err) {
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00027");
+                var message = "抱歉，发生了错误，请联系管理员。错误编号：00027，返回缴费订单页";
+                var re = `<script>alert('${message}'); location.href="/paymentOrder"</script>`;
+                res.send(re);
             }
             connection.query($sql.OptionalAmount, account, function (err, result) {
                 if (err) {
-                    console.log("选缴账单查询错误，返回缴费订单总页");
+                    logger.info("选缴账单查询错误。错误编号：00028");
+                    var message = "抱歉，选缴账单查询错误。错误编号：00028，返回缴费订单页";
+                    var re = `<script>alert('${message}'); location.href="/paymentOrder"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTotalAmount(account, res, req);
                 } else if (result[0].optionalAmount == null) { //无选缴账单总额,返回选缴账单总额为0、选缴订单
-                    console.log("无选缴账单总额,返回选缴账单总额为0、选缴订单");
+                    logger.info("无选缴账单总额,返回选缴账单总额为0、选缴订单");
                     var studentName = req.session.username;
                     ejs.renderFile('views/optionalOrder.ejs', {
                         optionalAmount: 0,
@@ -466,12 +477,15 @@ const obj = {
                         studentName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新选缴订单页错误。错误编号：00029");
+                            var message = "抱歉，发生了错误，请联系管理员。错误编号：00029，返回缴费订单页";
+                            var re = `<script>alert('${message}'); location.href="/paymentOrder"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                 } else { //有选缴账单总额
-                    console.log("选缴账单总额:", result[0].optionalAmount);
+                    // logger.info("选缴账单总额:", result[0].optionalAmount);
                     var optionalAmount = new String(result[0].optionalAmount);
                     var studentName = req.session.username;
                     ejs.renderFile('views/optionalOrder.ejs', {
@@ -480,7 +494,10 @@ const obj = {
                         studentName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新选缴订单页错误。错误编号：00030");
+                            var message = "抱歉，发生了错误，请联系管理员。错误编号：00030，返回缴费订单页";
+                            var re = `<script>alert('${message}'); location.href="/paymentOrder"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -490,32 +507,39 @@ const obj = {
         });
     },
     queryOptionalOrder: function (account, res, req) {
-        console.log(account + "进入queryOptionalOrder函数");
+        logger.info(account + "进入queryOptionalOrder函数");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00031");
+                var message = "抱歉，发生了错误，请联系管理员。错误编号：00031，返回缴费订单页";
+                var re = `<script>alert('${message}'); location.href="/paymentOrder"</script>`;
+                res.send(re);
             }
             connection.query($sql.OptionalOrder, account, function (err, result) {
                 if (err) { //选缴订单查询错误
-                    console.log("选缴订单查询错误，返回缴费订单总页");
+                    logger.info("选缴订单查询错误。错误编号：00032");
+                    var message = "抱歉，选缴订单查询错误。错误编号：00032，返回缴费订单页";
+                    var re = `<script>alert('${message}'); location.href="/paymentOrder"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTotalAmount(account, res, req);
                 } else if (result[0] == undefined) { //无可选缴订单
-                    console.log("无可选缴订单");
+                    logger.info("无可选缴订单");
                     var studentName = req.session.username;
                     ejs.renderFile('views/optionalOrder.ejs', {
                         result: result,
                         studentName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新选缴订单页错误。错误编号：00033");
+                            var message = "抱歉，发生了错误，请联系管理员。错误编号：00033，返回缴费订单页";
+                            var re = `<script>alert('${message}'); location.href="/paymentOrder"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有选缴订单
-                    console.log(result);
+                    // logger.info(result);
                     obj.queryOptionalAmount(account, result, res, req);
                     connection.release();
                 }
@@ -525,39 +549,49 @@ const obj = {
 
     //orderRecord订单记录页信息
     queryOrderRecord: function (account, res, req) {
-        console.log(account + "进入queryOrderRecord函数");
+        logger.info(account + "进入queryOrderRecord函数");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00034");
+                var message = "抱歉，发生了错误，请联系管理员。错误编号：00034，返回首页";
+                var re = `<script>alert('${message}'); location.href="/home"</script>`;
+                res.send(re);
             }
             connection.query($sql.OrderRecord, account, function (err, result) {
                 if (err) { //订单记录查询错误
-                    console.log("订单记录查询错误，返回缴费订单总页");
+                    logger.info("订单记录查询错误。错误编号：00035");
+                    var message = "抱歉，订单记录查询错误。错误编号：00035，返回首页";
+                    var re = `<script>alert('${message}'); location.href="/home"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTotalAmount(account, res, req);
                 } else if (result[0] == undefined) { //无订单记录
-                    console.log("无订单记录");
+                    logger.info("无订单记录");
                     var studentName = req.session.username;
                     ejs.renderFile('views/orderRecord.ejs', {
                         result: result,
                         studentName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新订单记录页错误。错误编号：00036");
+                            var message = "抱歉，订单记录查询错误。错误编号：00036，返回首页";
+                            var re = `<script>alert('${message}'); location.href="/home"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有订单记录
-                    // console.log(result);
+                    // logger.info(result);
                     var studentName = req.session.username;
                     ejs.renderFile('views/orderRecord.ejs', {
                         result: result,
                         studentName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新订单记录页错误。错误编号：00037");
+                            var message = "抱歉，订单记录查询错误。错误编号：00037，返回首页";
+                            var re = `<script>alert('${message}'); location.href="/home"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -569,26 +603,29 @@ const obj = {
 
     // paymeMethod缴费方式页面ejs参数设定与渲染
     queryPayMethod: function (account, data, res, req) {
-        console.log(account + "进入queryPayMethod函数");
+        logger.info(account + "进入queryPayMethod函数");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00038");
+                var message = "抱歉，发生了错误，请联系管理员。错误编号：00038，返回订单记录页";
+                var re = `<script>alert('${message}'); location.href="/orderRecord"</script>`;
+                res.send(re);
             }
             var orderNo = data.OrderNo;
             var Text = data.text;
             connection.query($sql.AmountAndResttime, [account, orderNo], function (err, result) {
                 if (err) { //订单支付查询错误
-                    console.log(err);
-                    console.log("订单支付查询错误，返回订单记录页");
-                    connection.release();
-                    obj.queryOrderRecord(account, res, req);
+                    logger.info("订单支付查询错误。错误编号：00039");
+                    var message = "抱歉，订单支付查询错误。错误编号：00039，返回订单记录页";
+                    var re = `<script>alert('${message}'); location.href="/orderRecord"</script>`;
+                    res.send(re);
                 } else if (result[0] == undefined) { //订单支付不存在
-                    console.log("订单支付不存在，返回订单记录页");
+                    var message = "抱歉，订单支付不存在。返回订单记录页";
+                    var re = `<script>alert('${message}'); location.href="/orderRecord"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryOrderRecord(account, res, req);
                 } else { //订单支付存在
-                    // console.log(result);
+                    // logger.info(result);
                     var Data = {
                         Text: Text,
                         OrderNo: orderNo,
@@ -598,14 +635,17 @@ const obj = {
                         OrderLimitTime: result[0].支付期限,
                         CountDoun: result[0].剩余时间
                     }
-                    // console.log(req.session.username);
+                    // logger.info(req.session.username);
                     var studentName = req.session.username;
                     ejs.renderFile('./views/paymentMethod.ejs', {
                         Data,
                         studentName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新支付方式页错误。错误编号：00040");
+                            var message = "抱歉，发生了错误，请联系管理员。错误编号：00040，返回订单记录页";
+                            var re = `<script>alert('${message}'); location.href="/orderRecord"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -617,19 +657,21 @@ const obj = {
 
     // orderSubmit提交订单——插入订单信息表
     querySubmitOrder: function (account, data, res, req) {
-        console.log(account + "进入querySubmitOrder函数");
+        logger.info(account + "进入querySubmitOrder函数");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00041");
+                var message = "抱歉，发生了错误，请联系管理员。错误编号：00041，返回订单记录页";
+                var re = `<script>alert('${message}'); location.href="/orderRecord"</script>`;
+                res.send(re);
             }
-            console.log(data); // { S000002: '1', S000001: '1' }
+            logger.info("待插入订单信息：",data); // { S000002: '1', S000001: '1' }
             var studentName = req.session.username;
 
 
             // 插入订单信息
-            console.log((new Date()).getTime()); // js13位时间戳
-            console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss')); // mysql的datetime时间类型
+            // logger.info((new Date()).getTime()); // js13位时间戳
+            // logger.info(moment(new Date()).format('YYYY-MM-DD HH:mm:ss')); // mysql的datetime时间类型
             var creattime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
             var payLimitTime = moment(new Date()).add(2, 'days').format('YYYY-MM-DD HH:mm:ss');;
 
@@ -637,39 +679,41 @@ const obj = {
             // res.send(orderid);
             connection.query($sql.InsertOrder, [orderid, creattime, account, payLimitTime], function (err, result) {
                 if (err) { //订单信息表插入错误
-                    console.log(err);
-                    console.log("订单信息表插入错误，返回订单记录页");
+                    logger.info("订单信息表插入错误。错误编号：00042");
+                    var message = "抱歉，订单信息表插入错误。错误编号：00042，返回订单记录页";
+                    var re = `<script>alert('${message}'); location.href="/orderRecord"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryOrderRecord(account, res, req);
                 } else { //订单信息表插入成功
-                    console.log(result.insertId);
+                    // logger.info(result.insertId);
                     var insertOrderId = result.insertId;
                     // 引用查询商品单价和供应商代码的函数
                     // obj.queryCmmodit(account, insertOrderId, data, res, req);
 
                     // 循环查询所有商品单价和供应商代码，并插入子订单信息表
                     var goodsList = Object.keys(data);
-                    console.log(goodsList);
+                    logger.info("待插入商品信息：",goodsList);
                     var k = 0;
                     for (var i = 0; i < goodsList.length; i++) {
                         connection.query($sql.QueryCmmodit, goodsList[i], function (err, result) {
                             if (err) { //查询商品单价和供应商代码错误
-                                console.log(err);
-                                console.log("查询商品单价和供应商代码错误，返回订单记录页");
+                                logger.info("查询商品单价和供应商代码错误。错误编号：00043");
+                                var message = "抱歉，查询商品单价和供应商代码错误。错误编号：00043，返回订单记录页";
+                                var re = `<script>alert('${message}'); location.href="/orderRecord"</script>`;
+                                res.send(re);
                                 connection.release();
-                                obj.queryOrderRecord(account, res, req);
                             } else {
-                                // console.log(result);
+                                // logger.info(result);
                                 var Result = JSON.parse(JSON.stringify(result));
-                                // console.log(Result);
+                                // logger.info(Result);
                                 var price = Result[0].商品单价;
                                 var MerchantID = Result[0].商户代码;
-                                // console.log(price,MerchantID);
+                                // logger.info(price,MerchantID);
 
                                 // 产生子订单编号
                                 var childOrderID = "";
                                 childOrderID = insertOrderId + obj.PrefixInteger(k + 1, 2);
-                                console.log("childOrderID:", childOrderID);
+                                logger.info("产生待插入子订单编号childOrderID:", childOrderID);
 
                                 // 订单编号：insertOrderId
                                 // 商品编号：goodsList[i]
@@ -677,32 +721,35 @@ const obj = {
                                 // 单价：price
                                 // 子订单总额：data.goodsList[i]*price
                                 // 商户代码：MerchantID
-                                // console.log(insertOrderId,goodsList[k],data[goodsList[k]],price,data[goodsList[k++]]*price,MerchantID);
+                                // logger.info(insertOrderId,goodsList[k],data[goodsList[k]],price,data[goodsList[k++]]*price,MerchantID);
 
                                 var arrChildOrder = [childOrderID, insertOrderId, goodsList[k], parseInt(data[goodsList[k]]), price, data[goodsList[k++]] * price, MerchantID];
-                                console.log(arrChildOrder);
+                                logger.info("待插入子订单参数：",arrChildOrder);
                                 connection.query($sql.InsertChildOrder, arrChildOrder, function (err, result) {
                                     if (err) { //插入子订单错误
-                                        console.log(err);
-                                        console.log("插入子订单错误，返回订单记录页");
+                                        logger.info("插入子订单错误。错误编号：00044");
+                                        var message = "抱歉，插入子订单错误。错误编号：00044，返回订单记录页";
+                                        var re = `<script>alert('${message}'); location.href="/orderRecord"</script>`;
+                                        res.send(re);
                                         connection.release();
-                                        obj.queryOrderRecord(account, res, req);
                                     } else { // SUM查询需要插入订单信息表的订单总额
                                         connection.query($sql.SumOrderAmount, insertOrderId, function (err, result) {
                                             if (err) { //SUM查询订单总额错误
-                                                console.log(err);
-                                                console.log("SUM查询订单总额错误，返回订单记录页");
+                                                logger.info("SUM查询订单总额错误。错误编号：00045");
+                                                var message = "抱歉，查询订单总额错误。错误编号：00045，返回订单记录页";
+                                                var re = `<script>alert('${message}'); location.href="/orderRecord"</script>`;
+                                                res.send(re);
                                                 connection.release();
-                                                obj.queryOrderRecord(account, res, req);
                                             } else { //SUM查询订单总额成功
-                                                console.log(insertOrderId, result[0].订单总额);
+                                                // logger.info(insertOrderId, result[0].订单总额);
                                                 var amount = result[0].订单总额;
                                                 connection.query($sql.UpdateOrderAmount, [amount, insertOrderId], function (err, result) {
                                                     if (err) { //更新订单总额错误
-                                                        console.log(err);
-                                                        console.log("更新订单总额错误，返回订单记录页");
+                                                        logger.info("更新订单总额错误。错误编号：00046");
+                                                        var message = "抱歉，更新订单总额错误。错误编号：00046，返回订单记录页";
+                                                        var re = `<script>alert('${message}'); location.href="/orderRecord"</script>`;
+                                                        res.send(re);
                                                         connection.release();
-                                                        obj.queryOrderRecord(account, res, req);
                                                     }
                                                 });
 
@@ -722,7 +769,10 @@ const obj = {
                         studentName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新orderSubmit页错误。错误编号：00047");
+                            var message = "抱歉，更新订单总额错误。错误编号：00047，返回订单记录页";
+                            var re = `<script>alert('${message}'); location.href="/orderRecord"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -748,33 +798,39 @@ const obj = {
         var studentName = req.session.username;
         var payResult = req.query.payResult;
         var orderNo = req.query.orderNo;
-        console.log(account + "进入queryPaySuccRe函数");
+        logger.info(account + "进入queryPaySuccRe函数");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00048");
+                var message = "抱歉，发生了错误，请联系管理员。错误编号：00048，返回订单记录页";
+                var re = `<script>alert('${message}'); location.href="/orderRecord"</script>`;
+                res.send(re);
             }
-            console.log((new Date()).getTime()); // js13位时间戳
-            console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss')); // mysql的datetime时间类型
+            // logger.info((new Date()).getTime()); // js13位时间戳
+            // logger.info(moment(new Date()).format('YYYY-MM-DD HH:mm:ss')); // mysql的datetime时间类型
             var payTime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
             connection.query($sql.setOrderPayTime, [payTime, orderNo, orderNo, orderNo], function (err, result) {
                 if (err) { //更新订单支付时间和状态错误
-                    console.log(err);
-                    console.log("更新订单支付时间和状态错误，返回订单记录页");
-                    obj.queryOrderRecord(account, res, req);
+                    logger.info("更新订单支付时间和状态错误。错误编号：00049");
+                    var message = "抱歉，发生了错误，请联系管理员。错误编号：00049，返回订单记录页";
+                    var re = `<script>alert('${message}'); location.href="/orderRecord"</script>`;
+                    res.send(re);
                 } else { //更新订单支付时间和状态成功
-                    console.log("更新订单支付时间成功");
+                    logger.info("更新订单支付时间成功");
                     connection.query($sql.QueryOrderInfo, orderNo, function (err, result) {
                         if (err) { //订单信息查询错误
-                            console.log(err);
-                            console.log("订单信息查询错误，返回订单记录页");
-                            obj.queryOrderRecord(account, res, req);
+                            logger.info("订单信息查询错误。错误编号：00050");
+                            var message = "抱歉，订单信息查询错误。错误编号：00050，返回订单记录页";
+                            var re = `<script>alert('${message}'); location.href="/orderRecord"</script>`;
+                            res.send(re);
                         } else if (result[0] == undefined) { //无订单信息
-                            console.log("无订单信息，返回订单记录页");
+                            logger.info("无订单信息，返回订单记录页");
+                            var message = "抱歉，无订单信息。返回订单记录页";
+                            var re = `<script>alert('${message}'); location.href="/orderRecord"</script>`;
+                            res.send(re);
                             connection.release();
-                            obj.queryOrderRecord(account, res, req);
                         } else { //有订单信息
-                            console.log(result);
+                            // logger.info(result);
                             var transID = result[0].交易单号;
                             var sum = result[0].交易金额;
                             connection.release();
@@ -787,7 +843,10 @@ const obj = {
                                 sum
                             }, function (err, data) {
                                 if (err) {
-                                    console.log(err);
+                                    logger.info("刷新支付结果页错误。错误编号：00051");
+                                    var message = "抱歉，刷新支付结果页错误。错误编号：00051，返回订单记录页";
+                                    var re = `<script>alert('${message}'); location.href="/orderRecord"</script>`;
+                                    res.send(re);
                                 }
                                 res.end(data);
                             })
@@ -803,30 +862,36 @@ const obj = {
         var studentName = req.session.username;
         var payResult = req.query.payResult;
         var orderNo = req.query.orderNo;
-        console.log(account + "进入queryPayFailRe函数");
+        logger.info(account + "进入queryPayFailRe函数");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00052");
+                var message = "抱歉，发生了错误，请联系管理员。错误编号：00052，返回订单记录页";
+                var re = `<script>alert('${message}'); location.href="/orderRecord"</script>`;
+                res.send(re);
             }
             connection.query($sql.setOrderPayStatus, [orderNo, orderNo, orderNo], function (err, result) {
                 if (err) { //更新订单支付时间和状态错误
-                    console.log(err);
-                    console.log("更新订单支付时间和状态错误，返回订单记录页");
-                    obj.queryOrderRecord(account, res, req);
+                    logger.info("更新订单支付时间和状态错误。错误编号：00053");
+                    var message = "抱歉，更新订单支付时间和状态错误。错误编号：00053，返回订单记录页";
+                    var re = `<script>alert('${message}'); location.href="/orderRecord"</script>`;
+                    res.send(re);
                 } else { //更新订单支付时间和状态成功
-                    console.log("更新订单支付时间成功");
+                    logger.info("更新订单支付时间成功");
                     connection.query($sql.QueryOrderInfo, orderNo, function (err, result) {
                         if (err) { //订单信息查询错误
-                            console.log(err);
-                            console.log("订单信息查询错误，返回订单记录页");
-                            obj.queryOrderRecord(account, res, req);
+                            logger.info("订单信息查询错误。错误编号：00054");
+                            var message = "抱歉，订单信息查询错误。错误编号：00054，返回订单记录页";
+                            var re = `<script>alert('${message}'); location.href="/orderRecord"</script>`;
+                            res.send(re);
                         } else if (result[0] == undefined) { //无订单信息
-                            console.log("无订单信息，返回订单记录页");
+                            logger.info("无订单信息，返回订单记录页");
+                            var message = "抱歉，无订单信息。返回订单记录页";
+                            var re = `<script>alert('${message}'); location.href="/orderRecord"</script>`;
+                            res.send(re);
                             connection.release();
-                            obj.queryOrderRecord(account, res, req);
                         } else { //有订单信息
-                            console.log(result);
+                            // logger.info(result);
                             var transID = result[0].交易单号;
                             var sum = result[0].交易金额;
                             var failReason = result[0].支付失败原因;
@@ -840,7 +905,10 @@ const obj = {
                                 failReason
                             }, function (err, data) {
                                 if (err) {
-                                    console.log(err);
+                                    logger.info("刷新支付结果页错误。错误编号：00055");
+                                    var message = "抱歉，订单信息查询错误。错误编号：00055，返回订单记录页";
+                                    var re = `<script>alert('${message}'); location.href="/orderRecord"</script>`;
+                                    res.send(re);
                                 }
                                 res.end(data);
                             })
@@ -852,22 +920,28 @@ const obj = {
     },
     // 奖学金发放信息页
     queryScholarshipRecord: function (account, res, req) {
-        console.log(account + "进入queryScholarshipRecord函数");
+        logger.info(account + "进入queryScholarshipRecord函数");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00056");
+                var message = "抱歉，发生了错误，请联系管理员。错误编号：00056，返回首页";
+                var re = `<script>alert('${message}'); location.href="/home"</script>`;
+                res.send(re);
             }
             connection.query($sql.QueryScholarship, account, function (err, result) {
                 if (err) { //奖学金信息查询错误
-                    console.log("奖学金信息查询错误，返回缴费订单总页");
-                    obj.queryTotalAmount(account, res, req);
+                    logger.info("奖学金信息查询错误。错误编号：00057");
+                    var message = "抱歉，奖学金信息查询错误。错误编号：00057，返回首页";
+                    var re = `<script>alert('${message}'); location.href="/home"</script>`;
+                    res.send(re);
                 } else if (result[0] == undefined) { //无奖学金信息
-                    console.log("无奖学金信息，返回订单记录页");
+                    logger.info("无奖学金信息，返回订单记录页");
+                    var message = "抱歉，无奖学金信息。返回首页";
+                    var re = `<script>alert('${message}'); location.href="/home"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryOrderRecord(account, res, req);
                 } else { //有奖学金信息
-                    console.log(result);
+                    // logger.info(result);
                     var scholarshipAmount = 0;
                     for (var i = 0; i < result.length; i++) {
                         scholarshipAmount += result[i].金额;
@@ -882,7 +956,10 @@ const obj = {
                         scholarshipAmount
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新奖学金信息页错误。错误编号：00058");
+                            var message = "抱歉，刷新奖学金信息页错误。错误编号：00058，返回首页";
+                            var re = `<script>alert('${message}'); location.href="/home"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -893,23 +970,29 @@ const obj = {
 
     //orderRecord订单记录页删除选缴订单
     deleteOrderRecord: function (account, res, req) {
-        console.log(account + "进入deleteOrderRecord函数");
+        logger.info(account + "进入deleteOrderRecord函数");
         var orderID = req.query.deleteOrder;
-        console.log(orderID);
+        logger.info("待删除订单编号：",orderID);
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00059");
+                var message = "抱歉，发生了错误，请联系管理员。错误编号：00059，返回订单记录页";
+                var re = `<script>alert('${message}'); location.href="/orderRecord"</script>`;
+                res.send(re);
             }
             connection.query($sql.deleteOrder, [orderID, orderID], function (err, result) {
-                if (err) { //删除选缴订单错误
-                    console.log("删除选缴订单错误，返回订单记录页");
+                if (err) { //删除选缴订单错误;
+                    logger.info("删除选缴订单错误。错误编号：00060");
+                    var message = "抱歉，删除选缴订单错误。错误编号：00060，返回订单记录页";
+                    var re = `<script>alert('${message}'); location.href="/orderRecord"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryOrderRecord(account, res, req);
                 } else { //删除选缴订单成功
-                    console.log("选缴订单删除结果：", result, "加载订单记录页");
+                    logger.info("选缴订单删除结果：", result, "加载订单记录页");
+                    var message = "删除选缴订单成功。返回订单记录页";
+                    var re = `<script>alert('${message}'); location.href="/orderRecord"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryOrderRecord(account, res, req);
                 }
             });
         });
@@ -919,38 +1002,45 @@ const obj = {
     teacher_check_login: function (account, password, req, res) {
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00061");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00061，返回登录页";
+                var re = `<script>alert('${message}'); location.href="/teacher"</script>`;
+                res.send(re);
             }
+            // 开启event_scheduler
+            connection.query($sql.setEventScheduler, function (err, result) {
+                if (err) { //开启event_scheduler错误
+                    logger.info("开启event_scheduler错误。错误编号：00003");
+                    var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00003，返回教师登录页";
+                    var re = `<script>alert('${message}'); location.href="/teacher"</script>`;
+                    res.send(re);
+                    connection.release();
+                }else{
+                    logger.info("开启event_scheduler成功。");
+                }
+            });
             connection.query($sql.Tcheck, account, function (err, result) {
                 if (err) { //用户账户查询错误
-                    console.log("用户账户查询错误，请重新登录");
-                    ejs.renderFile('views/Tindex.ejs', {}, function (err, data) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        res.end(data);
-                    })
-                    // callback(1);
+                    logger.info("用户账户查询错误。错误编号：00062");
+                    var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00062，返回登录页";
+                    var re = `<script>alert('${message}'); location.href="/teacher"</script>`;
+                    res.send(re);
                     connection.release();
                 } else if (result[0] == undefined) { //用户不存在
-                    console.log("用户不存在，请重新登录");
-                    ejs.renderFile('views/Tindex.ejs', {}, function (err, data) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        res.end(data);
-                    })
+                    logger.info("用户不存在，请重新登录");
+                    var message = "抱歉，用户不存在。请重新登录";
+                    var re = `<script>alert('${message}'); location.href="/teacher"</script>`;
+                    res.send(re);
                     connection.release();
                 } else { //用户存在
-                    console.log(result[0]);
+                    // logger.info(result[0]);
                     var college = new String(result[0].学校);
                     var teacherName = new String(result[0].姓名);
                     var job = new String(result[0].职务);
                     var rightPassword = new String(result[0].密码);
-                    console.log("正确密码应为：", rightPassword);
+                    logger.info("正确密码应为：", rightPassword);
                     if (rightPassword == password) { //密码正确
-                        console.log('密码正确,登录成功');
+                        logger.info('密码正确,登录成功');
                         req.session.user = account;
                         req.session.islogin = true;
                         req.session.username = teacherName;
@@ -965,20 +1055,19 @@ const obj = {
                             }
                         }, function (err, data) {
                             if (err) {
-                                console.log(err);
+                                logger.info("用刷新教师登录页错误。错误编号：00063");
+                                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00063，返回登录页";
+                                var re = `<script>alert('${message}'); location.href="/teacher"</script>`;
+                                res.send(re);
                             }
                             res.end(data);
                         })
                         connection.release();
                     } else { //密码错误
-                        console.log("密码错误，请重新登陆！");
-                        console.log(3);
-                        ejs.renderFile('views/Tindex.ejs', {}, function (err, data) {
-                            if (err) {
-                                console.log(err);
-                            }
-                            res.end(data);
-                        })
+                        logger.info("密码错误，请重新登陆！");
+                        var message = "抱歉，密码错误。请重新登陆";
+                        var re = `<script>alert('${message}'); location.href="/teacher"</script>`;
+                        res.send(re);
                         connection.release();
                     }
                 }
@@ -990,79 +1079,67 @@ const obj = {
     teacher_updatePassword: function (account, new_password, res) {
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00064");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00064，返回首页";
+                var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                res.send(re);
             }
             connection.query($sql.TchangePssword, [new_password, account], function (err, result) {
                 if (err) {
-                    console.log('密码修改出错，请重新密码更新操作');
-                    ejs.renderFile('views/TchangePassword.ejs', {}, function (err, data) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        res.end(data);
-                    })
+                    logger.info("密码修改出错。错误编号：00065");
+                    var message = "抱歉，密码修改出错。错误编号：00065，请重新密码更新操作";
+                    var re = `<script>alert('${message}'); location.href="/TchangePassword"</script>`;
+                    res.send(re);
                     connection.release();
                 } else { //密码修改成功,重新登录
-                    // console.log(result[0]);//密码修改成功后不会有反馈，result=undefined
-                    console.log("密码修改成功,请重新登录");
+                    // logger.info(result[0]);//密码修改成功后不会有反馈，result=undefined
+                    logger.info("密码修改成功,请重新登录");
+                    var message = "密码修改成功。请重新登录";
+                    var re = `<script>alert('${message}'); location.href="/TchangePassword"</script>`;
+                    res.send(re);
                     connection.release();
-                    ejs.renderFile('views/TchangePasswordOK.ejs', {}, function (err, data) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        res.end(data);
-                    })
                 }
             });
         });
     },
     // 密码修改验证，引用updatePassword
     teacher_change_Password: function (account, old_password, new_password, res) {
-        console.log(account + "进入teacher_change_Password函数");
+        logger.info(account + "进入teacher_change_Password函数");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00066");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00066，返回首页";
+                var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                res.send(re);
             }
             connection.query($sql.Tcheck, account, function (err, result) {
-                console.log(result);
+                // logger.info(result);
                 if (err) { //用户账户查询错误,重新密码更新
-                    console.log("用户账户查询错误，请重新密码更新操作");
-                    ejs.renderFile('views/TchangePassword.ejs', {}, function (err, data) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        res.end(data);
-                    })
+                    logger.info("用户账户查询错误。错误编号：00067");
+                    var message = "抱歉，用户账户查询错误。错误编号：00067，请重新密码更新操作";
+                    var re = `<script>alert('${message}'); location.href="/TchangePassword"</script>`;
+                    res.send(re);
                     connection.release();
                 } else if (result[0] == undefined) { //用户不存在,重新密码更新
-                    console.log("用户不存在，请重新密码更新操作");
-                    ejs.renderFile('views/TchangePassword.ejs', {}, function (err, data) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        res.end(data);
-                    })
+                    logger.info("用户不存在，请重新密码更新操作");
+                    var message = "用户不存在，请重新密码更新操作。";
+                    var re = `<script>alert('${message}'); location.href="/TchangePassword"</script>`;
+                    res.send(re);
                     connection.release();
                 } else { //用户存在
-                    console.log(result[0]);
+                    // logger.info(result[0]);
                     var rightPassword = new String(result[0].密码);
-                    console.log("正确密码应为：", rightPassword);
+                    logger.info("正确密码应为：", rightPassword);
                     if (rightPassword == old_password) { //密码正确,可以进行密码修改操作
-                        console.log('密码正确,可以进行密码修改操作');
+                        logger.info('密码正确,可以进行密码修改操作');
                         connection.release();
                         obj.teacher_updatePassword(account, new_password, res);
-                        console.log('调用了userDao.teacher_updatePassword');
+                        logger.info('调用了userDao.teacher_updatePassword');
                     } else { //密码错误，驳回修改密码请求
-                        console.log("密码错误，驳回修改密码请求！");
-                        console.log(3);
-                        ejs.renderFile('views/TchangePassword.ejs', {}, function (err, data) {
-                            if (err) {
-                                console.log(err);
-                            }
-                            res.end(data);
-                        })
+                        logger.info("密码错误，驳回修改密码请求");
+                        var message = "抱歉，密码错误，驳回修改密码请求。请重新密码更新操作";
+                        var re = `<script>alert('${message}'); location.href="/TchangePassword"</script>`;
+                        res.send(re);
                         connection.release();
                     }
                 }
@@ -1072,33 +1149,29 @@ const obj = {
 
     // Thome页信息 queryTInformation
     queryTInformation: function (account, res) {
-        console.log(account + "进入queryTInformation函数");
+        logger.info(account + "进入queryTInformation函数");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00068");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00068，返回登录页";
+                var re = `<script>alert('${message}'); location.href="/teacher"</script>`;
+                res.send(re);
             }
             connection.query($sql.Tcheck, account, function (err, result) {
                 if (err) { //用户账户查询错误
-                    console.log("用户账户查询错误，请重新登录");
-                    ejs.renderFile('views/Tindex.ejs', {}, function (err, data) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        res.end(data);
-                    })
+                    logger.info("用户账户查询错误。错误编号：00069");
+                    var message = "抱歉，用户账户查询错误。错误编号：00069，返回登录页";
+                    var re = `<script>alert('${message}'); location.href="/teacher"</script>`;
+                    res.send(re);
                     connection.release();
                 } else if (result[0] == undefined) { //用户不存在
-                    console.log("用户不存在，请重新登录");
-                    ejs.renderFile('views/Tindex.ejs', {}, function (err, data) {
-                        if (err) {
-                            console.log(err);
-                        }
-                        res.end(data);
-                    })
+                    logger.info("用户不存在，请重新登录");
+                    var message = "抱歉，用户不存在，请重新登录";
+                    var re = `<script>alert('${message}'); location.href="/teacher"</script>`;
+                    res.send(re);
                     connection.release();
                 } else { //用户存在
-                    console.log(result[0]);
+                    // logger.info(result[0]);
                     var college = new String(result[0].学校);
                     var teacherName = new String(result[0].姓名);
                     var job = new String(result[0].职务);
@@ -1113,7 +1186,10 @@ const obj = {
                         }
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新教师首页错误。错误编号：00070");
+                            var message = "抱歉，用户账户查询错误。错误编号：00070，返回登录页";
+                            var re = `<script>alert('${message}'); location.href="/teacher"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -1159,21 +1235,25 @@ const obj = {
     },
     //Thome down = studentInfo 下载学生信息
     downTstudentInfo: function (account, res, req) {
-        console.log(account + "进入downTstudentInfo函数");
+        logger.info(account + "进入downTstudentInfo函数");
         var teacherName = req.session.username;
         obj.deleteFiles("public/tables4downLoad");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00071");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00071，返回登录页";
+                var re = `<script>alert('${message}'); location.href="/teacher"</script>`;
+                res.send(re);
             }
             connection.query($sql.TstudentInfo, account, function (err, result) {
                 if (err) { //学生信息查询错误
-                    console.log("学生信息查询错误，返回Thome页");
+                    logger.info("学生信息查询错误。错误编号：00072");
+                    var message = "抱歉，学生信息查询错误。错误编号：00072，返回首页";
+                    var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTInformation(account, res);
                 } else { //有学生信息
-                    // console.log(result);
+                    // logger.info(result);
                     var FileName = "downLoad_stuInfo"; //表下载时的名称
                     var templateFileName = "template_stuInfo"; //模板表名称
                     var fullFileName = obj.creatfullFileName(FileName);
@@ -1193,19 +1273,23 @@ const obj = {
     },
     //Thome down = groupInfo 下载商户集团表
     downTgroupInfo: function (account, res, req) {
-        console.log(account + "进入downTgroupInfo函数");
+        logger.info(account + "进入downTgroupInfo函数");
         var teacherName = req.session.username;
         obj.deleteFiles("public/tables4downLoad");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00073");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00073，返回首页";
+                var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                res.send(re);
             }
             connection.query($sql.TgroupInfo, account, function (err, result) {
                 if (err) { //商户集团信息查询错误
-                    console.log("商户集团信息查询错误，返回Thome页");
+                    logger.info("商户集团信息查询错误。错误编号：00074");
+                    var message = "抱歉，商户集团信息查询错误。错误编号：00074，返回首页";
+                    var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTInformation(account, res);
                 } else { //有商户集团信息
                     var FileName = "downLoad_groupInfo"; //表下载时的名称
                     var templateFileName = "template_groupInfo"; //模板表名称
@@ -1226,19 +1310,23 @@ const obj = {
     },
     //Thome down = orderInfo 下载订单信息
     downTorderInfo: function (account, res, req) {
-        console.log(account + "进入ddownTorderInfo函数");
+        logger.info(account + "进入ddownTorderInfo函数");
         var teacherName = req.session.username;
         obj.deleteFiles("public/tables4downLoad");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00075");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00075，返回首页";
+                var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                res.send(re);
             }
             connection.query($sql.TorderInfo, account, function (err, result) {
                 if (err) { //订单信息查询错误
-                    console.log("订单信息查询错误，返回TstudentInfoAdmin页");
+                    logger.info("订单信息查询错误。错误编号：00076");
+                    var message = "抱歉，订单信息查询错误。错误编号：00076，返回首页";
+                    var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTInformation(account, res);
                 } else { //有订单信息
                     var FileName = "downLoad_orderInfo"; //表下载时的名称
                     var templateFileName = "template_orderInfo"; //模板表名称
@@ -1259,19 +1347,23 @@ const obj = {
     },
     //Thome down = stockInfo 下载供货表
     downTstockInfo: function (account, res, req) {
-        console.log(account + "进入downTstockInfo函数");
+        logger.info(account + "进入downTstockInfo函数");
         var teacherName = req.session.username;
         obj.deleteFiles("public/tables4downLoad");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00077");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00077，返回首页";
+                var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                res.send(re);
             }
             connection.query($sql.TstockInfo, account, function (err, result) {
                 if (err) { //供货表查询错误
-                    console.log("供货表查询错误，返回TstudentInfoAdmin页");
+                    logger.info("供货表查询错误。错误编号：00078");
+                    var message = "抱歉，订单信息查询错误。错误编号：00078，返回首页";
+                    var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTInformation(account, res);
                 } else { //有供货表
                     var FileName = "downLoad_stockInfo"; //表下载时的名称
                     var templateFileName = "template_stockInfo"; //模板表名称
@@ -1292,19 +1384,23 @@ const obj = {
     },
     //Thome down = clearInfo 下载清算表
     downTclearInfo: function (account, res, req) {
-        console.log(account + "进入downTclearInfo函数");
+        logger.info(account + "进入downTclearInfo函数");
         var teacherName = req.session.username;
         obj.deleteFiles("public/tables4downLoad");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00079");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00079，返回首页";
+                var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                res.send(re);
             }
             connection.query($sql.TclearInfo, account, function (err, result) {
                 if (err) { //清算表查询错误
-                    console.log("清算表查询错误，返回TstudentInfoAdmin页");
+                    logger.info("清算表查询错误。错误编号：00080");
+                    var message = "抱歉，清算表查询错误。错误编号：00080，返回首页";
+                    var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTInformation(account, res);
                 } else { //有清算表
                     var FileName = "downLoad_clearInfo"; //表下载时的名称
                     var templateFileName = "template_clearInfo"; //模板表名称
@@ -1325,19 +1421,23 @@ const obj = {
     },
     //Thome down = coursePlans 下载教材计划表
     downTcoursePlans: function (account, res, req) {
-        console.log(account + "进入downTcoursePlans函数");
+        logger.info(account + "进入downTcoursePlans函数");
         var teacherName = req.session.username;
         obj.deleteFiles("public/tables4downLoad");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00081");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00081，返回首页";
+                var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                res.send(re);
             }
             connection.query($sql.TcoursePlans, account, function (err, result) {
                 if (err) { //教材计划表查询错误
-                    console.log("教材计划表查询错误，返回TstudentInfoAdmin页");
+                    logger.info("教材计划表查询错误。错误编号：00082");
+                    var message = "抱歉，教材计划表查询错误。错误编号：00082，返回首页";
+                    var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTInformation(account, res);
                 } else { //有教材计划表
                     var FileName = "downLoad_coursePlans"; //表下载时的名称
                     var templateFileName = "template_coursePlans"; //模板表名称
@@ -1358,19 +1458,23 @@ const obj = {
     },
     //Thome down = corpInfo 下载供应商信息表
     downTcorpInfo: function (account, res, req) {
-        console.log(account + "进入downTcorpInfo函数");
+        logger.info(account + "进入downTcorpInfo函数");
         var teacherName = req.session.username;
         obj.deleteFiles("public/tables4downLoad");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00083");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00083，返回首页";
+                var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                res.send(re);
             }
             connection.query($sql.TcorpInfo, account, function (err, result) {
                 if (err) { //供应商信息表查询错误
-                    console.log("供应商信息表查询错误，返回TstudentInfoAdmin页");
+                    logger.info("供应商信息表查询错误。错误编号：00084");
+                    var message = "抱歉，供应商信息表查询错误。错误编号：00084，返回首页";
+                    var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTInformation(account, res);
                 } else { //有供应商信息表
                     var FileName = "downLoad_corpInfo"; //表下载时的名称
                     var templateFileName = "template_corpInfo"; //模板表名称
@@ -1391,19 +1495,22 @@ const obj = {
     },
     //Thome down = subOrderInfo 下载子订单信息表
     downTsubOrderInfo: function (account, res, req) {
-        console.log(account + "进入downTsubOrderInfo函数");
+        logger.info(account + "进入downTsubOrderInfo函数");
         var teacherName = req.session.username;
         obj.deleteFiles("public/tables4downLoad");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00085");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00085，返回首页";
+                var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                res.send(re);
             }
             connection.query($sql.TsubOrderInfo, account, function (err, result) {
                 if (err) { //子订单信息表查询错误
-                    console.log("子订单信息表查询错误，返回TstudentInfoAdmin页");
-                    connection.release();
-                    obj.queryTInformation(account, res);
+                    logger.info("子订单信息表查询错误。错误编号：00086");
+                    var message = "抱歉，子订单信息表查询错误。错误编号：00086，返回首页";
+                    var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                    res.send(re);
                 } else { //有子订单信息表
                     var FileName = "downLoad_subOrderInfo"; //表下载时的名称
                     var templateFileName = "template_subOrderInfo"; //模板表名称
@@ -1424,19 +1531,22 @@ const obj = {
     },
     //Thome down = subStockInfo 下载子供货表
     downTsubStockInfo: function (account, res, req) {
-        console.log(account + "进入downTsubStockInfo函数");
+        logger.info(account + "进入downTsubStockInfo函数");
         var teacherName = req.session.username;
         obj.deleteFiles("public/tables4downLoad");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00087");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00087，返回首页";
+                var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                res.send(re);
             }
             connection.query($sql.TsubStockInfo, account, function (err, result) {
                 if (err) { //子供货表查询错误
-                    console.log("子供货表查询错误，返回TstudentInfoAdmin页");
-                    connection.release();
-                    obj.queryTInformation(account, res);
+                    logger.info("子供货表查询错误。错误编号：00088");
+                    var message = "抱歉，子供货表查询错误。错误编号：00088，返回首页";
+                    var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                    res.send(re);
                 } else { //有子供货表
                     var FileName = "downLoad_subStockInfo"; //表下载时的名称
                     var templateFileName = "template_subStockInfo"; //模板表名称
@@ -1457,19 +1567,22 @@ const obj = {
     },
     //Thome down = productList 下载商品清单表
     downTproductList: function (account, res, req) {
-        console.log(account + "进入downTproductList函数");
+        logger.info(account + "进入downTproductList函数");
         var teacherName = req.session.username;
         obj.deleteFiles("public/tables4downLoad");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00089");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00089，返回首页";
+                var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                res.send(re);
             }
             connection.query($sql.TproductList, account, function (err, result) {
                 if (err) { //商品清单表查询错误
-                    console.log("商品清单表查询错误，返回TstudentInfoAdmin页");
-                    connection.release();
-                    obj.queryTInformation(account, res);
+                    logger.info("商品清单表查询错误。错误编号：00090");
+                    var message = "抱歉，商品清单表查询错误。错误编号：00090，返回首页";
+                    var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                    res.send(re);
                 } else { //有商品清单表
                     var FileName = "downLoad_productList"; //表下载时的名称
                     var templateFileName = "template_productList"; //模板表名称
@@ -1491,38 +1604,48 @@ const obj = {
 
     //TstudentInfoAdmin 学生信息管理页信息
     queryTstudentInfo: function (account, res, req) {
-        console.log(account + "进入queryTstudentInfo函数");
+        logger.info(account + "进入queryTstudentInfo函数");
         var teacherName = req.session.username;
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00091");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00091，返回首页";
+                var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                res.send(re);
             }
             connection.query($sql.TstudentInfo, account, function (err, result) {
                 if (err) { //学生信息查询错误
-                    console.log("学生信息查询错误，返回Thome页");
+                    logger.info("学生信息查询错误。错误编号：00092");
+                    var message = "抱歉，学生信息查询错误。错误编号：00092，返回首页";
+                    var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTInformation(account, res);
                 } else if (result[0] == undefined) { //无学生信息
-                    console.log("无学生信息");
+                    logger.info("无学生信息");
                     ejs.renderFile('views/TstudentInfoAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新学生信息页错误。错误编号：00093");
+                            var message = "抱歉，学生信息查询错误。错误编号：00093，返回首页";
+                            var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有学生信息
-                    // console.log(result);
+                    // logger.info(result);
                     ejs.renderFile('views/TstudentInfoAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新学生信息页错误。错误编号：00094");
+                            var message = "抱歉，学生信息查询错误。错误编号：00094，返回首页";
+                            var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -1535,33 +1658,39 @@ const obj = {
     changeReadStatus: function (res, req) {
         var stuID = req.query.changeReadStatus;
         var teacherName = req.session.username;
-        console.log(teacherName + "进入changeReadStatus函数");
+        logger.info(teacherName + "进入changeReadStatus函数");
         var setStuStatusArr = [];
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00095");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00095，返回首页";
+                var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                res.send(re);
             }
             connection.query($sql.TstudentReadStatus, stuID, function (err, result) {
                 if (err) { //学生在读状态查询错误
-                    console.log("学生在读状态查询错误，返回TstudentInfoAdmin页");
+                    logger.info("学生在读状态查询错误。错误编号：00096");
+                    var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00096，返回学生信息管理页";
+                    var re = `<script>alert('${message}'); location.href="/TstudentInfoAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTstudentInfo(req.session.user, res, req);
                 } else { //学生在读状态查询成功
                     if (result[0].在读状态 == 1) {
                         setStuStatusArr = [0, stuID];
                     } else if (result[0].在读状态 == 0) {
                         setStuStatusArr = [1, stuID];
                     }
-                    console.log("学生在读状态:", result, setStuStatusArr);
+                    logger.info("学生在读状态:", result, setStuStatusArr);
                     connection.query($sql.TchangeReadStatus, setStuStatusArr, function (err, result) {
                         if (err) { //学生在读状态更改错误
-                            console.log("学生在读状态更改错误，返回TstudentInfoAdmin页");
+                            logger.info("学生在读状态查询错误。错误编号：00097");
+                            var message = "抱歉，学生在读状态更改错误。错误编号：00097，返回学生信息管理页";
+                            var re = `<script>alert('${message}'); location.href="/TstudentInfoAdmin"</script>`;
+                            res.send(re);
                             connection.release();
-                            obj.TstudentInfoAdmin(req.session.user, res, req);
                         } else { //学生在读状态更改成功
                             connection.release();
-                            console.log("学生在读状态更改成功");
+                            logger.info("学生在读状态更改成功");
                             var message = "学生在读状态更改成功";
                             var re = `<script>alert('${message}'); location.href="/TstudentInfoAdmin"</script>`;
                             res.send(re);
@@ -1574,7 +1703,7 @@ const obj = {
     // TstudentInfoAdmin 新增学生信息
     addStuInfo: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入addGroupInfo函数");
+        logger.info(teacherName + "进入addGroupInfo函数");
         var stu_id = req.body.stu_id;
         var stu_name = req.body.stu_name;
         var stu_school = req.body.stu_school;
@@ -1585,26 +1714,32 @@ const obj = {
 
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00098");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00098，返回学生信息管理页";
+                var re = `<script>alert('${message}'); location.href="/TstudentInfoAdmin"</script>`;
+                res.send(re);
             }
             connection.query($sql.TaddStuInfo_queryCollege, req.session.user, function (err, result) {
                 if (err) { //查询学生（该管理员）所属学校错误
-                    console.log("查询学生（该管理员）所属学校错误，返回TstudentInfoAdmin页");
+                    logger.info("查询学生（该管理员）所属学校错误。错误编号：00099");
+                    var message = "抱歉，查询学生（该管理员）所属学校错误。错误编号：00099，返回学生信息管理页";
+                    var re = `<script>alert('${message}'); location.href="/TstudentInfoAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTstudentInfo(req.session.user, res, req);
                 } else { //查询学生（该管理员）所属学校成功
-                    console.log("查询学生（该管理员）所属学校成功");
+                    logger.info("查询学生（该管理员）所属学校成功");
                     var stu_college = result[0].学校;
                     var addStuInfoArr = [stu_id, stu_college, stu_name, stu_school, stu_major, stu_gender, stu_gread, stu_readStatus];
                     connection.query($sql.TaddStuInfo, addStuInfoArr, function (err, result) {
                         if (err) { //新增学生信息错误
-                            console.log("新增学生信息错误，返回TstudentInfoAdmin页");
+                            logger.info("新增学生信息错误。错误编号：00100");
+                            var message = "抱歉，新增学生信息错误。错误编号：00100，返回学生信息管理页";
+                            var re = `<script>alert('${message}'); location.href="/TstudentInfoAdmin"</script>`;
+                            res.send(re);
                             connection.release();
-                            obj.queryTstudentInfo(req.session.user, res, req);
                         } else { //新增学生信息成功
                             connection.release();
-                            console.log("新增学生信息成功");
+                            logger.info("新增学生信息成功");
                             var message = "新增学生信息成功";
                             var re = `<script>alert('${message}'); location.href="/TstudentInfoAdmin"</script>`;
                             res.send(re);
@@ -1617,8 +1752,8 @@ const obj = {
     // TstudentInfoAdmin 筛选学生信息
     querySiftStuInfo: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入querySiftStuInfo函数");
-        console.log(req.body);
+        logger.info(teacherName + "进入querySiftStuInfo函数");
+        // logger.info(req.body);
         var stuID = req.body.stuID;
         var stuName = req.body.stuName;
         var stuSchool = req.body.stuSchool;
@@ -1636,8 +1771,8 @@ const obj = {
                 k--;
             }
         }
-        console.log(sift);
-        console.log(mark);
+        // logger.info(sift);
+        // logger.info(mark);
         if (k > 0) {
             sql += " WHERE"
         }
@@ -1685,38 +1820,48 @@ const obj = {
             }
         }
         sql += " ORDER BY 学号 ASC;"
-        console.log("sql:", sql);
+        // logger.info("sql:", sql);
         // res.send(sql);
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00101");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00101，返回学生信息管理页";
+                var re = `<script>alert('${message}'); location.href="/TstudentInfoAdmin"</script>`;
+                res.send(re);
             }
             connection.query(sql, function (err, result) {
                 if (err) { // 学生信息查询错误
-                    console.log(" 学生信息查询错误，返回TstudentInfoAdmin页");
+                    logger.info("学生信息查询错误。错误编号：00102");
+                    var message = "抱歉，学生信息查询错误。错误编号：00102，返回学生信息管理页";
+                    var re = `<script>alert('${message}'); location.href="/TstudentInfoAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTstudentInfo(req.session.user, res, req);
                 } else if (result[0] == undefined) { //无学生信息
-                    console.log("无学生信息");
+                    logger.info("无学生信息");
                     ejs.renderFile('views/TstudentInfoAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新学生信息页错误。错误编号：00103");
+                            var message = "抱歉，学生信息查询错误。错误编号：00103，返回学生信息管理页";
+                            var re = `<script>alert('${message}'); location.href="/TstudentInfoAdmin"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有学生信息
-                    // console.log(result);
+                    // logger.info(result);
                     ejs.renderFile('views/TstudentInfoAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新学生信息页错误。错误编号：00104");
+                            var message = "抱歉，学生信息查询错误。错误编号：00104，返回学生信息管理页";
+                            var re = `<script>alert('${message}'); location.href="/TstudentInfoAdmin"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -1728,38 +1873,48 @@ const obj = {
 
     // TgroupInfoAdmin 商户集团管理页信息
     queryTgroupInfo: function (account, res, req) {
-        console.log(account + "进入queryTgroupInfo函数");
+        logger.info(account + "进入queryTgroupInfo函数");
         var teacherName = req.session.username;
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00105");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00105，返回首页";
+                var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                res.send(re);
             }
             connection.query($sql.TgroupInfo, account, function (err, result) {
                 if (err) { //商户集团查询错误
-                    console.log("商户集团查询错误，返回Thome页");
-                    connection.release(account, res);
-                    obj.queryTInformation(account, res);
+                    logger.info("商户集团查询错误。错误编号：00106");
+                    var message = "抱歉，商户集团查询错误。错误编号：00106，返回首页";
+                    var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                    res.send(re);
+                    connection.release();
                 } else if (result[0] == undefined) { //无商户集团
-                    console.log("无商户集团");
+                    logger.info("无商户集团");
                     ejs.renderFile('views/TgroupInfoAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新商户集团页错误。错误编号：00107");
+                            var message = "抱歉，商户集团查询错误。错误编号：00107，返回首页";
+                            var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有商户集团
-                    console.log(result);
+                    // logger.info(result);
                     ejs.renderFile('views/TgroupInfoAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新商户集团页错误。错误编号：00108");
+                            var message = "抱歉，商户集团查询错误。错误编号：00108，返回首页";
+                            var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -1771,7 +1926,7 @@ const obj = {
     // TgroupInfoAdmin 新增商户集团信息
     addGroupInfo: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入addGroupInfo函数");
+        logger.info(teacherName + "进入addGroupInfo函数");
         var group_name = req.body.group_name;
         var group_remark = req.body.group_remark;
         var open_status = req.body.open_status;
@@ -1784,17 +1939,21 @@ const obj = {
         var addGroupInfoArr = [group_name, group_remark, set_open_status];
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00109");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00109，返回商户集团页";
+                var re = `<script>alert('${message}'); location.href="/TgroupInfoAdmin"</script>`;
+                res.send(re);
             }
             connection.query($sql.TaddGroupInfo, addGroupInfoArr, function (err, result) {
                 if (err) { //新增商户集团信息错误
-                    console.log("新增商户集团信息错误，返回TgroupInfoAdmin页");
+                    logger.info("新增商户集团信息错误。错误编号：00110");
+                    var message = "抱歉，新增商户集团信息错误。错误编号：00110，返回商户集团页";
+                    var re = `<script>alert('${message}'); location.href="/TgroupInfoAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTgroupInfo(req.session.user, res, req);
                 } else { //新增商户集团信息成功
                     connection.release();
-                    console.log("新增商户集团信息成功");
+                    logger.info("新增商户集团信息成功");
                     var message = "新增商户集团信息成功";
                     var re = `<script>alert('${message}'); location.href="/TgroupInfoAdmin"</script>`;
                     res.send(re);
@@ -1807,33 +1966,39 @@ const obj = {
     changeGroupOpenStatus: function (res, req) {
         var groupID = req.query.changeGroupOpenStatus;
         var teacherName = req.session.username;
-        console.log(teacherName + "进入changeGroupOpenStatus函数");
+        logger.info(teacherName + "进入changeGroupOpenStatus函数");
         var setGroupStatusArr = [];
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00111");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00111，返回商户集团页";
+                var re = `<script>alert('${message}'); location.href="/TgroupInfoAdmin"</script>`;
+                res.send(re);
             }
             connection.query($sql.TgroupOpenStatus, groupID, function (err, result) {
                 if (err) { //商户集团启用状态查询错误
-                    console.log("商户集团启用状态查询错误，返回TgroupInfoAdmin页");
+                    logger.info("商户集团启用状态查询错误。错误编号：00112");
+                    var message = "抱歉，商户集团启用状态查询错误。错误编号：00112，返回商户集团页";
+                    var re = `<script>alert('${message}'); location.href="/TgroupInfoAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTgroupInfo(req.session.user, res, req);
                 } else { //商户集团启用状态查询成功
                     if (result[0].状态 == 1) {
                         setGroupStatusArr = [0, groupID];
                     } else if (result[0].状态 == 0) {
                         setGroupStatusArr = [1, groupID];
                     }
-                    console.log("商户集团启用状态:", result, setGroupStatusArr);
+                    logger.info("商户集团启用状态:", result, setGroupStatusArr);
                     connection.query($sql.TchangeGroupOpenStatus, setGroupStatusArr, function (err, result) {
                         if (err) { //商户集团启用状态更改错误
-                            console.log("商户集团启用状态更改错误，返回TgroupInfoAdmin页");
+                            logger.info("商户集团启用状态更改错误。错误编号：00113");
+                            var message = "抱歉，商户集团启用状态更改错误。错误编号：00113，返回商户集团页";
+                            var re = `<script>alert('${message}'); location.href="/TgroupInfoAdmin"</script>`;
+                            res.send(re);
                             connection.release();
-                            obj.queryTgroupInfo(req.session.user, res, req);
                         } else { //商户集团启用状态更改成功
                             connection.release();
-                            console.log("商户集团启用状态更改成功");
+                            logger.info("商户集团启用状态更改成功");
                             var message = "商户集团启用状态更改成功";
                             var re = `<script>alert('${message}'); location.href="/TgroupInfoAdmin"</script>`;
                             res.send(re);
@@ -1846,7 +2011,7 @@ const obj = {
     // TgroupInfoAdmin 筛选商户集团信息
     querySiftGroupInfo: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入querySiftGroupInfo函数");
+        logger.info(teacherName + "进入querySiftGroupInfo函数");
         var groupID = req.body.groupID;
         var groupName = req.body.groupName;
         var groupOpenStatus = req.body.groupOpenStatus;
@@ -1860,8 +2025,8 @@ const obj = {
                 k--;
             }
         }
-        console.log(sift);
-        console.log(mark);
+        // logger.info(sift);
+        // logger.info(mark);
         if (k > 0) {
             sql += " WHERE"
         }
@@ -1885,38 +2050,49 @@ const obj = {
             }
         }
         sql += " ORDER BY 集团编号 ASC;"
-        console.log("sql:", sql);
+        // logger.info("sql:", sql);
         // res.send(sql);
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00114");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00114，返回商户集团页";
+                var re = `<script>alert('${message}'); location.href="/TgroupInfoAdmin"</script>`;
+                res.send(re);
             }
             connection.query(sql, function (err, result) {
                 if (err) { // 商户集团信息查询错误
-                    console.log(" 商户集团信息查询错误，返回TgroupInfoAdmin页");
+                    logger.info("商户集团信息查询错误。错误编号：00115");
+                    var message = "抱歉，商户集团信息查询错误。错误编号：00115，返回商户集团页";
+                    var re = `<script>alert('${message}'); location.href="/TgroupInfoAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTgroupInfo(req.session.user, res, req);
                 } else if (result[0] == undefined) { //无商户集团信息
-                    console.log("无商户集团信息");
+                    logger.info("无商户集团信息");
                     ejs.renderFile('views/TgroupInfoAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新商户集团信息页错误。错误编号：00116");
+                            var message = "抱歉，刷新商户集团信息页错误。错误编号：00116，返回商户集团页";
+                            var re = `<script>alert('${message}'); location.href="/TgroupInfoAdmin"</script>`;
+                            res.send(re);
+                            connection.release();
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有商户集团信息
-                    // console.log(result);
+                    // logger.info(result);
                     ejs.renderFile('views/TgroupInfoAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新商户集团信息页错误。错误编号：00117");
+                            var message = "抱歉，刷新商户集团信息页错误。错误编号：00117，返回商户集团页";
+                            var re = `<script>alert('${message}'); location.href="/TgroupInfoAdmin"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -1928,38 +2104,48 @@ const obj = {
 
     // TcorpInfoAdmin 供应商管理页信息
     queryTcorpInfo: function (account, res, req) {
-        console.log(account + "进入queryTcorpInfo函数");
+        logger.info(account + "进入queryTcorpInfo函数");
         var teacherName = req.session.username;
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00118");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00118，返回首页";
+                var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                res.send(re);
             }
             connection.query($sql.TcorpInfo, function (err, result) {
                 if (err) { //供应商查询错误
-                    console.log("供应商查询错误，返回Thome页");
-                    connection.release(account, res);
-                    obj.queryTInformation(account, res);
+                    logger.info("供应商查询错误。错误编号：00119");
+                    var message = "抱歉，供应商查询错误。错误编号：00119，返回首页";
+                    var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                    res.send(re);
+                    connection.release();
                 } else if (result[0] == undefined) { //无供应商
-                    console.log("无供应商");
+                    logger.info("无供应商");
                     ejs.renderFile('views/TcorpInfoAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新供应商信息页错误。错误编号：00120");
+                            var message = "抱歉，刷新供应商信息页错误。错误编号：00120，返回首页";
+                            var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有供应商
-                    // console.log(result);
+                    // logger.info(result);
                     ejs.renderFile('views/TcorpInfoAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新供应商信息页错误。错误编号：00121");
+                            var message = "抱歉，刷新供应商信息页错误。错误编号：00121，返回首页";
+                            var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -1971,7 +2157,7 @@ const obj = {
     // TcorpInfoAdmin 新增供应商信息
     addCorpInfo: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入addCorpInfo函数");
+        logger.info(teacherName + "进入addCorpInfo函数");
         var corp_name = req.body.corp_name;
         var corp_bankNo = req.body.corp_bankNo;
         var corp_principal = req.body.corp_principal;
@@ -1992,18 +2178,22 @@ const obj = {
         }
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00122");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00122，返回供应商管理页";
+                var re = `<script>alert('${message}'); location.href="/TcorpInfoAdmin"</script>`;
+                res.send(re);
             }
             // 判断新增商户所属集团是否存在，以及该集团的启用状态
             connection.query($sql.TaddCorpInfo_queryGroupID, group_ID, function (err, result) {
                 if (err) { //查询新增商户所属集团信息错误
-                    console.log("查询新增商户所属集团信息错误，返回TcorpInfoAdmin页");
+                    logger.info("查询新增商户所属集团信息错误。错误编号：00123");
+                    var message = "抱歉，查询新增商户所属集团信息错误。错误编号：00123，返回供应商管理页";
+                    var re = `<script>alert('${message}'); location.href="/TcorpInfoAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTcorpInfo(req.session.user, res, req);
                 } else { //查询新增商户所属集团信息成功
-                    console.log("查询新增商户所属集团信息成功");
-                    console.log(result[0].存在数, result[0].状态);
+                    logger.info("查询新增商户所属集团信息成功");
+                    // logger.info(result[0].存在数, result[0].状态);
                     if (result[0].存在数 == 0) {
                         var message = "新增商户所属集团不存在，请重新操作。";
                         var re = `<script>alert('${message}'); location.href="/TcorpInfoAdmin"</script>`;
@@ -2014,11 +2204,13 @@ const obj = {
                         }
                         connection.query($sql.TaddCorpInfo_queryLastCorpID, function (err, result) {
                             if (err) { //查询最后一个商户id错误
-                                console.log("查询最后一个商户id错误，返回TcorpInfoAdmin页");
+                                logger.info("查询最后一个商户id错误。错误编号：00124");
+                                var message = "抱歉，查询最后一个商户id错误。错误编号：00124，返回供应商管理页";
+                                var re = `<script>alert('${message}'); location.href="/TcorpInfoAdmin"</script>`;
+                                res.send(re);
                                 connection.release();
-                                obj.queryTcorpInfo(req.session.user, res, req);
                             } else { //查询最后一个商户id成功
-                                console.log("查询最后一个商户id成功");
+                                logger.info("查询最后一个商户id成功");
                                 var lastCorpID = result[0].商户代码;
                                 var num = lastCorpID.substring(1);
                                 num++;
@@ -2026,16 +2218,18 @@ const obj = {
                                     num = (Array(5).join(0) + num).slice(-5)
                                 }
                                 var newCorpID = "A" + num;
-                                console.log(lastCorpID, num, newCorpID);
+                                logger.info(lastCorpID, num, newCorpID);
                                 var addCorpInfoArr = [newCorpID, corp_name, corp_bankNo, corp_principal, corp_prinPhone, corp_email, corp_prinRemark, corp_settleType, corp_returnGoods, corp_type, group_ID, corp_address, set_open_status];
                                 connection.query($sql.TaddCorpInfo, addCorpInfoArr, function (err, result) {
                                     if (err) { //新增商户信息错误
-                                        console.log("新增商户信息错误，返回TcorpInfoAdmin页");
+                                        logger.info("新增商户信息错误。错误编号：00125");
+                                        var message = "抱歉，新增商户信息错误。错误编号：00125，返回供应商管理页";
+                                        var re = `<script>alert('${message}'); location.href="/TcorpInfoAdmin"</script>`;
+                                        res.send(re);
                                         connection.release();
-                                        obj.queryTcorpInfo(req.session.user, res, req);
                                     } else { //新增商户信息成功
                                         connection.release();
-                                        console.log("新增商户信息成功");
+                                        logger.info("新增商户信息成功");
                                         var message = "新增商户信息成功";
                                         var re = `<script>alert('${message}'); location.href="/TcorpInfoAdmin"</script>`;
                                         res.send(re);
@@ -2052,30 +2246,35 @@ const obj = {
     changeCorpOpenStatus: function (res, req) {
         var corpID = req.query.changeCorpOpenStatus;
         var teacherName = req.session.username;
-        console.log(teacherName + "进入changeCorpOpenStatus函数");
+        logger.info(teacherName + "进入changeCorpOpenStatus函数");
         var setCorpStatusArr = [];
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00126");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00126，返回供应商管理页";
+                var re = `<script>alert('${message}'); location.href="/TcorpInfoAdmin"</script>`;
+                res.send(re);
             }
             connection.query($sql.TcorpOpenStatus, corpID, function (err, result) {
                 if (err) { //供应商启用状态查询错误
-                    console.log("供应商启用状态查询错误，返回TcorpInfoAdmin页");
+                    logger.info("供应商启用状态查询错误。错误编号：00127");
+                    var message = "抱歉，供应商启用状态查询错误。错误编号：00127，返回供应商管理页";
+                    var re = `<script>alert('${message}'); location.href="/TcorpInfoAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTcorpInfo(req.session.user, res, req);
                 } else { //供应商启用状态查询成功
                     if (result[0].状态 == 1) { //要修改为禁用
                         setCorpStatusArr = [0, corpID];
-                        console.log("供应商启用状态:", result, "修改目标:", setCorpStatusArr);
+                        logger.info("供应商启用状态:", result, "修改目标:", setCorpStatusArr);
                         connection.query($sql.TchangeCorpOpenStatus, setCorpStatusArr, function (err, result) {
                             if (err) { //供应商启用状态更改错误
-                                console.log("供应商启用状态更改错误，返回TcorpInfoAdmin页");
-                                connection.release();
-                                obj.queryTcorpInfo(req.session.user, res, req);
+                                logger.info("供应商启用状态更改错误。错误编号：00128");
+                                var message = "抱歉，供应商启用状态更改错误。错误编号：00128，返回供应商管理页";
+                                var re = `<script>alert('${message}'); location.href="/TcorpInfoAdmin"</script>`;
+                                res.send(re);
                             } else { //供应商启用状态更改成功
                                 connection.release();
-                                console.log("供应商启用状态更改成功");
+                                logger.info("供应商启用状态更改成功");
                                 var message = "供应商启用状态更改成功";
                                 var re = `<script>alert('${message}'); location.href="/TcorpInfoAdmin"</script>`;
                                 res.send(re);
@@ -2085,28 +2284,32 @@ const obj = {
                         setCorpStatusArr = [1, corpID];
                         connection.query($sql.TchangeCorpOpenStatus_queryGroupStatus, corpID, function (err, result) {
                             if (err) { //商户所属集团状态查询错误
-                                console.log("商户所属集团状态查询错误，返回TcorpInfoAdmin页");
+                                logger.info("商户所属集团状态查询错误。错误编号：00129");
+                                var message = "抱歉，商户所属集团状态查询错误。错误编号：00129，返回供应商管理页";
+                                var re = `<script>alert('${message}'); location.href="/TcorpInfoAdmin"</script>`;
+                                res.send(re);
                                 connection.release();
-                                obj.queryTcorpInfo(req.session.user, res, req);
                             } else { //商户所属集团状态查询成功
-                                console.log("商户所属集团状态查询成功");
+                                logger.info("商户所属集团状态查询成功");
                                 if (result[0].状态 == 1) {
-                                    console.log("供应商启用状态:", result, "修改目标:", setCorpStatusArr);
+                                    logger.info("供应商启用状态:", result, "修改目标:", setCorpStatusArr);
                                     connection.query($sql.TchangeCorpOpenStatus, setCorpStatusArr, function (err, result) {
                                         if (err) { //供应商启用状态更改错误
-                                            console.log("供应商启用状态更改错误，返回TcorpInfoAdmin页");
+                                            logger.info("供应商启用状态更改错误。错误编号：00130");
+                                            var message = "抱歉，供应商启用状态更改错误。错误编号：00130，返回供应商管理页";
+                                            var re = `<script>alert('${message}'); location.href="/TcorpInfoAdmin"</script>`;
+                                            res.send(re);
                                             connection.release();
-                                            obj.queryTcorpInfo(req.session.user, res, req);
                                         } else { //供应商启用状态更改成功
                                             connection.release();
-                                            console.log("供应商启用状态更改成功");
+                                            logger.info("供应商启用状态更改成功");
                                             var message = "供应商启用状态更改成功";
                                             var re = `<script>alert('${message}'); location.href="/TcorpInfoAdmin"</script>`;
                                             res.send(re);
                                         }
                                     });
                                 } else {
-                                    console.log("商户所属集团状态为禁用，禁止修改该商户启用状态为“启用”");
+                                    logger.info("商户所属集团状态为禁用，禁止修改该商户启用状态为“启用”");
                                     var message = "商户所属集团状态为禁用，禁止修改该商户启用状态为“启用”";
                                     var re = `<script>alert('${message}'); location.href="/TcorpInfoAdmin"</script>`;
                                     res.send(re);
@@ -2121,8 +2324,8 @@ const obj = {
     // TcorpInfoAdmin 筛选供应商信息
     querySiftCorpInfo: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入querySiftCorpInfos函数");
-        console.log(req.body);
+        logger.info(teacherName + "进入querySiftCorpInfos函数");
+        // logger.info(req.body);
         var corpID = req.body.corpID;
         var corpName = req.body.corpName;
         var corpBankNo = req.body.corpBankNo;
@@ -2143,8 +2346,8 @@ const obj = {
                 k--;
             }
         }
-        console.log(sift);
-        console.log(mark);
+        // logger.info(sift);
+        // logger.info(mark);
         if (k > 0) {
             sql += " WHERE"
         }
@@ -2217,38 +2420,48 @@ const obj = {
             }
         }
         sql += " ORDER BY 商户代码 ASC;"
-        console.log("sql:", sql);
+        // logger.info("sql:", sql);
         // res.send(sql);
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00131");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00131，返回供应商管理页";
+                var re = `<script>alert('${message}'); location.href="/TcorpInfoAdmin"</script>`;
+                res.send(re);
             }
             connection.query(sql, function (err, result) {
-                if (err) { // 教材计划查询错误
-                    console.log(" 教材计划查询错误，返回TcorpInfoAdmin页");
+                if (err) { // 供应商信息查询错误
+                    logger.info("供应商信息查询错误。错误编号：00132");
+                    var message = "抱歉，供应商信息查询错误。错误编号：00132，返回供应商管理页";
+                    var re = `<script>alert('${message}'); location.href="/TcorpInfoAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTcorpInfo(req.session.user, res, req);
-                } else if (result[0] == undefined) { //无教材计划
-                    console.log("无教材计划");
+                } else if (result[0] == undefined) { //无供应商信息
+                    logger.info("无供应商信息");
                     ejs.renderFile('views/TcorpInfoAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新供应商信息页错误。错误编号：00133");
+                            var message = "抱歉，刷新供应商信息页错误。错误编号：00133，返回供应商管理页";
+                            var re = `<script>alert('${message}'); location.href="/TcorpInfoAdmin"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
-                } else { //有教材计划
-                    // console.log(result);
+                } else { //有供应商信息
+                    // logger.info(result);
                     ejs.renderFile('views/TcorpInfoAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新供应商信息页错误。错误编号：00134");
+                            var message = "抱歉，刷新供应商信息页错误。错误编号：00134，返回供应商管理页";
+                            var re = `<script>alert('${message}'); location.href="/TcorpInfoAdmin"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -2260,38 +2473,48 @@ const obj = {
 
     // TproductListAdmin 缴费项目管理页信息
     queryTproductList: function (account, res, req) {
-        console.log(account + "进入queryTproductList函数");
+        logger.info(account + "进入queryTproductList函数");
         var teacherName = req.session.username;
         pool.getConnection(function (err, connection) {
-            if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+            if (err) { //
+                logger.info("数据库连接池错误。错误编号：00135");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00135，返回首页";
+                var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                res.send(re);
             }
             connection.query($sql.TproductList, function (err, result) {
                 if (err) { //缴费项目查询错误
-                    console.log("缴费项目查询错误，返回Thome页");
-                    connection.release(account, res);
-                    obj.queryTInformation(account, res);
+                    logger.info("缴费项目查询错误。错误编号：00136");
+                    var message = "抱歉，缴费项目查询错误。错误编号：00136，返回首页";
+                    var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                    res.send(re);
+                    connection.release();
                 } else if (result[0] == undefined) { //无缴费项目
-                    console.log("无缴费项目");
+                    logger.info("无缴费项目");
                     ejs.renderFile('views/TproductListAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新缴费项目页错误。错误编号：00137");
+                            var message = "抱歉，刷新缴费项目页错误。错误编号：00137，返回首页";
+                            var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有缴费项目
-                    // console.log(result);
+                    // logger.info(result);
                     ejs.renderFile('views/TproductListAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新缴费项目页错误。错误编号：00138");
+                            var message = "抱歉，刷新缴费项目页错误。错误编号：00138，返回首页";
+                            var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -2304,33 +2527,39 @@ const obj = {
     changeProductOpenStatus: function (res, req) {
         var productID = req.query.changeProductOpenStatus;
         var teacherName = req.session.username;
-        console.log(teacherName + "进入changeProductOpenStatus函数");
+        logger.info(teacherName + "进入changeProductOpenStatus函数");
         var setProductStatusArr = [];
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00139");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00139，返回缴费项目管理页";
+                var re = `<script>alert('${message}'); location.href="/TproductListAdmin"</script>`;
+                res.send(re);
             }
             connection.query($sql.TproductOpenStatus, productID, function (err, result) {
                 if (err) { //缴费项目上架状态查询错误
-                    console.log("缴费项目上架状态查询错误，返回TproductListAdmin页");
+                    logger.info("缴费项目上架状态查询错误。错误编号：00140");
+                    var message = "抱歉，缴费项目上架状态查询错误。错误编号：00140，返回缴费项目管理页";
+                    var re = `<script>alert('${message}'); location.href="/TproductListAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTproductList(req.session.user, res, req);
                 } else { //缴费项目上架状态查询成功
                     if (result[0].商品状态 == 1) {
                         setProductStatusArr = [0, productID];
                     } else if (result[0].商品状态 == 0) {
                         setProductStatusArr = [1, productID];
                     }
-                    console.log("缴费项目上架状态:", result, setProductStatusArr);
+                    logger.info("缴费项目上架状态:", result, setProductStatusArr);
                     connection.query($sql.TchangeProductOpenStatus, setProductStatusArr, function (err, result) {
                         if (err) { //缴费项目上架状态更改错误
-                            console.log("缴费项目上架状态更改错误，返回TproductListAdmin页");
+                            logger.info("缴费项目上架状态更改错误。错误编号：00141");
+                            var message = "抱歉，缴费项目上架状态更改错误。错误编号：00141，返回缴费项目管理页";
+                            var re = `<script>alert('${message}'); location.href="/TproductListAdmin"</script>`;
+                            res.send(re);
                             connection.release();
-                            obj.queryTproductList(req.session.user, res, req);
                         } else { //缴费项目上架状态更改成功
                             connection.release();
-                            console.log("缴费项目上架状态更改成功");
+                            logger.info("缴费项目上架状态更改成功");
                             var message = "缴费项目上架状态更改成功";
                             var re = `<script>alert('${message}'); location.href="/TproductListAdmin"</script>`;
                             res.send(re);
@@ -2343,7 +2572,7 @@ const obj = {
     // TproductListAdmin 新增商品信息
     addProductInfo: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入addProductInfo函数");
+        logger.info(teacherName + "进入addProductInfo函数");
         var product_name = req.body.product_name;
         var product_price = req.body.product_price;
         var product_corpID = req.body.product_corpID;
@@ -2354,16 +2583,20 @@ const obj = {
         var product_remark = req.body.product_remark;
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00142");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00142，返回缴费项目管理页";
+                var re = `<script>alert('${message}'); location.href="/TproductListAdmin"</script>`;
+                res.send(re);
             }
             connection.query($sql.TaddProductInfo_queryLastProductID, function (err, result) {
                 if (err) { //查询最后一个商品id错误
-                    console.log("查询最后一个商品id错误，返回TproductListAdmin页");
+                    logger.info("查询最后一个商品id错误。错误编号：00143");
+                    var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00143，返回缴费项目管理页";
+                    var re = `<script>alert('${message}'); location.href="/TproductListAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTproductList(req.session.user, res, req);
                 } else { //查询最后一个商品id成功
-                    console.log("查询最后一个商品id成功");
+                    logger.info("查询最后一个商品id成功");
                     var lastProductID = result[0].商品编号;
                     var num = lastProductID.substring(1);
                     num++;
@@ -2371,18 +2604,19 @@ const obj = {
                         num = (Array(6).join(0) + num).slice(-6)
                     }
                     var newProductID = "S" + num;
-                    console.log(lastProductID, num, newProductID);
+                    // logger.info(lastProductID, num, newProductID);
                     var addProductInfoArr = [newProductID, product_name, product_price, product_corpID, product_openStatus, product_attri1st, product_attri2nd, product_attri3rd, product_remark];
-                    console.log(addProductInfoArr);
+                    // logger.info(addProductInfoArr);
                     connection.query($sql.TaddProductInfo, addProductInfoArr, function (err, result) {
                         if (err) { //新增商品信息错误
-                            console.log("新增商品信息错误，返回TproductListAdmin页");
-                            console.log(err);
+                            logger.info("新增商品信息错误。错误编号：00144");
+                            var message = "抱歉，新增商品信息错误。错误编号：00144，返回缴费项目管理页";
+                            var re = `<script>alert('${message}'); location.href="/TproductListAdmin"</script>`;
+                            res.send(re);
                             connection.release();
-                            obj.queryTproductList(req.session.user, res, req);
                         } else { //新增商品信息成功
                             connection.release();
-                            console.log("新增商品信息成功");
+                            logger.info("新增商品信息成功");
                             var message = "新增商品信息成功";
                             var re = `<script>alert('${message}'); location.href="/TproductListAdmin"</script>`;
                             res.send(re);
@@ -2395,7 +2629,7 @@ const obj = {
     // TproductListAdmin 筛选商品信息
     querySiftProductListInfo: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入querySiftProductListInfo函数");
+        logger.info(teacherName + "进入querySiftProductListInfo函数");
         var productID = req.body.productID;
         var productName = req.body.productName;
         var corpID = req.body.corpID;
@@ -2410,8 +2644,8 @@ const obj = {
                 k--;
             }
         }
-        console.log(sift);
-        console.log(mark);
+        // logger.info(sift);
+        // logger.info(mark);
         if (k > 0) {
             sql += " WHERE"
         }
@@ -2441,38 +2675,48 @@ const obj = {
             }
         }
         sql += " ORDER BY 商品编号 ASC;"
-        console.log("sql:", sql);
+        // logger.info("sql:", sql);
         // res.send(sql);
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00145");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00145，返回缴费项目管理页";
+                var re = `<script>alert('${message}'); location.href="/TproductListAdmin"</script>`;
+                res.send(re);
             }
             connection.query(sql, function (err, result) {
                 if (err) { // 商品信息查询错误
-                    console.log(" 商品信息查询错误，返回TproductListAdmin页");
+                    logger.info("商品信息查询错误。错误编号：00146");
+                    var message = "抱歉，商品信息查询错误。错误编号：00146，返回缴费项目管理页";
+                    var re = `<script>alert('${message}'); location.href="/TproductListAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTproductList(req.session.user, res, req);
                 } else if (result[0] == undefined) { //无商品信息
-                    console.log("无商品信息");
+                    logger.info("无商品信息");
                     ejs.renderFile('views/TproductListAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新商品信息错误。错误编号：00147");
+                            var message = "抱歉，刷新商品信息错误。错误编号：00147，返回缴费项目管理页";
+                            var re = `<script>alert('${message}'); location.href="/TproductListAdmin"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有商品信息
-                    // console.log(result);
+                    // logger.info(result);
                     ejs.renderFile('views/TproductListAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新商品信息错误。错误编号：00148");
+                            var message = "抱歉，刷新商品信息错误。错误编号：00148，返回缴费项目管理页";
+                            var re = `<script>alert('${message}'); location.href="/TproductListAdmin"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -2484,38 +2728,48 @@ const obj = {
 
     // TallOrdersAdmin 缴费订单管理页信息
     queryTallOrders: function (account, res, req) {
-        console.log(account + "进入queryTallOrders函数");
+        logger.info(account + "进入queryTallOrders函数");
         var teacherName = req.session.username;
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00149");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00149，返回首页";
+                var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                res.send(re);
             }
             connection.query($sql.TallOrders, function (err, result) {
                 if (err) { // 缴费订单查询错误
-                    console.log(" 缴费订单查询错误，返回Thome页");
-                    connection.release(account, res);
-                    obj.queryTInformation(account, res);
+                    logger.info("缴费订单查询错误。错误编号：00150");
+                    var message = "抱歉，缴费订单查询错误。错误编号：00150，返回首页";
+                    var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                    res.send(re);
+                    connection.release();
                 } else if (result[0] == undefined) { //无 缴费订单
-                    console.log("无缴费订单");
+                    logger.info("无缴费订单");
                     ejs.renderFile('views/TallOrdersAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新缴费订单页错误。错误编号：00151");
+                            var message = "抱歉，缴费订单查询错误。错误编号：00151，返回首页";
+                            var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有缴费订单
-                    // console.log(result);
+                    // logger.info(result);
                     ejs.renderFile('views/TallOrdersAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新缴费订单页错误。错误编号：00152");
+                            var message = "抱歉，缴费订单查询错误。错误编号：00152，返回首页";
+                            var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -2527,21 +2781,25 @@ const obj = {
     // TallOrdersAdmin 教师端删除缴费订单
     TdeleteOrder: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入TdeleteOrder函数");
+        logger.info(teacherName + "进入TdeleteOrder函数");
         var orderID = req.query.TdeleteOrder;
         // res.send(orderID);
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00153");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00153，返回缴费订单管理页";
+                var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
+                res.send(re);
             }
             connection.query($sql.TdeleteOrderRecord, [orderID, orderID], function (err, result) {
                 if (err) { //教师端删除缴费订单错误
-                    console.log("教师端删除缴费订单错误，返回订单订单页");
+                    logger.info("教师端删除缴费订单错误。错误编号：00154");
+                    var message = "抱歉，教师端删除缴费订单错误。错误编号：00154，返回缴费订单管理页";
+                    var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryOrderRecord(req.session.user, res, req);
                 } else { //教师端删除缴费订单成功
-                    console.log("教师端删除缴费订单结果：", result);
+                    logger.info("教师端删除缴费订单结果：", result);
                     connection.release();
                     var message = "删除缴费订单成功";
                     var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
@@ -2553,8 +2811,8 @@ const obj = {
     // TallOrdersAdmin 筛选订单记录
     querySiftAllOrders: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入querySiftAllOrders函数");
-        console.log(req.body);
+        logger.info(teacherName + "进入querySiftAllOrders函数");
+        // logger.info(req.body);
         var stuID = req.body.stuID;
         var orderID = req.body.orderID;
         var subOrderID = req.body.subOrderID;
@@ -2570,8 +2828,8 @@ const obj = {
                 mark[i] = 0;
             }
         }
-        console.log(sift);
-        console.log(mark);
+        // logger.info(sift);
+        // logger.info(mark);
         if (mark[0] == 1) {
             sql += " AND `订单信息表`.`学号` = " + "'" + sift[0] + "'";
         }
@@ -2599,38 +2857,48 @@ const obj = {
 
         }
         sql += " ORDER BY `订单信息表`.`订单支付状态` DESC,`子订单信息表`.`子订单编号` DESC,`订单信息表`.`学号` ASC;"
-        console.log("sql:", sql);
+        // logger.info("sql:", sql);
         // res.send(sql);
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00155");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00155，返回缴费订单管理页";
+                var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
+                res.send(re);
             }
             connection.query(sql, function (err, result) {
                 if (err) { // 缴费订单查询错误
-                    console.log(" 缴费订单查询错误，返回TallOrdersAdmin页");
+                    logger.info("缴费订单查询错误。错误编号：00156");
+                    var message = "抱歉，缴费订单查询错误。错误编号：00156，返回缴费订单管理页";
+                    var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTallOrders(req.session.user, res, req);
                 } else if (result[0] == undefined) { //无缴费订单
-                    console.log("无缴费订单");
+                    logger.info("无缴费订单");
                     ejs.renderFile('views/TallOrdersAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新缴费订单页错误。错误编号：00157");
+                            var message = "抱歉，刷新缴费订单页错误。错误编号：00157，返回缴费订单管理页";
+                            var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有缴费订单
-                    // console.log(result);
+                    // logger.info(result);
                     ejs.renderFile('views/TallOrdersAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新缴费订单页错误。错误编号：00158");
+                            var message = "抱歉，刷新缴费订单页错误。错误编号：00158，返回缴费订单管理页";
+                            var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -2642,38 +2910,48 @@ const obj = {
 
     // TpaymentRecordsAdmin 缴费记录管理页信息
     queryTpaymentRecords: function (account, res, req) {
-        console.log(account + "进入queryTpaymentRecords函数");
+        logger.info(account + "进入queryTpaymentRecords函数");
         var teacherName = req.session.username;
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00159");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00159，返回首页";
+                var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                res.send(re);
             }
             connection.query($sql.TpaymentRecords, function (err, result) {
                 if (err) { // 缴费记录查询错误
-                    console.log(" 缴费记录查询错误，返回Thome页");
-                    connection.release(account, res);
-                    obj.queryTInformation(account, res);
+                    logger.info("缴费记录查询错误。错误编号：00159");
+                    var message = "抱歉，缴费记录查询错误。错误编号：00159，返回首页";
+                    var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                    res.send(re);
+                    connection.release();
                 } else if (result[0] == undefined) { //无 缴费记录
-                    console.log("无缴费记录");
+                    logger.info("无缴费记录");
                     ejs.renderFile('views/TpaymentRecordsAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新缴费记录页错误。错误编号：00160");
+                            var message = "抱歉，刷新缴费记录页错误。错误编号：00160，返回首页";
+                            var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有缴费记录
-                    // console.log(result);
+                    // logger.info(result);
                     ejs.renderFile('views/TpaymentRecordsAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新缴费记录页错误。错误编号：00161");
+                            var message = "抱歉，刷新缴费记录页错误。错误编号：00161，返回首页";
+                            var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -2682,24 +2960,28 @@ const obj = {
             });
         });
     },
-    // TpaymentRecordsAdmin 教师端删除缴费记录
+    // TpaymentRecordsAdmin 教师端删除缴费记录(与学生端删除缴费记录使用同一条sql：$sql.TdeleteOrderRecord)
     TdeleteOrderRecord: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入TdeleteOrderRecord函数");
+        logger.info(teacherName + "进入TdeleteOrderRecord函数");
         var orderID = req.query.deleteOrderRecord;
         // res.send(orderID);
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00162");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00162，返回缴费记录管理页";
+                var re = `<script>alert('${message}'); location.href="/TpaymentRecordsAdmin"</script>`;
+                res.send(re);
             }
             connection.query($sql.TdeleteOrderRecord, [orderID, orderID], function (err, result) {
                 if (err) { //教师端删除缴费记录错误
-                    console.log("教师端删除缴费记录错误，返回订单记录页");
+                    logger.info("教师端删除缴费记录错误。错误编号：00163");
+                    var message = "抱歉，教师端删除缴费记录错误。错误编号：00163，返回缴费记录管理页";
+                    var re = `<script>alert('${message}'); location.href="/TpaymentRecordsAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryOrderRecord(req.session.user, res, req);
                 } else { //教师端删除缴费记录成功
-                    console.log("教师端删除缴费记录结果：", result);
+                    logger.info("教师端删除缴费记录结果：", result);
                     connection.release();
                     var message = "删除缴费记录成功";
                     var re = `<script>alert('${message}'); location.href="/TpaymentRecordsAdmin"</script>`;
@@ -2711,8 +2993,8 @@ const obj = {
     // TpaymentRecordsAdmin 筛选缴费记录
     querySiftPaymentRecords: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入querySiftPaymentRecords函数");
-        console.log(req.body);
+        logger.info(teacherName + "进入querySiftPaymentRecords函数");
+        // logger.info(req.body);
         var stuID = req.body.stuID;
         var orderID = req.body.orderID;
         var subOrderID = req.body.subOrderID;
@@ -2728,8 +3010,8 @@ const obj = {
                 mark[i] = 0;
             }
         }
-        console.log(sift);
-        console.log(mark);
+        // logger.info(sift);
+        // logger.info(mark);
         if (mark[0] == 1) {
             sql += " AND `订单信息表`.`学号` = " + "'" + sift[0] + "'";
         }
@@ -2757,38 +3039,48 @@ const obj = {
 
         }
         sql += " ORDER BY `订单信息表`.`订单支付状态` ASC,`子订单信息表`.`子订单编号` DESC,`订单信息表`.`学号` ASC;"
-        console.log("sql:", sql);
+        // logger.info("sql:", sql);
         // res.send(sql);
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00164");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00164，返回缴费记录管理页";
+                var re = `<script>alert('${message}'); location.href="/TpaymentRecordsAdmin"</script>`;
+                res.send(re);
             }
             connection.query(sql, function (err, result) {
                 if (err) { // 缴费记录查询错误
-                    console.log(" 缴费记录查询错误，返回TpaymentRecordsAdmin页");
+                    logger.info("缴费记录查询错误。错误编号：00165");
+                    var message = "抱歉，缴费记录查询错误。错误编号：00165，返回缴费记录管理页";
+                    var re = `<script>alert('${message}'); location.href="/TpaymentRecordsAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTpaymentRecords(req.session.user, res, req);
                 } else if (result[0] == undefined) { //无缴费记录
-                    console.log("无缴费记录");
+                    logger.info("无缴费记录");
                     ejs.renderFile('views/TpaymentRecordsAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新缴费记录页错误。错误编号：00166");
+                            var message = "抱歉，缴费记录查询错误。错误编号：00166，返回缴费记录管理页";
+                            var re = `<script>alert('${message}'); location.href="/TpaymentRecordsAdmin"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有缴费记录
-                    // console.log(result);
+                    // logger.info(result);
                     ejs.renderFile('views/TpaymentRecordsAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新缴费记录页错误。错误编号：00167");
+                            var message = "抱歉，缴费记录查询错误。错误编号：00167，返回缴费记录管理页";
+                            var re = `<script>alert('${message}'); location.href="/TpaymentRecordsAdmin"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -2800,38 +3092,48 @@ const obj = {
 
     // TstockListAdmin 供货管理页信息
     queryTstockList: function (account, res, req) {
-        console.log(account + "进入queryTstockList函数");
+        logger.info(account + "进入queryTstockList函数");
         var teacherName = req.session.username;
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00168");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00168，返回首页";
+                var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                res.send(re);
             }
             connection.query($sql.TstockList, function (err, result) {
                 if (err) { // 供货管理查询错误
-                    console.log(" 供货管理查询错误，返回Thome页");
-                    connection.release(account, res);
-                    obj.queryTInformation(account, res);
+                    logger.info("供货管理查询错误。错误编号：00169");
+                    var message = "抱歉，供货管理查询错误。错误编号：00169，返回首页";
+                    var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                    res.send(re);
+                    connection.release();
                 } else if (result[0] == undefined) { //无供货管理
-                    console.log("无供货管理");
+                    logger.info("无供货管理");
                     ejs.renderFile('views/TstockListAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新供货管理页错误。错误编号：00170");
+                            var message = "抱歉，供货管理查询错误。错误编号：00170，返回首页";
+                            var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有供货管理
-                    // console.log(result);
+                    // logger.info(result);
                     ejs.renderFile('views/TstockListAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新供货管理页错误。错误编号：00171");
+                            var message = "抱歉，供货管理查询错误。错误编号：00171，返回首页";
+                            var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -2843,21 +3145,25 @@ const obj = {
     // TstockListAdmin 删除采购记录
     deleteStockRecord: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入deleteStockRecord函数");
+        logger.info(teacherName + "进入deleteStockRecord函数");
         var stockID = req.query.deleteStockRecord;
         // res.send(stockID);
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00172");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00172，返回供货管理页";
+                var re = `<script>alert('${message}'); location.href="/TstockListAdmin"</script>`;
+                res.send(re);
             }
             connection.query($sql.TdeleteStockRecord, [stockID, stockID], function (err, result) {
                 if (err) { //教师端删除采购记录错误
-                    console.log("教师端删除采购记录错误，返回供货管理页");
+                    logger.info("教师端删除采购记录错误。错误编号：00173");
+                    var message = "抱歉，教师端删除采购记录错误。错误编号：00173，返回供货管理页";
+                    var re = `<script>alert('${message}'); location.href="/TstockListAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTstockList(req.session.user, res, req);
                 } else { //教师端删除采购记录成功
-                    console.log("教师端删除采购记录结果：", result);
+                    logger.info("教师端删除采购记录结果：", result);
                     connection.release();
                     var message = "删除采购记录成功";
                     var re = `<script>alert('${message}'); location.href="/TstockListAdmin"</script>`;
@@ -2869,8 +3175,8 @@ const obj = {
     // TstockListAdmin 筛选采购记录
     querySiftStocks: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入querySiftStocks函数");
-        console.log(req.body);
+        logger.info(teacherName + "进入querySiftStocks函数");
+        // logger.info(req.body);
         var stockID = req.body.stockID;
         var subStockID = req.body.subStockID;
         var productID = req.body.productID;
@@ -2888,8 +3194,8 @@ const obj = {
                 k--;
             }
         }
-        console.log(sift);
-        console.log(mark);
+        // logger.info(sift);
+        // logger.info(mark);
         if (k > 0) {
             sql += " WHERE"
         }
@@ -2933,38 +3239,48 @@ const obj = {
             sql += " `进货表`.`集团编号` = " + "'" + sift[6] + "'";
         }
         sql += " ORDER BY `子进货表`.`子采购编号` ASC;"
-        console.log("sql:", sql);
+        // logger.info("sql:", sql);
         // res.send(sql);
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00174");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00174，返回供货管理页";
+                var re = `<script>alert('${message}'); location.href="/TstockListAdmin"</script>`;
+                res.send(re);
             }
             connection.query(sql, function (err, result) {
                 if (err) { // 采购信息查询错误
-                    console.log(" 采购信息查询错误，返回TstockListAdmin页");
+                    logger.info("采购信息查询错误。错误编号：00175");
+                    var message = "抱歉，采购信息查询错误。错误编号：00175，返回供货管理页";
+                    var re = `<script>alert('${message}'); location.href="/TstockListAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTstockList(req.session.user, res, req);
                 } else if (result[0] == undefined) { //无采购信息
-                    console.log("无采购信息");
+                    logger.info("无采购信息");
                     ejs.renderFile('views/TstockListAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新采购信息页错误。错误编号：00176");
+                            var message = "抱歉，采购信息查询错误。错误编号：00176，返回供货管理页";
+                            var re = `<script>alert('${message}'); location.href="/TstockListAdmin"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有采购信息
-                    // console.log(result);
+                    // logger.info(result);
                     ejs.renderFile('views/TstockListAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新采购信息页错误。错误编号：00177");
+                            var message = "抱歉，采购信息查询错误。错误编号：00177，返回供货管理页";
+                            var re = `<script>alert('${message}'); location.href="/TstockListAdmin"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -2976,38 +3292,48 @@ const obj = {
 
     // TcoursePlansAdmin 教材计划管理页信息
     queryTcoursePlans: function (account, res, req) {
-        console.log(account + "进入queryTcoursePlans函数");
+        logger.info(account + "进入queryTcoursePlans函数");
         var teacherName = req.session.username;
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00178");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00178，返回首页";
+                var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                res.send(re);
             }
             connection.query($sql.TcoursePlans, function (err, result) {
                 if (err) { // 教材计划查询错误
-                    console.log(" 教材计划查询错误，返回Thome页");
-                    connection.release(account, res);
-                    obj.queryTInformation(account, res);
+                    logger.info("教材计划查询错误。错误编号：00179");
+                    var message = "抱歉，教材计划查询错误。错误编号：00179，返回首页";
+                    var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                    res.send(re);
+                    connection.release();
                 } else if (result[0] == undefined) { //无教材计划
-                    console.log("无教材计划");
+                    logger.info("无教材计划");
                     ejs.renderFile('views/TcoursePlansAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新教材计划页错误。错误编号：00180");
+                            var message = "抱歉，刷新教材计划页错误。错误编号：00180，返回首页";
+                            var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有教材计划
-                    // console.log(result);
+                    // logger.info(result);
                     ejs.renderFile('views/TcoursePlansAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新教材计划页错误。错误编号：00181");
+                            var message = "抱歉，刷新教材计划页错误。错误编号：00181，返回首页";
+                            var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -3019,7 +3345,7 @@ const obj = {
     // TcoursePlansAdmin 插入新增教材计划信息
     addCoursePlanInfo: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入addCoursePlanInfo函数");
+        logger.info(teacherName + "进入addCoursePlanInfo函数");
         var textBook_name = req.body.textBook_name;
         var coursePlan_school = req.body.coursePlan_school;
         var coursePlan_major = req.body.coursePlan_major;
@@ -3031,16 +3357,23 @@ const obj = {
         // 插入数据
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
+                logger.info("数据库连接池错误。错误编号：00182");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00182，返回教材计划管理页";
+                var re = `<script>alert('${message}'); location.href="/TcoursePlansAdmin"</script>`;
+                res.send(re);
                 return console.error(error);
             }
             // 查询最后一个商品id
             connection.query($sql.TcoursePlansUpload_queryLastProductID, function (err, result) {
                 if (err) {
                     connection.release();
-                    console.log(err);
+                    logger.info("查询最后一个商品id错误。错误编号：00183");
+                    var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00183，返回教材计划管理页";
+                    var re = `<script>alert('${message}'); location.href="/TcoursePlansAdmin"</script>`;
+                    res.send(re);
                     return console.error(error);
                 } else {
-                    console.log('查询最后一个商品id成功');
+                    logger.info('查询最后一个商品id成功');
                     var lastProductID = result[0].商品编号;
                     var num = lastProductID.substring(1);
                     num++;
@@ -3049,21 +3382,20 @@ const obj = {
                     }
                     var newProductID = "S" + num;
                     textBook_ID = newProductID;
-                    console.log(lastProductID, num, newProductID);
+                    // logger.info(lastProductID, num, newProductID);
                     TcoursePlansUploadParams = [textBook_ID, coursePlan_school, coursePlan_price, coursePlan_major, coursePlan_term, coursePlan_courseName, textBook_name, coursePlan_publishingHouse, newProductID, textBook_name, coursePlan_price, 'A00006', 0, coursePlan_major, coursePlan_term, coursePlan_courseName, ''];
-                    console.log("TcoursePlansUploadParams:", TcoursePlansUploadParams);
+                    logger.info("待新增教材计划参数TcoursePlansUploadParams:", TcoursePlansUploadParams);
                     // varTcoursePlansUploadParams2 = [newProductID, textBook_name, coursePlan_price, 'A00006', 0, coursePlan_major, coursePlan_term, coursePlan_courseName, ''];
                     connection.query($sql.TcoursePlansUpload, TcoursePlansUploadParams, function (err, result) {
-                        // console.log("TcoursePlansUploadParams[k]:",k,TcoursePlansUploadParams[k]);
+                        // logger.info("TcoursePlansUploadParams[k]:",k,TcoursePlansUploadParams[k]);
                         if (err) {
                             connection.release();
-                            console.log('教材计划上传失败');
-                            console.log(err);
-                            var message = "教材计划上传失败";
+                            logger.info("教材计划上传失败。错误编号：00184");
+                            var message = "抱歉，教材计划上传失败。错误编号：00184，返回教材计划管理页";
                             var re = `<script>alert('${message}'); location.href="/TcoursePlansAdmin"</script>`;
                             res.send(re);
                         } else {
-                            console.log('教材计划上传成功');
+                            logger.info('教材计划上传成功');
                             connection.release();
                             var message = "教材计划上传成功";
                             var re = `<script>alert('${message}'); location.href="/TcoursePlansAdmin"</script>`;
@@ -3078,20 +3410,24 @@ const obj = {
     // TcoursePlansAdmin 删除教材计划
     deleteCoursePlan: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入deleteCoursePlan函数");
+        logger.info(teacherName + "进入deleteCoursePlan函数");
         var coursePlanID = req.query.deleteCoursePlan;
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00185");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00185，返回教材计划管理页";
+                var re = `<script>alert('${message}'); location.href="/TcoursePlansAdmin"</script>`;
+                res.send(re);
             }
             connection.query($sql.TdeleteCoursePlan, [coursePlanID, coursePlanID], function (err, result) {
                 if (err) { //删除教材计划错误
-                    console.log("删除教材计划错误，返回教材计划管理页");
+                    logger.info("删除教材计划错误。错误编号：00186");
+                    var message = "抱歉，删除教材计划错误。错误编号：00186，返回教材计划管理页";
+                    var re = `<script>alert('${message}'); location.href="/TcoursePlansAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTcoursePlans(req.session.user, res, req);
                 } else { //删除教材计划成功
-                    console.log("删除教材计划成功结果：", result);
+                    logger.info("删除教材计划成功结果：", result);
                     connection.release();
                     var message = "删除教材计划成功";
                     var re = `<script>alert('${message}'); location.href="/TcoursePlansAdmin"</script>`;
@@ -3103,8 +3439,8 @@ const obj = {
     // TcoursePlansAdmin 筛选教材计划信息
     querySiftCoursePlans: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入querySiftCoursePlans函数");
-        console.log(req.body);
+        logger.info(teacherName + "进入querySiftCoursePlans函数");
+        // logger.info(req.body);
         var textBookID = req.body.textBookID;
         var textBookName = req.body.textBookName;
         var school = req.body.school;
@@ -3123,8 +3459,8 @@ const obj = {
                 k--;
             }
         }
-        console.log(sift);
-        console.log(mark);
+        // logger.info(sift);
+        // logger.info(mark);
         if (k > 0) {
             sql += " WHERE"
         }
@@ -3174,38 +3510,48 @@ const obj = {
             sql += " 出版社 = " + "'" + sift[6] + "'";
         }
         sql += " ORDER BY 教材代码 ASC;"
-        console.log("sql:", sql);
+        // logger.info("sql:", sql);
         // res.send(sql);
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00188");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00188，返回教材计划管理页";
+                var re = `<script>alert('${message}'); location.href="/TcoursePlansAdmin"</script>`;
+                res.send(re);
             }
             connection.query(sql, function (err, result) {
                 if (err) { // 教材计划查询错误
-                    console.log(" 教材计划查询错误，返回TcoursePlansAdmin页");
+                    logger.info("教材计划查询错误。错误编号：00189");
+                    var message = "抱歉，教材计划查询错误。错误编号：00189，返回教材计划管理页";
+                    var re = `<script>alert('${message}'); location.href="/TcoursePlansAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTcoursePlans(req.session.user, res, req);
                 } else if (result[0] == undefined) { //无教材计划
-                    console.log("无教材计划");
+                    logger.info("无教材计划");
                     ejs.renderFile('views/TcoursePlansAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新教材计划页错误。错误编号：00190");
+                            var message = "抱歉，教材计划查询错误。错误编号：00190，返回教材计划管理页";
+                            var re = `<script>alert('${message}'); location.href="/TcoursePlansAdmin"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有教材计划
-                    // console.log(result);
+                    // logger.info(result);
                     ejs.renderFile('views/TcoursePlansAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新教材计划页错误。错误编号：00191");
+                            var message = "抱歉，教材计划查询错误。错误编号：00191，返回教材计划管理页";
+                            var re = `<script>alert('${message}'); location.href="/TcoursePlansAdmin"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -3217,38 +3563,48 @@ const obj = {
 
     // TclearInfoAdmin 清算统计页信息
     queryTclearInfo: function (account, res, req) {
-        console.log(account + "进入queryTclearInfo函数");
+        logger.info(account + "进入queryTclearInfo函数");
         var teacherName = req.session.username;
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00192");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00192，返回首页";
+                var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                res.send(re);
             }
             connection.query($sql.TclearInfo, function (err, result) {
                 if (err) { // 清算统计查询错误
-                    console.log(" 清算统计查询错误，返回Thome页");
-                    connection.release(account, res);
-                    obj.queryTInformation(account, res);
+                    logger.info("清算统计查询错误。错误编号：00193");
+                    var message = "抱歉，清算统计查询错误。错误编号：00193，返回首页";
+                    var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                    res.send(re);
+                    connection.release();
                 } else if (result[0] == undefined) { //无清算统计
-                    console.log("无清算统计");
+                    logger.info("无清算统计");
                     ejs.renderFile('views/TclearInfoAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新清算统计页错误。错误编号：00194");
+                            var message = "抱歉，刷新清算统计页错误。错误编号：00194，返回首页";
+                            var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有清算统计
-                    // console.log(result);
+                    // logger.info(result);
                     ejs.renderFile('views/TclearInfoAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新清算统计页错误。错误编号：00195");
+                            var message = "抱歉，刷新清算统计页错误。错误编号：00195，返回首页";
+                            var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -3260,20 +3616,24 @@ const obj = {
     // TclearInfoAdmin 删除清算记录
     deleteTclearInfo: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入deleteTclearInfo函数");
+        logger.info(teacherName + "进入deleteTclearInfo函数");
         var clearInfoID = req.query.deleteClearInfo;
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00196");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00196，返回清算统计页";
+                var re = `<script>alert('${message}'); location.href="/TclearInfoAdmin"</script>`;
+                res.send(re);
             }
             connection.query($sql.TdeleteClearInfo, clearInfoID, function (err, result) {
                 if (err) { //删除清算记录错误
-                    console.log("删除清算记录错误，返回清算记录管理页");
+                    logger.info("删除清算记录错误。错误编号：00197");
+                    var message = "抱歉，删除清算记录错误。错误编号：00197，返回清算统计页";
+                    var re = `<script>alert('${message}'); location.href="/TclearInfoAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTclearInfo(req.session.user, res, req);
                 } else { //删除清算记录成功
-                    console.log("删除清算记录成功结果：", result);
+                    logger.info("删除清算记录成功结果：", result);
                     connection.release();
                     var message = "删除清算记录成功";
                     var re = `<script>alert('${message}'); location.href="/TclearInfoAdmin"</script>`;
@@ -3285,8 +3645,8 @@ const obj = {
     // TclearInfoAdmin 筛选清算记录
     querySiftClearInfo: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入querySiftClearInfo函数");
-        console.log(req.body);
+        logger.info(teacherName + "进入querySiftClearInfo函数");
+        // logger.info(req.body);
         var clearID = req.body.clearID;
         var stockID = req.body.stockID;
         var depositStatus = req.body.depositStatus;
@@ -3311,8 +3671,8 @@ const obj = {
                 k--;
             }
         }
-        console.log(sift);
-        console.log(mark);
+        // logger.info(sift);
+        // logger.info(mark);
         if (k > 0) {
             sql += " WHERE"
         }
@@ -3349,38 +3709,48 @@ const obj = {
             }
         }
         sql += " ORDER BY 清算号 ASC;"
-        console.log("sql:", sql);
+        // logger.info("sql:", sql);
         // res.send(sql);
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00198");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00198，返回清算统计页";
+                var re = `<script>alert('${message}'); location.href="/TclearInfoAdmin"</script>`;
+                res.send(re);
             }
             connection.query(sql, function (err, result) {
                 if (err) { // 清算信息查询错误
-                    console.log(" 清算信息查询错误，返回TclearInfoAdmin页");
+                    logger.info("清算信息查询错误。错误编号：00199");
+                    var message = "抱歉，清算信息查询错误。错误编号：00199，返回清算统计页";
+                    var re = `<script>alert('${message}'); location.href="/TclearInfoAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTclearInfo(req.session.user, res, req);
                 } else if (result[0] == undefined) { //无清算信息
-                    console.log("无清算信息");
+                    logger.info("无清算信息");
                     ejs.renderFile('views/TclearInfoAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新清算信息页错误。错误编号：00200");
+                            var message = "抱歉，清算信息查询错误。错误编号：00200，返回清算统计页";
+                            var re = `<script>alert('${message}'); location.href="/TclearInfoAdmin"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有清算信息
-                    // console.log(result);
+                    // logger.info(result);
                     ejs.renderFile('views/TclearInfoAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新清算信息页错误。错误编号：00201");
+                            var message = "抱歉，清算信息查询错误。错误编号：00201，返回清算统计页";
+                            var re = `<script>alert('${message}'); location.href="/TclearInfoAdmin"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -3392,38 +3762,48 @@ const obj = {
 
     // TscholarshipInfoAdmin 资金发放管理页信息
     queryTscholarshipInfo: function (account, res, req) {
-        console.log(account + "进入queryTscholarshipInfo函数");
+        logger.info(account + "进入queryTscholarshipInfo函数");
         var teacherName = req.session.username;
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00202");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00202，返回首页";
+                var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                res.send(re);
             }
             connection.query($sql.TscholarshipInfo, function (err, result) {
                 if (err) { // 资金发放查询错误
-                    console.log(" 资金发放查询错误，返回Thome页");
-                    connection.release(account, res);
-                    obj.queryTInformation(account, res);
+                    logger.info("资金发放查询错误。错误编号：00203");
+                    var message = "抱歉，资金发放查询错误。错误编号：00203，返回首页";
+                    var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                    res.send(re);
+                    connection.release();
                 } else if (result[0] == undefined) { //无资金发放
-                    console.log("无资金发放");
+                    // logger.info("无资金发放");
                     ejs.renderFile('views/TscholarshipInfoAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新资金发放页错误。错误编号：00204");
+                            var message = "抱歉，刷新资金发放页错误。错误编号：00204，返回首页";
+                            var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有资金发放
-                    // console.log(result);
+                    // logger.info(result);
                     ejs.renderFile('views/TscholarshipInfoAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新资金发放页错误。错误编号：00205");
+                            var message = "抱歉，刷新资金发放页错误。错误编号：00205，返回首页";
+                            var re = `<script>alert('${message}'); location.href="/Thome"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -3435,20 +3815,24 @@ const obj = {
     // TscholarshipInfoAdmin 删除资金发放记录
     deleteScholarship: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入deleteScholarship函数");
+        logger.info(teacherName + "进入deleteScholarship函数");
         var scholarshipID = req.query.deleteScholarship;
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00206");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00206，返回资金发放管理页";
+                var re = `<script>alert('${message}'); location.href="/TscholarshipInfoAdmin"</script>`;
+                res.send(re);
             }
             connection.query($sql.TdeleteScholarship, scholarshipID, function (err, result) {
                 if (err) { //删除资金发放记录错误
-                    console.log("删除资金发放记录错误，返回资金发放管理页");
+                    logger.info("删除资金发放记录错误。错误编号：00207");
+                    var message = "抱歉，删除资金发放记录错误。错误编号：00207，返回资金发放管理页";
+                    var re = `<script>alert('${message}'); location.href="/TscholarshipInfoAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTscholarshipInfo(req.session.user, res, req);
                 } else { //删除资金发放记录成功
-                    console.log("删除资金发放记录成功结果：", result);
+                    logger.info("删除资金发放记录成功结果：", result);
                     connection.release();
                     var message = "删除资金发放记录成功";
                     var re = `<script>alert('${message}'); location.href="/TscholarshipInfoAdmin"</script>`;
@@ -3460,7 +3844,7 @@ const obj = {
     // TscholarshipInfoAdmin 插入新增资金发放信息
     addScholarshipInfo: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入addScholarshipInfo函数");
+        logger.info(teacherName + "进入addScholarshipInfo函数");
         var stu_id = req.body.stu_id;
         var scholarship_type = req.body.scholarship_type;
         var scholarship_name = req.body.scholarship_name;
@@ -3469,16 +3853,20 @@ const obj = {
         var scholarship_channel = req.body.scholarship_channel;
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00208");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00208，返回资金发放管理页";
+                var re = `<script>alert('${message}'); location.href="/TscholarshipInfoAdmin"</script>`;
+                res.send(re);
             }
             connection.query($sql.TscholarshipInfoUpload_queryLastScholarshipID, function (err, result) {
                 if (err) { //查询最后一个资金发放id错误
-                    console.log("查询最后一个资金发放id错误，返回TscholarshipInfoAdmin页");
+                    logger.info("查询最后一个资金发放id错误。错误编号：00209");
+                    var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00209，返回资金发放管理页";
+                    var re = `<script>alert('${message}'); location.href="/TscholarshipInfoAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTscholarshipInfo(req.session.user, res, req);
                 } else { //查询最后一个资金发放id成功
-                    console.log("查询最后一个资金发放id成功");
+                    logger.info("查询最后一个资金发放id成功");
                     var lastScholarshipID = result[0].发放编号;
                     var num = lastScholarshipID.substring(1);
                     num++;
@@ -3486,22 +3874,23 @@ const obj = {
                         num = (Array(10).join(0) + num).slice(-10)
                     }
                     var scholarshipID = "F" + num;
-                    console.log(lastScholarshipID, num, scholarshipID);
-                    console.log((new Date()).getTime()); // js13位时间戳
-                    console.log(moment(new Date()).format('YYYY-MM-DD HH:mm:ss')); // mysql的datetime时间类型
+                    // logger.info(lastScholarshipID, num, scholarshipID);
+                    // logger.info((new Date()).getTime()); // js13位时间戳
+                    // logger.info(moment(new Date()).format('YYYY-MM-DD HH:mm:ss')); // mysql的datetime时间类型
                     var creatTime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
 
                     var TscholarshipUploadParams = [scholarshipID, stu_id, scholarship_type, scholarship_name, scholarship_gread, scholarship_amount, creatTime, scholarship_channel];
-                    console.log(TscholarshipUploadParams);
+                    logger.info("待插入的资金发放参数：",TscholarshipUploadParams);
                     connection.query($sql.TscholarshipInfoUpload, TscholarshipUploadParams, function (err, result) {
                         if (err) { //新增资金发放信息错误
-                            console.log("新增资金发放信息错误，返回TscholarshipInfoAdmin页");
-                            console.log(err);
+                            logger.info("查询新增资金发放信息错误。错误编号：00210");
+                            var message = "抱歉，查询新增资金发放信息错误。错误编号：00210，返回资金发放管理页";
+                            var re = `<script>alert('${message}'); location.href="/TscholarshipInfoAdmin"</script>`;
+                            res.send(re);
                             connection.release();
-                            obj.queryTscholarshipInfo(req.session.user, res, req);
                         } else { //新增资金发放信息成功
                             connection.release();
-                            console.log("新增资金发放信息成功");
+                            logger.info("新增资金发放信息成功");
                             var message = "新增资金发放信息成功";
                             var re = `<script>alert('${message}'); location.href="/TscholarshipInfoAdmin"</script>`;
                             res.send(re);
@@ -3514,7 +3903,7 @@ const obj = {
     // TscholarshipInfoAdmin 筛选资金发放记录
     querySiftScholarshipInfo: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入querySiftScholarshipInfo函数");
+        logger.info(teacherName + "进入querySiftScholarshipInfo函数");
         var scholarshipID = req.body.scholarshipID;
         var stuID = req.body.stuID;
         var scholarshipType = req.body.scholarshipType;
@@ -3530,8 +3919,8 @@ const obj = {
                 k--;
             }
         }
-        console.log(sift);
-        console.log(mark);
+        // logger.info(sift);
+        // logger.info(mark);
         if (k > 0) {
             sql += " WHERE"
         }
@@ -3563,38 +3952,48 @@ const obj = {
             sql += " 等级 = " + "'" + sift[4] + "'";
         }
         sql += " ORDER BY 发放编号 ASC;"
-        console.log("sql:", sql);
+        // logger.info("sql:", sql);
         // res.send(sql);
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00211");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00211，返回资金发放管理页";
+                var re = `<script>alert('${message}'); location.href="/TscholarshipInfoAdmin"</script>`;
+                res.send(re);
             }
             connection.query(sql, function (err, result) {
                 if (err) { // 资金发放信息查询错误
-                    console.log(" 资金发放信息查询错误，返回TscholarshipInfoAdmin页");
+                    logger.info("资金发放信息查询错误。错误编号：00212");
+                    var message = "抱歉，资金发放信息查询错误。错误编号：00212，返回资金发放管理页";
+                    var re = `<script>alert('${message}'); location.href="/TscholarshipInfoAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTscholarshipInfo(req.session.user, res, req);
                 } else if (result[0] == undefined) { //无资金发放信息
-                    console.log("无资金发放信息");
+                    logger.info("无资金发放信息");
                     ejs.renderFile('views/TscholarshipInfoAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新资金发放页错误。错误编号：00213");
+                            var message = "抱歉，刷新资金发放页错误。错误编号：00213，返回资金发放管理页";
+                            var re = `<script>alert('${message}'); location.href="/TscholarshipInfoAdmin"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有资金发放信息
-                    // console.log(result);
+                    // logger.info(result);
                     ejs.renderFile('views/TscholarshipInfoAdmin.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新资金发放页错误。错误编号：00214");
+                            var message = "抱歉，刷新资金发放页错误。错误编号：00214，返回资金发放管理页";
+                            var re = `<script>alert('${message}'); location.href="/TscholarshipInfoAdmin"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -3607,37 +4006,47 @@ const obj = {
     // TcreatOrdersInBatches_CPro 批量创建必缴订单页信息——选择商品
     queryTcreatOrdersInBatches_CPro: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入queryTcreatOrdersInBatches_CPro函数");
+        logger.info(teacherName + "进入queryTcreatOrdersInBatches_CPro函数");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00215");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00215，返回缴费订单管理页";
+                var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
+                res.send(re);
             }
             connection.query($sql.TcreatOrdersInBatches_CPro_queryAllProducts, function (err, result) {
                 if (err) { // 商品信息查询错误
-                    console.log(" 商品信息查询错误，返回TallOrdersAdmin页");
+                    logger.info("商品信息查询错误。错误编号：00216");
+                    var message = "抱歉，商品信息查询错误。错误编号：00216，返回缴费订单管理页";
+                    var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTallOrders(req.session.user, res, req);
                 } else if (result[0] == undefined) { //无商品信息
-                    console.log("无商品信息");
+                    logger.info("无商品信息");
                     ejs.renderFile('views/TcreatOrdersInBatches_CPro.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新商品信息页错误。错误编号：00217");
+                            var message = "抱歉，刷新商品信息页错误。错误编号：00217，返回缴费订单管理页";
+                            var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有商品信息
-                    // console.log(result);
+                    // logger.info(result);
                     ejs.renderFile('views/TcreatOrdersInBatches_CPro.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新商品信息页错误。错误编号：00218");
+                            var message = "抱歉，刷新商品信息页错误。错误编号：00218，返回缴费订单管理页";
+                            var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -3649,7 +4058,7 @@ const obj = {
     // TcreatOrdersInBatches_CPro 批量创建必缴订单页信息——筛选商品
     querySiftProductListInfo_CPro: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入querySiftProductListInfo_CPro函数");
+        logger.info(teacherName + "进入querySiftProductListInfo_CPro函数");
         var productID = req.body.productID;
         var productName = req.body.productName;
         var corpID = req.body.corpID;
@@ -3666,8 +4075,8 @@ const obj = {
                 k--;
             }
         }
-        console.log(sift);
-        console.log(mark);
+        // logger.info(sift);
+        // logger.info(mark);
         if (k > 0) {
             sql += " WHERE"
         }
@@ -3708,41 +4117,50 @@ const obj = {
             }
         }
         sql += " ORDER BY 商品编号 ASC;"
-        console.log("sql:", sql);
+        // logger.info("sql:", sql);
         // res.send(sql);
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00219");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00219，返回缴费订单管理页";
+                var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
+                res.send(re);
             }
             connection.query(sql, function (err, result) {
                 if (err) { // 商品信息查询错误
-                    console.log(" 商品信息查询错误，返回TproductListAdmin页");
-                    connection.release();
-                    console.log("商品信息查询错误");
-                    var message = "商品信息查询错误,返回批量创建必缴订单页信息";
-                    var re = `<script>alert('${message}');location.href="/TcreatOrdersInBatches_CPro"</script>`;
+                    logger.info("商品信息查询错误。错误编号：00220");
+                    var message = "抱歉，商品信息查询错误。错误编号：00220，返回创建必缴订单页";
+                    var re = `<script>alert('${message}'); location.href="/TcreatOrdersInBatches_CPro"</script>`;
                     res.send(re);
+                    connection.release();
                 } else if (result[0] == undefined) { //无商品信息
-                    console.log("无商品信息");
+                    logger.info("无商品信息");
                     ejs.renderFile('views/TcreatOrdersInBatches_CPro.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新商品信息页错误。错误编号：00221");
+                            var message = "抱歉，刷新商品信息页错误。错误编号：00221，返回缴费订单管理页";
+                            var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
+                            res.send(re);
+                            connection.release();
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有商品信息
-                    // console.log(result);
+                    // logger.info(result);
                     ejs.renderFile('views/TcreatOrdersInBatches_CPro.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新商品信息页错误。错误编号：00222");
+                            var message = "抱歉，刷新商品信息页错误。错误编号：00222，返回缴费订单管理页";
+                            var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
+                            res.send(re);
+                            connection.release();
                         }
                         res.end(data);
                     })
@@ -3755,38 +4173,48 @@ const obj = {
     queryTcreatOrdersInBatches_CStu: function (res, req) {
         var teacherName = req.session.username;
         // var products = req.body.submitData;
-        console.log(teacherName + "进入queryTcreatOrdersInBatches_CStu函数");
+        logger.info(teacherName + "进入queryTcreatOrdersInBatches_CStu函数");
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00223");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00223，返回缴费订单管理页";
+                var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
+                res.send(re);
             }
             connection.query($sql.TcreatOrdersInBatches_CStu_queryAllStudents, function (err, result) {
                 if (err) { // 学生信息查询错误
-                    console.log(" 学生信息查询错误，返回TallOrdersAdmin页");
+                    logger.info("学生信息查询错误。错误编号：00224");
+                    var message = "抱歉，学生信息查询错误。错误编号：00224，返回缴费订单管理页";
+                    var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
+                    res.send(re);
                     connection.release();
-                    obj.queryTallOrders(req.session.user, res, req);
                 } else if (result[0] == undefined) { //无学生信息
-                    console.log("无学生信息");
+                    logger.info("无学生信息");
                     ejs.renderFile('views/TcreatOrdersInBatches_CStu.ejs', {
                         result: result,
                         // products: products,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新学生信息页错误。错误编号：00225");
+                            var message = "抱歉，学生信息查询错误。错误编号：00225，返回缴费订单管理页";
+                            var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有学生信息
-                    // console.log(result);
+                    // logger.info(result);
                     ejs.renderFile('views/TcreatOrdersInBatches_CStu.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新学生信息页错误。错误编号：00226");
+                            var message = "抱歉，学生信息查询错误。错误编号：00226，返回缴费订单管理页";
+                            var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -3798,8 +4226,8 @@ const obj = {
     // TcreatOrdersInBatches_CStu 批量创建必缴订单页信息——筛选学号
     querySiftStuInfo_CStu: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入querySiftStuInfo_CStu函数");
-        console.log(req.body);
+        logger.info(teacherName + "进入querySiftStuInfo_CStu函数");
+        // logger.info(req.body);
         var stuID = req.body.stuID;
         var stuName = req.body.stuName;
         var stuSchool = req.body.stuSchool;
@@ -3816,8 +4244,8 @@ const obj = {
                 k--;
             }
         }
-        console.log(sift);
-        console.log(mark);
+        // logger.info(sift);
+        // logger.info(mark);
         if (k > 0) {
             sql += " WHERE"
         }
@@ -3855,41 +4283,49 @@ const obj = {
             sql += " 年级 = " + "'" + sift[5] + "'";
         }
         sql += " ORDER BY 学号 ASC;"
-        console.log("sql:", sql);
+        // logger.info("sql:", sql);
         // res.send(sql);
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00227");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00227，返回缴费订单管理页";
+                var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
+                res.send(re);
+                connection.release();
             }
             connection.query(sql, function (err, result) {
                 if (err) { // 学生信息查询错误
-                    console.log(" 学生信息查询错误，返回TstudentInfoAdmin页");
                     connection.release();
-                    console.log("学生信息查询错误");
-                    var message = "学生信息查询错误,返回批量创建必缴订单页信息";
-                    var re = `<script>alert('${message}');location.href="/TcreatOrdersInBatches_CPro"</script>`;
+                    logger.info("学生信息查询错误。错误编号：00228");
+                    var message = "抱歉，学生信息查询错误。错误编号：00228，返回缴费订单管理页";
+                    var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
                     res.send(re);
                 } else if (result[0] == undefined) { //无学生信息
-                    console.log("无学生信息");
+                    logger.info("无学生信息");
                     ejs.renderFile('views/TcreatOrdersInBatches_CStu.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新学生信息页错误。错误编号：00229");
+                            var message = "抱歉，刷新学生信息页错误。错误编号：00229，返回缴费订单管理页";
+                            var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
                     connection.release();
                 } else { //有学生信息
-                    // console.log(result);
+                    // logger.info(result);
                     ejs.renderFile('views/TcreatOrdersInBatches_CStu.ejs', {
                         result: result,
                         teacherName
                     }, function (err, data) {
                         if (err) {
-                            console.log(err);
+                            logger.info("刷新学生信息页错误。错误编号：00230");
+                            var message = "抱歉，刷新学生信息页错误。错误编号：00230，返回缴费订单管理页";
+                            var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
+                            res.send(re);
                         }
                         res.end(data);
                     })
@@ -3901,19 +4337,19 @@ const obj = {
     // TcreatOrdersInBatches_Window 批量创建必缴订单页信息——设置缴费窗口
     TcreatOrdersInBatches_Window: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入TcreatOrdersInBatches_Window函数");
+        logger.info(teacherName + "进入TcreatOrdersInBatches_Window函数");
         var pro_stu = req.body.submitData;
         var pro_stuObj = JSON.parse(pro_stu); //由JSON字符串转换为JSON对象
         var pro_stuObjKey = Object.keys(pro_stuObj); //为arr object类型
-        console.log("get submitDataObj(pro_stuObj):", pro_stuObj);
-        console.log("get pro_stuObjKey:", pro_stuObjKey);
+        // logger.info("get submitDataObj(pro_stuObj):", pro_stuObj);
+        // logger.info("get pro_stuObjKey:", pro_stuObjKey);
         var proData = []; // 商品数组
         var proDataNum = []; //商品数量数组
         var stuData = []; //学号数组
         for (var item in pro_stuObjKey) {
             var itemToString = JSON.stringify(pro_stuObjKey[item]);
             var itemToString = itemToString.slice(1, -1);
-            console.log('itemToString:', itemToString);
+            // logger.info('itemToString:', itemToString);
             if (itemToString.indexOf("S") != -1) {
                 proData.push(itemToString);
                 proDataNum.push(pro_stuObj[itemToString]);
@@ -3921,10 +4357,9 @@ const obj = {
                 stuData.push(itemToString);
             }
         }
-        console.log("proData:", proData);
-        console.log("proDataNum:", proDataNum);
-        console.log("stuData:", stuData);
-        // res.send(pro_stuObj);
+        // logger.info("proData:", proData);
+        // logger.info("proDataNum:", proDataNum);
+        // logger.info("stuData:", stuData);
         ejs.renderFile('views/TcreatOrdersInBatches_Window.ejs', {
             proData: proData,
             proDataNum: proDataNum,
@@ -3932,7 +4367,10 @@ const obj = {
             teacherName
         }, function (err, data) {
             if (err) {
-                console.log(err);
+                logger.info("刷新设置缴费窗口页错误。错误编号：00231");
+                var message = "抱歉，刷新设置缴费窗口页错误。错误编号：00231，返回缴费订单管理页";
+                var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
+                res.send(re);
             }
             res.end(data);
         })
@@ -3940,24 +4378,24 @@ const obj = {
     // TcreatOrdersInBatches_Window 批量创建必缴订单页信息——创建必缴订单
     TcreatOrdersInBatches_CreatOrders: function (res, req) {
         var teacherName = req.session.username;
-        console.log(teacherName + "进入TcreatOrdersInBatches_CreatOrders函数");
+        logger.info(teacherName + "进入TcreatOrdersInBatches_CreatOrders函数");
         var limitDate = req.body.txtDate; //2020-04-12 string 
         limitDate += " 00:00:00"; //2020-04-12 00:00:00 格式
-        console.log(limitDate, typeof (limitDate));
+        // logger.info(limitDate, typeof (limitDate));
         var pro_stu = req.body.submitData; // {"1607400496":"true","1607400499":"true","S000282":"1","S000285":"1","S000286":"1","S000283":"1","S000284":"1","S000281":"1"}
 
         // 以下同TcreatOrdersInBatches_Window函数，提取商品+数量+学号数据
         var pro_stuObj = JSON.parse(pro_stu); //由JSON字符串转换为JSON对象
         var pro_stuObjKey = Object.keys(pro_stuObj); //为arr object类型
-        console.log("get submitDataObj(pro_stuObj):", pro_stuObj);
-        console.log("get pro_stuObjKey:", pro_stuObjKey);
+        // logger.info("get submitDataObj(pro_stuObj):", pro_stuObj);
+        // logger.info("get pro_stuObjKey:", pro_stuObjKey);
         var proData = []; // 商品数组
         var proDataNum = []; //商品数量数组
         var stuData = []; //学号数组
         for (var item in pro_stuObjKey) {
             var itemToString = JSON.stringify(pro_stuObjKey[item]);
             var itemToString = itemToString.slice(1, -1);
-            // console.log('itemToString:', itemToString);
+            // logger.info('itemToString:', itemToString);
             if (itemToString.indexOf("S") != -1) {
                 proData.push(itemToString);
                 proDataNum.push(pro_stuObj[itemToString]);
@@ -3965,16 +4403,16 @@ const obj = {
                 stuData.push(itemToString);
             }
         }
-        console.log("proData:", proData);
-        console.log("proDataNum:", proDataNum);
-        console.log("stuData:", stuData);
+        // logger.info("proData:", proData);
+        // logger.info("proDataNum:", proDataNum);
+        // logger.info("stuData:", stuData);
 
         // 以下为创建商品编号+数量json对象
         var data = {};
         for (var i = 0; i < proData.length; i++) {
             data[proData[i]] = proDataNum[i];
         }
-        // console.log(data);//{ S000284: '1', S000285: '1', S000286: '1' }
+        // logger.info(data);//{ S000284: '1', S000285: '1', S000286: '1' }
 
         // // 以下为创建供货信息拼接sql中IN的字符串// 此处无效，是错误的，应该直接传入数组[proData]
         // var proStr = "";
@@ -3985,65 +4423,66 @@ const obj = {
         //         proStr += "," + "'" + proData[i] + "'";
         //     }
         // }
-        // console.log("proStr:",proStr);
+        // logger.info("proStr:",proStr);
 
         // 以下为创建必缴订单&子订单
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00232");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00232，返回缴费订单管理页";
+                var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
+                res.send(re);
+                connection.release();
             }
-            console.log(data); // { S000284: '1', S000285: '1', S000286: '1' }
+            // logger.info(data); // { S000284: '1', S000285: '1', S000286: '1' }
 
             // 插入订单信息
-            console.log((new Date()).getTime()); // js13位时间戳
-            var creattime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss'); // mysql的datetime时间类型
-            console.log(creattime);
+            // logger.info((new Date()).getTime()); // js13位时间戳
+            // var creattime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss'); // mysql的datetime时间类型
+            // logger.info(creattime);
             var payLimitTime = limitDate;
-            console.log(payLimitTime, typeof (payLimitTime));
+            // logger.info(payLimitTime, typeof (payLimitTime));
             var orderid = obj.createRandomId(); // 生成唯一订单号：YYYY-MM-DD+js13位时间戳+7位随机数字
             // res.send(orderid);
             var p = 0;
             for (var j = 0; j < stuData.length; j++) {
                 connection.query($sql.TcreatRequiredOrder, [orderid, creattime, stuData[p++], payLimitTime], function (err, result) {
                     if (err) { //订单信息表插入错误
-                        console.log(err);
-                        connection.release();
-                        console.log("订单信息表插入错误");
-                        var message = "订单信息表插入错误,返回缴费订单管理页";
+                        logger.info("订单信息表插入错误。错误编号：00233");
+                        var message = "抱歉，订单信息表插入错误。错误编号：00233，返回缴费订单管理页";
                         var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
                         res.send(re);
+                        connection.release();
                     } else { //订单信息表插入成功
-                        console.log(result.insertId);
+                        logger.info("订单信息表插入成功,insertId:",result.insertId);
                         var insertOrderId = result.insertId;
                         // 引用查询商品单价和供应商代码的函数
                         // obj.queryCmmodit(stuData[p], insertOrderId, data, res, req);
 
                         // 循环查询所有商品单价和供应商代码，并插入子订单信息表
                         var goodsList = Object.keys(data);
-                        console.log(goodsList);
+                        logger.info("待插入子订单的批量创建必缴商品：",goodsList);
                         var k = 0;
                         for (var i = 0; i < goodsList.length; i++) {
                             connection.query($sql.QueryCmmodit, goodsList[i], function (err, result) {
                                 if (err) { //查询商品单价和供应商代码错误
-                                    console.log(err);
-                                    console.log("查询商品单价和供应商代码错误，返回缴费订单管理页");
-                                    connection.release();
-                                    var message = "查询商品单价和供应商代码错误，返回缴费订单管理页";
+                                    logger.info("查询商品单价和供应商代码错误。错误编号：00234");
+                                    var message = "抱歉，查询商品单价和供应商代码错误。错误编号：00234，返回缴费订单管理页";
                                     var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
                                     res.send(re);
+                                    connection.release();
                                 } else {
-                                    // console.log(result);
+                                    // logger.info(result);
                                     var Result = JSON.parse(JSON.stringify(result));
-                                    // console.log(Result);
+                                    // logger.info(Result);
                                     var price = Result[0].商品单价;
                                     var MerchantID = Result[0].商户代码;
-                                    // console.log(price,MerchantID);
+                                    // logger.info(price,MerchantID);
 
                                     // 产生子订单编号
                                     var childOrderID = "";
                                     childOrderID = insertOrderId + obj.PrefixInteger(k + 1, 2);
-                                    console.log("childOrderID:", childOrderID);
+                                    // logger.info("childOrderID:", childOrderID);
 
                                     // 订单编号：insertOrderId
                                     // 商品编号：goodsList[i]
@@ -4051,38 +4490,35 @@ const obj = {
                                     // 单价：price
                                     // 子订单总额：data.goodsList[i]*price
                                     // 商户代码：MerchantID
-                                    // console.log(insertOrderId,goodsList[k],data[goodsList[k]],price,data[goodsList[k++]]*price,MerchantID);
+                                    // logger.info(insertOrderId,goodsList[k],data[goodsList[k]],price,data[goodsList[k++]]*price,MerchantID);
 
                                     var arrChildOrder = [childOrderID, insertOrderId, goodsList[k], parseInt(data[goodsList[k]]), price, data[goodsList[k++]] * price, MerchantID];
-                                    console.log(arrChildOrder);
+                                    logger.info("待插入的批量必缴子订单:",arrChildOrder);
                                     connection.query($sql.InsertChildOrder, arrChildOrder, function (err, result) {
                                         if (err) { //插入子订单错误
-                                            console.log(err);
-                                            console.log("插入子订单错误，返回缴费订单管理页");
-                                            connection.release();
-                                            var message = "插入子订单错误，返回缴费订单管理页";
+                                            logger.info("插入子订单错误。错误编号：00235");
+                                            var message = "抱歉，插入子订单错误。错误编号：00235，返回缴费订单管理页";
                                             var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
                                             res.send(re);
+                                            connection.release();
                                         } else { // SUM查询需要插入订单信息表的订单总额
                                             connection.query($sql.SumOrderAmount, insertOrderId, function (err, result) {
                                                 if (err) { //SUM查询订单总额错误
-                                                    console.log(err);
-                                                    console.log("SUM查询订单总额错误，返回缴费订单管理页");
-                                                    connection.release();
-                                                    var message = "SUM查询订单总额错误，返回缴费订单管理页";
+                                                    logger.info("SUM查询订单总额错误。错误编号：00236");
+                                                    var message = "抱歉，查询订单总额错误。错误编号：00236，返回缴费订单管理页";
                                                     var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
                                                     res.send(re);
+                                                    connection.release();
                                                 } else { //SUM查询订单总额成功
-                                                    // console.log(insertOrderId, result[0].订单总额);
+                                                    // logger.info(insertOrderId, result[0].订单总额);
                                                     var amount = result[0].订单总额;
                                                     connection.query($sql.UpdateOrderAmount, [amount, insertOrderId], function (err, result) {
                                                         if (err) { //更新订单总额错误
-                                                            console.log(err);
-                                                            console.log("更新订单总额错误，返回订缴费订单管理页");
-                                                            connection.release();
-                                                            var message = "更新订单总额错误，返回缴费订单管理页";
+                                                            logger.info("更新订单总额错误。错误编号：00237");
+                                                            var message = "抱歉，更新订单总额错误。错误编号：00237，返回缴费订单管理页";
                                                             var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
                                                             res.send(re);
+                                                            connection.release();
                                                         }
                                                     });
 
@@ -4103,10 +4539,13 @@ const obj = {
 
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
-                console.log("数据库连接池错误");
-                res.send();
+                logger.info("数据库连接池错误。错误编号：00238");
+                var message = "抱歉，发生了错误，请联系系统管理员。错误编号：00238，返回缴费订单管理页";
+                var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
+                res.send(re);
+                connection.release();
             }
-            console.log(data);
+            // logger.info(data);
 
 
             // 以下为创建供货信息
@@ -4119,14 +4558,13 @@ const obj = {
             // 以下为查询商品，getMark++，getMark=1
             connection.query($sql.TinsertStockInfo_queryPro, [proData], function (err, result) {
                 if (err) { //查询商品信息错误
-                    console.log(err);
-                    connection.release();
-                    console.log("查询商品信息错误");
-                    var message = "查询商品信息错误,返回缴费订单管理页";
+                    logger.info("查询商品信息错误。错误编号：00239");
+                    var message = "抱歉，查询商品信息错误。错误编号：00239，返回缴费订单管理页";
                     var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
                     res.send(re);
+                    connection.release();
                 } else { //查询商品信息成功//商品编号、商品单价、商户代码
-                    console.log("查询商品信息成功:", result);
+                    logger.info("查询商品信息成功:", result);
                     for (var i = 0; i < result.length; i++) {
                         var proJson = {
                             proID: result[i].商品编号,
@@ -4135,19 +4573,18 @@ const obj = {
                         };
                         proJsonArr.push(proJson);
                     }
-                    console.log("proJsonArr:", proJsonArr, "type:", typeof (proJsonArr), "getMark:", ++getMark);
+                    logger.info("proJsonArr:", proJsonArr, "type:", typeof (proJsonArr), "getMark:", ++getMark);
 
                     // 以下为查询商户，getMark++，getMark=2
                     connection.query($sql.TinsertStockInfo_queryCor, [proData], function (err, result) {
                         if (err) { //查询供应商信息错误
-                            console.log(err);
-                            connection.release();
-                            console.log("查询供应商信息错误");
-                            var message = "查询供应商信息错误,返回缴费订单管理页";
+                            logger.info("查询供应商信息错误。错误编号：00240");
+                            var message = "抱歉，查询供应商信息错误。错误编号：00240，返回缴费订单管理页";
                             var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
                             res.send(re);
+                            connection.release();
                         } else { //查询供应商信息成功 //商户代码、商户名称、集团编号
-                            console.log("查询供应商信息成功:", result);
+                            logger.info("查询供应商信息成功:", result);
                             for (var i = 0; i < result.length; i++) {
                                 var croJson = {
                                     croID: result[i].商户代码,
@@ -4156,11 +4593,11 @@ const obj = {
                                 };
                                 croJsonArr.push(croJson);
                             }
-                            console.log("croJsonArr:", croJsonArr, "type:", typeof (croJsonArr), "getMark:", ++getMark);
+                            logger.info("croJsonArr:", croJsonArr, "type:", typeof (croJsonArr), "getMark:", ++getMark);
                             // 查询商品及商户信息结束
 
                             // 以下为计算子供货数据
-                            console.log("getMark:", getMark);
+                            logger.info("getMark:", getMark);
                             if (getMark == 2) {
                                 var subStockAmountInfo = []; //所有提交的商品的临时信息（json）数组
                                 var insertstockIDArr = [];
@@ -4175,7 +4612,7 @@ const obj = {
                                                     var proPrice_temp = proJsonArr[i].proPrice * proDataNum[j];
                                                     subStockPrice += proPrice_temp;
                                                     subStockNum += proDataNum[j];
-                                                    console.log("商品:", proJsonArr[i].proID, "的当前总额:", proPrice_temp);
+                                                    logger.info("商品:", proJsonArr[i].proID, "的当前总额:", proPrice_temp);
                                                 }
                                             }
                                             var subStock = new Object();
@@ -4184,12 +4621,12 @@ const obj = {
                                             subStock.num = subStockNum * stuData.length; //乘以学生数量
                                             subStock.amount = subStockPrice * stuData.length; //乘以学生数量
                                             subStock.croID = proJsonArr[i].croID;
-                                            // console.log("商品", proJsonArr[i].proID, "的总额(子采购总额):", subStockPrice);
-                                            console.log("子采购信息（商品编号，商品单价，商品数量，子采购总额）", subStock);
+                                            // logger.info("商品", proJsonArr[i].proID, "的总额(子采购总额):", subStockPrice);
+                                            logger.info("子采购信息（商品编号，商品单价，商品数量，子采购总额）", subStock);
                                             subStockAmountInfo.push(subStock);
                                         }
                                         stockSucc = true;
-                                        console.log("当前所有提交的商品（子采购信息）的临时信息：", subStockAmountInfo);
+                                        logger.info("当前所有提交的商品（子采购信息）的临时信息：", subStockAmountInfo);
 
                                         // 以下为计算供货数据 为每个采购商户计算供货信息、计算总额、插入供货信息
                                         var getMark2 = 0;
@@ -4199,16 +4636,15 @@ const obj = {
                                                 connection.query($sql.TinsertStockInfo_queryLastStockID, function (err, result) {
                                                     getinsertstockIDArrmark++;
                                                     if (err) { //查询最后一个进货编号和清算号错误
-                                                        console.log(err);
-                                                        connection.release();
-                                                        console.log("查询最后一个进货编号和清算号错误");
-                                                        var message = "查询最后一个进货编号和清算号错误,返回缴费订单管理页";
+                                                        logger.info("查询最后一个进货编号和清算号错误。错误编号：00241");
+                                                        var message = "抱歉，查询最后一个进货编号和清算号错误。错误编号：00241，返回缴费订单管理页";
                                                         var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
                                                         res.send(re);
+                                                        connection.release();
                                                     } else { //查询最后一个进货编号和清算号成功
                                                         // 计算将要新插入的清算号数组
-                                                        console.log("最后一个清算号:", result[1][0].清算号,"type:",typeof(result[1][0].清算号));
-                                                        console.log("最后一个进货编号:", result[0][0].采购编号);
+                                                        logger.info("最后一个清算号:", result[1][0].清算号,"type:",typeof(result[1][0].清算号));
+                                                        logger.info("最后一个进货编号:", result[0][0].采购编号);
                                                         var insertclearID = "";
                                                         var queryLastClearID = result[1][0].清算号;
                                                         var numClear = queryLastClearID.substring(1);
@@ -4230,15 +4666,15 @@ const obj = {
                                                         }
                                                         insertstockID += "C" + num;
                                                         insertstockIDArr.push(insertstockID);
-                                                        console.log("insertstockIDArr:", insertstockIDArr);
+                                                        logger.info("insertstockIDArr:", insertstockIDArr);
 
                                                         // 计算某商户的供货总金额
                                                         var moneyAmount = 0;
                                                         for (var j = 0; j < subStockAmountInfo.length; j++) {
-                                                            // console.log("subStockAmountInfo[j].croID:", subStockAmountInfo[j].croID);
+                                                            // logger.info("subStockAmountInfo[j].croID:", subStockAmountInfo[j].croID);
                                                             if (subStockAmountInfo[j].croID == croJsonArr[ii].croID) {
                                                                 moneyAmount += subStockAmountInfo[j].amount;
-                                                                console.log("moneyAmount:", moneyAmount);
+                                                                logger.info("moneyAmount:", moneyAmount);
                                                             }
                                                         }
                                                         // 以下为 将某商户的供货信息、清算信息插入数据库
@@ -4255,36 +4691,35 @@ const obj = {
                                                         insertStockInfoArr.push(0);
                                                         insertStockInfoArr.push(0);
                                                         // var sub_k = k++;
-                                                        console.log("insertStockInfoArr,ii:", insertStockInfoArr, ii);
+                                                        logger.info("insertStockInfoArr,ii:", insertStockInfoArr, ii);
                                                         connection.query($sql.TinsertStockInfo_insertStockInfo, insertStockInfoArr, function (err, result) {
                                                             if (err) { //插入供货信息错误
-                                                                console.log(err);
-                                                                connection.release();
-                                                                console.log("插入供货信息错误");
-                                                                var message = "插入供货信息错误,返回缴费订单管理页";
+                                                                logger.info("插入供货信息错误。错误编号：00242");
+                                                                var message = "抱歉，插入供货信息错误。错误编号：00242，返回缴费订单管理页";
                                                                 var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
                                                                 res.send(re);
+                                                                connection.release();
                                                             } else {
                                                                 getMark2++;
-                                                                console.log("插入供货信息成功，供货信息id:", insertstockID, "getMark2:", getMark2, "croJsonArr.length:", croJsonArr.length);
+                                                                logger.info("插入供货信息成功，供货信息id:", insertstockID, "getMark2:", getMark2, "croJsonArr.length:", croJsonArr.length);
                                                             }
                                                         });
                                                     }
-                                                    console.log("当前insertstockIDArr[]:",insertstockIDArr);
-                                                    console.log("getinsertstockIDArrmark:",getinsertstockIDArrmark,"croJsonArr.length:",croJsonArr.length);
-                                                    console.log("if(getinsertstockIDArrmark == croJsonArr.length)?:",getinsertstockIDArrmark == croJsonArr.length);
+                                                    logger.info("当前insertstockIDArr[]:",insertstockIDArr);
+                                                    logger.info("getinsertstockIDArrmark:",getinsertstockIDArrmark,"croJsonArr.length:",croJsonArr.length);
+                                                    logger.info("if(getinsertstockIDArrmark == croJsonArr.length)?:",getinsertstockIDArrmark == croJsonArr.length);
                                                     if(getinsertstockIDArrmark == croJsonArr.length){
                                                         resolve();
                                                     }
                                                 });
-                                                // console.log("ii:",ii,"croJsonArr.length-1:",croJsonArr.length-1);
+                                                // logger.info("ii:",ii,"croJsonArr.length-1:",croJsonArr.length-1);
                                                 // if(ii == croJsonArr.length-1){
                                                 //     resolve();
                                                 // }
                                             })(ii);
                                             
                                         }
-                                        // console.log("insertstockIDArr.length,croJsonArr.length-1:",insertstockIDArr.length,croJsonArr.length-1)
+                                        // logger.info("insertstockIDArr.length,croJsonArr.length-1:",insertstockIDArr.length,croJsonArr.length-1)
                                         // if(insertstockIDArr.length == croJsonArr.length-1){
                                         // }
                                     })
@@ -4293,10 +4728,10 @@ const obj = {
                                     await fn();
                                     // if(getinsertstockIDArrmark == true){
 
-                                    console.log("insertstockIDArr:", insertstockIDArr);
+                                    logger.info("insertstockIDArr:", insertstockIDArr);
                                     // 以下为 将某商户的子供货信息插入数据库
                                     // 产生子供货信息编号
-                                    console.log("childStockIDByStock:", childStockIDByStock);
+                                    logger.info("childStockIDByStock:", childStockIDByStock);
                                     // var sub_k = 0;
                                     for (var n = 0; n < croJsonArr.length; n++) {
                                         var childStockIDByStock = 0; //某商户的子供货信息序号
@@ -4304,28 +4739,27 @@ const obj = {
                                             for (var m = 0; m < subStockAmountInfo.length; m++) {
                                                 (function (m) { //闭包,等同于使用变量k。
                                                     var insertChildStockInfoArr = [];
-                                                    console.log("m:",m,"subStockAmountInfo[m].croID:", subStockAmountInfo[m].croID,"croJsonArr[m]:",croJsonArr[m]);
+                                                    logger.info("m:",m,"subStockAmountInfo[m].croID:", subStockAmountInfo[m].croID,"croJsonArr[m]:",croJsonArr[m]);
                                                     if (subStockAmountInfo[m].croID == croJsonArr[n].croID) {
                                                         var childStockID = "";
                                                         childStockID = insertstockIDArr[n] + obj.PrefixInteger(childStockIDByStock + 1, 4);
-                                                        console.log("childStockIDByStock:", childStockIDByStock++, "childStockID:", childStockID);
+                                                        logger.info("childStockIDByStock:", childStockIDByStock++, "childStockID:", childStockID);
                                                         insertChildStockInfoArr.push(childStockID);
                                                         insertChildStockInfoArr.push(insertstockIDArr[n]);
                                                         insertChildStockInfoArr.push(subStockAmountInfo[m].proID);
                                                         insertChildStockInfoArr.push(subStockAmountInfo[m].proPrice);
                                                         insertChildStockInfoArr.push(subStockAmountInfo[m].num);
                                                         insertChildStockInfoArr.push(subStockAmountInfo[m].amount);
-                                                        console.log("insertChildStockInfoArr:", insertChildStockInfoArr, "m:", m);
+                                                        logger.info("insertChildStockInfoArr:", insertChildStockInfoArr, "m:", m);
                                                         connection.query($sql.TinsertStockInfo_insertSubStockInfo, insertChildStockInfoArr, function (err, result) {
                                                             if (err) { //插入子供货信息错误
-                                                                console.log(err);
-                                                                connection.release();
-                                                                console.log("插入子供货信息错误");
-                                                                var message = "插入子供货信息错误,返回缴费订单管理页";
+                                                                logger.info("插入子供货信息错误。错误编号：00243");
+                                                                var message = "抱歉，插入子供货信息错误。错误编号：00243，返回缴费订单管理页";
                                                                 var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
                                                                 res.send(re);
+                                                                connection.release();
                                                             } else {
-                                                                console.log("插入子供货信息成功，子采购编号：", childStockID);
+                                                                logger.info("插入子供货信息成功，子采购编号：", childStockID);
 
                                                             }
                                                         });
@@ -4337,14 +4771,14 @@ const obj = {
                                     // }
                                 }
                                 f1();
-                                console.log(3);
+                                // logger.info(3);
                             }
                         }
                     });
                 }
             });
             connection.release();
-            console.log("插入批量订单、供货信息、清算信息成功");
+            logger.info("插入批量订单、供货信息、清算信息成功");
             var message = "插入批量订单、供货信息、清算信息成功,返回缴费订单管理页";
             var re = `<script>alert('${message}'); location.href="/TallOrdersAdmin"</script>`;
             res.send(re);

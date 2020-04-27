@@ -30,6 +30,7 @@ function creatTable(list) { //遍历sessionStorage数据，创建行数据，并
 function getDataRow(listI) { //创建行数据
 	var row = document.createElement('tr'); //创建行    
 	row.setAttribute('class', 'confirm'); //class="confirm"
+	
 	var idCell = document.createElement('td'); //创建第一列学号 
 	idCell.setAttribute('style', 'color:rgb(30, 72, 126);font-size:11px;'); //style="color:rgb(30, 72, 126);"        
 	idCell.innerHTML = listI.学号; //填充数据       

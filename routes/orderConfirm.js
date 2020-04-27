@@ -4,17 +4,20 @@ var router = express.Router();
 var ejs = require('ejs');
 var url = require('url');
 var userDao = require('../dao/userDao');
+var log4js = require('log4js');
+var log = require("../logs/log");
+var logger = log4js.getLogger();
 router.get('/', function (req, res, next) {
   var method = req.method.toLowerCase();
-  console.log(method);
+  logger.info(method);
   var pathname = url.parse(req.url, true).pathname;
-  console.log(pathname + 'get-orderConfirm');
+  logger.info(pathname + 'get-orderConfirm');
 
-  console.log("已登录用户查询：", req.session.islogin);
+  logger.info("已登录用户查询：", req.session.islogin);
   if (req.session.islogin) {
     /*获取session.islogin*/
-    console.log("已登录用户查询：", req.session.user);
-    console.log("req.query.keys:", req.query.keys); //输出req.query:[ 'goods0', 'goods1' ]
+    logger.info("已登录用户查询：", req.session.user);
+    logger.info("req.query.keys:", req.query.keys); //输出req.query:[ 'goods0', 'goods1' ]
     var keys = req.query.keys;
     var studentName = req.session.username;
     ejs.renderFile('./views/orderConfirm.ejs', {
@@ -22,14 +25,14 @@ router.get('/', function (req, res, next) {
       studentName
     }, function (err, data) {
       if (err) {
-        console.log(err);
+        logger.info(err);
       }
       res.end(data);
     })
   } else {
     ejs.renderFile('./views/loginTimeOut.ejs', {}, function (err, data) {
       if (err) {
-        console.log(err);
+        logger.info(err);
       }
       res.end(data);
     })
@@ -44,27 +47,27 @@ router.get('/', function (req, res, next) {
   //         object[strs[i].split("=")[0]] = strs[i].split("=")[1]
   //       }
   // 　　}
-  //   console.log(object);
+  //   logger.info(object);
 
   // var a = req.getParameterValues("keys");
-  // console.log(a);
+  // logger.info(a);
   // var list = JSON.parse(req.body.keys);
-  // console.log(list);
+  // logger.info(list);
 });
 
 /* 获取用户提交的订单信息. */
 router.post('/', function (req, res, next) {
   var method = req.method.toLowerCase();
-  console.log(method);
+  logger.info(method);
   var pathname = url.parse(req.url, true).pathname;
-  console.log(pathname + 'post-orderConfirm');
-  console.log("已登录用户查询：", req.session.islogin);
+  logger.info(pathname + 'post-orderConfirm');
+  logger.info("已登录用户查询：", req.session.islogin);
   if (req.session.islogin) {
     /*获取订单信息*/
-    console.log('get orders FormData Params: ', req.body);
+    logger.info('get orders FormData Params: ', req.body);
     var submitData = req.body.submitData;
     var ordersObj = JSON.parse(submitData);
-    console.log("get submitDataObj:", ordersObj);
+    logger.info("get submitDataObj:", ordersObj);
     /*提交订单信息到数据库*/
     var account = req.session.user;
     userDao.querySubmitOrder(account, ordersObj, res, req); //function (json) {
@@ -72,7 +75,7 @@ router.post('/', function (req, res, next) {
   } else {
     ejs.renderFile('./views/loginTimeOut.ejs', {}, function (err, data) {
       if (err) {
-        console.log(err);
+        logger.info(err);
         res.send("登录超时刷新失败");
       }
       res.end(data);
