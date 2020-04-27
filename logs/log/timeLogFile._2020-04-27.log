@@ -1157,3 +1157,568 @@
 [2020-04-27T17:27:37.999] [INFO] default - 登录状态： true
 [2020-04-27T17:27:38.000] [INFO] default - 已登录用户查询： 202001001
 [2020-04-27T17:27:38.002] [INFO] default - 202001001进入queryTclearInfo函数
+[2020-04-27T18:36:05.521] [INFO] default - get
+[2020-04-27T18:36:05.524] [INFO] default - /get-Tindex
+[2020-04-27T18:42:44.708] [INFO] default - get
+[2020-04-27T18:42:44.710] [INFO] default - /gethhhhhhhh
+[2020-04-27T18:44:51.488] [INFO] default - get
+[2020-04-27T18:44:51.489] [INFO] default - /gethhhhhhhh
+[2020-04-27T18:45:35.023] [INFO] default - get
+[2020-04-27T18:45:35.024] [INFO] default - /gethhhhhhhh
+[2020-04-27T22:07:50.639] [INFO] default - get
+[2020-04-27T22:07:50.643] [INFO] default - /gethhhhhhhh
+[2020-04-27T22:08:08.034] [INFO] default - post
+[2020-04-27T22:08:08.037] [INFO] default - /posthhhhhhhh
+[2020-04-27T22:08:08.038] [INFO] default - get FormData Params:  {
+  schools: 'soochow university',
+  account: '202001001',
+  password: '11111111'
+}
+[2020-04-27T22:08:08.043] [INFO] default - soochow university 202001001 11111111
+[2020-04-27T22:08:08.105] [INFO] default - 用户不存在，请重新登录
+[2020-04-27T22:08:10.137] [INFO] default - get
+[2020-04-27T22:08:10.140] [INFO] default - /gethhhhhhhh
+[2020-04-27T22:08:22.896] [INFO] default - post
+[2020-04-27T22:08:22.898] [INFO] default - /posthhhhhhhh
+[2020-04-27T22:08:22.901] [INFO] default - get FormData Params:  {
+  schools: 'soochow university',
+  account: '1607400001',
+  password: '63YXh9fM'
+}
+[2020-04-27T22:08:22.906] [INFO] default - soochow university 1607400001 63YXh9fM
+[2020-04-27T22:08:22.912] [INFO] default - 在读状态： 在读
+[2020-04-27T22:08:22.913] [INFO] default - 正确密码应为： [String: '63YXh9fM']
+[2020-04-27T22:08:22.914] [INFO] default - 密码正确,登录成功
+[2020-04-27T22:08:26.328] [INFO] default - get
+[2020-04-27T22:08:26.329] [INFO] default - /get-orderRecord
+[2020-04-27T22:08:26.335] [INFO] default - req.query: undefined
+[2020-04-27T22:08:26.335] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:08:26.336] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:08:26.337] [INFO] default - 1607400001进入queryOrderRecord函数
+[2020-04-27T22:08:30.959] [INFO] default - get
+[2020-04-27T22:08:30.962] [INFO] default - /get-paymentOrder
+[2020-04-27T22:08:30.965] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:08:30.966] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:08:30.967] [INFO] default - 1607400001进入queryTotalAmount函数
+[2020-04-27T22:08:31.875] [INFO] default - get
+[2020-04-27T22:08:31.876] [INFO] default - /get-optionalOrder
+[2020-04-27T22:08:31.878] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:08:31.879] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:08:31.880] [INFO] default - 1607400001进入queryOptionalOrder函数
+[2020-04-27T22:08:31.888] [INFO] default - 1607400001进入queryOptionalAmount函数
+[2020-04-27T22:08:31.909] [INFO] default - 无选缴账单总额,返回选缴账单总额为0、选缴订单
+[2020-04-27T22:08:38.984] [INFO] default - get
+[2020-04-27T22:08:38.987] [INFO] default - /get-orderConfirm
+[2020-04-27T22:08:38.988] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:08:38.988] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:08:38.989] [INFO] default - req.query.keys: [ 'goods0', 'goods1', 'goods4' ]
+[2020-04-27T22:08:40.381] [INFO] default - post
+[2020-04-27T22:08:40.383] [INFO] default - /post-orderConfirm
+[2020-04-27T22:08:40.385] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:08:40.386] [INFO] default - get orders FormData Params:  { submitData: '{"S000001":"1","S000002":"2","S000005":"1"}' }
+[2020-04-27T22:08:40.387] [INFO] default - get submitDataObj: { S000001: '1', S000002: '2', S000005: '1' }
+[2020-04-27T22:08:40.388] [INFO] default - 1607400001进入querySubmitOrder函数
+[2020-04-27T22:08:40.389] [INFO] default - 待插入订单信息： { S000001: '1', S000002: '2', S000005: '1' }
+[2020-04-27T22:08:40.401] [INFO] default - 待插入商品信息： [ 'S000001', 'S000002', 'S000005' ]
+[2020-04-27T22:08:40.450] [INFO] default - 产生待插入子订单编号childOrderID: 1000037801
+[2020-04-27T22:08:40.453] [INFO] default - 待插入子订单参数： [ '1000037801', 10000378, 'S000001', 1, 3.5, 3.5, 'A00001' ]
+[2020-04-27T22:08:40.466] [INFO] default - 产生待插入子订单编号childOrderID: 1000037802
+[2020-04-27T22:08:40.467] [INFO] default - 待插入子订单参数： [ '1000037802', 10000378, 'S000002', 2, 52.5, 105, 'A00001' ]
+[2020-04-27T22:08:40.471] [INFO] default - 产生待插入子订单编号childOrderID: 1000037803
+[2020-04-27T22:08:40.473] [INFO] default - 待插入子订单参数： [ '1000037803', 10000378, 'S000005', 1, 4, 4, 'A00001' ]
+[2020-04-27T22:08:41.967] [INFO] default - get
+[2020-04-27T22:08:41.970] [INFO] default - /get-orderRecord
+[2020-04-27T22:08:41.975] [INFO] default - req.query: undefined
+[2020-04-27T22:08:41.976] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:08:41.978] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:08:41.979] [INFO] default - 1607400001进入queryOrderRecord函数
+[2020-04-27T22:08:43.093] [INFO] default - get
+[2020-04-27T22:08:43.097] [INFO] default - /get-paymentMethod
+[2020-04-27T22:08:43.098] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:08:43.098] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:08:43.099] [INFO] default - req.query.orderNo: 10000378
+[2020-04-27T22:08:43.099] [INFO] default - { text: '订单为可支付状态', OrderNo: '10000378' }
+[2020-04-27T22:08:43.100] [INFO] default - 1607400001进入queryPayMethod函数
+[2020-04-27T22:09:01.591] [INFO] default - post
+[2020-04-27T22:09:01.592] [INFO] default - /post-ajaxTest
+[2020-04-27T22:09:01.593] [INFO] default - ajax Test已登录用户查询： true
+[2020-04-27T22:09:01.593] [INFO] default - ajax Test已登录用户查询： 1607400001
+[2020-04-27T22:09:01.594] [INFO] default - 10000378 112
+[2020-04-27T22:09:01.595] [INFO] default - aaa
+[2020-04-27T22:09:01.596] [INFO] default - post_data: {
+  method: '发起交易',
+  target: '测试用户1',
+  source: '测试用户1',
+  tradeID: '10000378',
+  sum: '112',
+  timeLimit: 120
+}
+[2020-04-27T22:09:01.603] [INFO] default - content: {"method":"发起交易","target":"测试用户1","source":"测试用户1","tradeID":"10000378","sum":"112","timeLimit":120}
+[2020-04-27T22:09:01.604] [INFO] default - options: {
+  hostname: '114.115.222.89',
+  port: 20056,
+  path: '/PaySim',
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json; charset=UTF-8' }
+}
+[2020-04-27T22:09:01.686] [INFO] default - STATUS: 200
+[2020-04-27T22:09:01.688] [INFO] default - HEADERS: {"server":"TornadoServer/6.0.3","content-type":"text/html; charset=UTF-8","date":"Mon, 27 Apr 2020 14:09:01 GMT","access-control-allow-origin":"*","content-length":"107","connection":"close"}
+[2020-04-27T22:09:01.689] [INFO] default - BODY: {"result": "\u4ea4\u6613\u521b\u5efa\u6210\u529f", "transactionID": "f85cc2d4-04d6-4f20-8c88-c436f369f8a7"}
+[2020-04-27T22:09:01.690] [INFO] default - chunkObj.transactionID: f85cc2d4-04d6-4f20-8c88-c436f369f8a7
+[2020-04-27T22:09:01.716] [INFO] default - get
+[2020-04-27T22:09:01.717] [INFO] default - /get-payPage
+[2020-04-27T22:09:01.718] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:09:01.719] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:09:27.776] [INFO] default - get
+[2020-04-27T22:09:27.777] [INFO] default - /get-orderRecord
+[2020-04-27T22:09:27.777] [INFO] default - req.query: undefined
+[2020-04-27T22:09:27.778] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:09:27.779] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:09:27.779] [INFO] default - 1607400001进入queryOrderRecord函数
+[2020-04-27T22:09:29.367] [INFO] default - get
+[2020-04-27T22:09:29.370] [INFO] default - /get-paymentMethod
+[2020-04-27T22:09:29.370] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:09:29.373] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:09:29.376] [INFO] default - req.query.orderNo: 10000378
+[2020-04-27T22:09:29.377] [INFO] default - { text: '订单为可支付状态', OrderNo: '10000378' }
+[2020-04-27T22:09:29.381] [INFO] default - 1607400001进入queryPayMethod函数
+[2020-04-27T22:09:35.881] [INFO] default - post
+[2020-04-27T22:09:35.884] [INFO] default - /post-ajaxTest
+[2020-04-27T22:09:35.885] [INFO] default - ajax Test已登录用户查询： true
+[2020-04-27T22:09:35.886] [INFO] default - ajax Test已登录用户查询： 1607400001
+[2020-04-27T22:09:35.990] [INFO] default - 10000378 112
+[2020-04-27T22:09:36.073] [INFO] default - aaa
+[2020-04-27T22:09:36.160] [INFO] default - post_data: {
+  method: '发起交易',
+  target: '测试用户1',
+  source: '测试用户1',
+  tradeID: '10000378',
+  sum: '112',
+  timeLimit: 120
+}
+[2020-04-27T22:09:36.209] [INFO] default - content: {"method":"发起交易","target":"测试用户1","source":"测试用户1","tradeID":"10000378","sum":"112","timeLimit":120}
+[2020-04-27T22:09:36.212] [INFO] default - options: {
+  hostname: '114.115.222.89',
+  port: 20056,
+  path: '/PaySim',
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json; charset=UTF-8' }
+}
+[2020-04-27T22:09:36.302] [INFO] default - STATUS: 200
+[2020-04-27T22:09:36.338] [INFO] default - HEADERS: {"server":"TornadoServer/6.0.3","content-type":"text/html; charset=UTF-8","date":"Mon, 27 Apr 2020 14:09:35 GMT","access-control-allow-origin":"*","content-length":"107","connection":"close"}
+[2020-04-27T22:09:36.343] [INFO] default - BODY: {"result": "\u4ea4\u6613\u521b\u5efa\u6210\u529f", "transactionID": "190a12f1-8b56-4454-9205-4cb666189417"}
+[2020-04-27T22:09:36.344] [INFO] default - chunkObj.transactionID: 190a12f1-8b56-4454-9205-4cb666189417
+[2020-04-27T22:09:36.379] [INFO] default - get
+[2020-04-27T22:09:36.424] [INFO] default - /get-payPage
+[2020-04-27T22:09:36.427] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:09:36.429] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:13:54.536] [INFO] default - get
+[2020-04-27T22:13:54.540] [INFO] default - /get-orderRecord
+[2020-04-27T22:13:54.541] [INFO] default - req.query: undefined
+[2020-04-27T22:13:54.546] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:13:54.632] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:13:54.774] [INFO] default - 1607400001进入queryOrderRecord函数
+[2020-04-27T22:13:56.351] [INFO] default - get
+[2020-04-27T22:13:56.353] [INFO] default - /get-paymentMethod
+[2020-04-27T22:13:56.354] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:13:56.409] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:13:56.462] [INFO] default - req.query.orderNo: 10000378
+[2020-04-27T22:13:56.464] [INFO] default - { text: '订单为可支付状态', OrderNo: '10000378' }
+[2020-04-27T22:13:56.466] [INFO] default - 1607400001进入queryPayMethod函数
+[2020-04-27T22:13:58.387] [INFO] default - post
+[2020-04-27T22:13:58.388] [INFO] default - /post-ajaxTest
+[2020-04-27T22:13:58.389] [INFO] default - ajax Test已登录用户查询： true
+[2020-04-27T22:13:58.390] [INFO] default - ajax Test已登录用户查询： 1607400001
+[2020-04-27T22:13:58.443] [INFO] default - 10000378 112
+[2020-04-27T22:13:58.540] [INFO] default - aaa
+[2020-04-27T22:13:58.542] [INFO] default - post_data: {
+  method: '发起交易',
+  target: '测试用户1',
+  source: '测试用户1',
+  tradeID: '10000378',
+  sum: '112',
+  timeLimit: 120
+}
+[2020-04-27T22:13:58.544] [INFO] default - content: {"method":"发起交易","target":"测试用户1","source":"测试用户1","tradeID":"10000378","sum":"112","timeLimit":120}
+[2020-04-27T22:13:58.546] [INFO] default - options: {
+  hostname: '114.115.222.89',
+  port: 20056,
+  path: '/PaySim',
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json; charset=UTF-8' }
+}
+[2020-04-27T22:13:58.638] [INFO] default - STATUS: 200
+[2020-04-27T22:13:58.661] [INFO] default - HEADERS: {"server":"TornadoServer/6.0.3","content-type":"text/html; charset=UTF-8","date":"Mon, 27 Apr 2020 14:13:58 GMT","access-control-allow-origin":"*","content-length":"107","connection":"close"}
+[2020-04-27T22:13:58.663] [INFO] default - BODY: {"result": "\u4ea4\u6613\u521b\u5efa\u6210\u529f", "transactionID": "ea9b04b3-0765-4f59-8eef-97ce8614aae8"}
+[2020-04-27T22:13:58.667] [INFO] default - chunkObj.transactionID: ea9b04b3-0765-4f59-8eef-97ce8614aae8
+[2020-04-27T22:13:58.746] [INFO] default - get
+[2020-04-27T22:13:58.792] [INFO] default - /get-payPage
+[2020-04-27T22:13:58.797] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:13:58.798] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:16:41.016] [INFO] default - get
+[2020-04-27T22:16:41.023] [INFO] default - /get-payPage
+[2020-04-27T22:16:41.026] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:16:41.033] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:17:51.857] [INFO] default - get
+[2020-04-27T22:17:51.858] [INFO] default - /get-payPage
+[2020-04-27T22:17:51.859] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:17:51.860] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:23:15.196] [INFO] default - get
+[2020-04-27T22:23:15.197] [INFO] default - /get-orderRecord
+[2020-04-27T22:23:15.197] [INFO] default - req.query: undefined
+[2020-04-27T22:23:15.198] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:23:15.199] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:23:15.199] [INFO] default - 1607400001进入queryOrderRecord函数
+[2020-04-27T22:23:18.950] [INFO] default - get
+[2020-04-27T22:23:18.952] [INFO] default - /get-paymentMethod
+[2020-04-27T22:23:18.955] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:23:18.955] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:23:18.956] [INFO] default - req.query.orderNo: 10000378
+[2020-04-27T22:23:19.060] [INFO] default - { text: '订单为可支付状态', OrderNo: '10000378' }
+[2020-04-27T22:23:19.136] [INFO] default - 1607400001进入queryPayMethod函数
+[2020-04-27T22:24:50.783] [INFO] default - get
+[2020-04-27T22:24:50.785] [INFO] default - /get-paymentMethod
+[2020-04-27T22:24:50.786] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:24:50.850] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:24:50.856] [INFO] default - req.query.orderNo: 10000378
+[2020-04-27T22:24:50.971] [INFO] default - { text: '订单为可支付状态', OrderNo: '10000378' }
+[2020-04-27T22:24:51.028] [INFO] default - 1607400001进入queryPayMethod函数
+[2020-04-27T22:26:12.642] [INFO] default - post
+[2020-04-27T22:26:12.643] [INFO] default - /post-ajaxTest
+[2020-04-27T22:26:12.643] [INFO] default - ajax Test已登录用户查询： true
+[2020-04-27T22:26:12.643] [INFO] default - ajax Test已登录用户查询： 1607400001
+[2020-04-27T22:26:12.672] [INFO] default - 10000378 112
+[2020-04-27T22:26:12.702] [INFO] default - aaa
+[2020-04-27T22:26:12.704] [INFO] default - post_data: {
+  method: '发起交易',
+  target: '测试用户1',
+  source: '测试用户1',
+  tradeID: '10000378',
+  sum: '112',
+  timeLimit: 120
+}
+[2020-04-27T22:26:12.707] [INFO] default - content: {"method":"发起交易","target":"测试用户1","source":"测试用户1","tradeID":"10000378","sum":"112","timeLimit":120}
+[2020-04-27T22:26:12.747] [INFO] default - options: {
+  hostname: '114.115.222.89',
+  port: 20056,
+  path: '/PaySim',
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json; charset=UTF-8' }
+}
+[2020-04-27T22:27:29.955] [INFO] default - get
+[2020-04-27T22:27:29.959] [INFO] default - /gethhhhhhhh
+[2020-04-27T22:27:34.366] [INFO] default - post
+[2020-04-27T22:27:34.369] [INFO] default - /posthhhhhhhh
+[2020-04-27T22:27:34.371] [INFO] default - get FormData Params:  {
+  schools: 'soochow university',
+  account: '1607400001',
+  password: '63YXh9fM'
+}
+[2020-04-27T22:27:34.379] [INFO] default - soochow university 1607400001 63YXh9fM
+[2020-04-27T22:27:34.429] [INFO] default - 在读状态： 在读
+[2020-04-27T22:27:34.489] [INFO] default - 正确密码应为： [String: '63YXh9fM']
+[2020-04-27T22:27:34.534] [INFO] default - 密码正确,登录成功
+[2020-04-27T22:27:36.222] [INFO] default - get
+[2020-04-27T22:27:36.223] [INFO] default - /get-orderRecord
+[2020-04-27T22:27:36.225] [INFO] default - req.query: undefined
+[2020-04-27T22:27:36.270] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:27:36.356] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:27:36.412] [INFO] default - 1607400001进入queryOrderRecord函数
+[2020-04-27T22:27:38.222] [INFO] default - get
+[2020-04-27T22:27:38.225] [INFO] default - /get-paymentMethod
+[2020-04-27T22:27:38.275] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:27:38.276] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:27:38.279] [INFO] default - req.query.orderNo: 10000378
+[2020-04-27T22:27:38.281] [INFO] default - { text: '订单为可支付状态', OrderNo: '10000378' }
+[2020-04-27T22:27:38.283] [INFO] default - 1607400001进入queryPayMethod函数
+[2020-04-27T22:27:40.402] [INFO] default - post
+[2020-04-27T22:27:40.403] [INFO] default - /post-ajaxTest
+[2020-04-27T22:27:40.404] [INFO] default - ajax Test已登录用户查询： true
+[2020-04-27T22:27:40.405] [INFO] default - ajax Test已登录用户查询： 1607400001
+[2020-04-27T22:27:40.487] [INFO] default - 10000378 112
+[2020-04-27T22:27:40.557] [INFO] default - aaa
+[2020-04-27T22:27:40.638] [INFO] default - post_data: {
+  method: '发起交易',
+  target: '测试用户1',
+  source: '测试用户1',
+  tradeID: '10000378',
+  sum: '112',
+  timeLimit: 120
+}
+[2020-04-27T22:27:40.854] [INFO] default - content: {"method":"发起交易","target":"测试用户1","source":"测试用户1","tradeID":"10000378","sum":"112","timeLimit":120}
+[2020-04-27T22:27:40.949] [INFO] default - options: {
+  hostname: '114.115.222.89',
+  port: 20056,
+  path: '/PaySim',
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json; charset=UTF-8' }
+}
+[2020-04-27T22:29:59.643] [INFO] default - get
+[2020-04-27T22:29:59.660] [INFO] default - /gethhhhhhhh
+[2020-04-27T22:30:00.026] [INFO] default - get
+[2020-04-27T22:30:00.038] [INFO] default - /gethhhhhhhh
+[2020-04-27T22:30:04.552] [INFO] default - post
+[2020-04-27T22:30:04.553] [INFO] default - /posthhhhhhhh
+[2020-04-27T22:30:04.553] [INFO] default - get FormData Params:  {
+  schools: 'soochow university',
+  account: '1607400001',
+  password: '63YXh9fM'
+}
+[2020-04-27T22:30:04.692] [INFO] default - soochow university 1607400001 63YXh9fM
+[2020-04-27T22:30:04.800] [INFO] default - 在读状态： 在读
+[2020-04-27T22:30:04.810] [INFO] default - 正确密码应为： [String: '63YXh9fM']
+[2020-04-27T22:30:04.812] [INFO] default - 密码正确,登录成功
+[2020-04-27T22:30:06.782] [INFO] default - get
+[2020-04-27T22:30:06.783] [INFO] default - /get-orderRecord
+[2020-04-27T22:30:06.785] [INFO] default - req.query: undefined
+[2020-04-27T22:30:06.837] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:30:06.847] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:30:06.907] [INFO] default - 1607400001进入queryOrderRecord函数
+[2020-04-27T22:30:08.490] [INFO] default - get
+[2020-04-27T22:30:08.492] [INFO] default - /get-paymentMethod
+[2020-04-27T22:30:08.541] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:30:08.596] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:30:08.647] [INFO] default - req.query.orderNo: 10000378
+[2020-04-27T22:30:08.705] [INFO] default - { text: '订单为可支付状态', OrderNo: '10000378' }
+[2020-04-27T22:30:08.707] [INFO] default - 1607400001进入queryPayMethod函数
+[2020-04-27T22:30:10.379] [INFO] default - post
+[2020-04-27T22:30:10.380] [INFO] default - /post-ajaxTest
+[2020-04-27T22:30:10.380] [INFO] default - ajax Test已登录用户查询： true
+[2020-04-27T22:30:10.381] [INFO] default - ajax Test已登录用户查询： 1607400001
+[2020-04-27T22:30:10.477] [INFO] default - 10000378 112
+[2020-04-27T22:30:10.557] [INFO] default - aaa
+[2020-04-27T22:30:10.621] [INFO] default - post_data: {
+  method: '发起交易',
+  target: '测试用户1',
+  source: '测试用户1',
+  tradeID: '10000378',
+  sum: '112',
+  timeLimit: 120
+}
+[2020-04-27T22:30:10.627] [INFO] default - content: {"method":"发起交易","target":"测试用户1","source":"测试用户1","tradeID":"10000378","sum":"112","timeLimit":120}
+[2020-04-27T22:30:10.628] [INFO] default - options: {
+  hostname: '114.115.222.89',
+  port: 20056,
+  path: '/PaySim',
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json; charset=UTF-8' }
+}
+[2020-04-27T22:30:10.714] [INFO] default - STATUS: 200
+[2020-04-27T22:30:10.715] [INFO] default - HEADERS: {"server":"TornadoServer/6.0.3","content-type":"text/html; charset=UTF-8","date":"Mon, 27 Apr 2020 14:30:10 GMT","access-control-allow-origin":"*","content-length":"107","connection":"close"}
+[2020-04-27T22:30:10.717] [INFO] default - BODY: {"result": "\u4ea4\u6613\u521b\u5efa\u6210\u529f", "transactionID": "1be70f94-3cfd-4990-b33a-c382261e1748"}
+[2020-04-27T22:30:10.753] [INFO] default - chunkObj.transactionID: 1be70f94-3cfd-4990-b33a-c382261e1748
+[2020-04-27T22:30:10.841] [INFO] default - get
+[2020-04-27T22:30:10.919] [INFO] default - /get-payPage
+[2020-04-27T22:30:10.973] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:30:10.975] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:30:38.482] [INFO] default - get
+[2020-04-27T22:30:38.485] [INFO] default - /get-paymentResult
+[2020-04-27T22:30:38.487] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:30:38.553] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:30:38.597] [INFO] default - 1607400001进入queryPaySuccRe函数
+[2020-04-27T22:30:38.616] [INFO] default - 更新订单支付时间成功
+[2020-04-27T22:30:43.698] [INFO] default - get
+[2020-04-27T22:30:43.699] [INFO] default - /get-orderRecord
+[2020-04-27T22:30:43.701] [INFO] default - req.query: undefined
+[2020-04-27T22:30:43.765] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:30:43.831] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:30:43.833] [INFO] default - 1607400001进入queryOrderRecord函数
+[2020-04-27T22:30:46.848] [INFO] default - get
+[2020-04-27T22:30:46.850] [INFO] default - /get-paymentOrder
+[2020-04-27T22:30:46.852] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:30:46.853] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:30:46.962] [INFO] default - 1607400001进入queryTotalAmount函数
+[2020-04-27T22:30:48.279] [INFO] default - get
+[2020-04-27T22:30:48.282] [INFO] default - /get-optionalOrder
+[2020-04-27T22:30:48.285] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:30:48.288] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:30:48.289] [INFO] default - 1607400001进入queryOptionalOrder函数
+[2020-04-27T22:30:48.434] [INFO] default - 1607400001进入queryOptionalAmount函数
+[2020-04-27T22:30:48.552] [INFO] default - 无选缴账单总额,返回选缴账单总额为0、选缴订单
+[2020-04-27T22:30:53.067] [INFO] default - get
+[2020-04-27T22:30:53.070] [INFO] default - /get-orderConfirm
+[2020-04-27T22:30:53.073] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:30:53.132] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:30:53.133] [INFO] default - req.query.keys: [ 'goods0', 'goods1' ]
+[2020-04-27T22:30:54.252] [INFO] default - post
+[2020-04-27T22:30:54.255] [INFO] default - /post-orderConfirm
+[2020-04-27T22:30:54.257] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:30:54.325] [INFO] default - get orders FormData Params:  { submitData: '{"S000001":"1","S000002":"1"}' }
+[2020-04-27T22:30:54.392] [INFO] default - get submitDataObj: { S000001: '1', S000002: '1' }
+[2020-04-27T22:30:54.490] [INFO] default - 1607400001进入querySubmitOrder函数
+[2020-04-27T22:30:54.493] [INFO] default - 待插入订单信息： { S000001: '1', S000002: '1' }
+[2020-04-27T22:30:54.501] [INFO] default - 待插入商品信息： [ 'S000001', 'S000002' ]
+[2020-04-27T22:30:54.507] [INFO] default - 产生待插入子订单编号childOrderID: 1000037901
+[2020-04-27T22:30:54.682] [INFO] default - 待插入子订单参数： [ '1000037901', 10000379, 'S000001', 1, 3.5, 3.5, 'A00001' ]
+[2020-04-27T22:30:54.685] [INFO] default - 产生待插入子订单编号childOrderID: 1000037902
+[2020-04-27T22:30:54.758] [INFO] default - 待插入子订单参数： [ '1000037902', 10000379, 'S000002', 1, 52.5, 52.5, 'A00001' ]
+[2020-04-27T22:30:55.532] [INFO] default - get
+[2020-04-27T22:30:55.534] [INFO] default - /get-orderRecord
+[2020-04-27T22:30:55.535] [INFO] default - req.query: undefined
+[2020-04-27T22:30:55.613] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:30:55.619] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:30:55.709] [INFO] default - 1607400001进入queryOrderRecord函数
+[2020-04-27T22:30:57.628] [INFO] default - get
+[2020-04-27T22:30:57.630] [INFO] default - /get-paymentMethod
+[2020-04-27T22:30:57.631] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:30:57.634] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:30:57.730] [INFO] default - req.query.orderNo: 10000379
+[2020-04-27T22:30:57.812] [INFO] default - { text: '订单为可支付状态', OrderNo: '10000379' }
+[2020-04-27T22:30:57.896] [INFO] default - 1607400001进入queryPayMethod函数
+[2020-04-27T22:31:00.323] [INFO] default - post
+[2020-04-27T22:31:00.324] [INFO] default - /post-ajaxTest
+[2020-04-27T22:31:00.325] [INFO] default - ajax Test已登录用户查询： true
+[2020-04-27T22:31:00.328] [INFO] default - ajax Test已登录用户查询： 1607400001
+[2020-04-27T22:31:00.396] [INFO] default - 10000379 56
+[2020-04-27T22:31:00.398] [INFO] default - aaa
+[2020-04-27T22:31:00.399] [INFO] default - post_data: {
+  method: '发起交易',
+  target: '测试用户1',
+  source: '测试用户1',
+  tradeID: '10000379',
+  sum: '56',
+  timeLimit: 120
+}
+[2020-04-27T22:31:00.531] [INFO] default - content: {"method":"发起交易","target":"测试用户1","source":"测试用户1","tradeID":"10000379","sum":"56","timeLimit":120}
+[2020-04-27T22:31:00.666] [INFO] default - options: {
+  hostname: '114.115.222.89',
+  port: 20056,
+  path: '/PaySim',
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json; charset=UTF-8' }
+}
+[2020-04-27T22:31:00.889] [INFO] default - STATUS: 200
+[2020-04-27T22:31:00.890] [INFO] default - HEADERS: {"server":"TornadoServer/6.0.3","content-type":"text/html; charset=UTF-8","date":"Mon, 27 Apr 2020 14:31:00 GMT","access-control-allow-origin":"*","content-length":"107","connection":"close"}
+[2020-04-27T22:31:00.946] [INFO] default - BODY: {"result": "\u4ea4\u6613\u521b\u5efa\u6210\u529f", "transactionID": "e4296547-6f67-4a40-8b00-82e5fe55d0f7"}
+[2020-04-27T22:31:00.947] [INFO] default - chunkObj.transactionID: e4296547-6f67-4a40-8b00-82e5fe55d0f7
+[2020-04-27T22:31:00.976] [INFO] default - get
+[2020-04-27T22:31:01.043] [INFO] default - /get-payPage
+[2020-04-27T22:31:01.047] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:31:01.049] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:31:12.821] [INFO] default - get
+[2020-04-27T22:31:12.823] [INFO] default - /get-paymentResult
+[2020-04-27T22:31:12.823] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:31:12.868] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:31:12.909] [INFO] default - 1607400001进入queryPayFailRe函数
+[2020-04-27T22:31:12.927] [INFO] default - 更新订单支付时间成功
+[2020-04-27T22:35:39.239] [INFO] default - get
+[2020-04-27T22:35:39.240] [INFO] default - /get-orderRecord
+[2020-04-27T22:35:39.240] [INFO] default - req.query: undefined
+[2020-04-27T22:35:39.241] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:35:39.241] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:35:39.242] [INFO] default - 1607400001进入queryOrderRecord函数
+[2020-04-27T22:35:47.259] [INFO] default - get
+[2020-04-27T22:35:47.261] [INFO] default - /get-paymentOrder
+[2020-04-27T22:35:47.261] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:35:47.263] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:35:47.270] [INFO] default - 1607400001进入queryTotalAmount函数
+[2020-04-27T22:35:48.332] [INFO] default - get
+[2020-04-27T22:35:48.333] [INFO] default - /get-home
+[2020-04-27T22:35:48.334] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:35:48.335] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:35:48.467] [INFO] default - req.session: Session {
+  cookie: {
+    path: '/',
+    _expires: 2020-04-27T15:05:47.434Z,
+    originalMaxAge: 1799999,
+    httpOnly: true
+  },
+  user: '1607400001',
+  islogin: true,
+  username: '锁依琴'
+}
+[2020-04-27T22:35:48.965] [INFO] default - 1607400001进入queryInformation函数
+[2020-04-27T22:35:49.104] [INFO] default - 在读状态： 在读
+[2020-04-27T22:35:50.770] [INFO] default - get
+[2020-04-27T22:35:50.771] [INFO] default - /get-scholarshipRecord
+[2020-04-27T22:35:50.772] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:35:50.773] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:35:50.892] [INFO] default - 1607400001进入queryScholarshipRecord函数
+[2020-04-27T22:35:53.939] [INFO] default - get
+[2020-04-27T22:35:53.940] [INFO] default - /get-orderRecord
+[2020-04-27T22:35:53.942] [INFO] default - req.query: undefined
+[2020-04-27T22:35:54.030] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:35:54.100] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:35:54.193] [INFO] default - 1607400001进入queryOrderRecord函数
+[2020-04-27T22:35:55.599] [INFO] default - get
+[2020-04-27T22:35:55.600] [INFO] default - /get-paymentOrder
+[2020-04-27T22:35:55.600] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:35:55.602] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:35:55.708] [INFO] default - 1607400001进入queryTotalAmount函数
+[2020-04-27T22:35:59.031] [INFO] default - get
+[2020-04-27T22:35:59.032] [INFO] default - /get-home
+[2020-04-27T22:35:59.034] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:35:59.101] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:35:59.206] [INFO] default - req.session: Session {
+  cookie: {
+    path: '/',
+    _expires: 2020-04-27T15:05:55.905Z,
+    originalMaxAge: 1799999,
+    httpOnly: true
+  },
+  user: '1607400001',
+  islogin: true,
+  username: '锁依琴'
+}
+[2020-04-27T22:35:59.466] [INFO] default - 1607400001进入queryInformation函数
+[2020-04-27T22:35:59.558] [INFO] default - 在读状态： 在读
+[2020-04-27T22:36:21.419] [INFO] default - get
+[2020-04-27T22:36:21.420] [INFO] default - /get-paymentOrder
+[2020-04-27T22:36:21.421] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:36:21.470] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:36:21.471] [INFO] default - 1607400001进入queryTotalAmount函数
+[2020-04-27T22:36:25.569] [INFO] default - get
+[2020-04-27T22:36:25.574] [INFO] default - /get-orderRecord
+[2020-04-27T22:36:25.575] [INFO] default - req.query: undefined
+[2020-04-27T22:36:25.620] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:36:25.793] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:36:25.832] [INFO] default - 1607400001进入queryOrderRecord函数
+[2020-04-27T22:36:28.293] [INFO] default - get
+[2020-04-27T22:36:28.295] [INFO] default - /get-home
+[2020-04-27T22:36:28.296] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:36:28.360] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:36:28.363] [INFO] default - req.session: Session {
+  cookie: {
+    path: '/',
+    _expires: 2020-04-27T15:06:26.088Z,
+    originalMaxAge: 1799999,
+    httpOnly: true
+  },
+  user: '1607400001',
+  islogin: true,
+  username: '锁依琴'
+}
+[2020-04-27T22:36:28.368] [INFO] default - 1607400001进入queryInformation函数
+[2020-04-27T22:36:28.370] [INFO] default - 在读状态： 在读
+[2020-04-27T22:36:30.678] [INFO] default - get
+[2020-04-27T22:36:30.682] [INFO] default - /get-changePassword
+[2020-04-27T22:36:30.684] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:36:30.688] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:36:35.052] [INFO] default - get
+[2020-04-27T22:36:35.056] [INFO] default - /get-home
+[2020-04-27T22:36:35.058] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:36:35.059] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:36:35.138] [INFO] default - req.session: Session {
+  cookie: {
+    path: '/',
+    _expires: 2020-04-27T15:06:30.980Z,
+    originalMaxAge: 1799999,
+    httpOnly: true
+  },
+  user: '1607400001',
+  islogin: true,
+  username: '锁依琴'
+}
+[2020-04-27T22:36:35.201] [INFO] default - 1607400001进入queryInformation函数
+[2020-04-27T22:36:35.209] [INFO] default - 在读状态： 在读
+[2020-04-27T22:36:36.989] [INFO] default - get
+[2020-04-27T22:36:36.991] [INFO] default - /get-orderRecord
+[2020-04-27T22:36:36.992] [INFO] default - req.query: undefined
+[2020-04-27T22:36:36.995] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:36:37.094] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:36:37.165] [INFO] default - 1607400001进入queryOrderRecord函数
+[2020-04-27T22:36:39.252] [INFO] default - get
+[2020-04-27T22:36:39.260] [INFO] default - /get-scholarshipRecord
+[2020-04-27T22:36:39.262] [INFO] default - 已登录用户查询： true
+[2020-04-27T22:36:39.264] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-27T22:36:39.390] [INFO] default - 1607400001进入queryScholarshipRecord函数

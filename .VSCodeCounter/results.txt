@@ -1,17 +1,17 @@
-Date : 2020-04-27 00:10:18
+Date : 2020-04-27 17:38:50
 Directory : e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test
-Total : 155 files,  20385 codes, 1731 comments, 747 blanks, all 22863 lines
+Total : 157 files,  22670 codes, 1840 comments, 760 blanks, all 25270 lines
 
 Languages
 +------------+------------+------------+------------+------------+------------+
 | language   | files      | code       | comment    | blank      | total      |
 +------------+------------+------------+------------+------------+------------+
-| JavaScript |         71 |      8,231 |      1,395 |        343 |      9,969 |
-| HTML       |         45 |      5,439 |        219 |        241 |      5,899 |
+| JavaScript |         71 |      8,338 |      1,463 |        353 |     10,154 |
+| HTML       |         45 |      5,543 |        260 |        242 |      6,045 |
 | Excel      |         27 |      3,233 |          0 |         21 |      3,254 |
+| Log        |          5 |      2,585 |          0 |          5 |      2,590 |
 | JSON       |          2 |      2,063 |          0 |          2 |      2,065 |
 | CSS        |          4 |        861 |        117 |        128 |      1,106 |
-| Log        |          3 |        511 |          0 |          3 |        514 |
 | Markdown   |          1 |         35 |          0 |          7 |         42 |
 | XML        |          2 |         12 |          0 |          2 |         14 |
 +------------+------------+------------+------------+------------+------------+
@@ -20,24 +20,24 @@ Directories
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
 | path                                                                                                                                          | files      | code       | comment    | blank      | total      |
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
-| .                                                                                                                                             |        155 |     20,385 |      1,731 |        747 |     22,863 |
+| .                                                                                                                                             |        157 |     22,670 |      1,840 |        760 |     25,270 |
 | conf                                                                                                                                          |          1 |         11 |         13 |          1 |         25 |
-| dao                                                                                                                                           |          3 |      4,484 |        423 |        103 |      5,010 |
+| dao                                                                                                                                           |          3 |      4,558 |        426 |        106 |      5,090 |
 | illustration                                                                                                                                  |          1 |      1,160 |          0 |          9 |      1,169 |
 | jq                                                                                                                                            |          1 |          9 |          3 |          3 |         15 |
-| logs                                                                                                                                          |          4 |        587 |         22 |         12 |        621 |
-| logs\log                                                                                                                                      |          3 |        511 |          0 |          3 |        514 |
-| public                                                                                                                                        |         56 |      4,409 |        639 |        296 |      5,344 |
+| logs                                                                                                                                          |          6 |      2,645 |         38 |         14 |      2,697 |
+| logs\log                                                                                                                                      |          5 |      2,585 |          0 |          5 |      2,590 |
+| public                                                                                                                                        |         56 |      4,455 |        686 |        303 |      5,444 |
 | public\excelTemplates4downLoad                                                                                                                |         11 |        791 |          0 |          5 |        796 |
 | public\images                                                                                                                                 |          2 |         12 |          0 |          2 |         14 |
 | public\images\index                                                                                                                           |          2 |         12 |          0 |          2 |         14 |
-| public\javascripts                                                                                                                            |         25 |      1,501 |        526 |        157 |      2,184 |
+| public\javascripts                                                                                                                            |         25 |      1,547 |        573 |        164 |      2,284 |
 | public\stylesheets                                                                                                                            |          3 |        823 |        113 |        125 |      1,061 |
 | public\tableTemplates4downLoad                                                                                                                |         10 |        691 |          0 |          6 |        697 |
 | public\tables4downLoad                                                                                                                        |          1 |        310 |          0 |          1 |        311 |
-| routes                                                                                                                                        |         38 |      2,020 |        380 |         56 |      2,456 |
+| routes                                                                                                                                        |         38 |      2,023 |        382 |         57 |      2,462 |
 | util                                                                                                                                          |          1 |         11 |          0 |          0 |         11 |
-| views                                                                                                                                         |         46 |      5,477 |        223 |        244 |      5,944 |
+| views                                                                                                                                         |         46 |      5,581 |        264 |        245 |      6,090 |
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
 
 Files
@@ -45,17 +45,19 @@ Files
 | filename                                                                                                                                      | language   | code       | comment    | blank      | total      |
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\README.md                                                         | Markdown   |         35 |          0 |          7 |         42 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\app.js                                                            | JavaScript |        119 |         28 |         14 |        161 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\app.js                                                            | JavaScript |        119 |         28 |         13 |        160 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\conf\db.js                                                        | JavaScript |         11 |         13 |          1 |         25 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\dao\exceltt.js                                                    | JavaScript |         33 |          5 |          2 |         40 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\dao\userDao.js                                                    | JavaScript |      4,371 |        335 |         70 |      4,776 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\dao\userSqlMapping.js                                             | JavaScript |         80 |         83 |         31 |        194 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\dao\userDao.js                                                    | JavaScript |      4,444 |        337 |         73 |      4,854 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\dao\userSqlMapping.js                                             | JavaScript |         81 |         84 |         31 |        196 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\illustration\DB设计20200213.xlsx                                    | Excel      |      1,160 |          0 |          9 |      1,169 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\jq\jquery.js                                                      | JavaScript |          9 |          3 |          3 |         15 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\logs\log.js                                                       | JavaScript |         76 |         22 |          9 |        107 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\logs\log\logFile._2020-04-26.log                                  | Log        |        265 |          0 |          1 |        266 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\logs\log.js                                                       | JavaScript |         60 |         38 |          9 |        107 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\logs\log\logFile._2020-04-27.log                                  | Log        |      1,180 |          0 |          1 |      1,181 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\logs\log\logFile_error._2020-04-26.log                            | Log        |          0 |          0 |          1 |          1 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\logs\log\logFile_error._2020-04-27.log                            | Log        |          0 |          0 |          1 |          1 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\logs\log\timeLogFile._2020-04-26.log                              | Log        |        246 |          0 |          1 |        247 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\logs\log\timeLogFile._2020-04-27.log                              | Log        |      1,159 |          0 |          1 |      1,160 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\package-lock.json                                                 | JSON       |      2,028 |          0 |          1 |      2,029 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\package.json                                                      | JSON       |         35 |          0 |          1 |         36 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\excelTemplates4downLoad\clearInfoTemplate4Excel.xlsx       | Excel      |         69 |          0 |          2 |         71 |
@@ -73,13 +75,13 @@ Files
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\images\index\u58_selected.svg                              | XML        |          6 |          0 |          1 |          7 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\TallOrdersAdmin.js                             | JavaScript |          8 |         48 |          2 |         58 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\TchangePasswordOK.js                           | JavaScript |         10 |          5 |          2 |         17 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\TclearInfoAdmin.js                             | JavaScript |          8 |          0 |          1 |          9 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\TclearInfoAdmin.js                             | JavaScript |         54 |         39 |          5 |         98 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\TcorpInfoAdmin.js                              | JavaScript |         35 |         64 |          5 |        104 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\TcoursePlansAdmin.js                           | JavaScript |         53 |          1 |          4 |         58 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\TcreatOrdersInBatches_CPro.js                  | JavaScript |         93 |         19 |          9 |        121 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\TcreatOrdersInBatches_CStu.js                  | JavaScript |         91 |         32 |          8 |        131 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\TcreatOrdersInBatches_Pconfirm.js              | JavaScript |        140 |         95 |         26 |        261 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\TcreatOrdersInBatches_Sconfirm.js              | JavaScript |        137 |          9 |         13 |        159 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\TcreatOrdersInBatches_Sconfirm.js              | JavaScript |        137 |          9 |         14 |        160 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\TcreatOrdersInBatches_Window.js                | JavaScript |        190 |         18 |         20 |        228 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\TgroupInfoAdmin.js                             | JavaScript |         31 |         28 |          4 |         63 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\TpaymentRecordsAdmin.js                        | JavaScript |          8 |         33 |          3 |         44 |
@@ -90,7 +92,7 @@ Files
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\changePassword.js                              | JavaScript |         61 |          4 |          5 |         70 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\changePasswordOK.js                            | JavaScript |         10 |          5 |          2 |         17 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\down&upData.js                                 | JavaScript |         52 |          7 |          6 |         65 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\index.js                                       | JavaScript |         70 |          0 |          1 |         71 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\index.js                                       | JavaScript |         70 |          8 |          3 |         81 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\optionalOrder.js                               | JavaScript |         71 |         21 |          2 |         94 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\orderConfirm.js                                | JavaScript |        131 |         12 |         14 |        157 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\public\javascripts\orderRecord.js                                 | JavaScript |          6 |          2 |          1 |          9 |
@@ -117,7 +119,7 @@ Files
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\routes\TallOrdersAdmin.js                                         | JavaScript |         48 |          3 |          0 |         51 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\routes\TchangePassword.js                                         | JavaScript |         55 |          8 |          3 |         66 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\routes\TchangePasswordOK.js                                       | JavaScript |         31 |          2 |          2 |         35 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\routes\TclearInfoAdmin.js                                         | JavaScript |         48 |          3 |          0 |         51 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\routes\TclearInfoAdmin.js                                         | JavaScript |         51 |          4 |          0 |         55 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\routes\TcorpInfoAdmin.js                                          | JavaScript |         52 |          3 |          0 |         55 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\routes\TcoursePlansAdmin.js                                       | JavaScript |        171 |         10 |          1 |        182 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\routes\TcreatOrdersInBatches_CPro.js                              | JavaScript |         43 |          2 |          0 |         45 |
@@ -127,7 +129,7 @@ Files
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\routes\TcreatOrdersInBatches_Window.js                            | JavaScript |         33 |         23 |          1 |         57 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\routes\TgroupInfoAdmin.js                                         | JavaScript |         56 |          3 |          0 |         59 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\routes\Thome.js                                                   | JavaScript |         60 |          2 |          0 |         62 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\routes\Tindex.js                                                  | JavaScript |         33 |          5 |          0 |         38 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\routes\Tindex.js                                                  | JavaScript |         33 |          6 |          1 |         40 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\routes\TloginOut.js                                               | JavaScript |         21 |          1 |          0 |         22 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\routes\TpaymentRecordsAdmin.js                                    | JavaScript |         48 |          3 |          0 |         51 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\routes\TproductListAdmin.js                                       | JavaScript |        150 |         13 |          2 |        165 |
@@ -154,50 +156,50 @@ Files
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\routes\users.js                                                   | JavaScript |         26 |          3 |          9 |         38 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\util\util.js                                                      | JavaScript |         11 |          0 |          0 |         11 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TallOrdersAdmin.ejs                                         | HTML       |        221 |         38 |          4 |        263 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TchangePassword.ejs                                         | HTML       |         77 |          2 |          3 |         82 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TchangePasswordOK.ejs                                       | HTML       |         67 |          4 |          6 |         77 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TclearInfoAdmin.ejs                                         | HTML       |        164 |          5 |          4 |        173 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TchangePassword.ejs                                         | HTML       |         78 |          2 |          3 |         83 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TchangePasswordOK.ejs                                       | HTML       |         68 |          4 |          6 |         78 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TclearInfoAdmin.ejs                                         | HTML       |        240 |          5 |          4 |        249 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TcorpInfoAdmin.ejs                                          | HTML       |        296 |          0 |          8 |        304 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TcoursePlansAdmin.ejs                                       | HTML       |        264 |          0 |          7 |        271 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TcoursePlansAdmin.ejs                                       | HTML       |        264 |          0 |          8 |        272 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TcreatOrdersInBatches_CPro.ejs                              | HTML       |        224 |          3 |          9 |        236 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TcreatOrdersInBatches_CStu.ejs                              | HTML       |        253 |          3 |          9 |        265 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TcreatOrdersInBatches_Pconfirm.ejs                          | HTML       |        123 |          3 |          5 |        131 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TcreatOrdersInBatches_Result.ejs                            | HTML       |         82 |          3 |          3 |         88 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TcreatOrdersInBatches_Sconfirm.ejs                          | HTML       |        122 |          3 |          5 |        130 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TcreatOrdersInBatches_Window.ejs                            | HTML       |        160 |          5 |          9 |        174 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TcreatOrdersInBatches_Pconfirm.ejs                          | HTML       |        124 |          2 |          5 |        131 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TcreatOrdersInBatches_Result.ejs                            | HTML       |         83 |          3 |          3 |         89 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TcreatOrdersInBatches_Sconfirm.ejs                          | HTML       |        123 |          3 |          5 |        131 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TcreatOrdersInBatches_Window.ejs                            | HTML       |        161 |          5 |          9 |        175 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TgroupInfoAdmin.ejs                                         | HTML       |        168 |          0 |          7 |        175 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\Thome.ejs                                                   | HTML       |        121 |          0 |         10 |        131 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\Tindex.ejs                                                  | HTML       |         64 |          3 |          4 |         71 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TloginOutSucc.ejs                                           | HTML       |         64 |          0 |          6 |         70 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TloginTimeOut.ejs                                           | HTML       |         64 |          0 |          6 |         70 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\Thome.ejs                                                   | HTML       |        123 |          0 |          9 |        132 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\Tindex.ejs                                                  | HTML       |         67 |         46 |          5 |        118 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TloginOutSucc.ejs                                           | HTML       |         65 |          0 |          6 |         71 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TloginTimeOut.ejs                                           | HTML       |         65 |          0 |          6 |         71 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TpaymentRecordsAdmin.ejs                                    | HTML       |        224 |         38 |          4 |        266 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TproductListAdmin.ejs                                       | HTML       |        243 |          0 |          7 |        250 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TscholarshipInfoAdmin.ejs                                   | HTML       |        223 |          0 |          6 |        229 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TstockListAdmin.ejs                                         | HTML       |        249 |          5 |          4 |        258 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\TstudentInfoAdmin.ejs                                       | HTML       |        266 |          2 |          6 |        274 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\changePassword.ejs                                          | HTML       |         70 |          0 |          0 |         70 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\changePasswordOK.ejs                                        | HTML       |         59 |         10 |          6 |         75 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\changePassword.ejs                                          | HTML       |         71 |          0 |          0 |         71 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\changePasswordOK.ejs                                        | HTML       |         60 |         10 |          6 |         76 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\dialog.css                                                  | CSS        |         38 |          4 |          3 |         45 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\error.ejs                                                   | HTML       |         14 |          7 |          0 |         21 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\fail.ejs                                                    | HTML       |         14 |          4 |          1 |         19 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\home.ejs                                                    | HTML       |         93 |          7 |          5 |        105 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\index.ejs                                                   | HTML       |         64 |          3 |          4 |         71 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\home.ejs                                                    | HTML       |         94 |          7 |          5 |        106 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\index.ejs                                                   | HTML       |         65 |          3 |          4 |         72 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\layout.ejs                                                  | HTML       |         27 |          4 |          2 |         33 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\loginOutSucc.ejs                                            | HTML       |         59 |          0 |          6 |         65 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\loginTimeOut.ejs                                            | HTML       |         59 |          0 |          6 |         65 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\optionalOrder.ejs                                           | HTML       |        133 |          9 |          6 |        148 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\orderConfirm.ejs                                            | HTML       |         92 |         12 |          7 |        111 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\orderRecord.ejs                                             | HTML       |        167 |          4 |          7 |        178 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\orderSubmit.ejs                                             | HTML       |         51 |          3 |          7 |         61 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\loginOutSucc.ejs                                            | HTML       |         60 |          0 |          6 |         66 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\loginTimeOut.ejs                                            | HTML       |         60 |          0 |          6 |         66 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\optionalOrder.ejs                                           | HTML       |        134 |          8 |          6 |        148 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\orderConfirm.ejs                                            | HTML       |         93 |         12 |          7 |        112 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\orderRecord.ejs                                             | HTML       |        168 |          4 |          7 |        179 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\orderSubmit.ejs                                             | HTML       |         52 |          3 |          7 |         62 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\payPage.ejs                                                 | HTML       |        103 |          3 |          4 |        110 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\paymentConfirmation.ejs                                     | HTML       |         81 |          5 |          3 |         89 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\paymentConfirmation.ejs                                     | HTML       |         82 |          5 |          3 |         90 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\paymentMethod.ejs                                           | HTML       |        186 |          6 |          6 |        198 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\paymentOrder.ejs                                            | HTML       |         60 |          8 |          3 |         71 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\paymentResult.ejs                                           | HTML       |        125 |          4 |          8 |        137 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\requiredOrder.ejs                                           | HTML       |         90 |          2 |          9 |        101 |
-| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\scholarshipRecord.ejs                                       | HTML       |         80 |          2 |          6 |         88 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\paymentOrder.ejs                                            | HTML       |         61 |          8 |          3 |         72 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\paymentResult.ejs                                           | HTML       |        126 |          4 |          8 |        138 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\requiredOrder.ejs                                           | HTML       |         91 |          2 |          9 |        102 |
+| e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\scholarshipRecord.ejs                                       | HTML       |         81 |          2 |          6 |         89 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\suc.ejs                                                     | HTML       |         14 |          4 |          1 |         19 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\test.html                                                   | HTML       |         17 |          0 |          3 |         20 |
 | e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test\views\testFileType.html                                           | HTML       |         42 |          5 |          9 |         56 |
-| Total                                                                                                                                         |            |     20,385 |      1,731 |        747 |     22,863 |
+| Total                                                                                                                                         |            |     22,670 |      1,840 |        760 |     25,270 |
 +-----------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

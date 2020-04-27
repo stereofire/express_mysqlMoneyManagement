@@ -1,10 +1,10 @@
 # Details
 
-Date : 2020-04-27 00:10:19
+Date : 2020-04-27 17:38:51
 
 Directory e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test
 
-Total : 155 files,  20385 codes, 1731 comments, 747 blanks, all 22863 lines
+Total : 157 files,  22670 codes, 1840 comments, 760 blanks, all 25270 lines
 
 [summary](results.md)
 
@@ -12,17 +12,19 @@ Total : 155 files,  20385 codes, 1731 comments, 747 blanks, all 22863 lines
 | filename | language | code | comment | blank | total |
 | :--- | :--- | ---: | ---: | ---: | ---: |
 | [README.md](/README.md) | Markdown | 35 | 0 | 7 | 42 |
-| [app.js](/app.js) | JavaScript | 119 | 28 | 14 | 161 |
+| [app.js](/app.js) | JavaScript | 119 | 28 | 13 | 160 |
 | [conf/db.js](/conf/db.js) | JavaScript | 11 | 13 | 1 | 25 |
 | [dao/exceltt.js](/dao/exceltt.js) | JavaScript | 33 | 5 | 2 | 40 |
-| [dao/userDao.js](/dao/userDao.js) | JavaScript | 4,371 | 335 | 70 | 4,776 |
-| [dao/userSqlMapping.js](/dao/userSqlMapping.js) | JavaScript | 80 | 83 | 31 | 194 |
+| [dao/userDao.js](/dao/userDao.js) | JavaScript | 4,444 | 337 | 73 | 4,854 |
+| [dao/userSqlMapping.js](/dao/userSqlMapping.js) | JavaScript | 81 | 84 | 31 | 196 |
 | [illustration/DB设计20200213.xlsx](/illustration/DB设计20200213.xlsx) | Excel | 1,160 | 0 | 9 | 1,169 |
 | [jq/jquery.js](/jq/jquery.js) | JavaScript | 9 | 3 | 3 | 15 |
-| [logs/log.js](/logs/log.js) | JavaScript | 76 | 22 | 9 | 107 |
-| [logs/log/logFile._2020-04-26.log](/logs/log/logFile._2020-04-26.log) | Log | 265 | 0 | 1 | 266 |
+| [logs/log.js](/logs/log.js) | JavaScript | 60 | 38 | 9 | 107 |
+| [logs/log/logFile._2020-04-27.log](/logs/log/logFile._2020-04-27.log) | Log | 1,180 | 0 | 1 | 1,181 |
 | [logs/log/logFile_error._2020-04-26.log](/logs/log/logFile_error._2020-04-26.log) | Log | 0 | 0 | 1 | 1 |
+| [logs/log/logFile_error._2020-04-27.log](/logs/log/logFile_error._2020-04-27.log) | Log | 0 | 0 | 1 | 1 |
 | [logs/log/timeLogFile._2020-04-26.log](/logs/log/timeLogFile._2020-04-26.log) | Log | 246 | 0 | 1 | 247 |
+| [logs/log/timeLogFile._2020-04-27.log](/logs/log/timeLogFile._2020-04-27.log) | Log | 1,159 | 0 | 1 | 1,160 |
 | [package-lock.json](/package-lock.json) | JSON | 2,028 | 0 | 1 | 2,029 |
 | [package.json](/package.json) | JSON | 35 | 0 | 1 | 36 |
 | [public/excelTemplates4downLoad/clearInfoTemplate4Excel.xlsx](/public/excelTemplates4downLoad/clearInfoTemplate4Excel.xlsx) | Excel | 69 | 0 | 2 | 71 |
@@ -40,13 +42,13 @@ Total : 155 files,  20385 codes, 1731 comments, 747 blanks, all 22863 lines
 | [public/images/index/u58_selected.svg](/public/images/index/u58_selected.svg) | XML | 6 | 0 | 1 | 7 |
 | [public/javascripts/TallOrdersAdmin.js](/public/javascripts/TallOrdersAdmin.js) | JavaScript | 8 | 48 | 2 | 58 |
 | [public/javascripts/TchangePasswordOK.js](/public/javascripts/TchangePasswordOK.js) | JavaScript | 10 | 5 | 2 | 17 |
-| [public/javascripts/TclearInfoAdmin.js](/public/javascripts/TclearInfoAdmin.js) | JavaScript | 8 | 0 | 1 | 9 |
+| [public/javascripts/TclearInfoAdmin.js](/public/javascripts/TclearInfoAdmin.js) | JavaScript | 54 | 39 | 5 | 98 |
 | [public/javascripts/TcorpInfoAdmin.js](/public/javascripts/TcorpInfoAdmin.js) | JavaScript | 35 | 64 | 5 | 104 |
 | [public/javascripts/TcoursePlansAdmin.js](/public/javascripts/TcoursePlansAdmin.js) | JavaScript | 53 | 1 | 4 | 58 |
 | [public/javascripts/TcreatOrdersInBatches_CPro.js](/public/javascripts/TcreatOrdersInBatches_CPro.js) | JavaScript | 93 | 19 | 9 | 121 |
 | [public/javascripts/TcreatOrdersInBatches_CStu.js](/public/javascripts/TcreatOrdersInBatches_CStu.js) | JavaScript | 91 | 32 | 8 | 131 |
 | [public/javascripts/TcreatOrdersInBatches_Pconfirm.js](/public/javascripts/TcreatOrdersInBatches_Pconfirm.js) | JavaScript | 140 | 95 | 26 | 261 |
-| [public/javascripts/TcreatOrdersInBatches_Sconfirm.js](/public/javascripts/TcreatOrdersInBatches_Sconfirm.js) | JavaScript | 137 | 9 | 13 | 159 |
+| [public/javascripts/TcreatOrdersInBatches_Sconfirm.js](/public/javascripts/TcreatOrdersInBatches_Sconfirm.js) | JavaScript | 137 | 9 | 14 | 160 |
 | [public/javascripts/TcreatOrdersInBatches_Window.js](/public/javascripts/TcreatOrdersInBatches_Window.js) | JavaScript | 190 | 18 | 20 | 228 |
 | [public/javascripts/TgroupInfoAdmin.js](/public/javascripts/TgroupInfoAdmin.js) | JavaScript | 31 | 28 | 4 | 63 |
 | [public/javascripts/TpaymentRecordsAdmin.js](/public/javascripts/TpaymentRecordsAdmin.js) | JavaScript | 8 | 33 | 3 | 44 |
@@ -57,7 +59,7 @@ Total : 155 files,  20385 codes, 1731 comments, 747 blanks, all 22863 lines
 | [public/javascripts/changePassword.js](/public/javascripts/changePassword.js) | JavaScript | 61 | 4 | 5 | 70 |
 | [public/javascripts/changePasswordOK.js](/public/javascripts/changePasswordOK.js) | JavaScript | 10 | 5 | 2 | 17 |
 | [public/javascripts/down&upData.js](/public/javascripts/down&upData.js) | JavaScript | 52 | 7 | 6 | 65 |
-| [public/javascripts/index.js](/public/javascripts/index.js) | JavaScript | 70 | 0 | 1 | 71 |
+| [public/javascripts/index.js](/public/javascripts/index.js) | JavaScript | 70 | 8 | 3 | 81 |
 | [public/javascripts/optionalOrder.js](/public/javascripts/optionalOrder.js) | JavaScript | 71 | 21 | 2 | 94 |
 | [public/javascripts/orderConfirm.js](/public/javascripts/orderConfirm.js) | JavaScript | 131 | 12 | 14 | 157 |
 | [public/javascripts/orderRecord.js](/public/javascripts/orderRecord.js) | JavaScript | 6 | 2 | 1 | 9 |
@@ -84,7 +86,7 @@ Total : 155 files,  20385 codes, 1731 comments, 747 blanks, all 22863 lines
 | [routes/TallOrdersAdmin.js](/routes/TallOrdersAdmin.js) | JavaScript | 48 | 3 | 0 | 51 |
 | [routes/TchangePassword.js](/routes/TchangePassword.js) | JavaScript | 55 | 8 | 3 | 66 |
 | [routes/TchangePasswordOK.js](/routes/TchangePasswordOK.js) | JavaScript | 31 | 2 | 2 | 35 |
-| [routes/TclearInfoAdmin.js](/routes/TclearInfoAdmin.js) | JavaScript | 48 | 3 | 0 | 51 |
+| [routes/TclearInfoAdmin.js](/routes/TclearInfoAdmin.js) | JavaScript | 51 | 4 | 0 | 55 |
 | [routes/TcorpInfoAdmin.js](/routes/TcorpInfoAdmin.js) | JavaScript | 52 | 3 | 0 | 55 |
 | [routes/TcoursePlansAdmin.js](/routes/TcoursePlansAdmin.js) | JavaScript | 171 | 10 | 1 | 182 |
 | [routes/TcreatOrdersInBatches_CPro.js](/routes/TcreatOrdersInBatches_CPro.js) | JavaScript | 43 | 2 | 0 | 45 |
@@ -94,7 +96,7 @@ Total : 155 files,  20385 codes, 1731 comments, 747 blanks, all 22863 lines
 | [routes/TcreatOrdersInBatches_Window.js](/routes/TcreatOrdersInBatches_Window.js) | JavaScript | 33 | 23 | 1 | 57 |
 | [routes/TgroupInfoAdmin.js](/routes/TgroupInfoAdmin.js) | JavaScript | 56 | 3 | 0 | 59 |
 | [routes/Thome.js](/routes/Thome.js) | JavaScript | 60 | 2 | 0 | 62 |
-| [routes/Tindex.js](/routes/Tindex.js) | JavaScript | 33 | 5 | 0 | 38 |
+| [routes/Tindex.js](/routes/Tindex.js) | JavaScript | 33 | 6 | 1 | 40 |
 | [routes/TloginOut.js](/routes/TloginOut.js) | JavaScript | 21 | 1 | 0 | 22 |
 | [routes/TpaymentRecordsAdmin.js](/routes/TpaymentRecordsAdmin.js) | JavaScript | 48 | 3 | 0 | 51 |
 | [routes/TproductListAdmin.js](/routes/TproductListAdmin.js) | JavaScript | 150 | 13 | 2 | 165 |
@@ -121,48 +123,48 @@ Total : 155 files,  20385 codes, 1731 comments, 747 blanks, all 22863 lines
 | [routes/users.js](/routes/users.js) | JavaScript | 26 | 3 | 9 | 38 |
 | [util/util.js](/util/util.js) | JavaScript | 11 | 0 | 0 | 11 |
 | [views/TallOrdersAdmin.ejs](/views/TallOrdersAdmin.ejs) | HTML | 221 | 38 | 4 | 263 |
-| [views/TchangePassword.ejs](/views/TchangePassword.ejs) | HTML | 77 | 2 | 3 | 82 |
-| [views/TchangePasswordOK.ejs](/views/TchangePasswordOK.ejs) | HTML | 67 | 4 | 6 | 77 |
-| [views/TclearInfoAdmin.ejs](/views/TclearInfoAdmin.ejs) | HTML | 164 | 5 | 4 | 173 |
+| [views/TchangePassword.ejs](/views/TchangePassword.ejs) | HTML | 78 | 2 | 3 | 83 |
+| [views/TchangePasswordOK.ejs](/views/TchangePasswordOK.ejs) | HTML | 68 | 4 | 6 | 78 |
+| [views/TclearInfoAdmin.ejs](/views/TclearInfoAdmin.ejs) | HTML | 240 | 5 | 4 | 249 |
 | [views/TcorpInfoAdmin.ejs](/views/TcorpInfoAdmin.ejs) | HTML | 296 | 0 | 8 | 304 |
-| [views/TcoursePlansAdmin.ejs](/views/TcoursePlansAdmin.ejs) | HTML | 264 | 0 | 7 | 271 |
+| [views/TcoursePlansAdmin.ejs](/views/TcoursePlansAdmin.ejs) | HTML | 264 | 0 | 8 | 272 |
 | [views/TcreatOrdersInBatches_CPro.ejs](/views/TcreatOrdersInBatches_CPro.ejs) | HTML | 224 | 3 | 9 | 236 |
 | [views/TcreatOrdersInBatches_CStu.ejs](/views/TcreatOrdersInBatches_CStu.ejs) | HTML | 253 | 3 | 9 | 265 |
-| [views/TcreatOrdersInBatches_Pconfirm.ejs](/views/TcreatOrdersInBatches_Pconfirm.ejs) | HTML | 123 | 3 | 5 | 131 |
-| [views/TcreatOrdersInBatches_Result.ejs](/views/TcreatOrdersInBatches_Result.ejs) | HTML | 82 | 3 | 3 | 88 |
-| [views/TcreatOrdersInBatches_Sconfirm.ejs](/views/TcreatOrdersInBatches_Sconfirm.ejs) | HTML | 122 | 3 | 5 | 130 |
-| [views/TcreatOrdersInBatches_Window.ejs](/views/TcreatOrdersInBatches_Window.ejs) | HTML | 160 | 5 | 9 | 174 |
+| [views/TcreatOrdersInBatches_Pconfirm.ejs](/views/TcreatOrdersInBatches_Pconfirm.ejs) | HTML | 124 | 2 | 5 | 131 |
+| [views/TcreatOrdersInBatches_Result.ejs](/views/TcreatOrdersInBatches_Result.ejs) | HTML | 83 | 3 | 3 | 89 |
+| [views/TcreatOrdersInBatches_Sconfirm.ejs](/views/TcreatOrdersInBatches_Sconfirm.ejs) | HTML | 123 | 3 | 5 | 131 |
+| [views/TcreatOrdersInBatches_Window.ejs](/views/TcreatOrdersInBatches_Window.ejs) | HTML | 161 | 5 | 9 | 175 |
 | [views/TgroupInfoAdmin.ejs](/views/TgroupInfoAdmin.ejs) | HTML | 168 | 0 | 7 | 175 |
-| [views/Thome.ejs](/views/Thome.ejs) | HTML | 121 | 0 | 10 | 131 |
-| [views/Tindex.ejs](/views/Tindex.ejs) | HTML | 64 | 3 | 4 | 71 |
-| [views/TloginOutSucc.ejs](/views/TloginOutSucc.ejs) | HTML | 64 | 0 | 6 | 70 |
-| [views/TloginTimeOut.ejs](/views/TloginTimeOut.ejs) | HTML | 64 | 0 | 6 | 70 |
+| [views/Thome.ejs](/views/Thome.ejs) | HTML | 123 | 0 | 9 | 132 |
+| [views/Tindex.ejs](/views/Tindex.ejs) | HTML | 67 | 46 | 5 | 118 |
+| [views/TloginOutSucc.ejs](/views/TloginOutSucc.ejs) | HTML | 65 | 0 | 6 | 71 |
+| [views/TloginTimeOut.ejs](/views/TloginTimeOut.ejs) | HTML | 65 | 0 | 6 | 71 |
 | [views/TpaymentRecordsAdmin.ejs](/views/TpaymentRecordsAdmin.ejs) | HTML | 224 | 38 | 4 | 266 |
 | [views/TproductListAdmin.ejs](/views/TproductListAdmin.ejs) | HTML | 243 | 0 | 7 | 250 |
 | [views/TscholarshipInfoAdmin.ejs](/views/TscholarshipInfoAdmin.ejs) | HTML | 223 | 0 | 6 | 229 |
 | [views/TstockListAdmin.ejs](/views/TstockListAdmin.ejs) | HTML | 249 | 5 | 4 | 258 |
 | [views/TstudentInfoAdmin.ejs](/views/TstudentInfoAdmin.ejs) | HTML | 266 | 2 | 6 | 274 |
-| [views/changePassword.ejs](/views/changePassword.ejs) | HTML | 70 | 0 | 0 | 70 |
-| [views/changePasswordOK.ejs](/views/changePasswordOK.ejs) | HTML | 59 | 10 | 6 | 75 |
+| [views/changePassword.ejs](/views/changePassword.ejs) | HTML | 71 | 0 | 0 | 71 |
+| [views/changePasswordOK.ejs](/views/changePasswordOK.ejs) | HTML | 60 | 10 | 6 | 76 |
 | [views/dialog.css](/views/dialog.css) | CSS | 38 | 4 | 3 | 45 |
 | [views/error.ejs](/views/error.ejs) | HTML | 14 | 7 | 0 | 21 |
 | [views/fail.ejs](/views/fail.ejs) | HTML | 14 | 4 | 1 | 19 |
-| [views/home.ejs](/views/home.ejs) | HTML | 93 | 7 | 5 | 105 |
-| [views/index.ejs](/views/index.ejs) | HTML | 64 | 3 | 4 | 71 |
+| [views/home.ejs](/views/home.ejs) | HTML | 94 | 7 | 5 | 106 |
+| [views/index.ejs](/views/index.ejs) | HTML | 65 | 3 | 4 | 72 |
 | [views/layout.ejs](/views/layout.ejs) | HTML | 27 | 4 | 2 | 33 |
-| [views/loginOutSucc.ejs](/views/loginOutSucc.ejs) | HTML | 59 | 0 | 6 | 65 |
-| [views/loginTimeOut.ejs](/views/loginTimeOut.ejs) | HTML | 59 | 0 | 6 | 65 |
-| [views/optionalOrder.ejs](/views/optionalOrder.ejs) | HTML | 133 | 9 | 6 | 148 |
-| [views/orderConfirm.ejs](/views/orderConfirm.ejs) | HTML | 92 | 12 | 7 | 111 |
-| [views/orderRecord.ejs](/views/orderRecord.ejs) | HTML | 167 | 4 | 7 | 178 |
-| [views/orderSubmit.ejs](/views/orderSubmit.ejs) | HTML | 51 | 3 | 7 | 61 |
+| [views/loginOutSucc.ejs](/views/loginOutSucc.ejs) | HTML | 60 | 0 | 6 | 66 |
+| [views/loginTimeOut.ejs](/views/loginTimeOut.ejs) | HTML | 60 | 0 | 6 | 66 |
+| [views/optionalOrder.ejs](/views/optionalOrder.ejs) | HTML | 134 | 8 | 6 | 148 |
+| [views/orderConfirm.ejs](/views/orderConfirm.ejs) | HTML | 93 | 12 | 7 | 112 |
+| [views/orderRecord.ejs](/views/orderRecord.ejs) | HTML | 168 | 4 | 7 | 179 |
+| [views/orderSubmit.ejs](/views/orderSubmit.ejs) | HTML | 52 | 3 | 7 | 62 |
 | [views/payPage.ejs](/views/payPage.ejs) | HTML | 103 | 3 | 4 | 110 |
-| [views/paymentConfirmation.ejs](/views/paymentConfirmation.ejs) | HTML | 81 | 5 | 3 | 89 |
+| [views/paymentConfirmation.ejs](/views/paymentConfirmation.ejs) | HTML | 82 | 5 | 3 | 90 |
 | [views/paymentMethod.ejs](/views/paymentMethod.ejs) | HTML | 186 | 6 | 6 | 198 |
-| [views/paymentOrder.ejs](/views/paymentOrder.ejs) | HTML | 60 | 8 | 3 | 71 |
-| [views/paymentResult.ejs](/views/paymentResult.ejs) | HTML | 125 | 4 | 8 | 137 |
-| [views/requiredOrder.ejs](/views/requiredOrder.ejs) | HTML | 90 | 2 | 9 | 101 |
-| [views/scholarshipRecord.ejs](/views/scholarshipRecord.ejs) | HTML | 80 | 2 | 6 | 88 |
+| [views/paymentOrder.ejs](/views/paymentOrder.ejs) | HTML | 61 | 8 | 3 | 72 |
+| [views/paymentResult.ejs](/views/paymentResult.ejs) | HTML | 126 | 4 | 8 | 138 |
+| [views/requiredOrder.ejs](/views/requiredOrder.ejs) | HTML | 91 | 2 | 9 | 102 |
+| [views/scholarshipRecord.ejs](/views/scholarshipRecord.ejs) | HTML | 81 | 2 | 6 | 89 |
 | [views/suc.ejs](/views/suc.ejs) | HTML | 14 | 4 | 1 | 19 |
 | [views/test.html](/views/test.html) | HTML | 17 | 0 | 3 | 20 |
 | [views/testFileType.html](/views/testFileType.html) | HTML | 42 | 5 | 9 | 56 |
