@@ -3,7 +3,5 @@ function deleteOrder(orderID){
     if(confirm("确定删除选缴订单 "+orderID+" ?")){
         // functionA();
         location.href='/orderRecord?deleteOrder=' + orderID;
-        alert("已删除选缴订单："+orderID);
-
     }
 }
