@@ -99,52 +99,9 @@
                     <button class="managementButton" style="width:130px;"
                         onclick="location.href = '/TstockListAdmin?down=excelTemplate'"><img class="teacher_picture"
                             src="images/teacher/downLoad.png" alt="图片加载失败">下载Excel模板</button> -->
-                    <button class="managementButton" style="width:130px;" onclick="showPOP_addStock()"><img
-                            class="teacher_picture" src="images/teacher/add.png" alt="图片加载失败">新增采购信息</button>
-                    <button class="managementButton" style="width:200px;" onclick="showPOP_addStock()"><img
-                            class="teacher_picture" src="images/teacher/add.png" alt="图片加载失败">批量创建选缴订单采购信息</button>
-                </td>
+                   </td>
             </tr>
         </table>
-    </div>
-    <div id="coverLayer_addStock">
-        <div id="pop" style="height: auto;">
-            <table>
-                <tr>
-                    <td class="mesage" style="text-align: center;padding-left: 0px;">
-                        新增采购信息
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        ____________________________________________________
-                    </td>
-                </tr>
-                <tr></tr>
-            </table>
-            <form action="/TstudentInfoAdmin?addStock=true" name="add_stock" method="post">
-                <div>
-                    <table style="font-size: small;margin-top: 20px;margin-bottom: 10px;">
-                        <tr>
-                            <td class="words">供应商名称：</td>
-                            <td><input type="text" name="stu_name" style="width: 160px;"><br></td>
-                        </tr>
-                        <tr>
-                            <td class="words">供应商名称：</td>
-                            <td><input type="text" name="stu_name" style="width: 160px;"><br></td>
-                        </tr>
-                        <tr>
-                            <td><button class="managementButton"
-                                    style="width:130px;border-radius: 5px;margin-top: 20px;"
-                                    onclick="return addForm_addStock();">确定</button></td>
-                            <td><button class="managementButton"
-                                    style="width:130px;border-radius: 5px;margin-top: 20px;"
-                                    onclick="return closePOP_addStock()">取消</button></td>
-                        </tr>
-                    </table>
-                </div>
-            </form>
-        </div>
     </div>
     <div id="tbDiv">
         <table class="order_table" id="OrderRecordTB" name="keyPassage" style="width: 85%;margin-left: 160px;">

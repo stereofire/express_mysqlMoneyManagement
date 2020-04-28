@@ -1,0 +1,163 @@
+[2020-04-28T00:02:41.910] [DEBUG] debug - Server started
+[2020-04-28T00:02:54.869] [INFO] default - get
+[2020-04-28T00:02:54.884] [INFO] default - /gethhhhhhhh
+[2020-04-28T00:03:18.268] [INFO] default - post
+[2020-04-28T00:03:18.273] [INFO] default - /posthhhhhhhh
+[2020-04-28T00:03:18.303] [INFO] default - get FormData Params:  {
+  schools: 'soochow university',
+  account: '202001001',
+  password: '11111111'
+}
+[2020-04-28T00:03:18.313] [INFO] default - soochow university 202001001 11111111
+[2020-04-28T00:03:18.347] [INFO] default - 用户不存在，请重新登录
+[2020-04-28T00:03:20.719] [INFO] default - get
+[2020-04-28T00:03:20.721] [INFO] default - /gethhhhhhhh
+[2020-04-28T00:03:28.077] [INFO] default - post
+[2020-04-28T00:03:28.078] [INFO] default - /posthhhhhhhh
+[2020-04-28T00:03:28.079] [INFO] default - get FormData Params:  {
+  schools: 'soochow university',
+  account: '1607400001',
+  password: '63YXh9fM'
+}
+[2020-04-28T00:03:28.082] [INFO] default - soochow university 1607400001 63YXh9fM
+[2020-04-28T00:03:28.089] [INFO] default - 在读状态： 在读
+[2020-04-28T00:03:28.090] [INFO] default - 正确密码应为： [String: '63YXh9fM']
+[2020-04-28T00:03:28.092] [INFO] default - 密码正确,登录成功
+[2020-04-28T00:03:31.432] [INFO] default - get
+[2020-04-28T00:03:31.436] [INFO] default - /get-scholarshipRecord
+[2020-04-28T00:03:31.436] [INFO] default - 已登录用户查询： true
+[2020-04-28T00:03:31.437] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-28T00:03:31.438] [INFO] default - 1607400001进入queryScholarshipRecord函数
+[2020-04-28T00:03:33.852] [INFO] default - get
+[2020-04-28T00:03:33.926] [INFO] default - /get-Tindex
+[2020-04-28T00:03:40.329] [INFO] default - post
+[2020-04-28T00:03:40.332] [INFO] default - /post-Tindex
+[2020-04-28T00:03:40.332] [INFO] default - get FormData Params:  {
+  schools: 'soochow university',
+  account: '202001001',
+  password: '11111111'
+}
+[2020-04-28T00:03:40.334] [INFO] default - 教师登录表单参数： soochow university 202001001 11111111
+[2020-04-28T00:03:40.337] [INFO] default - 开启event_scheduler成功。
+[2020-04-28T00:03:40.340] [INFO] default - 正确密码应为： [String: '11111111']
+[2020-04-28T00:03:40.341] [INFO] default - 密码正确,登录成功
+[2020-04-28T00:03:42.073] [INFO] default - get
+[2020-04-28T00:03:42.081] [INFO] default - /get-home
+[2020-04-28T00:03:42.081] [INFO] default - 已登录用户查询： true
+[2020-04-28T00:03:42.082] [INFO] default - 已登录用户查询： 202001001
+[2020-04-28T00:03:42.083] [INFO] default - req.session: Session {
+  cookie: {
+    path: '/',
+    _expires: 2020-04-27T16:33:40.453Z,
+    originalMaxAge: 1800000,
+    httpOnly: true
+  },
+  user: '202001001',
+  islogin: true,
+  username: '刘舒璇'
+}
+[2020-04-28T00:03:42.087] [INFO] default - 下载学生信息表： stuInfo
+[2020-04-28T00:03:42.087] [INFO] default - 202001001进入downTstudentInfo函数
+[2020-04-28T00:05:35.244] [INFO] default - get
+[2020-04-28T00:05:35.246] [INFO] default - /get-TstudentInfoAdmin
+[2020-04-28T00:05:35.247] [INFO] default - 登录状态： true
+[2020-04-28T00:05:35.261] [INFO] default - 已登录用户查询： 202001001
+[2020-04-28T00:05:35.261] [INFO] default - 202001001进入queryTstudentInfo函数
+[2020-04-28T00:05:48.142] [DEBUG] debug - Server started
+[2020-04-28T00:05:57.752] [INFO] default - get
+[2020-04-28T00:05:57.755] [INFO] default - /get-Tindex
+[2020-04-28T00:06:02.153] [INFO] default - post
+[2020-04-28T00:06:02.154] [INFO] default - /post-Tindex
+[2020-04-28T00:06:02.156] [INFO] default - get FormData Params:  {
+  schools: 'soochow university',
+  account: '202001001',
+  password: '11111111'
+}
+[2020-04-28T00:06:02.196] [INFO] default - 教师登录表单参数： soochow university 202001001 11111111
+[2020-04-28T00:06:02.223] [INFO] default - 开启event_scheduler成功。
+[2020-04-28T00:06:02.257] [INFO] default - 正确密码应为： [String: '11111111']
+[2020-04-28T00:06:02.305] [INFO] default - 密码正确,登录成功
+[2020-04-28T00:06:05.087] [INFO] default - get
+[2020-04-28T00:06:05.089] [INFO] default - /get-TstudentInfoAdmin
+[2020-04-28T00:06:05.092] [INFO] default - 登录状态： true
+[2020-04-28T00:06:05.105] [INFO] default - 已登录用户查询： 202001001
+[2020-04-28T00:06:05.105] [INFO] default - 202001001进入queryTstudentInfo函数
+[2020-04-28T00:06:10.892] [INFO] default - get
+[2020-04-28T00:06:10.896] [INFO] default - /get-TstudentInfoAdmin
+[2020-04-28T00:06:10.897] [INFO] default - 登录状态： true
+[2020-04-28T00:06:10.901] [INFO] default - 已登录用户查询： 202001001
+[2020-04-28T00:06:10.903] [INFO] default - 修改学生在读状态： 1607400007
+[2020-04-28T00:06:10.905] [INFO] default - 刘舒璇进入changeReadStatus函数
+[2020-04-28T00:06:10.912] [INFO] default - 学生在读状态: [ RowDataPacket { '在读状态': 1 } ] [ 0, '1607400007' ]
+[2020-04-28T00:06:11.021] [INFO] default - 学生在读状态更改成功
+[2020-04-28T00:06:12.081] [INFO] default - get
+[2020-04-28T00:06:12.082] [INFO] default - /get-TstudentInfoAdmin
+[2020-04-28T00:06:12.084] [INFO] default - 登录状态： true
+[2020-04-28T00:06:12.119] [INFO] default - 已登录用户查询： 202001001
+[2020-04-28T00:06:12.121] [INFO] default - 202001001进入queryTstudentInfo函数
+[2020-04-28T00:06:16.639] [INFO] default - get
+[2020-04-28T00:06:16.644] [INFO] default - /get-TstudentInfoAdmin
+[2020-04-28T00:06:16.647] [INFO] default - 登录状态： true
+[2020-04-28T00:06:16.679] [INFO] default - 已登录用户查询： 202001001
+[2020-04-28T00:06:16.751] [INFO] default - 修改学生在读状态： 1607400007
+[2020-04-28T00:06:16.754] [INFO] default - 刘舒璇进入changeReadStatus函数
+[2020-04-28T00:06:16.804] [INFO] default - 学生在读状态: [ RowDataPacket { '在读状态': 0 } ] [ 1, '1607400007' ]
+[2020-04-28T00:06:16.823] [INFO] default - 学生在读状态更改成功
+[2020-04-28T00:06:17.803] [INFO] default - get
+[2020-04-28T00:06:17.805] [INFO] default - /get-TstudentInfoAdmin
+[2020-04-28T00:06:17.810] [INFO] default - 登录状态： true
+[2020-04-28T00:06:17.812] [INFO] default - 已登录用户查询： 202001001
+[2020-04-28T00:06:17.834] [INFO] default - 202001001进入queryTstudentInfo函数
+[2020-04-28T00:47:03.932] [INFO] default - get
+[2020-04-28T00:47:03.935] [INFO] default - /gethhhhhhhh
+[2020-04-28T00:47:12.683] [INFO] default - post
+[2020-04-28T00:47:12.685] [INFO] default - /posthhhhhhhh
+[2020-04-28T00:47:12.687] [INFO] default - get FormData Params:  {
+  schools: 'soochow university',
+  account: '1607400001',
+  password: '63YXh9fM'
+}
+[2020-04-28T00:47:12.750] [INFO] default - soochow university 1607400001 63YXh9fM
+[2020-04-28T00:47:12.770] [INFO] default - 在读状态： 在读
+[2020-04-28T00:47:12.830] [INFO] default - 正确密码应为： [String: '63YXh9fM']
+[2020-04-28T00:47:12.831] [INFO] default - 密码正确,登录成功
+[2020-04-28T00:47:34.302] [INFO] default - get
+[2020-04-28T00:47:34.304] [INFO] default - /get-orderRecord
+[2020-04-28T00:47:34.342] [INFO] default - req.query: undefined
+[2020-04-28T00:47:34.344] [INFO] default - 已登录用户查询： true
+[2020-04-28T00:47:34.345] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-28T00:47:34.346] [INFO] default - 1607400001进入queryOrderRecord函数
+[2020-04-28T00:47:38.897] [INFO] default - get
+[2020-04-28T00:47:38.899] [INFO] default - /get-scholarshipRecord
+[2020-04-28T00:47:38.899] [INFO] default - 已登录用户查询： true
+[2020-04-28T00:47:38.901] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-28T00:47:38.963] [INFO] default - 1607400001进入queryScholarshipRecord函数
+[2020-04-28T00:47:41.523] [INFO] default - get
+[2020-04-28T00:47:41.524] [INFO] default - /get-paymentOrder
+[2020-04-28T00:47:41.525] [INFO] default - 已登录用户查询： true
+[2020-04-28T00:47:41.531] [INFO] default - 已登录用户查询： 1607400001
+[2020-04-28T00:47:41.576] [INFO] default - 1607400001进入queryTotalAmount函数
+[2020-04-28T11:36:12.910] [DEBUG] debug - Server started
+[2020-04-28T11:36:24.359] [INFO] default - get
+[2020-04-28T11:36:24.363] [INFO] default - /get-Tindex
+[2020-04-28T11:36:32.366] [INFO] default - post
+[2020-04-28T11:36:32.367] [INFO] default - /post-Tindex
+[2020-04-28T11:36:32.368] [INFO] default - get FormData Params:  {
+  schools: 'soochow university',
+  account: '202001001',
+  password: '11111111'
+}
+[2020-04-28T11:36:32.384] [INFO] default - 教师登录表单参数： soochow university 202001001 11111111
+[2020-04-28T11:36:32.414] [INFO] default - 开启event_scheduler成功。
+[2020-04-28T11:36:32.449] [INFO] default - 正确密码应为： [String: '11111111']
+[2020-04-28T11:36:32.464] [INFO] default - 密码正确,登录成功
+[2020-04-28T11:36:35.844] [INFO] default - get
+[2020-04-28T11:36:35.845] [INFO] default - /get-TstockListAdmin
+[2020-04-28T11:36:35.847] [INFO] default - 登录状态： true
+[2020-04-28T11:36:35.861] [INFO] default - 已登录用户查询： 202001001
+[2020-04-28T11:36:35.862] [INFO] default - 202001001进入queryTstockList函数
+[2020-04-28T11:37:40.195] [INFO] default - get
+[2020-04-28T11:37:40.197] [INFO] default - /get-TstockListAdmin
+[2020-04-28T11:37:40.197] [INFO] default - 登录状态： true
+[2020-04-28T11:37:40.212] [INFO] default - 已登录用户查询： 202001001
+[2020-04-28T11:37:40.213] [INFO] default - 202001001进入queryTstockList函数

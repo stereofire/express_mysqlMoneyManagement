@@ -7,14 +7,14 @@ var $sql = require('./userSqlMapping');
 var ejs = require('ejs');
 var fs = require('fs');
 moment = require('moment');
-var ejsExcel = require("ejsExcel");
+var ejsExcel = require("ejsexcel");
 // var exceltt = require("./exceltt.js");
 const path = require('path');
 const xlsx = require('node-xlsx');
 // 使用连接池，提升性能
 var pool = mysql.createPool($util.extend({}, $conf.mysql));
 var multer = require('multer');
-var $ = require('../jq/jquery');
+var $ = require('../jq/jQuery');
 var upload = multer({
     dest: './public/uploadExcels/'
 }).single('stuInfoUpLoad');
@@ -122,15 +122,18 @@ const obj = {
                         connection.release();
                     } else { //密码错误
                         logger.info("密码错误，请重新登陆！");
-                        ejs.renderFile('views/.ejs', {}, function (err, data) {
-                            if (err) {
-                                logger.info("刷新登录页错误。错误编号：00005");
-                                var message = "抱歉，发生了错误，请联系管理员。错误编号：00005，返回学生登录页";
-                                var re = `<script>alert('${message}'); location.href="/"</script>`;
-                                res.send(re);
-                            }
-                            res.end(data);
-                        })
+                        var message = "密码错误，请重新登陆！";
+                        var re = `<script>alert('${message}'); location.href="/"</script>`;
+                        res.send(re);
+                        // ejs.renderFile('views/index.ejs', {}, function (err, data) {
+                        //     if (err) {
+                        //         logger.info("刷新登录页错误。错误编号：00005");
+                        //         var message = "抱歉，发生了错误，请联系管理员。错误编号：00005，返回学生登录页";
+                        //         var re = `<script>alert('${message}'); location.href="/"</script>`;
+                        //         res.send(re);
+                        //     }
+                        //     res.end(data);
+                        // })
                         // callback(3);
                         connection.release();
                     }
