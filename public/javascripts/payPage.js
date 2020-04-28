@@ -33,10 +33,10 @@ function check_changeForm() { //账号密码是否为空
 	var my_account = document.forms["keyPassage"]["account"].value;
 	var password = document.forms["keyPassage"]["password"].value;
 	if (my_account == null || my_account == "") {
-		alert("请输入账号");
+		alert("请输入支付账号");
 		return false;
 	} else if (password == null || password == "") {
-		alert("请再次输入新密码");
+		alert("请支付密码");
 		return false;
 	} else {
 		return verifyCode();
