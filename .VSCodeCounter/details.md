@@ -1,10 +1,10 @@
 # Details
 
-Date : 2020-04-27 17:38:51
+Date : 2020-04-28 12:32:06
 
 Directory e:\shrimpSUDAProject\demo\express_mysql_rumen_test\express_mysql_rumen_test
 
-Total : 157 files,  22670 codes, 1840 comments, 760 blanks, all 25270 lines
+Total : 160 files,  24993 codes, 1846 comments, 779 blanks, all 27618 lines
 
 [summary](results.md)
 
@@ -15,16 +15,19 @@ Total : 157 files,  22670 codes, 1840 comments, 760 blanks, all 25270 lines
 | [app.js](/app.js) | JavaScript | 119 | 28 | 13 | 160 |
 | [conf/db.js](/conf/db.js) | JavaScript | 11 | 13 | 1 | 25 |
 | [dao/exceltt.js](/dao/exceltt.js) | JavaScript | 33 | 5 | 2 | 40 |
-| [dao/userDao.js](/dao/userDao.js) | JavaScript | 4,444 | 337 | 73 | 4,854 |
+| [dao/userDao.js](/dao/userDao.js) | JavaScript | 4,441 | 343 | 73 | 4,857 |
 | [dao/userSqlMapping.js](/dao/userSqlMapping.js) | JavaScript | 81 | 84 | 31 | 196 |
 | [illustration/DB设计20200213.xlsx](/illustration/DB设计20200213.xlsx) | Excel | 1,160 | 0 | 9 | 1,169 |
 | [jq/jquery.js](/jq/jquery.js) | JavaScript | 9 | 3 | 3 | 15 |
 | [logs/log.js](/logs/log.js) | JavaScript | 60 | 38 | 9 | 107 |
-| [logs/log/logFile._2020-04-27.log](/logs/log/logFile._2020-04-27.log) | Log | 1,180 | 0 | 1 | 1,181 |
+| [logs/log/logFile._2020-04-27.log](/logs/log/logFile._2020-04-27.log) | Log | 1,769 | 0 | 1 | 1,770 |
+| [logs/log/logFile._2020-04-28.log](/logs/log/logFile._2020-04-28.log) | Log | 460 | 0 | 1 | 461 |
 | [logs/log/logFile_error._2020-04-26.log](/logs/log/logFile_error._2020-04-26.log) | Log | 0 | 0 | 1 | 1 |
 | [logs/log/logFile_error._2020-04-27.log](/logs/log/logFile_error._2020-04-27.log) | Log | 0 | 0 | 1 | 1 |
+| [logs/log/logFile_error._2020-04-28.log](/logs/log/logFile_error._2020-04-28.log) | Log | 0 | 0 | 1 | 1 |
 | [logs/log/timeLogFile._2020-04-26.log](/logs/log/timeLogFile._2020-04-26.log) | Log | 246 | 0 | 1 | 247 |
-| [logs/log/timeLogFile._2020-04-27.log](/logs/log/timeLogFile._2020-04-27.log) | Log | 1,159 | 0 | 1 | 1,160 |
+| [logs/log/timeLogFile._2020-04-27.log](/logs/log/timeLogFile._2020-04-27.log) | Log | 1,742 | 0 | 1 | 1,743 |
+| [logs/log/timeLogFile._2020-04-28.log](/logs/log/timeLogFile._2020-04-28.log) | Log | 453 | 0 | 1 | 454 |
 | [package-lock.json](/package-lock.json) | JSON | 2,028 | 0 | 1 | 2,029 |
 | [package.json](/package.json) | JSON | 35 | 0 | 1 | 36 |
 | [public/excelTemplates4downLoad/clearInfoTemplate4Excel.xlsx](/public/excelTemplates4downLoad/clearInfoTemplate4Excel.xlsx) | Excel | 69 | 0 | 2 | 71 |
@@ -62,7 +65,7 @@ Total : 157 files,  22670 codes, 1840 comments, 760 blanks, all 25270 lines
 | [public/javascripts/index.js](/public/javascripts/index.js) | JavaScript | 70 | 8 | 3 | 81 |
 | [public/javascripts/optionalOrder.js](/public/javascripts/optionalOrder.js) | JavaScript | 71 | 21 | 2 | 94 |
 | [public/javascripts/orderConfirm.js](/public/javascripts/orderConfirm.js) | JavaScript | 131 | 12 | 14 | 157 |
-| [public/javascripts/orderRecord.js](/public/javascripts/orderRecord.js) | JavaScript | 6 | 2 | 1 | 9 |
+| [public/javascripts/orderRecord.js](/public/javascripts/orderRecord.js) | JavaScript | 5 | 2 | 0 | 7 |
 | [public/javascripts/payPage.js](/public/javascripts/payPage.js) | JavaScript | 68 | 3 | 3 | 74 |
 | [public/javascripts/paymentMethod.js](/public/javascripts/paymentMethod.js) | JavaScript | 69 | 1 | 2 | 72 |
 | [public/stylesheets/index.css](/public/stylesheets/index.css) | CSS | 100 | 6 | 11 | 117 |
@@ -78,7 +81,7 @@ Total : 157 files,  22670 codes, 1840 comments, 760 blanks, all 25270 lines
 | [public/tableTemplates4downLoad/template_stuInfo.xlsx](/public/tableTemplates4downLoad/template_stuInfo.xlsx) | Excel | 54 | 0 | 1 | 55 |
 | [public/tableTemplates4downLoad/template_subOrderInfo.xlsx](/public/tableTemplates4downLoad/template_subOrderInfo.xlsx) | Excel | 70 | 0 | 0 | 70 |
 | [public/tableTemplates4downLoad/template_subStockInfo.xlsx](/public/tableTemplates4downLoad/template_subStockInfo.xlsx) | Excel | 72 | 0 | 1 | 73 |
-| [public/tables4downLoad/downLoad_stuInfo20200426000707.xls](/public/tables4downLoad/downLoad_stuInfo20200426000707.xls) | Excel | 310 | 0 | 1 | 311 |
+| [public/tables4downLoad/downLoad_stuInfo20200428000342.xls](/public/tables4downLoad/downLoad_stuInfo20200428000342.xls) | Excel | 313 | 0 | 1 | 314 |
 | [public/uploadTestCoursePlans.xlsx](/public/uploadTestCoursePlans.xlsx) | Excel | 70 | 0 | 0 | 70 |
 | [public/uploadTestProductInfo.xlsx](/public/uploadTestProductInfo.xlsx) | Excel | 78 | 0 | 0 | 78 |
 | [public/uploadTestScholarshipInfo.xlsx](/public/uploadTestScholarshipInfo.xlsx) | Excel | 66 | 0 | 0 | 66 |
@@ -122,12 +125,12 @@ Total : 157 files,  22670 codes, 1840 comments, 760 blanks, all 25270 lines
 | [routes/scholarshipRecord.js](/routes/scholarshipRecord.js) | JavaScript | 27 | 2 | 1 | 30 |
 | [routes/users.js](/routes/users.js) | JavaScript | 26 | 3 | 9 | 38 |
 | [util/util.js](/util/util.js) | JavaScript | 11 | 0 | 0 | 11 |
-| [views/TallOrdersAdmin.ejs](/views/TallOrdersAdmin.ejs) | HTML | 221 | 38 | 4 | 263 |
+| [views/TallOrdersAdmin.ejs](/views/TallOrdersAdmin.ejs) | HTML | 256 | 38 | 6 | 300 |
 | [views/TchangePassword.ejs](/views/TchangePassword.ejs) | HTML | 78 | 2 | 3 | 83 |
 | [views/TchangePasswordOK.ejs](/views/TchangePasswordOK.ejs) | HTML | 68 | 4 | 6 | 78 |
-| [views/TclearInfoAdmin.ejs](/views/TclearInfoAdmin.ejs) | HTML | 240 | 5 | 4 | 249 |
+| [views/TclearInfoAdmin.ejs](/views/TclearInfoAdmin.ejs) | HTML | 275 | 5 | 6 | 286 |
 | [views/TcorpInfoAdmin.ejs](/views/TcorpInfoAdmin.ejs) | HTML | 296 | 0 | 8 | 304 |
-| [views/TcoursePlansAdmin.ejs](/views/TcoursePlansAdmin.ejs) | HTML | 264 | 0 | 8 | 272 |
+| [views/TcoursePlansAdmin.ejs](/views/TcoursePlansAdmin.ejs) | HTML | 299 | 0 | 10 | 309 |
 | [views/TcreatOrdersInBatches_CPro.ejs](/views/TcreatOrdersInBatches_CPro.ejs) | HTML | 224 | 3 | 9 | 236 |
 | [views/TcreatOrdersInBatches_CStu.ejs](/views/TcreatOrdersInBatches_CStu.ejs) | HTML | 253 | 3 | 9 | 265 |
 | [views/TcreatOrdersInBatches_Pconfirm.ejs](/views/TcreatOrdersInBatches_Pconfirm.ejs) | HTML | 124 | 2 | 5 | 131 |
@@ -139,18 +142,18 @@ Total : 157 files,  22670 codes, 1840 comments, 760 blanks, all 25270 lines
 | [views/Tindex.ejs](/views/Tindex.ejs) | HTML | 67 | 46 | 5 | 118 |
 | [views/TloginOutSucc.ejs](/views/TloginOutSucc.ejs) | HTML | 65 | 0 | 6 | 71 |
 | [views/TloginTimeOut.ejs](/views/TloginTimeOut.ejs) | HTML | 65 | 0 | 6 | 71 |
-| [views/TpaymentRecordsAdmin.ejs](/views/TpaymentRecordsAdmin.ejs) | HTML | 224 | 38 | 4 | 266 |
-| [views/TproductListAdmin.ejs](/views/TproductListAdmin.ejs) | HTML | 243 | 0 | 7 | 250 |
-| [views/TscholarshipInfoAdmin.ejs](/views/TscholarshipInfoAdmin.ejs) | HTML | 223 | 0 | 6 | 229 |
-| [views/TstockListAdmin.ejs](/views/TstockListAdmin.ejs) | HTML | 249 | 5 | 4 | 258 |
-| [views/TstudentInfoAdmin.ejs](/views/TstudentInfoAdmin.ejs) | HTML | 266 | 2 | 6 | 274 |
+| [views/TpaymentRecordsAdmin.ejs](/views/TpaymentRecordsAdmin.ejs) | HTML | 259 | 38 | 6 | 303 |
+| [views/TproductListAdmin.ejs](/views/TproductListAdmin.ejs) | HTML | 278 | 0 | 9 | 287 |
+| [views/TscholarshipInfoAdmin.ejs](/views/TscholarshipInfoAdmin.ejs) | HTML | 258 | 0 | 8 | 266 |
+| [views/TstockListAdmin.ejs](/views/TstockListAdmin.ejs) | HTML | 241 | 5 | 7 | 253 |
+| [views/TstudentInfoAdmin.ejs](/views/TstudentInfoAdmin.ejs) | HTML | 301 | 2 | 8 | 311 |
 | [views/changePassword.ejs](/views/changePassword.ejs) | HTML | 71 | 0 | 0 | 71 |
 | [views/changePasswordOK.ejs](/views/changePasswordOK.ejs) | HTML | 60 | 10 | 6 | 76 |
 | [views/dialog.css](/views/dialog.css) | CSS | 38 | 4 | 3 | 45 |
 | [views/error.ejs](/views/error.ejs) | HTML | 14 | 7 | 0 | 21 |
 | [views/fail.ejs](/views/fail.ejs) | HTML | 14 | 4 | 1 | 19 |
 | [views/home.ejs](/views/home.ejs) | HTML | 94 | 7 | 5 | 106 |
-| [views/index.ejs](/views/index.ejs) | HTML | 65 | 3 | 4 | 72 |
+| [views/index.ejs](/views/index.ejs) | HTML | 67 | 3 | 4 | 74 |
 | [views/layout.ejs](/views/layout.ejs) | HTML | 27 | 4 | 2 | 33 |
 | [views/loginOutSucc.ejs](/views/loginOutSucc.ejs) | HTML | 60 | 0 | 6 | 66 |
 | [views/loginTimeOut.ejs](/views/loginTimeOut.ejs) | HTML | 60 | 0 | 6 | 66 |
