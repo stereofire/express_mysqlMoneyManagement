@@ -161,3 +161,300 @@
 [2020-04-28T11:37:40.197] [INFO] default - 登录状态： true
 [2020-04-28T11:37:40.212] [INFO] default - 已登录用户查询： 202001001
 [2020-04-28T11:37:40.213] [INFO] default - 202001001进入queryTstockList函数
+[2020-04-28T11:47:46.772] [DEBUG] debug - Server started
+[2020-04-28T11:47:53.586] [INFO] default - get
+[2020-04-28T11:47:53.589] [INFO] default - /get-Tindex
+[2020-04-28T11:47:58.225] [INFO] default - post
+[2020-04-28T11:47:58.226] [INFO] default - /post-Tindex
+[2020-04-28T11:47:58.226] [INFO] default - get FormData Params:  {
+  schools: 'soochow university',
+  account: '202001001',
+  password: '11111111'
+}
+[2020-04-28T11:47:58.230] [INFO] default - 教师登录表单参数： soochow university 202001001 11111111
+[2020-04-28T11:47:58.333] [INFO] default - 开启event_scheduler成功。
+[2020-04-28T11:47:58.365] [INFO] default - 正确密码应为： [String: '11111111']
+[2020-04-28T11:47:58.366] [INFO] default - 密码正确,登录成功
+[2020-04-28T11:48:00.400] [INFO] default - get
+[2020-04-28T11:48:00.401] [INFO] default - /get-TcoursePlansAdmin
+[2020-04-28T11:48:00.402] [INFO] default - 登录状态： true
+[2020-04-28T11:48:00.407] [INFO] default - 已登录用户查询： 202001001
+[2020-04-28T11:48:00.408] [INFO] default - 202001001进入queryTcoursePlans函数
+[2020-04-28T11:48:05.480] [INFO] default - 已登录用户查询： 202001001
+[2020-04-28T11:48:05.484] [INFO] default - 进入TcorpInfoAdmin?querySiftCoursePlans=true，get FormData Params:  {
+  textBookID: '',
+  textBookName: '大学英语4',
+  school: '',
+  major: '',
+  schoolTerm: '0',
+  courseName: '',
+  textBookprice: '',
+  publishingHouse: ''
+}
+[2020-04-28T11:48:05.749] [INFO] default - 刘舒璇进入querySiftCoursePlans函数
+[2020-04-28T11:48:05.846] [INFO] default - 无教材计划
+[2020-04-28T11:49:52.560] [DEBUG] debug - Server started
+[2020-04-28T11:49:55.474] [INFO] default - get
+[2020-04-28T11:49:55.477] [INFO] default - /get-Tindex
+[2020-04-28T11:50:10.741] [INFO] default - post
+[2020-04-28T11:50:10.742] [INFO] default - /post-Tindex
+[2020-04-28T11:50:10.743] [INFO] default - get FormData Params:  {
+  schools: 'soochow university',
+  account: '202001001',
+  password: '11111111'
+}
+[2020-04-28T11:50:10.747] [INFO] default - 教师登录表单参数： soochow university 202001001 11111111
+[2020-04-28T11:50:10.861] [INFO] default - 开启event_scheduler成功。
+[2020-04-28T11:50:10.867] [INFO] default - 正确密码应为： [String: '11111111']
+[2020-04-28T11:50:10.924] [INFO] default - 密码正确,登录成功
+[2020-04-28T11:50:12.380] [INFO] default - get
+[2020-04-28T11:50:12.382] [INFO] default - /get-TcoursePlansAdmin
+[2020-04-28T11:50:12.382] [INFO] default - 登录状态： true
+[2020-04-28T11:50:12.383] [INFO] default - 已登录用户查询： 202001001
+[2020-04-28T11:50:12.429] [INFO] default - 202001001进入queryTcoursePlans函数
+[2020-04-28T11:50:17.023] [INFO] default - 已登录用户查询： 202001001
+[2020-04-28T11:50:17.024] [INFO] default - 进入TcorpInfoAdmin?querySiftCoursePlans=true，get FormData Params:  {
+  textBookID: '',
+  textBookName: '大学计算机信息技术基础',
+  school: '',
+  major: '',
+  schoolTerm: '0',
+  courseName: '',
+  textBookprice: '',
+  publishingHouse: ''
+}
+[2020-04-28T11:50:17.067] [INFO] default - 刘舒璇进入querySiftCoursePlans函数
+[2020-04-28T11:50:17.067] [INFO] default - {
+  textBookID: '',
+  textBookName: '大学计算机信息技术基础',
+  school: '',
+  major: '',
+  schoolTerm: '0',
+  courseName: '',
+  textBookprice: '',
+  publishingHouse: ''
+}
+[2020-04-28T11:50:17.076] [INFO] default - 无教材计划
+[2020-04-28T11:52:00.691] [DEBUG] debug - Server started
+[2020-04-28T11:52:02.866] [INFO] default - get
+[2020-04-28T11:52:02.870] [INFO] default - /get-Tindex
+[2020-04-28T11:52:08.080] [INFO] default - post
+[2020-04-28T11:52:08.081] [INFO] default - /post-Tindex
+[2020-04-28T11:52:08.082] [INFO] default - get FormData Params:  {
+  schools: 'soochow university',
+  account: '202001001',
+  password: '11111111'
+}
+[2020-04-28T11:52:08.184] [INFO] default - 教师登录表单参数： soochow university 202001001 11111111
+[2020-04-28T11:52:08.250] [INFO] default - 开启event_scheduler成功。
+[2020-04-28T11:52:08.279] [INFO] default - 正确密码应为： [String: '11111111']
+[2020-04-28T11:52:08.306] [INFO] default - 密码正确,登录成功
+[2020-04-28T11:52:10.810] [INFO] default - get
+[2020-04-28T11:52:10.811] [INFO] default - /get-TcoursePlansAdmin
+[2020-04-28T11:52:10.813] [INFO] default - 登录状态： true
+[2020-04-28T11:52:10.840] [INFO] default - 已登录用户查询： 202001001
+[2020-04-28T11:52:10.841] [INFO] default - 202001001进入queryTcoursePlans函数
+[2020-04-28T11:52:13.844] [INFO] default - 已登录用户查询： 202001001
+[2020-04-28T11:52:13.846] [INFO] default - 进入TcorpInfoAdmin?querySiftCoursePlans=true，get FormData Params:  {
+  textBookID: '',
+  textBookName: '大学计算机信息技术基础',
+  school: '',
+  major: '',
+  schoolTerm: '0',
+  courseName: '',
+  textBookprice: '',
+  publishingHouse: ''
+}
+[2020-04-28T11:52:13.888] [INFO] default - 刘舒璇进入querySiftCoursePlans函数
+[2020-04-28T11:52:13.889] [INFO] default - {
+  textBookID: '',
+  textBookName: '大学计算机信息技术基础',
+  school: '',
+  major: '',
+  schoolTerm: '0',
+  courseName: '',
+  textBookprice: '',
+  publishingHouse: ''
+}
+[2020-04-28T11:52:14.038] [INFO] default - sql: select * from 教材计划 WHERE 教材名 = '' ORDER BY 教材代码 ASC;
+[2020-04-28T11:52:14.085] [INFO] default - 无教材计划
+[2020-04-28T11:53:03.612] [DEBUG] debug - Server started
+[2020-04-28T11:53:06.929] [INFO] default - get
+[2020-04-28T11:53:06.932] [INFO] default - /get-Tindex
+[2020-04-28T11:53:12.386] [INFO] default - post
+[2020-04-28T11:53:12.387] [INFO] default - /post-Tindex
+[2020-04-28T11:53:12.387] [INFO] default - get FormData Params:  {
+  schools: 'soochow university',
+  account: '202001001',
+  password: '11111111'
+}
+[2020-04-28T11:53:12.509] [INFO] default - 教师登录表单参数： soochow university 202001001 11111111
+[2020-04-28T11:53:12.573] [INFO] default - 开启event_scheduler成功。
+[2020-04-28T11:53:12.619] [INFO] default - 正确密码应为： [String: '11111111']
+[2020-04-28T11:53:12.659] [INFO] default - 密码正确,登录成功
+[2020-04-28T11:53:14.020] [INFO] default - get
+[2020-04-28T11:53:14.022] [INFO] default - /get-TcoursePlansAdmin
+[2020-04-28T11:53:14.023] [INFO] default - 登录状态： true
+[2020-04-28T11:53:14.024] [INFO] default - 已登录用户查询： 202001001
+[2020-04-28T11:53:14.071] [INFO] default - 202001001进入queryTcoursePlans函数
+[2020-04-28T11:53:16.740] [INFO] default - 已登录用户查询： 202001001
+[2020-04-28T11:53:16.741] [INFO] default - 进入TcorpInfoAdmin?querySiftCoursePlans=true，get FormData Params:  {
+  textBookID: '',
+  textBookName: '大学计算机信息技术基础',
+  school: '',
+  major: '',
+  schoolTerm: '0',
+  courseName: '',
+  textBookprice: '',
+  publishingHouse: ''
+}
+[2020-04-28T11:53:16.908] [INFO] default - 刘舒璇进入querySiftCoursePlans函数
+[2020-04-28T11:53:16.938] [INFO] default - {
+  textBookID: '',
+  textBookName: '大学计算机信息技术基础',
+  school: '',
+  major: '',
+  schoolTerm: '0',
+  courseName: '',
+  textBookprice: '',
+  publishingHouse: ''
+}
+[2020-04-28T11:53:16.940] [INFO] default - sql: select * from 教材计划 WHERE 教材名 = '大学计算机信息技术基础' ORDER BY 教材代码 ASC;
+[2020-04-28T11:53:20.195] [INFO] default - 已登录用户查询： 202001001
+[2020-04-28T11:53:20.196] [INFO] default - 进入TcorpInfoAdmin?querySiftCoursePlans=true，get FormData Params:  {
+  textBookID: '',
+  textBookName: '',
+  school: '本科统一教材',
+  major: '',
+  schoolTerm: '0',
+  courseName: '',
+  textBookprice: '',
+  publishingHouse: ''
+}
+[2020-04-28T11:53:20.366] [INFO] default - 刘舒璇进入querySiftCoursePlans函数
+[2020-04-28T11:53:20.464] [INFO] default - {
+  textBookID: '',
+  textBookName: '',
+  school: '本科统一教材',
+  major: '',
+  schoolTerm: '0',
+  courseName: '',
+  textBookprice: '',
+  publishingHouse: ''
+}
+[2020-04-28T11:53:20.633] [INFO] default - sql: select * from 教材计划 WHERE 学院 = '本科统一教材' ORDER BY 教材代码 ASC;
+[2020-04-28T11:53:37.278] [INFO] default - 已登录用户查询： 202001001
+[2020-04-28T11:53:37.280] [INFO] default - 进入TcorpInfoAdmin?querySiftCoursePlans=true，get FormData Params:  {
+  textBookID: '',
+  textBookName: '',
+  school: '',
+  major: '信息与计算科学',
+  schoolTerm: '0',
+  courseName: '',
+  textBookprice: '',
+  publishingHouse: ''
+}
+[2020-04-28T11:53:37.467] [INFO] default - 刘舒璇进入querySiftCoursePlans函数
+[2020-04-28T11:53:37.502] [INFO] default - {
+  textBookID: '',
+  textBookName: '',
+  school: '',
+  major: '信息与计算科学',
+  schoolTerm: '0',
+  courseName: '',
+  textBookprice: '',
+  publishingHouse: ''
+}
+[2020-04-28T11:53:37.536] [INFO] default - sql: select * from 教材计划 WHERE 专业 = '信息与计算科学' ORDER BY 教材代码 ASC;
+[2020-04-28T11:53:41.490] [INFO] default - 已登录用户查询： 202001001
+[2020-04-28T11:53:41.492] [INFO] default - 进入TcorpInfoAdmin?querySiftCoursePlans=true，get FormData Params:  {
+  textBookID: '',
+  textBookName: '',
+  school: '',
+  major: '',
+  schoolTerm: '第2学期',
+  courseName: '',
+  textBookprice: '',
+  publishingHouse: ''
+}
+[2020-04-28T11:53:41.645] [INFO] default - 刘舒璇进入querySiftCoursePlans函数
+[2020-04-28T11:53:41.697] [INFO] default - {
+  textBookID: '',
+  textBookName: '',
+  school: '',
+  major: '',
+  schoolTerm: '第2学期',
+  courseName: '',
+  textBookprice: '',
+  publishingHouse: ''
+}
+[2020-04-28T11:53:41.863] [INFO] default - sql: select * from 教材计划 WHERE 学期 = '第2学期' ORDER BY 教材代码 ASC;
+[2020-04-28T11:53:46.731] [INFO] default - 已登录用户查询： 202001001
+[2020-04-28T11:53:46.732] [INFO] default - 进入TcorpInfoAdmin?querySiftCoursePlans=true，get FormData Params:  {
+  textBookID: '',
+  textBookName: '',
+  school: '',
+  major: '',
+  schoolTerm: '0',
+  courseName: '大学计算机信息技术',
+  textBookprice: '',
+  publishingHouse: ''
+}
+[2020-04-28T11:53:46.945] [INFO] default - 刘舒璇进入querySiftCoursePlans函数
+[2020-04-28T11:53:46.976] [INFO] default - {
+  textBookID: '',
+  textBookName: '',
+  school: '',
+  major: '',
+  schoolTerm: '0',
+  courseName: '大学计算机信息技术',
+  textBookprice: '',
+  publishingHouse: ''
+}
+[2020-04-28T11:53:46.981] [INFO] default - sql: select * from 教材计划 WHERE 课程名 = '大学计算机信息技术' ORDER BY 教材代码 ASC;
+[2020-04-28T11:53:50.459] [INFO] default - 已登录用户查询： 202001001
+[2020-04-28T11:53:50.460] [INFO] default - 进入TcorpInfoAdmin?querySiftCoursePlans=true，get FormData Params:  {
+  textBookID: '',
+  textBookName: '',
+  school: '',
+  major: '',
+  schoolTerm: '0',
+  courseName: '',
+  textBookprice: '54.14',
+  publishingHouse: ''
+}
+[2020-04-28T11:53:50.499] [INFO] default - 刘舒璇进入querySiftCoursePlans函数
+[2020-04-28T11:53:50.500] [INFO] default - {
+  textBookID: '',
+  textBookName: '',
+  school: '',
+  major: '',
+  schoolTerm: '0',
+  courseName: '',
+  textBookprice: '54.14',
+  publishingHouse: ''
+}
+[2020-04-28T11:53:50.532] [INFO] default - sql: select * from 教材计划 WHERE 单价 = 54.14 ORDER BY 教材代码 ASC;
+[2020-04-28T11:53:57.570] [INFO] default - 已登录用户查询： 202001001
+[2020-04-28T11:53:57.571] [INFO] default - 进入TcorpInfoAdmin?querySiftCoursePlans=true，get FormData Params:  {
+  textBookID: '',
+  textBookName: '',
+  school: '',
+  major: '',
+  schoolTerm: '0',
+  courseName: '',
+  textBookprice: '',
+  publishingHouse: '苏州大学出版社'
+}
+[2020-04-28T11:53:57.731] [INFO] default - 刘舒璇进入querySiftCoursePlans函数
+[2020-04-28T11:53:57.777] [INFO] default - {
+  textBookID: '',
+  textBookName: '',
+  school: '',
+  major: '',
+  schoolTerm: '0',
+  courseName: '',
+  textBookprice: '',
+  publishingHouse: '苏州大学出版社'
+}
+[2020-04-28T11:53:57.781] [INFO] default - sql: select * from 教材计划 WHERE 出版社 = '苏州大学出版社' ORDER BY 教材代码 ASC;

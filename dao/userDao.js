@@ -3443,7 +3443,7 @@ const obj = {
     querySiftCoursePlans: function (res, req) {
         var teacherName = req.session.username;
         logger.info(teacherName + "进入querySiftCoursePlans函数");
-        // logger.info(req.body);
+        logger.info(req.body);
         var textBookID = req.body.textBookID;
         var textBookName = req.body.textBookName;
         var school = req.body.school;
@@ -3504,16 +3504,16 @@ const obj = {
             }
         }
         if (mark[6] == 1) {
-            sql += " 教材名 = " + "'" + sift[5] + "'";
+            sql += " 教材名 = " + "'" + sift[6] + "'";
             if (--k > 0) {
                 sql += " AND";
             }
         }
         if (mark[7] == 1) {
-            sql += " 出版社 = " + "'" + sift[6] + "'";
+            sql += " 出版社 = " + "'" + sift[7] + "'";
         }
         sql += " ORDER BY 教材代码 ASC;"
-        // logger.info("sql:", sql);
+        logger.info("sql:", sql);
         // res.send(sql);
         pool.getConnection(function (err, connection) {
             if (err) { //数据库连接池错误
